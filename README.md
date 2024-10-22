@@ -1,7 +1,7 @@
 > As you complete each section you **must** remove the prompt text. Every *turnin* of this project includes points for formatting of this README so keep it clean and keep it up to date.
 > Prompt text is any lines beginning with "\>"
 > Replace anything between \<...\> with your project specifics and remove angle brackets. For example, you need to name your project and replace the header right below this line with that title (no angle brackets).
-# CS 100 Final Project (WIP Title)
+# BRPG - Battlestar RPG
 > Your author list below should include links to all members GitHub (remove existing author).
 > Authors: [Jameel Simjee](https://github.com/JSimjee), [Matthew Acosta](https://github.com/macos052), [Jessy Garcia](https://github.com/jgarc826), [Arya Mohammadi](https://github.com/aryamohammadi)
 
@@ -20,27 +20,30 @@
 ## Project Description
 > Your project description should summarize the project you are proposing. Be sure to include:
 > * Why is it important or interesting to you?
-Our team will implement and deepen our understanding of c++ concepts such as object oriented programming, data structures and algorithms. This project will also give us a chance to collaborate with our team and reinforce our knowledge of object oriented programming, therefore simulating a real industry-like environment where collaboration and teamwork is key in order to be successful. 
-By working on this project as a team, we will improve our ability to communicate, solve problems as a team, and manage code through version control.
-> * This project is complex enough for us to utilize object oriented programming,
+>   - Our team will implement and deepen our understanding of c++ concepts such as object oriented programming, data structures and algorithms. This project will also give us a chance to collaborate with our team and reinforce our knowledge of object oriented programming, therefore simulating a real industry-like environment where collaboration and teamwork is key in order to be successful. 
+>   - By working on this project as a team, we will improve our ability to communicate, solve problems as a team, and manage code through version control.
+>   - This project is complex enough for us to utilize object oriented programming,
 > * What languages/tools/technologies do you plan to use? (This list may change over the course of the project)
-C++: The primary programming language we will be using is C++. We will utilize Object-oriented principles such as classes for characters, items, and environments. Data structures and sorting algorithms can be used for various in-game effects.
-Github/Git: version control will be managed through Github. This allows us to collaborate with each other and keep track of the development process.
-Visual Studio Code: We will use VS Code as our Integrated Development Environment. 
-Terminal: The user will be interacting with the program through the Terminal.
-> * We plan to use Object Oriented Programming in C++, with various
+>   - C++: The primary programming language we will be using is C++. We will utilize Object-oriented principles such as classes for characters, items, and environments. Data structures and sorting algorithms can be used for various in-game effects.
+>   - Github/Git: version control will be managed through Github. This allows us to collaborate with each other and keep track of the development process.
+>   - Visual Studio Code: We will use VS Code as our Integrated Development Environment. 
+>   - Terminal: The user will be interacting with the program through the Terminal.
 > * What will be the input/output of your project?
-> * Input: Specific variables will be predetermined, such as types of weapons, types of movement, and the specifics of enemies attacking you.
-The following would take in user input
-- Username, as a string.
-- Environment variables. For example, a series of pre-made environments could be selected from. Or other random elements of the game could be determined by a user-inputted seed.
-- Actions the character takes, such as using an item, launching an attack, or for pre-determined movement. This would be a regularly appearing menu, with char variables used to determine the actions taken. 
-- A menu of the game where settings are changed, such as difficulty, using an item, or knowing some in-game progress. 
+>   - Input: 
+>     - Specific variables will be predetermined, such as types of weapons, types of movement, and the specifics of enemies attacking you.
+>     - The following would take in user input
+>       - Username, as a string.
+>       - Environment variables. For example, a series of pre-made environments could be selected from. Or other random elements of the game could be determined by a user-inputted seed.
+>       - Actions the character takes, such as using an item, launching an attack, or for pre-determined movement. This would be a regularly appearing menu, with char variables used to determine the actions taken. 
+>       - A menu of the game where settings are changed, such as difficulty, using an item, or knowing some in-game progress. 
+>   - Output:
+>     - Variations of preset output lines will be printed to the screen. For example, "[Username] attacks [Enemy name] for [Dmg] damage!"
+>     - We can also incorporate unique types of output as well, such as primitive text-based artwork showcasing the environment the player is in. 
 > * What are the features that the project provides?
-> * Difficulty
-     Simple number swaps, no different environments, the same broad game
-Simple combat system: the player engages in battles by choosing actions such as “attack,” “defend,” or “use item”. The outcome will be dependent on the player's stats, enemy stats, and random number generation.
-Players can level up their characters (improve stats such as health, attack power, and defense). This helps them with progressing through the game as it gets more challenging.
+>   - Difficulty selection
+>     - By changing the stats for player and enemy characters, the quantity and quality of items, and attributes of the environment, the player will have an easier or more difficult experience.
+>   - Simple combat system: the player engages in battles by choosing actions such as “attack,” “defend,” or “use item”. The outcome will be dependent on the player's stats, enemy stats, and random number generation.
+>   - Players can level up their characters (improve stats such as health, attack power, and defense). This helps them with progressing through the game as it gets more challenging.
    
 
 

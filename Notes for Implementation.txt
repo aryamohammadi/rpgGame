@@ -1,0 +1,17 @@
+10/25/24 
+Notes:
+Defend, Attack, Items as separate classes? Different types of attacks?
+Classes could be
+  Fight
+    Attack (inherits fight)
+      Sword
+    Defend
+  
+Characters can "have-a" sword object, and access it's member functions accordingly. The enemy can be a parameter to the sword member function, and the function manipulates variables as needed.
+
+
+Sorting algorithms, such as items
+Idea: Have Class sort, children are different sorting orders, alphabetical or reverse, type, strength, etc. Items will have class attributes, and they can be sorted accordingly.
+Idea: Player and enemies share a "Character" class, since they'll share certain attributes
+
+AVL Trees for storing items. If we have a lot of items (>100), then we can have a searching algorithm. 

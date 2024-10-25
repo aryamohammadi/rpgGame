@@ -39,6 +39,7 @@
 >   - Output:
 >     - Variations of preset output lines will be printed to the screen. For example, "[Username] attacks [Enemy name] for [Dmg] damage!"
 >     - We can also incorporate unique types of output as well, such as primitive text-based artwork showcasing the environment the player is in. 
+
 > * What are the features that the project provides?
 >   - Difficulty selection
 >     - By changing the stats for player and enemy characters, the quantity and quality of items, and attributes of the environment, the player will have an easier or more difficult experience.
@@ -65,6 +66,9 @@ __________________________________________________________________________
 >   * The second check-in should be scheduled with a reader. During that meeting you will discuss:
 >     * The tasks you are planning for the first sprint
 >     * How work will be divided between the team members
+
+
+
 ## User Interface Specification
 > Include a navigation diagram for your screens and the layout of each of those screens as desribed below. For all the layouts/diagrams, you can use any tool such as PowerPoint or a drawing program. (Specification requirement is adapted from the User Interface Design Document Template of CMSC 345 at the University of Maryland Global Campus)
 

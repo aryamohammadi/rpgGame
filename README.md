@@ -18,17 +18,16 @@
 
 
 ## Project Description
-> Your project description should summarize the project you are proposing. Be sure to include:
-> * Why is it important or interesting to you?
+> * Why we are doing this project
 >   - Our team will implement and deepen our understanding of c++ concepts such as object oriented programming, data structures and algorithms. This project will also give us a chance to collaborate with our team and reinforce our knowledge of object oriented programming, therefore simulating a real industry-like environment where collaboration and teamwork is key in order to be successful. 
 >   - By working on this project as a team, we will improve our ability to communicate, solve problems as a team, and manage code through version control.
 >   - This project is complex enough for us to utilize object oriented programming,
-> * What languages/tools/technologies do you plan to use? (This list may change over the course of the project)
+> * Languages, Tools, and Technologies Planned
 >   - C++: The primary programming language we will be using is C++. We will utilize Object-oriented principles such as classes for characters, items, and environments. Data structures and sorting algorithms can be used for various in-game effects.
 >   - Github/Git: version control will be managed through Github. This allows us to collaborate with each other and keep track of the development process.
 >   - Visual Studio Code: We will use VS Code as our Integrated Development Environment. 
 >   - Terminal: The user will be interacting with the program through the Terminal.
-> * What will be the input/output of your project?
+> * User Input and Screen Output
 >   - Input: 
 >     - Specific variables will be predetermined, such as types of weapons, types of movement, and the specifics of enemies attacking you.
 >     - The following would take in user input
@@ -39,8 +38,7 @@
 >   - Output:
 >     - Variations of preset output lines will be printed to the screen. For example, "[Username] attacks [Enemy name] for [Dmg] damage!"
 >     - We can also incorporate unique types of output as well, such as primitive text-based artwork showcasing the environment the player is in. 
-
-> * What are the features that the project provides?
+> * Project and Gameplay Features
 >   - Difficulty selection
 >     - By changing the stats for player and enemy characters, the quantity and quality of items, and attributes of the environment, the player will have an easier or more difficult experience.
 >   - Simple combat system: the player engages in battles by choosing actions such as “attack,” “defend,” or “use item”. The outcome will be dependent on the player's stats, enemy stats, and random number generation.

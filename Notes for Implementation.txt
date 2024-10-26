@@ -1,17 +1,25 @@
-10/25/24 
-Notes:
-Defend, Attack, Items as separate classes? Different types of attacks?
-Classes could be
-  Fight
-    Attack (inherits fight)
-      Sword
-    Defend
-  
-Characters can "have-a" sword object, and access it's member functions accordingly. The enemy can be a parameter to the sword member function, and the function manipulates variables as needed.
+Class Implementation
+
+We can use classes for different types of:
+In Battle:
+  Attack
+  Defend
+  Use (Items, Run)
+Characters: (these will "have" Attack/Defend/Item Objects, and access member functions accordingly)
+  Player
+  Enemies
+  NPCs (optional)
+Items
+  Health
+  Attack
+  Special (Hints, Map, Sidequests)
+Sorting
+  Alphabetical Sort (for items)
+  Sort by an Attribute (such as type/strength of items, speed of player/enemies)
+Data structures
+  Graphs (used for critical story events, possibly map progression, skill upgrades)
+  AVL Trees (possibly used for storing hundreds of items)
 
 
-Sorting algorithms, such as items
-Idea: Have Class sort, children are different sorting orders, alphabetical or reverse, type, strength, etc. Items will have class attributes, and they can be sorted accordingly.
-Idea: Player and enemies share a "Character" class, since they'll share certain attributes
-
-AVL Trees for storing items. If we have a lot of items (>100), then we can have a searching algorithm. 
+Member Functions and Data Member Implementations
+  Example of Attack Object Usage: Characters can "have-a" sword object, and access it's member functions accordingly. The enemy can be a parameter to the sword member function, and the function manipulates variables as needed.

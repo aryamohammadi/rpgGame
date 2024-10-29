@@ -43,13 +43,6 @@
 >     - By changing the stats for player and enemy characters, the quantity and quality of items, and attributes of the environment, the player will have an easier or more difficult experience.
 >   - Simple combat system: the player engages in battles by choosing actions such as “attack,” “defend,” or “use item”. The outcome will be dependent on the player's stats, enemy stats, and random number generation.
 >   - Players can level up their characters (improve stats such as health, attack power, and defense). This helps them with progressing through the game as it gets more challenging.
-   
-
-
-> This description should be in enough detail that the TA/instructor can determine the complexity of the project and if it is sufficient for the team members to complete in the time allotted.
->
-> You also need to set up an empty project board using GitHub projects (board view with default columns). Make sure you add the board under your project repository. You should also have a Product Backlog and In testing columns added. All columns should be in the right order.
-
 
 __________________________________________________________________________
 > ## Phase II

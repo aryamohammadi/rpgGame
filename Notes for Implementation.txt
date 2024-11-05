@@ -23,3 +23,26 @@ Data structures
 
 Member Functions and Data Member Implementations
   Example of Attack Object Usage: Characters can "have-a" sword object, and access it's member functions accordingly. The enemy can be a parameter to the sword member function, and the function manipulates variables as needed.
+
+
+
+
+Jameel does:
+UML Diagram
+
+Ryan does:
+Navigation Diagram
+
+
+Matthew does:
+Items and Inventory, that will have sorting algorithms within them
+
+
+Notes:
+Edit Project Board to have Epics in Product Backlog, User Stories in the Details, and individual tasks and details there too
+User Stories need reasons, look at the Epics that have reason-less user stories, and add reasons.
+You can optionally have individual tasks for user stories in the project board, but those are not required.
+
+Know the implementation details, the inheritance, the association, the return types and parameters for all Classes and functions
+
+Jameel does UML Diagram, Ryan will do Navigation Diagrams

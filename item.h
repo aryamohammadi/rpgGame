@@ -13,7 +13,7 @@ class Item{
             Food,
             POTION
         }; 
-        enum Grade{
+        enum Grade{ //possible grades we can have
             COMMON,
             UNCOMMON,
             RARE,

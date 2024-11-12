@@ -13,12 +13,19 @@ class Item{
             Food,
             POTION
         }; 
+        enum Grade{
+            COMMON,
+            UNCOMMON,
+            RARE,
+            EPIC,
+            LEGENDARY
+        };
         ItemType type;
-        string grade;
         string description;
         time_t timeEarned;
+        Grade itemGrade;
     public:
-        Item(ItemType t = WEAPON, const string& name, const string& grade, const string& descript, time_t time = time(nullptr)): type(t), name(name), grade(grade), description(description), timeEarned(time){}
+        Item(ItemType t = WEAPON, const string& name, Grade itemGrade = COMMON, const string& descript, time_t time = time(nullptr)): type(t), name(name), itemGrade(itemGrade), description(description), timeEarned(time){}
 
         virtual void useItem() = 0;
 };

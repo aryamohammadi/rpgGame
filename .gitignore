@@ -1,3 +1,10 @@
 /Meeting Notes/
 *.o
-*.txt
+test/
+googletest/
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+Makefile
+bin/
+lib/

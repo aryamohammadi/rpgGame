@@ -5,7 +5,8 @@ add_subdirectory(test/googletest)
 
 add_executable(Test
     item.cpp
-    itemTest.cpp 
+    inventory.cpp
+    Test.cpp 
 )
 
 target_link_libraries(Test gmock gtest gtest_main)

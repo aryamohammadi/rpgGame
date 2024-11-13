@@ -10,11 +10,11 @@ using std::vector;
 class Item{
     public:
         enum Grade{ //possible grades we can have
-                COMMON,
-                UNCOMMON,
-                RARE,
-                EPIC,
-                LEGENDARY
+            COMMON,
+            UNCOMMON,
+            RARE,
+            EPIC,
+            LEGENDARY
         };
         enum ItemType{ //possible items we can have
             WEAPON,

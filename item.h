@@ -42,12 +42,12 @@ class Item{
         string getName() const {return name;}
         string getDescript() const {return description;}
         time_t getTime() const {return timeEarned;}
-        int getGrade() const {return static_cast<int>(itemGrade);}
-        int getType() const {return static_cast<int>(type);}
+        int getGrade() const {return itemGrade;}
+        int getType() const {return type;}
 
         string determineType(int index) const;
         string determineGrade(int index) const;
         // virtual void useItem() = 0;
-        void swap(Item& item1, Item& item2);
+        friend void swap(Item& item1, Item& item2);
 };
 ostream& operator<<(ostream& out, const Item& item);

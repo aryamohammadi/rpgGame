@@ -23,3 +23,22 @@ string Item::determineGrade(int gradeIndex) const{
     }
     return grades.at(gradeIndex);
 }
+
+Item& Item::operator=(const Item& other){
+    if(this != &other){
+        name = other.name;
+        description = other.description;
+        itemGrade = other.itemGrade;
+        type = other.type;
+        timeEarned = other.timeEarned;
+    }
+    return *this;
+}
+
+void swap(Item& item1, Item& item2){
+    if(&item1 != &item2){
+        Item placeholder(item1.type, item1.name, item1.itemGrade, item1.description, item1.timeEarned);
+        item1 = item2;
+        item2 = placeholder;
+    }
+}

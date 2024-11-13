@@ -24,9 +24,7 @@ class Item{
         };
     private:
         string name;
-
         vector<string> types{"WEAPON", "ARMOR", "FOOD", "POTION"};
-        
         vector<string> grades{"COMMON","UNCOMMON","RARE","EPIC","LEGENDARY"};
         ItemType type;
         string description;

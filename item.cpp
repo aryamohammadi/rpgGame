@@ -37,8 +37,18 @@ Item& Item::operator=(const Item& other){
 
 void swap(Item& item1, Item& item2){
     if(&item1 != &item2){
-        Item placeholder(item1.type, item1.name, item1.itemGrade, item1.description, item1.timeEarned);
+        Item::ItemType typeTmp = item1.type;
+        string nameTmp = item1.name;
+        Item::Grade g = item1.itemGrade;
+        string descript = item1.description;
+        time_t time = item1.timeEarned;
+
         item1 = item2;
-        item2 = placeholder;
+
+        item2.type = typeTmp;
+        item2.name = nameTmp;
+        item2.itemGrade = g;
+        item2.description = descript;
+        item2.timeEarned = time;
     }
 }

@@ -35,7 +35,7 @@ class Item{
 
         Item(const Item& other){*this = other;}
         Item& operator=(const Item& other);
-        ~Item(){}
+        virtual ~Item(){} //allows inherited items to delete Item
 
         string getName() const {return name;}
         string getDescript() const {return description;}

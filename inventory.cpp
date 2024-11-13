@@ -28,38 +28,24 @@ void Inventory::removeItem(const string& name){
         throw std::invalid_argument("name " + name + " not found in inventory!");
     }
     for(unsigned i = 0; i < size; i++){
-        if(items[i]->getName() == name){
-            if(i == size - 1){
-                items[i] = nullptr;
-                size --;
-                break;
-            }
-            else if(i == 0){
-                items[i] = nullptr;
-                size --;
-                break;
-            }
-            else{
-                items[i] = nullptr;
-                reorganizeItems();
-                size --;
-                break;
-            }
+        if(items[i] != nullptr && items[i]->getName() == name){
+            delete items[i];
+            items[i] = nullptr;
+            reorganizeItems();
+            size --;
+            break;
         }
     }
 }
 
 void Inventory::reorganizeItems(){
+    
     vector<Item*> itemsNew;
-
     for(unsigned i = 0; i < size; i++){
         if(items[i] != nullptr){
             itemsNew.push_back(items[i]);
         }
     }
-
-    itemsNew.reserve(capacity);
-
     items = itemsNew;
 }
 

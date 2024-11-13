@@ -10,7 +10,7 @@ class Inventory{
 
         void reorganizeItems();
     public:
-        Inventory(int capacity = 10):size(0), capacity(capacity){items.reserve(capacity);}
+        Inventory(int capacity = 10):size(0), capacity(capacity), items(capacity){items.reserve(capacity);}
         ~Inventory(){
             for(Item* x : items){
                 delete x;

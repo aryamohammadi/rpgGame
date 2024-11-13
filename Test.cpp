@@ -6,7 +6,7 @@
 #include <sstream>
 using std::ostringstream;
 using testing::Return;
-
+using namespace std;
 class MockItem: public Item{
     public:
         MockItem(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", time_t time = time(nullptr)):Item(t,name,itemGrade,descript, time){}
@@ -19,18 +19,11 @@ void swap(MockItem*& item1, MockItem*& item2){
 
     item2 = item1Placeholder;
 }
-class MockInventory: public Inventory{
-    public:
-        MockInventory():Inventory(){}
-        MOCK_METHOD(void, addItem, (MockItem* item), ());
-        MOCK_METHOD(bool, itemFound, (const std::string& name), ());
-        MOCK_METHOD(bool, removeItem, (const std::string& name), ());
-};
 
 TEST(ItemTest, outputItem){
     MockItem A(Item::ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
     ostringstream out;
-    out.clear();
+    
     out << A;
     
     string expect = "Name: " + A.getName() + "\n";
@@ -79,6 +72,7 @@ TEST(ItemTest, swapTestWithOneEmpty){
     EXPECT_EQ(BOut.str(), expectA);
 
     delete A;
+    A = nullptr;
     delete B;
 }
 
@@ -120,48 +114,177 @@ TEST(InventoryTest, emptyInventory){
 
 }
 
-TEST(InventoryTest, OneItem){
+TEST(InventoryTest, AddOneItem){
 
     MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
 
-    MockInventory playerStorage;
-
-    ON_CALL(playerStorage, addItem(item))
-    .WillByDefault(testing::Invoke([](MockItem* item){
-        // Simulate behavior of addItem
-        std::cout << "Item added: " << item->getName() << std::endl;
-    }));
+    Inventory playerStorage;
 
     playerStorage.addItem(item);
 
-    EXPECT_CALL(playerStorage, itemFound("Danny")).WillOnce(testing::Return(true));
     bool result = playerStorage.itemFound("Danny");
 
     EXPECT_TRUE(result);
     
+}
 
-    delete item;
+TEST(InventoryTest, AddMultipleItems){
+
+    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+
+    Inventory playerStorage;
+
+    playerStorage.addItem(item);
+    playerStorage.addItem(new MockItem(Item::ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
+    playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
+
+    bool result = playerStorage.itemFound("Danny");
+
+    EXPECT_TRUE(result);
+
+    result = playerStorage.itemFound("E");
+
+    EXPECT_TRUE(result);
+
+    result = playerStorage.itemFound("Milly");
+
+    EXPECT_TRUE(result);
+
+    result = playerStorage.itemFound("Emily");
+
+    EXPECT_TRUE(result);
+    
 }
 
 TEST(InventoryTest, removeOneItem){
     
     MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
 
-    MockInventory playerStorage;
-
-    ON_CALL(playerStorage, addItem(item))
-    .WillByDefault(testing::Invoke([](MockItem* item){
-        // Simulate behavior of addItem
-        std::cout << "Item added: " << item->getName() << std::endl;
-    }));
+    Inventory playerStorage;
 
     playerStorage.addItem(item);
 
-    playerStorage.removeItem(item->getName());
+    playerStorage.removeItem("Danny");
 
     bool result = playerStorage.itemFound("Danny");
 
     EXPECT_FALSE(result);
+      
+}
+
+TEST(InventoryTest, RemoveAndAddMultipleItems){
+
+    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+
+    Inventory playerStorage;
+
+    playerStorage.addItem(item);
+    playerStorage.addItem(new MockItem(Item::ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
+    playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
+
+    std::cout << playerStorage << std::endl;
+
+    bool result = playerStorage.itemFound("Danny");
+
+    EXPECT_TRUE(result);
+
+    result = playerStorage.itemFound("E");
+
+    EXPECT_TRUE(result);
+
+    result = playerStorage.itemFound("Milly");
+
+    EXPECT_TRUE(result);
+
+    result = playerStorage.itemFound("Emily");
+
+    EXPECT_TRUE(result);
+
+    //Remove Items
+    playerStorage.removeItem("Emily");
+
+    result = playerStorage.itemFound("Emily");
+
+    EXPECT_FALSE(result);
+
+    playerStorage.removeItem("E");
+
+    result = playerStorage.itemFound("E");
+
+    EXPECT_FALSE(result);
+
+    playerStorage.removeItem("Danny");
+
+    result = playerStorage.itemFound("Danny");
+
+    EXPECT_FALSE(result);
+
+    playerStorage.removeItem("Milly");
+
+    result = playerStorage.itemFound("Milly");
+
+    EXPECT_FALSE(result);
+
+    EXPECT_TRUE(playerStorage.isEmpty());
+
+}
+
+TEST(InventoryTest, RemoveAndAddMultipleItemsAndUnderFlow){
+
+    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+
+    Inventory playerStorage;
+
+    playerStorage.addItem(item);
+    playerStorage.addItem(new MockItem(Item::ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
+    playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
+
+    bool result = playerStorage.itemFound("Danny");
+
+    EXPECT_TRUE(result);
+
+    result = playerStorage.itemFound("E");
+
+    EXPECT_TRUE(result);
+
+    result = playerStorage.itemFound("Milly");
+
+    EXPECT_TRUE(result);
+
+    result = playerStorage.itemFound("Emily");
+
+    EXPECT_TRUE(result);
+    //Remove Items
+    playerStorage.removeItem("Emily");
+
+    result = playerStorage.itemFound("Emily");
+
+    EXPECT_FALSE(result);
+
+    playerStorage.removeItem("E");
+
+    result = playerStorage.itemFound("E");
     
-    delete item;   
+    EXPECT_FALSE(result);
+
+    playerStorage.removeItem("Danny");
+
+    result = playerStorage.itemFound("Danny");
+    
+    EXPECT_FALSE(result);
+
+    playerStorage.removeItem("Milly");
+
+    result = playerStorage.itemFound("Milly");
+    
+    EXPECT_FALSE(result);
+    
+    EXPECT_TRUE(playerStorage.isEmpty());
+    
+    EXPECT_ANY_THROW(playerStorage.removeItem(""));
+
+    
 }

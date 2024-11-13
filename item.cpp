@@ -35,20 +35,12 @@ Item& Item::operator=(const Item& other){
     return *this;
 }
 
-void swap(Item& item1, Item& item2){
-    if(&item1 != &item2){
-        Item::ItemType typeTmp = item1.type;
-        string nameTmp = item1.name;
-        Item::Grade g = item1.itemGrade;
-        string descript = item1.description;
-        time_t time = item1.timeEarned;
+void swap(Item* item1, Item* item2){
+    if(item1 != item2){
+        Item* item1Placeholder = item1;
 
         item1 = item2;
 
-        item2.type = typeTmp;
-        item2.name = nameTmp;
-        item2.itemGrade = g;
-        item2.description = descript;
-        item2.timeEarned = time;
+        item2 = item1Placeholder;
     }
 }

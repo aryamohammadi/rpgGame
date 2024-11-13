@@ -1,10 +1,18 @@
 #include "item.h"
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
+#include <gmock/gmock.h>
 #include <sstream>
 using std::ostringstream;
 
+class MockItem: public Item{
+    public:
+    MockItem(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", time_t time = time(nullptr)):Item(t,name,itemGrade,descript,time){}
+    MOCK_METHOD(void, useItem,(),(override));
+};
+
 TEST(ItemTest, outputItem){
-    Item A(Item::ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
+    MockItem A(Item::ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
     ostringstream out;
     out.clear();
     out << A;
@@ -18,7 +26,7 @@ TEST(ItemTest, outputItem){
 }
 
 TEST(ItemTest, emptyItem){
-    Item A;
+    MockItem A;
     
     ostringstream out;
     out << A;
@@ -32,8 +40,8 @@ TEST(ItemTest, emptyItem){
 }
 
 TEST(ItemTest, swapTest){
-    Item A;
-    Item B(Item::ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
+    MockItem A;
+    MockItem B(Item::ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
     ostringstream AOut;
     ostringstream BOut;
     swap(A, B);

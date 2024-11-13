@@ -45,7 +45,7 @@ class Item{
 
         string determineType(int index) const;
         string determineGrade(int index) const;
-        // virtual void useItem() = 0;
+        virtual void useItem() = 0;
         friend void swap(Item& item1, Item& item2);
 };
 ostream& operator<<(ostream& out, const Item& item);

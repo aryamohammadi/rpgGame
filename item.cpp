@@ -35,12 +35,10 @@ Item& Item::operator=(const Item& other){
     return *this;
 }
 
-void swap(Item* item1, Item* item2){
-    if(item1 != item2){
-        Item* item1Placeholder = item1;
+void swap(Item* &item1, Item* &item2){
+    Item* item1Placeholder = item1;
 
-        item1 = item2;
-
-        item2 = item1Placeholder;
-    }
+    item1 = item2;
+    
+    item2 = item1Placeholder;
 }

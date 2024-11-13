@@ -18,6 +18,7 @@ class MockInventory: public Inventory{
         MockInventory():Inventory(){}
         MOCK_METHOD(void, addItem, (MockItem* item), ());
         MOCK_METHOD(bool, itemFound, (const std::string& name), ());
+        MOCK_METHOD(bool, removeItem, (const std::string& name), ());
 };
 
 TEST(ItemTest, outputItem){
@@ -132,4 +133,27 @@ TEST(InventoryTest, OneItem){
     
 
     delete item;
+}
+
+TEST(InventoryTest, removeOneItem){
+    
+    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+
+    MockInventory playerStorage;
+
+    ON_CALL(playerStorage, addItem(item))
+    .WillByDefault(testing::Invoke([](MockItem* item){
+        // Simulate behavior of addItem
+        std::cout << "Item added: " << item->getName() << std::endl;
+    }));
+
+    playerStorage.addItem(item);
+
+    playerStorage.removeItem(item->getName());
+
+    bool result = playerStorage.itemFound("Danny");
+
+    EXPECT_FALSE(result);
+    
+    delete item;   
 }

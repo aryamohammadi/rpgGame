@@ -7,8 +7,10 @@ class Inventory{
         vector<Item*> items; 
         int size;
         int capacity;
+
+        void reorganizeItems();
     public:
-        Inventory():size(0){}
+        Inventory(int capacity = 10):size(0), capacity(capacity){items.reserve(capacity);}
         ~Inventory(){
             for(Item* x : items){
                 delete x;
@@ -20,6 +22,8 @@ class Inventory{
         void addItem(Item* item);
         void removeItem(const string& name);
         bool itemFound(const string& name);
+        bool sizeGreaterThanOrEqualToCapacity() const {return size >= capacity;}
+        bool isEmpty() const {return size == 0;}
 
         void increaseCapacity(int amount){capacity += amount;}
 
@@ -28,4 +32,6 @@ class Inventory{
         void sortByTypes();
         void makeLatestFirst();
         void makeOldestFirst();
+
+       friend ostream& operator<<(ostream& out, const Inventory& rhs);
 };

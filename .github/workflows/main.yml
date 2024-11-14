@@ -1,5 +1,5 @@
 on:
   push:
-    branches: [ master, macos052/inventoryFeatures ]
+    branches: [ master]
   pull_request:
     branches: [ master ]

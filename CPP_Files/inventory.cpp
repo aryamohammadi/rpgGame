@@ -20,7 +20,7 @@ int Inventory::itemFound(const string& name) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] != nullptr && items[i]->item->getName() == name){
+        if(items[i] != nullptr && items[i]->items != nullptr && items[i]->item->getName() == name){
             return i;
         }
     }
@@ -32,7 +32,7 @@ int Inventory::itemFound(const string& name, Item::ItemType t) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] != nullptr && items[i]->item->getName() == name && items[i]->item->getType() == t){
+        if(items[i] != nullptr && items[i]->items != nullptr && items[i]->item->getName() == name && items[i]->item->getType() == t){
             return i;
         }
     }
@@ -111,7 +111,7 @@ ostream& operator<<(ostream& out, const Inventory& rhs){
 void Inventory::removeItem(const string& name){
     int index = itemFound(name);
     if(index == -1){
-        throw std::invalid_argument("Item nammed " + name + " not in inventory!");
+        throw std::invalid_argument("Item named " + name + " not in inventory!");
     }
     delete items[index];
     items[index] = nullptr;

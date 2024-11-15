@@ -1,17 +1,23 @@
 cmake_minimum_required(VERSION 3.20)
 
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 
+
 add_subdirectory(test/googletest)
 
-
+# Define the executable target
 add_executable(Test
     CPP_Files/item.cpp
     CPP_Files/inventory.cpp
-    Tests/HungryTest.cpp
+    Tests/Test.cpp
 )
 
+# Specify the include directory after defining the target
+target_include_directories(Test PRIVATE ${CMAKE_SOURCE_DIR}/header)
+
+# Link GoogleTest libraries
 # Specify the include directory after defining the target
 target_include_directories(Test PRIVATE ${CMAKE_SOURCE_DIR}/header)
 

@@ -1,6 +1,6 @@
 #pragma once
 #define ITEMSTACK_H
-#include "inventory.h"
+#include "header/inventory.h"
 class ItemStack{
     private:
         Item* item;

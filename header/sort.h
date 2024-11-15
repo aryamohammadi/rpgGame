@@ -9,7 +9,13 @@ enum class SortOrder{
 };
 template<typename T>
 class AbstractSort{
-
+    enum SortBy{
+        Default,
+        Name, 
+        Time,
+        Type,
+        Grade
+    };
     public:
         virtual void sort(vector<itemStack*>& array, SortOrder order = SortOrder::Ascending) = 0;
         bool isSorted(const vector<itemStack*>& array, SortOrder order = SortOrder::Ascending) const {

@@ -72,7 +72,13 @@ void Inventory::removeItem(const Item& item){
 
 int Inventory::itemsWithName(const string& name) const{
     if(itemFound(name) == -1){
-        
+        return 0;
+    }
+    int count = 0;
+    for(ItemStack* stack : items){
+        if(stack != nullptr && stack->item != nullptr && stack->item->getName() == name){
+            count ++;
+        }
     }
     return count;
 }

@@ -9,7 +9,9 @@ class CompareItem{
     public:
         enum CompareBy{
             Type,
-            Grade
+            Grade,
+            Name,
+            Time
         };
         CompareBy compareBy;
         CompareItem(CompareBy by, SortOrder order = SortOrder::Ascending):compareBy(by), order(order){}
@@ -24,10 +26,10 @@ class CompareItem{
                         return true;
                     }
                 case CompareBy::Type:
-                    if(order == SortOrder::Ascending && item1.itemGrade < item2.itemGrade){
+                    if(order == SortOrder::Ascending && item1.type < item2.type){
                         return true;
                     }
-                    if(order == SortOrder::Descending && item1.itemGrade > item2.itemGrade){
+                    if(order == SortOrder::Descending && item1.type > item2.type){
                         return true;
                     }
             }

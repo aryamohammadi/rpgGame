@@ -111,7 +111,7 @@ ostream& operator<<(ostream& out, const Inventory& rhs){
 void Inventory::removeItem(const string& name){
     int index = itemFound(name);
     if(index == -1){
-        throw std::invalid_argument("Item named " + name + " not in inventory!");
+        throw std::invalid_argument("Item nammed " + name + " not in inventory!");
     }
     delete items[index];
     items[index] = nullptr;

@@ -74,6 +74,7 @@ int Inventory::itemsWithName(const string& name) const{
     if(itemFound(name) == -1){
         
     }
+    return count;
 }
 
 void Inventory::reorganizeItems(){
@@ -99,4 +100,15 @@ ostream& operator<<(ostream& out, const Inventory& rhs){
         }
     }
     return out;
+}
+
+void Inventory::removeItem(const string& name){
+    int index = itemFound(name);
+    if(index == -1){
+        throw std::invalid_argument("Item nammed " + name + " not in inventory!");
+    }
+    delete items[index];
+    items[index] = nullptr;
+    reorganizeItems();
+    size --;
 }

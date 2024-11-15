@@ -1,10 +1,5 @@
-<<<<<<<< HEAD:Tests/HungryTest.cpp
 #include "../header/item.h"
 #include "../header/inventory.h"
-========
-#include "header/item.h"
-#include "header/inventory.h"
->>>>>>>> 117cb5f (Moved everything to approitate folders):Tests/Test.cpp
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include <gmock/gmock.h>

@@ -108,9 +108,9 @@ TEST(ItemTest, ItemSwap){
 TEST(InventoryTest, emptyInventory){
     Inventory playerStorage;
 
-    bool result = playerStorage.itemFound("Danny");
+    bool result = (playerStorage.itemFound("Danny")) == -1;
 
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
 
 }
 
@@ -122,7 +122,7 @@ TEST(InventoryTest, AddOneItem){
 
     playerStorage.addItem(item);
 
-    bool result = playerStorage.itemFound("Danny");
+    bool result = (playerStorage.itemFound("Danny")) != -1;
 
     EXPECT_TRUE(result);
     
@@ -139,19 +139,19 @@ TEST(InventoryTest, AddMultipleItems){
     playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
     playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
 
-    bool result = playerStorage.itemFound("Danny");
+    bool result = (playerStorage.itemFound("Danny")) != -1;
 
     EXPECT_TRUE(result);
 
-    result = playerStorage.itemFound("E");
+    result = (playerStorage.itemFound("E")) != -1;
 
     EXPECT_TRUE(result);
 
-    result = playerStorage.itemFound("Milly");
+    result = (playerStorage.itemFound("Milly")) != -1;
 
     EXPECT_TRUE(result);
 
-    result = playerStorage.itemFound("Emily");
+    result = (playerStorage.itemFound("Emily")) != -1;
 
     EXPECT_TRUE(result);
     
@@ -167,9 +167,9 @@ TEST(InventoryTest, removeOneItem){
 
     playerStorage.removeItem("Danny");
 
-    bool result = playerStorage.itemFound("Danny");
+    bool result = (playerStorage.itemFound("Danny")) == -1;
 
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
       
 }
 
@@ -186,46 +186,46 @@ TEST(InventoryTest, RemoveAndAddMultipleItems){
 
     std::cout << playerStorage << std::endl;
 
-    bool result = playerStorage.itemFound("Danny");
+    bool result = (playerStorage.itemFound("Danny")) != -1;
 
     EXPECT_TRUE(result);
 
-    result = playerStorage.itemFound("E");
+    result = (playerStorage.itemFound("E")) != -1;
 
     EXPECT_TRUE(result);
 
-    result = playerStorage.itemFound("Milly");
+    result = (playerStorage.itemFound("Milly")) != -1;
 
     EXPECT_TRUE(result);
 
-    result = playerStorage.itemFound("Emily");
+    result = (playerStorage.itemFound("Emily")) != -1;
 
     EXPECT_TRUE(result);
 
     //Remove Items
     playerStorage.removeItem("Emily");
 
-    result = playerStorage.itemFound("Emily");
+    result = (playerStorage.itemFound("Emily")) == -1;
 
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
 
     playerStorage.removeItem("E");
 
-    result = playerStorage.itemFound("E");
+    result = (playerStorage.itemFound("E")) == -1;
 
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
 
     playerStorage.removeItem("Danny");
 
-    result = playerStorage.itemFound("Danny");
+    result = (playerStorage.itemFound("Danny")) == -1;
 
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
 
     playerStorage.removeItem("Milly");
 
-    result = playerStorage.itemFound("Milly");
+    result = (playerStorage.itemFound("Danny")) == -1;
 
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
 
     EXPECT_TRUE(playerStorage.isEmpty());
 
@@ -242,45 +242,45 @@ TEST(InventoryTest, RemoveAndAddMultipleItemsAndUnderFlow){
     playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
     playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
 
-    bool result = playerStorage.itemFound("Danny");
+    bool result = (playerStorage.itemFound("Danny")) != -1;
 
     EXPECT_TRUE(result);
 
-    result = playerStorage.itemFound("E");
+    result = (playerStorage.itemFound("E")) != -1;
 
     EXPECT_TRUE(result);
 
-    result = playerStorage.itemFound("Milly");
+    result = (playerStorage.itemFound("Milly")) != -1;
 
     EXPECT_TRUE(result);
 
-    result = playerStorage.itemFound("Emily");
+    result = (playerStorage.itemFound("Emily")) != -1;
 
     EXPECT_TRUE(result);
     //Remove Items
     playerStorage.removeItem("Emily");
 
-    result = playerStorage.itemFound("Emily");
+    result = (playerStorage.itemFound("Emily")) == -1;
 
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
 
     playerStorage.removeItem("E");
 
-    result = playerStorage.itemFound("E");
+    result = (playerStorage.itemFound("E")) == -1;
     
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
 
     playerStorage.removeItem("Danny");
 
-    result = playerStorage.itemFound("Danny");
+    result = (playerStorage.itemFound("Danny")) == -1;
     
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
 
     playerStorage.removeItem("Milly");
 
-    result = playerStorage.itemFound("Milly");
+    result = (playerStorage.itemFound("Milly")) == -1;
     
-    EXPECT_FALSE(result);
+    EXPECT_TRUE(result);
     
     EXPECT_TRUE(playerStorage.isEmpty());
     

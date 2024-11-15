@@ -3,9 +3,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 add_subdirectory(test/googletest)
 
+
 add_executable(Test
-    CPPFiles/item.cpp
-    CPPFiles/inventory.cpp
+    CPP_Files/item.cpp
+    CPP_Files/inventory.cpp
     Tests/Test.cpp 
 )
 

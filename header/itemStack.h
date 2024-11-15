@@ -1,10 +1,9 @@
 #pragma once
 #define ITEMSTACK_H
-#include "../../header/inventory.h"
+#include "../header/inventory.h"
 class Inventory;
 class ItemStack{
     private:
-        friend Inventory;
         Item* item;
         int quantity;
     public:

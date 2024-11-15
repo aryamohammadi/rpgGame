@@ -2,7 +2,6 @@
 #define COMPARE_H
 #include "../header/sort.h"
 #include "../header/item.h"
-template<typename T>
 class CompareItem{
     public:
         enum CompareBy{

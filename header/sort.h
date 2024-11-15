@@ -1,7 +1,5 @@
 #pragma once
 #define SORT_H
-#include "../header/itemStack.h"
-
 template<typename T>
 class AbstractSort{
 

@@ -1,10 +1,9 @@
 #pragma once
 #define ITEMSTACK_H
 #include "../header/inventory.h"
-class Inventory;
+#include "inventory.h"
 class ItemStack{
     private:
-        friend Inventory;
         Item* item;
         int quantity;
     public:
@@ -35,4 +34,6 @@ class ItemStack{
 
         stack2 = stack1placeholder;
     }
+    Item* getItem() {return item;}
+    const Item* getItem() const {return item;}
 };

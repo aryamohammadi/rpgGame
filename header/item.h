@@ -4,11 +4,9 @@
 #include <ostream>
 #include <vector>
 #include <ctime>
-#include "../header/compare.h"
 using std::string;
 using std::ostream;
 using std::vector;
-class CompareItem;
 class Item{
     public:
         enum Grade{ //possible grades we can have
@@ -25,7 +23,6 @@ class Item{
             POTION
         };
     private:
-        friend CompareItem;
         string name;
         vector<string> types{"WEAPON", "ARMOR", "FOOD", "POTION"};
         vector<string> grades{"COMMON","UNCOMMON","RARE","EPIC","LEGENDARY"};

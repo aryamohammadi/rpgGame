@@ -1,6 +1,8 @@
 #pragma once
 #define SORT_H
 #include "../header/itemStack.h"
+#include "itemStack.h"
+using std::vector;
 enum class SortOrder{
     Ascending,
     Descending

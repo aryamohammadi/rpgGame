@@ -20,7 +20,7 @@ int Inventory::itemFound(const string& name) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] != nullptr && items[i]->item != nullptr && items[i]->item->getName() == name){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getName() == name){
             return i;
         }
     }
@@ -32,7 +32,7 @@ int Inventory::itemFound(const string& name, Item::ItemType t) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] != nullptr && items[i]->item != nullptr && items[i]->item->getName() == name && items[i]->item->getType() == t){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getName() == name && items[i]->getItem()->getType() == t){
             return i;
         }
     }
@@ -76,7 +76,7 @@ int Inventory::itemsWithName(const string& name) const{
     }
     int count = 0;
     for(ItemStack* stack : items){
-        if(stack != nullptr && stack->item != nullptr && stack->item->getName() == name){
+        if(stack != nullptr && stack->getItem() != nullptr && stack->getItem()->getName() == name){
             count ++;
         }
     }

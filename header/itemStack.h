@@ -7,7 +7,6 @@ class ItemStack{
         friend Inventory;
         Item* item;
         int quantity;
-        friend Inventory;
     public:
         ItemStack(Item* item, int amount = 1):item(item), quantity(amount){}
         ~ItemStack(){delete item;}

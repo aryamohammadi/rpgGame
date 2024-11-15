@@ -1,4 +1,4 @@
-#include "header/inventory.h"
+#include "../header/inventory.h"
 #include <stdexcept>
 using std::endl;
 using std::to_string;

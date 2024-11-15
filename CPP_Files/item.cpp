@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:CPP_Files/item.cpp
 #include "../header/item.h"
-========
-#include "header/item.h"
->>>>>>>> 117cb5f (Moved everything to approitate folders):CPP Files/item.cpp
 #include <stdexcept>
 using std::endl;
 

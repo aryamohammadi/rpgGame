@@ -1,6 +1,6 @@
 #pragma once
 #define INVENTORY_H
-#include "item.h"
+#include "header/item.h"
 
 class Inventory{
     private:

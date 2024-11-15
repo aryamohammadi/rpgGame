@@ -20,7 +20,7 @@ int Inventory::itemFound(const string& name) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] != nullptr && items[i]->items != nullptr && items[i]->item->getName() == name){
+        if(items[i] != nullptr && items[i]->item != nullptr && items[i]->item->getName() == name){
             return i;
         }
     }
@@ -32,7 +32,7 @@ int Inventory::itemFound(const string& name, Item::ItemType t) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] != nullptr && items[i]->items != nullptr && items[i]->item->getName() == name && items[i]->item->getType() == t){
+        if(items[i] != nullptr && items[i]->item != nullptr && items[i]->item->getName() == name && items[i]->item->getType() == t){
             return i;
         }
     }

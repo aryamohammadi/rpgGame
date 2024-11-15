@@ -5,10 +5,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 
 add_subdirectory(test/googletest)
 
-# Define the executable target
 add_executable(Test
-    CPP_Files/item.cpp
-    CPP_Files/inventory.cpp
+    CPPFiles/item.cpp
+    CPPFiles/inventory.cpp
     Tests/HungryTest.cpp
 )
 

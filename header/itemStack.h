@@ -1,7 +1,11 @@
 #pragma once
 #define ITEMSTACK_H
+<<<<<<< HEAD
 #include "../header/inventory.h"
 class Inventory;
+=======
+#include "header/inventory.h"
+>>>>>>> 117cb5f (Moved everything to approitate folders)
 class ItemStack{
     private:
         Item* item;

@@ -1,4 +1,4 @@
-#include "header/inventory.h"
+#include "../header/inventory.h"
 #include <stdexcept>
 bool Inventory::itemFound(const string& name){
     if(size == 0){

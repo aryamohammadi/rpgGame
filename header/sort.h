@@ -1,26 +1,25 @@
 #pragma once
 #define SORT_H
 #include "../header/itemStack.h"
-#include "itemStack.h"
-using std::vector;
+#include "../header/compare.h"
 enum class SortOrder{
     Ascending,
     Descending
 };
-template<typename T>
 class AbstractItemSort{
     enum SortBy{
-        Default,
         Name, 
         Time,
         Type,
         Grade
     };
+    SortBy sortConfig;
     public:
-        virtual void sort(vector<itemStack*>& array, SortOrder order = SortOrder::Ascending) = 0;
-        bool isSorted(const vector<itemStack*>& array, SortOrder order = SortOrder::Ascending) const {
+        AbstractItemSort(SortBy sortMode):sortConfig(sortMode){}
+        virtual void sort(vector<ItemStack*>& array, SortOrder order = SortOrder::Ascending) = 0;
+        bool isSorted(const vector<ItemStack*>& array, SortOrder order = SortOrder::Ascending) const {
             for(unsigned i = 1; i < array.size(); i++){
-                if((order == SortOrder::Ascending && array[i]->item < array[i - 1]->item) ||(order == SortOrder::Descending && array[i] > array[i - 1])){
+                if((order == SortOrder::Ascending && array[i]->getItem() < array[i - 1]->getItem()) ||(order == SortOrder::Descending && array[i] > array[i - 1])){
                     return false;
                 }
             }

@@ -14,7 +14,13 @@ class ItemStack{
             }
         }
         ~ItemStack(){delete item;}
-        ItemStack& operator=(const ItemStack& rhs);
+        ItemStack& operator=(const ItemStack& rhs){
+            if(this != &rhs){
+                delete item;
+                item = (rhs.item)->clone();
+                
+            }
+        }
 
         void increaseQuantity(int amount){quantity += amount;}
         void decreaseQuantitty(int amount){quantity -= amount;}

@@ -33,8 +33,8 @@ class Item{
     public:
         Item(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", time_t time = time(nullptr)): type(t), name(name), itemGrade(itemGrade), description(descript), timeEarned(time){}
 
-        Item(const Item& other){*this = other;}
-        Item& operator=(const Item& other);
+        Item(const Item& other) = delete;
+        Item& operator=(const Item& other) = delete;
         virtual ~Item(){} //allows inherited items to delete Item
 
         string getName() const {return name;}
@@ -46,6 +46,7 @@ class Item{
         string determineType(int index) const;
         string determineGrade(int index) const;
         virtual void useItem() = 0;
+        virtual Item* clone() const = 0;
         friend void swap(Item*& item1, Item*& item2);
 };
 ostream& operator<<(ostream& out, const Item& item);

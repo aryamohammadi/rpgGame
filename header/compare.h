@@ -33,7 +33,7 @@ class CompareItem{
         }
 };
 
-class CompareTypeCharacteristics{
+class CompareItemTypeCharacteristics{
     public: 
         enum Characteristics{
 

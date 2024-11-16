@@ -18,8 +18,9 @@ class ItemStack{
             if(this != &rhs){
                 delete item;
                 item = (rhs.item)->clone();
-                
+                quantity = rhs.quantity;
             }
+            return *this;
         }
 
         void increaseQuantity(int amount){quantity += amount;}

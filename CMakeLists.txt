@@ -11,12 +11,9 @@ add_executable(Test
     CPP_Files/item.cpp
     CPP_Files/inventory.cpp
     Tests/HungryInventory&ItemTest.cpp
+    Tests/HungrySortTest.cpp
 )
 
-# Specify the include directory after defining the target
-target_include_directories(Test PRIVATE ${CMAKE_SOURCE_DIR}/header)
-
-# Link GoogleTest libraries
 # Specify the include directory after defining the target
 target_include_directories(Test PRIVATE ${CMAKE_SOURCE_DIR}/header)
 

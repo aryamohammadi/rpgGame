@@ -32,3 +32,13 @@ class CompareItem{
             return false;
         }
 };
+
+class CompareTypeCharacterics{
+    public: 
+        enum Characterics{
+
+        };
+        static bool compare(const Item* item1, const Item* item2, Characterics attributes, SortOrder order = SortOrder::Ascending) {
+
+        }
+};

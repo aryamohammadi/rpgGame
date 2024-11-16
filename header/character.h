@@ -13,7 +13,7 @@ class Character{
         
 
     public:
-        Character(string name) : characterName(name), inventoryOfCharacter(), health(100),attack(0),defense(0),isDead(false){} 
+        Character(string name) : characterName(name), inventoryOfCharacter(), health(100),damage(0),defense(0),isDead(false){} 
 
         void setHealth(int healthOfCharacter){ health = healthOfCharacter; }
         void setAttack(int attackOfCharacter){ damage = attackOfCharacter; }

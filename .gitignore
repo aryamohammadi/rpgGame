@@ -1,10 +1,11 @@
 /Meeting Notes/
 *.o
-test/
-googletest/
 CMakeFiles/
 CMakeCache.txt
 *.cmake
 Makefile
 bin/
 lib/
+/googletest/
+googletest
+googletest/

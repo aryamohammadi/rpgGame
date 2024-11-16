@@ -9,7 +9,6 @@ class AbstractItemSort{
     public:
         AbstractItemSort(CompareItem::CompareBy sortMode):sortConfig(sortMode){}
         virtual void sort(vector<ItemStack*>& array, SortOrder order = SortOrder::Ascending, CompareItem::CompareBy mode = CompareItem::CompareBy::Name) = 0;
-       // In the header file (e.g., sort.h)
         bool isSorted(const std::vector<ItemStack*>& array, SortOrder order = SortOrder::Ascending, CompareItem::CompareBy mode = CompareItem::CompareBy::Name) const{
             for(unsigned i = 1; i < array.size(); i++){
                 if((order == SortOrder::Ascending && CompareItem::compare(array[i]->getItem(), array[i - 1]->getItem(), mode, SortOrder::Descending)) ||(order == SortOrder::Descending && CompareItem::compare(array[i]->getItem(), array[i - 1]->getItem(), mode, SortOrder::Ascending))){

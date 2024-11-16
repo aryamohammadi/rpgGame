@@ -2,12 +2,17 @@
 #define ITEMSTACK_H
 #include "../header/inventory.h"
 #include "inventory.h"
+#include <stdexcept>
 class ItemStack{
     private:
         Item* item;
         int quantity;
     public:
-        ItemStack(Item* item, int amount = 1):item(item), quantity(amount){}
+        ItemStack(Item* item, int amount = 1):item(item), quantity(amount){
+            if(amount <= 0){
+                throw std::invalid_argument("amount " + std::to_string(amount) + " is invalid!");
+            }
+        }
         ~ItemStack(){delete item;}
         ItemStack& operator=(const ItemStack& rhs);
 

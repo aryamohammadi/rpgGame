@@ -25,10 +25,10 @@ class Item{
             FOOD,
             POTION
         };
-    private:
+    protected:
         string name;
-        vector<string> types{"WEAPON", "ARMOR", "FOOD", "POTION"};
-        vector<string> grades{"COMMON","UNCOMMON","RARE","EPIC","LEGENDARY"};
+        const vector<string> types{"WEAPON", "ARMOR", "FOOD", "POTION"};
+        const vector<string> grades{"COMMON","UNCOMMON","RARE","EPIC","LEGENDARY"};
         ItemType type;
         string description;
         time_t timeEarned;

@@ -8,7 +8,7 @@ enum class SortOrder{
     Descending
 };
 template<typename T>
-class AbstractSort{
+class AbstractItemSort{
     enum SortBy{
         Default,
         Name, 

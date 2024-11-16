@@ -4,6 +4,9 @@
 #include <ostream>
 #include <vector>
 #include <ctime>
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
+#include <gmock/gmock.h>
 using std::string;
 using std::ostream;
 using std::vector;
@@ -50,3 +53,17 @@ class Item{
         friend void swap(Item*& item1, Item*& item2);
 };
 ostream& operator<<(ostream& out, const Item& item);
+
+class MockItem: public Item{
+    public:
+        MockItem(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", time_t time = time(nullptr)):Item(t,name,itemGrade,descript, time){}
+        MOCK_METHOD(void, useItem,(),(override));
+        MOCK_CONST_METHOD0(clone, MockItem*());
+};
+void swap(MockItem*& item1, MockItem*& item2){
+    MockItem* item1Placeholder = item1;
+
+    item1 = item2;
+
+    item2 = item1Placeholder;
+}

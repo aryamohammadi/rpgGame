@@ -1,8 +1,5 @@
 #include "../header/item.h"
 #include "../header/inventory.h"
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
-#include <gmock/gmock.h>
 #include <sstream>
 using std::ostringstream;
 using testing::Return;

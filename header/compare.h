@@ -12,7 +12,7 @@ class CompareItem{
             Name,
             Time
         };
-        bool operator()(const Item* item1, const Item* item2, CompareBy compareBy, SortOrder order = SortOrder::Ascending){
+        static bool compare(const Item* item1, const Item* item2, CompareBy compareBy, SortOrder order = SortOrder::Ascending){
             switch(compareBy){
                 case CompareBy::Grade:
                     if(order == SortOrder::Ascending && item1->getGrade() < item2->getGrade()){

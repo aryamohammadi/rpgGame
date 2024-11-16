@@ -8,17 +8,11 @@ enum class SortOrder{
 };
 class AbstractItemSort{
     protected:
-    enum SortBy{
-        Name, 
-        Time,
-        Type,
-        Grade
-    };
-    SortBy sortConfig;
+    CompareItem::CompareBy sortConfig;
     public:
-        AbstractItemSort(SortBy sortMode):sortConfig(sortMode){}
-        virtual void sort(vector<ItemStack*>& array, SortOrder order = SortOrder::Ascending, SortBy mode) = 0;
-        bool isSorted(const vector<ItemStack*>& array, SortOrder order = SortOrder::Ascending, SortBy mode) const {
+        AbstractItemSort(CompareItem::CompareBy sortMode):sortConfig(sortMode){}
+        virtual void sort(vector<ItemStack*>& array, SortOrder order = SortOrder::Ascending, CompareItem::CompareBy mode) = 0;
+        bool isSorted(const vector<ItemStack*>& array, SortOrder order = SortOrder::Ascending, CompareItem::CompareBy mode) const {
             for(unsigned i = 1; i < array.size(); i++){
                 if((order == SortOrder::Ascending && array[i]->getItem() < array[i - 1]->getItem()) ||(order == SortOrder::Descending && array[i] > array[i - 1])){
                     return false;
@@ -30,5 +24,5 @@ class AbstractItemSort{
 
 class MockAbstractItemSort : public AbstractItemSort{
     public:
-        MOCK_METHOD(void, sort, (vector<ItemStack*>& array, SortOrder order, AbstractItemSort::SortBy mode), (override));
+        MOCK_METHOD(void, sort, (vector<ItemStack*>& array, SortOrder order, CompareItem::CompareBy mode), (override));
 };

@@ -4,5 +4,6 @@
 class BucketSort : public AbstractItemSort{
 
     public:
-        
+
+        void sort(vector<ItemStack*>& array, SortOrder order, CompareItem::CompareBy mode) override;
 };

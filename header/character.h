@@ -16,7 +16,7 @@ class Character{
         Character(string name) : characterName(name), inventoryOfCharacter(), health(100),damage(0),defense(0),isDead(false){} 
 
         void setHealth(int healthOfCharacter){ health = healthOfCharacter; }
-        void setAttack(int attackOfCharacter){ damage = attackOfCharacter; }
+        void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
         void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
         virtual void attack() = 0;
         virtual void defend() = 0;

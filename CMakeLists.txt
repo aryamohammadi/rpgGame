@@ -10,7 +10,7 @@ add_subdirectory(test/googletest)
 add_executable(Test
     CPP_Files/item.cpp
     CPP_Files/inventory.cpp
-    Tests/HungryTest.cpp
+    Tests/HungryInventory&ItemTest.cpp
 )
 
 # Specify the include directory after defining the target

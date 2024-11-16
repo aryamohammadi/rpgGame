@@ -7,7 +7,7 @@ class Character{
         std::string characterName;
         Inventory inventoryOfCharacter;
         int health;
-        int attack;
+        int damage;
         int defense;
         bool isDead;
         

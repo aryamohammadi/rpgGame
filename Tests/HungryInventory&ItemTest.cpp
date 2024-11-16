@@ -169,8 +169,6 @@ TEST(InventoryTest, RemoveAndAddMultipleItems){
     playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
     playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
 
-    std::cout << playerStorage << std::endl;
-
     bool result = (playerStorage.itemFound("Danny")) != -1;
 
     EXPECT_TRUE(result);

@@ -1,9 +1,7 @@
 #pragma once
 #define COMPARE_H
-#include "../header/sort.h"
+#include "../header/sortorder.h"
 #include "../header/item.h"
-#include "sort.h"
-#include "item.h"
 class CompareItem{
     public:
         enum CompareBy{
@@ -21,6 +19,7 @@ class CompareItem{
                     if(order == SortOrder::Descending && item1->getGrade() > item2->getGrade()){
                         return true;
                     }
+                    break;
                 case CompareBy::Type:
                     if(order == SortOrder::Ascending && item1->getType() < item2->getType()){
                         return true;
@@ -28,6 +27,7 @@ class CompareItem{
                     if(order == SortOrder::Descending && item1->getType() > item2->getType()){
                         return true;
                     }
+                    break;
             }
             return false;
         }
@@ -39,6 +39,6 @@ class CompareItemTypeCharacteristics{
 
         };
         static bool compare(const Item* item1, const Item* item2, Characteristics attributes, SortOrder order = SortOrder::Ascending) {
-
+            return true;
         }
 };

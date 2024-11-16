@@ -5,8 +5,6 @@
 #include "sort.h"
 #include "item.h"
 class CompareItem{
-    private:
-        SortOrder order;
     public:
         enum CompareBy{
             Type,
@@ -14,10 +12,7 @@ class CompareItem{
             Name,
             Time
         };
-        CompareBy compareBy;
-        CompareItem(CompareBy by, SortOrder order = SortOrder::Ascending):compareBy(by), order(order){}
-
-        bool operator()(const Item* item1, const Item* item2){
+        bool operator()(const Item* item1, const Item* item2, CompareBy compareBy, SortOrder order = SortOrder::Ascending){
             switch(compareBy){
                 case CompareBy::Grade:
                     if(order == SortOrder::Ascending && item1->getGrade() < item2->getGrade()){

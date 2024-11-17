@@ -14,11 +14,6 @@ TEST(SortTest, isSortedOneItemTest){
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly"))};
 
     EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending, CompareItem::CompareBy::Name));
-
-    for(ItemStack* stack : stacks){
-        delete stack;
-    }
-
 }
 
 TEST(SortTest, TwoNotSortedItemsTest){
@@ -27,11 +22,6 @@ TEST(SortTest, TwoNotSortedItemsTest){
     stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Ascending, CompareItem::CompareBy::Name));
-
-    for(ItemStack* stack : stacks){
-        delete stack;
-    }
-
 }
 
 TEST(InsertionSortTest, multipleItemTest){
@@ -66,9 +56,11 @@ TEST(InsertionSortTest, multipleItemTest){
 
     for(ItemStack* stack : stacks){
         out << *stack << endl;
+       
     }
     for(ItemStack* stack : results){
         result << *stack << endl;
+        
     }
     EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending, CompareItem::CompareBy::Name));
     EXPECT_EQ(out.str(), result.str());

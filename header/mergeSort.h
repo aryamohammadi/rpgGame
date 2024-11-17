@@ -7,6 +7,6 @@ class MergeSort : public AbstractItemSort{
 
     public:
         MergeSort(CompareItem::CompareBy sortMode):AbstractItemSort(sortMode){}
-        void sort(vector<ItemStack*>& array, SortOrder order, CompareItem::CompareBy mode) override;
+        void sort(vector<ItemStack*>& array, SortOrder order) override;
 
 };

@@ -13,7 +13,7 @@ TEST(SortTest, isSortedOneItemTest){
     MockAbstractItemSort s(CompareItem::CompareBy::Name);
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly"))};
 
-    EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending, CompareItem::CompareBy::Name));
+    EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending));
 }
 
 TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
@@ -21,7 +21,7 @@ TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emily"))};
     stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
 
-    EXPECT_FALSE(s.isSorted(stacks,SortOrder::Ascending, CompareItem::CompareBy::Name));
+    EXPECT_FALSE(s.isSorted(stacks,SortOrder::Ascending));
 }
 
 TEST(SortTest, TwoItemsNotSortedInDescendingOrderTest){
@@ -29,7 +29,7 @@ TEST(SortTest, TwoItemsNotSortedInDescendingOrderTest){
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Dragon Slayer Sword"))};
     stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Emily")));
 
-    EXPECT_FALSE(s.isSorted(stacks,SortOrder::Descending, CompareItem::CompareBy::Name));
+    EXPECT_FALSE(s.isSorted(stacks,SortOrder::Descending));
 }
 
 TEST(InsertionSortTest, multipleAscendingItemTest){
@@ -57,7 +57,7 @@ TEST(InsertionSortTest, multipleAscendingItemTest){
     results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
     InsertionSort s(CompareItem::CompareBy::Name);
-    s.sort(stacks, SortOrder::Ascending, CompareItem::CompareBy::Name);
+    s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
     ostringstream result;
@@ -68,7 +68,7 @@ TEST(InsertionSortTest, multipleAscendingItemTest){
     for(ItemStack* stack : results){
         result << *stack << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending, CompareItem::CompareBy::Name));
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -98,7 +98,7 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
     results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
     InsertionSort s(CompareItem::CompareBy::Name);
-    s.sort(stacks, SortOrder::Descending, CompareItem::CompareBy::Name);
+    s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;
     ostringstream result;
@@ -109,7 +109,7 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
     for(int i = results.size() - 1; i >= 0; i --){
         result << *results[i] << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending, CompareItem::CompareBy::Name));
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -130,7 +130,7 @@ TEST(InsertionSortTest, ascendingTimeSort){
     vector<ItemStack*> results = stacks;
     
     InsertionSort s(CompareItem::CompareBy::Time);
-    s.sort(stacks, SortOrder::Ascending, CompareItem::CompareBy::Time);
+    s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
     ostringstream result;
@@ -141,7 +141,7 @@ TEST(InsertionSortTest, ascendingTimeSort){
     for(ItemStack* stack : results){
         result << *stack << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending, CompareItem::CompareBy::Time));
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -162,7 +162,7 @@ TEST(InsertionSortTest, descendingimeSort){
     vector<ItemStack*> results = stacks;
     
     InsertionSort s(CompareItem::CompareBy::Time);
-    s.sort(stacks, SortOrder::Descending, CompareItem::CompareBy::Time);
+    s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;
     ostringstream result;
@@ -173,7 +173,7 @@ TEST(InsertionSortTest, descendingimeSort){
     for(int i = results.size() - 1; i >= 0; i--){
         result << *results[i] << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending, CompareItem::CompareBy::Time));
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
     
 }

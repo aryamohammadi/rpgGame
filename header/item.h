@@ -10,6 +10,10 @@
 using std::string;
 using std::ostream;
 using std::vector;
+
+// Define a static start time for the program
+static auto programStartTime = std::chrono::steady_clock::now();
+
 class Item{
     public:
         enum Grade{ //possible grades we can have
@@ -30,10 +34,19 @@ class Item{
         const vector<string> grades{"COMMON","UNCOMMON","RARE","EPIC","LEGENDARY"};
         ItemType type;
         string description;
-        time_t timeEarned;
+        double timeEarned;
         Grade itemGrade;
     public:
-        Item(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", time_t time = time(nullptr)): type(t), name(name), itemGrade(itemGrade), description(descript), timeEarned(time){}
+        Item(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", double timeElapsed = -1.0): type(t), name(name), itemGrade(itemGrade), description(descript){
+            if(timeElapsed < 0){
+                auto now = std::chrono::steady_clock::now();
+                std::chrono::duration<double> duration = now - programStartTime;
+                timeEarned = duration.count();  // Store elapsed time in seconds as double
+            }
+            else{
+                timeEarned = timeElapsed;
+            }            
+        }
 
         Item(const Item& other) = delete;
         Item& operator=(const Item& other) = delete;
@@ -41,7 +54,7 @@ class Item{
 
         string getName() const {return name;}
         string getDescript() const {return description;}
-        time_t getTime() const {return timeEarned;}
+        double getTime() const {return timeEarned;}
         int getGrade() const {return itemGrade;}
         int getType() const {return type;}
 
@@ -55,7 +68,7 @@ ostream& operator<<(ostream& out, const Item& item);
 
 class MockItem: public Item{
     public:
-        MockItem(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", time_t time = time(nullptr)):Item(t,name,itemGrade,descript, time){}
+        MockItem(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", double timeElapsed = -1.0):Item(t,name,itemGrade,descript, timeElapsed){}
         MOCK_METHOD(void, useItem,(),(override));
         Item* clone() const override{
             return new MockItem(type, name, itemGrade, description, timeEarned);

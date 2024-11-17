@@ -11,7 +11,7 @@ class AbstractItemSort{
         virtual void sort(vector<ItemStack*>& array, SortOrder order, CompareItem::CompareBy mode) = 0;
         bool isSorted(const std::vector<ItemStack*>& array, SortOrder order, CompareItem::CompareBy mode) const{
             for(unsigned i = 1; i < array.size(); i++){
-                if((order == SortOrder::Ascending && CompareItem::compare(array[i]->getItem(), array[i - 1]->getItem(), mode, SortOrder::Descending)) ||(order == SortOrder::Descending && CompareItem::compare(array[i]->getItem(), array[i - 1]->getItem(), mode, SortOrder::Ascending))){
+                if(!CompareItem::compare(array[i - 1]->getItem(), array[i]->getItem(), mode, order)){
                     return false;
                 }
             }

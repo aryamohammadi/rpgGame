@@ -2,6 +2,7 @@
 #define COMPARE_H
 #include "../header/sortorder.h"
 #include "../header/item.h"
+#include "../header/compareItemType.h"
 class CompareItem{
     public:
         enum CompareBy{
@@ -49,15 +50,5 @@ class CompareItem{
                     return CompareItemTypeCharacteristics::compare(lowerBound, upperBound, attribute, order);
             }
             return false;
-        }
-};
-
-class CompareItemTypeCharacteristics{
-    public: 
-        enum Characteristics{
-            None
-        };
-        static bool compare(const Item* lowerBound, const Item* upperBound, Characteristics attributes, SortOrder order = SortOrder::Ascending) {
-            return true;
         }
 };

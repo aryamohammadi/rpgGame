@@ -169,7 +169,6 @@ TEST(InsertionSortTest, descendingimeSort){
 
     for(ItemStack* stack : stacks){
         out << *stack << endl;
-        cout << stack->getItem()->getTime() << endl;
     }
     for(int i = results.size() - 1; i >= 0; i--){
         result << *results[i] << endl;

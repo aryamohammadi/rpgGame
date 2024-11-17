@@ -113,3 +113,68 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
     EXPECT_EQ(out.str(), result.str());
     
 }
+
+TEST(InsertionSortTest, ascendingTimeSort){
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly"))};
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emily's Elixir")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Knight's Shield")));
+
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Healing Tonic")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Excalibur")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Dragon Scale Armor")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Elven Cloak")));
+
+    vector<ItemStack*> results = stacks;
+    
+    InsertionSort s(CompareItem::CompareBy::Time);
+    s.sort(stacks, SortOrder::Ascending, CompareItem::CompareBy::Time);
+
+    ostringstream out;
+    ostringstream result;
+
+    for(ItemStack* stack : stacks){
+        out << *stack << endl;
+    }
+    for(ItemStack* stack : results){
+        result << *stack << endl;
+    }
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending, CompareItem::CompareBy::Time));
+    EXPECT_EQ(out.str(), result.str());
+    
+}
+
+TEST(InsertionSortTest, descendingimeSort){
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly"))};
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emily's Elixir")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Knight's Shield")));
+
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Healing Tonic")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Excalibur")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Dragon Scale Armor")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Elven Cloak")));
+
+    vector<ItemStack*> results = stacks;
+    
+    InsertionSort s(CompareItem::CompareBy::Time);
+    s.sort(stacks, SortOrder::Descending, CompareItem::CompareBy::Time);
+
+    ostringstream out;
+    ostringstream result;
+
+    for(ItemStack* stack : stacks){
+        out << *stack << endl;
+        cout << stack->getItem()->getTime() << endl;
+    }
+    for(int i = results.size() - 1; i >= 0; i--){
+        result << *results[i] << endl;
+    }
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending, CompareItem::CompareBy::Time));
+    EXPECT_EQ(out.str(), result.str());
+    
+}

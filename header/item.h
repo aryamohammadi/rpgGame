@@ -55,8 +55,8 @@ class Item{
         string getName() const {return name;}
         string getDescript() const {return description;}
         double getTime() const {return timeEarned;}
-        int getGrade() const {return itemGrade;}
-        int getType() const {return type;}
+        Item::Grade getGrade() const {return itemGrade;}
+        Item::ItemType getType() const {return type;}
 
         string determineType(int index) const;
         string determineGrade(int index) const;

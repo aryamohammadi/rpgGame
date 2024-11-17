@@ -16,12 +16,20 @@ TEST(SortTest, isSortedOneItemTest){
     EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending, CompareItem::CompareBy::Name));
 }
 
-TEST(SortTest, TwoNotSortedItemsTest){
+TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
     MockAbstractItemSort s(CompareItem::CompareBy::Name);
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emily"))};
     stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Ascending, CompareItem::CompareBy::Name));
+}
+
+TEST(SortTest, TwoItemsNotSortedInDescendingOrderTest){
+    MockAbstractItemSort s(CompareItem::CompareBy::Name);
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Dragon Slayer Sword"))};
+    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Emily")));
+
+    EXPECT_FALSE(s.isSorted(stacks,SortOrder::Descending, CompareItem::CompareBy::Name));
 }
 
 TEST(InsertionSortTest, multipleItemTest){

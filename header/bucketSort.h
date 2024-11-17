@@ -1,9 +1,9 @@
 #pragma once
 #define BUCKETSORT_H
-#include "sort.h"
+#include "../header/sort.h"
 class BucketSort : public AbstractItemSort{
 
-    public:
-
+    public: 
+        BucketSort(CompareItem::CompareBy sortMode):AbstractItemSort(sortMode){}
         void sort(vector<ItemStack*>& array, SortOrder order, CompareItem::CompareBy mode) override;
 };

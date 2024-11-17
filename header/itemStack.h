@@ -39,7 +39,7 @@ class ItemStack{
         }
         return out;
     }
-    friend void swap(ItemStack* stack1, ItemStack* stack2){
+    friend void swap(ItemStack*& stack1, ItemStack*& stack2){
         ItemStack* stack1placeholder = stack1;
 
         stack1 = stack2;

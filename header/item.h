@@ -21,8 +21,7 @@ class Item{
         };
         enum ItemType{ //possible items we can have
             WEAPON,
-            ARMOR,
-            FOOD,
+            ARMOUR,
             POTION
         };
     protected:
@@ -58,7 +57,9 @@ class MockItem: public Item{
     public:
         MockItem(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", time_t time = time(nullptr)):Item(t,name,itemGrade,descript, time){}
         MOCK_METHOD(void, useItem,(),(override));
-        MOCK_CONST_METHOD0(clone, MockItem*());
+        Item* clone() const override{
+            return new MockItem(type, name, itemGrade, description, timeEarned);
+        }
         friend void swap(MockItem*& item1, MockItem*& item2){
             MockItem* item1Placeholder = item1;
 

@@ -10,21 +10,29 @@ class CompareItem{
             Name,
             Time
         };
-        static bool compare(const Item* item1, const Item* item2, CompareBy compareBy, SortOrder order = SortOrder::Ascending){
+        static bool compare(const Item* lowerBound, const Item* upperBound, CompareBy compareBy, SortOrder order = SortOrder::Ascending){
             switch(compareBy){
                 case CompareBy::Grade:
-                    if(order == SortOrder::Ascending && item1->getGrade() < item2->getGrade()){
+                    if(order == SortOrder::Descending && upperBound->getGrade() < lowerBound->getGrade()){
                         return true;
                     }
-                    if(order == SortOrder::Descending && item1->getGrade() > item2->getGrade()){
+                    if(order == SortOrder::Ascending && upperBound->getGrade() > lowerBound->getGrade()){
                         return true;
                     }
                     break;
                 case CompareBy::Type:
-                    if(order == SortOrder::Ascending && item1->getType() < item2->getType()){
+                    if(order == SortOrder::Descending && upperBound->getType() < lowerBound->getType()){
                         return true;
                     }
-                    if(order == SortOrder::Descending && item1->getType() > item2->getType()){
+                    if(order == SortOrder::Ascending && upperBound->getType() > lowerBound->getType()){
+                        return true;
+                    }
+                    break;
+                case CompareBy::Name:
+                    if(order == SortOrder::Descending && upperBound->getName() < lowerBound->getName()){
+                        return true;
+                    }
+                    if(order == SortOrder::Ascending && upperBound->getName() > lowerBound->getName()){
                         return true;
                     }
                     break;

@@ -1,10 +1,14 @@
 #pragma once
 #define INVENTORY_H
+#include <vector>
 #include "../header/item.h"
 #include "../header/itemStack.h"
+#include "item.h"
+#include "itemStack.h"
+using std::string;
 class Inventory{
     private:
-        vector<ItemStack*> items; 
+        std::vector<ItemStack*> items; 
         int size;
         int capacity;
 

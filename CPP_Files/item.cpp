@@ -24,17 +24,6 @@ string Item::determineGrade(int gradeIndex) const{
     return grades.at(gradeIndex);
 }
 
-Item& Item::operator=(const Item& other){
-    if(this != &other){
-        name = other.name;
-        description = other.description;
-        itemGrade = other.itemGrade;
-        type = other.type;
-        timeEarned = other.timeEarned;
-    }
-    return *this;
-}
-
 void swap(Item* &item1, Item* &item2){
     Item* item1Placeholder = item1;
 

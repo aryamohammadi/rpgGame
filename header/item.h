@@ -4,11 +4,12 @@
 #include <ostream>
 #include <vector>
 #include <ctime>
-#include "../header/compare.h"
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
+#include <gmock/gmock.h>
 using std::string;
 using std::ostream;
 using std::vector;
-class CompareItem;
 class Item{
     public:
         enum Grade{ //possible grades we can have
@@ -24,11 +25,10 @@ class Item{
             FOOD,
             POTION
         };
-    private:
-        friend CompareItem;
+    protected:
         string name;
-        vector<string> types{"WEAPON", "ARMOR", "FOOD", "POTION"};
-        vector<string> grades{"COMMON","UNCOMMON","RARE","EPIC","LEGENDARY"};
+        const vector<string> types{"WEAPON", "ARMOR", "FOOD", "POTION"};
+        const vector<string> grades{"COMMON","UNCOMMON","RARE","EPIC","LEGENDARY"};
         ItemType type;
         string description;
         time_t timeEarned;
@@ -36,8 +36,8 @@ class Item{
     public:
         Item(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", time_t time = time(nullptr)): type(t), name(name), itemGrade(itemGrade), description(descript), timeEarned(time){}
 
-        Item(const Item& other){*this = other;}
-        Item& operator=(const Item& other);
+        Item(const Item& other) = delete;
+        Item& operator=(const Item& other) = delete;
         virtual ~Item(){} //allows inherited items to delete Item
 
         string getName() const {return name;}
@@ -49,6 +49,21 @@ class Item{
         string determineType(int index) const;
         string determineGrade(int index) const;
         virtual void useItem() = 0;
+        virtual Item* clone() const = 0;
         friend void swap(Item*& item1, Item*& item2);
 };
 ostream& operator<<(ostream& out, const Item& item);
+
+class MockItem: public Item{
+    public:
+        MockItem(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", time_t time = time(nullptr)):Item(t,name,itemGrade,descript, time){}
+        MOCK_METHOD(void, useItem,(),(override));
+        MOCK_CONST_METHOD0(clone, MockItem*());
+        friend void swap(MockItem*& item1, MockItem*& item2){
+            MockItem* item1Placeholder = item1;
+
+            item1 = item2;
+
+            item2 = item1Placeholder;
+    }
+};

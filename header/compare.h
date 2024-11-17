@@ -8,9 +8,10 @@ class CompareItem{
             Type,
             Grade,
             Name,
-            Time
+            Time,
+            Characteristics
         };
-        static bool compare(const Item* lowerBound, const Item* upperBound, CompareBy compareBy, SortOrder order = SortOrder::Ascending){
+        static bool compare(const Item* lowerBound, const Item* upperBound, CompareBy compareBy, SortOrder order = SortOrder::Ascending, CompareItemTypeCharacteristics::Characteristics attribute = CompareItemTypeCharacteristics::Characteristics::None){
             switch(compareBy){
                 case CompareBy::Grade:
                     if(order == SortOrder::Descending && upperBound->getGrade() < lowerBound->getGrade()){
@@ -36,6 +37,16 @@ class CompareItem{
                         return true;
                     }
                     break;
+                case CompareBy::Time:
+                    if(order == SortOrder::Descending && upperBound->getTime() < lowerBound->getTime()){
+                        return true;
+                    }
+                    if(order == SortOrder::Ascending && upperBound->getTime() && lowerBound->getTime()){
+                        return true;
+                    }
+                    break;
+                case CompareBy::Characteristics:
+                    return CompareItemTypeCharacteristics::compare(lowerBound, upperBound, attribute, order);
             }
             return false;
         }
@@ -44,9 +55,9 @@ class CompareItem{
 class CompareItemTypeCharacteristics{
     public: 
         enum Characteristics{
-
+            None
         };
-        static bool compare(const Item* item1, const Item* item2, Characteristics attributes, SortOrder order = SortOrder::Ascending) {
+        static bool compare(const Item* lowerBound, const Item* upperBound, Characteristics attributes, SortOrder order = SortOrder::Ascending) {
             return true;
         }
 };

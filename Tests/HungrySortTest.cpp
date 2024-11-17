@@ -56,11 +56,9 @@ TEST(InsertionSortTest, multipleItemTest){
 
     for(ItemStack* stack : stacks){
         out << *stack << endl;
-       
     }
     for(ItemStack* stack : results){
         result << *stack << endl;
-        
     }
     EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending, CompareItem::CompareBy::Name));
     EXPECT_EQ(out.str(), result.str());

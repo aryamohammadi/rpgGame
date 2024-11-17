@@ -101,7 +101,7 @@ TEST(InventoryTest, emptyInventory){
 
 TEST(InventoryTest, AddOneItem){
 
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(Item::ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
@@ -115,13 +115,13 @@ TEST(InventoryTest, AddOneItem){
 
 TEST(InventoryTest, AddMultipleItems){
 
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(Item::ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
     playerStorage.addItem(item);
     playerStorage.addItem(new MockItem(Item::ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
-    playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(Item::ItemType::ARMOUR,"E",Item::Grade::LEGENDARY,"A"));
     playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
 
     bool result = (playerStorage.itemFound("Danny")) != -1;
@@ -144,7 +144,7 @@ TEST(InventoryTest, AddMultipleItems){
 
 TEST(InventoryTest, removeOneItem){
     
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(Item::ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
@@ -160,13 +160,13 @@ TEST(InventoryTest, removeOneItem){
 
 TEST(InventoryTest, RemoveAndAddMultipleItems){
 
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(Item::ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
     playerStorage.addItem(item);
     playerStorage.addItem(new MockItem(Item::ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
-    playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(Item::ItemType::ARMOUR,"E",Item::Grade::LEGENDARY,"A"));
     playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
 
     bool result = (playerStorage.itemFound("Danny")) != -1;
@@ -216,13 +216,13 @@ TEST(InventoryTest, RemoveAndAddMultipleItems){
 
 TEST(InventoryTest, RemoveAndAddMultipleItemsAndUnderFlow){
 
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(Item::ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
     playerStorage.addItem(item);
     playerStorage.addItem(new MockItem(Item::ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
-    playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(Item::ItemType::ARMOUR,"E",Item::Grade::LEGENDARY,"A"));
     playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
 
     bool result = (playerStorage.itemFound("Danny")) != -1;

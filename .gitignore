@@ -7,5 +7,4 @@ Makefile
 bin/
 lib/
 /googletest/
-googletest
-googletest/
+build/

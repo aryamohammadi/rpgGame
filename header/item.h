@@ -7,13 +7,13 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include <gmock/gmock.h>
+#include "../header/character.h"
+#include "../header/itemType.h"
 using std::string;
 using std::ostream;
 using std::vector;
-
 // Define a static start time for the program
 static auto programStartTime = std::chrono::steady_clock::now();
-
 class Item{
     public:
         enum Grade{ //possible grades we can have
@@ -22,11 +22,6 @@ class Item{
             RARE,
             EPIC,
             LEGENDARY
-        };
-        enum ItemType{ //possible items we can have
-            WEAPON,
-            ARMOUR,
-            POTION
         };
     protected:
         string name;
@@ -56,11 +51,11 @@ class Item{
         string getDescript() const {return description;}
         double getTime() const {return timeEarned;}
         Item::Grade getGrade() const {return itemGrade;}
-        Item::ItemType getType() const {return type;}
+        ItemType getType() const {return type;}
 
         string determineType(int index) const;
         string determineGrade(int index) const;
-        virtual void useItem() = 0;
+        virtual void useItem(Character&) = 0;
         virtual Item* clone() const = 0;
         friend void swap(Item*& item1, Item*& item2);
 };
@@ -69,7 +64,7 @@ ostream& operator<<(ostream& out, const Item& item);
 class MockItem: public Item{
     public:
         MockItem(ItemType t = WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", double timeElapsed = -1.0):Item(t,name,itemGrade,descript, timeElapsed){}
-        MOCK_METHOD(void, useItem,(),(override));
+        MOCK_METHOD(void, useItem,(Character&),(override));
         Item* clone() const override{
             return new MockItem(type, name, itemGrade, description, timeEarned);
         }

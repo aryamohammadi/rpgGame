@@ -10,6 +10,7 @@ add_subdirectory(test/googletest)
 add_executable(Test
     CPP_Files/item.cpp
     CPP_Files/inventory.cpp
+    CPP_Files/itemStack.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
 )

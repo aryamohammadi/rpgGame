@@ -17,15 +17,15 @@ class BucketSort : public AbstractItemSort{
                     if(stack == nullptr){
                         break;
                     }
-                    Item::ItemType curr = stack->getItem()->getType();
+                    ItemType curr = stack->getItem()->getType();
                     switch(curr){
-                        case Item::ItemType::WEAPON:
+                        case ItemType::WEAPON:
                             weaponsBucket.push_back(new ItemStack(*stack));
                             break;
-                        case Item::ItemType::ARMOUR:
+                        case ItemType::ARMOUR:
                             armourBucket.push_back(new ItemStack(*stack));
                             break;
-                        case Item::ItemType::POTION:
+                        case ItemType::POTION:
                             potionsBucket.push_back(new ItemStack(*stack));
                             break;
                     }

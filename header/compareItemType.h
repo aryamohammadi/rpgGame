@@ -6,7 +6,7 @@ class CompareItemTypeCharacteristics{
         enum Characteristics{
             None
         };
-        static bool compare(const Item* lowerBound, const Item* upperBound, Characteristics attributes, Item::ItemType type, SortOrder order = SortOrder::Ascending) {
+        static bool compare(const Item* lowerBound, const Item* upperBound, Characteristics attributes, ItemType type, SortOrder order = SortOrder::Ascending) {
             switch(attributes){
                 case Characteristics::None:
                     throw std::invalid_argument("Not a valid argument for itemCompare!");

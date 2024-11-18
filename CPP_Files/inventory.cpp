@@ -15,7 +15,7 @@ int Inventory::itemFound(const Item& item) const {
     return -1;
 }
 
-int Inventory::itemFound(const string& name) const {
+int Inventory::itemFound(const std::string& name) const {
     if(size == 0){
         return -1;
     }
@@ -27,7 +27,7 @@ int Inventory::itemFound(const string& name) const {
     return -1;
 }
 
-int Inventory::itemFound(const string& name, Item::ItemType t) const {
+int Inventory::itemFound(const std::string& name, ItemType t) const {
     if(size == 0){
         return -1;
     }
@@ -70,7 +70,7 @@ void Inventory::removeItem(const Item& item){
     size --;
 }
 
-int Inventory::itemsWithName(const string& name) const{
+int Inventory::itemsWithName(const std::string& name) const{
     if(itemFound(name) == -1){
         return 0;
     }
@@ -95,20 +95,20 @@ void Inventory::reorganizeItems(){
 }
 
 
-ostream& operator<<(ostream& out, const Inventory& rhs){
+std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
     if(rhs.isEmpty()){
         return out;
     }
     for(unsigned i = 0; i < rhs.size; i++){
         if(rhs.items[i] != nullptr){
-            out << "Item " + std::to_string(i) << std::endl;
+            out << "Item " << i << std::endl;
             out << *rhs.items[i] << endl;
         }
     }
     return out;
 }
 
-void Inventory::removeItem(const string& name){
+void Inventory::removeItem(const std::string& name){
     int index = itemFound(name);
     if(index == -1){
         throw std::invalid_argument("Item nammed " + name + " not in inventory!");

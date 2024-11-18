@@ -11,51 +11,51 @@ using namespace std;
 
 TEST(SortTest, isSortedOneItemTest){
     MockAbstractItemSort s(CompareItem::CompareBy::Name);
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly"))};
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
 
     EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending));
 }
 
 TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
     MockAbstractItemSort s(CompareItem::CompareBy::Name);
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emily"))};
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emily"))};
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Ascending));
 }
 
 TEST(SortTest, TwoItemsNotSortedInDescendingOrderTest){
     MockAbstractItemSort s(CompareItem::CompareBy::Name);
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Dragon Slayer Sword"))};
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Emily")));
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Dragon Slayer Sword"))};
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Emily")));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Descending));
 }
 
 TEST(InsertionSortTest, multipleAscendingItemTest){
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly"))};
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emily's Elixir")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Knight's Shield")));
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
 
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Healing Tonic")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Excalibur")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Dragon Scale Armor")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Elven Cloak")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Healing Tonic")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Excalibur")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Elven Cloak")));
 
     vector<ItemStack*> results;
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Dragon Scale Armor")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Elven Cloak")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emily's Elixir")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Excalibur")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Healing Tonic")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Knight's Shield")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Elven Cloak")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emilly")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Excalibur")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Healing Tonic")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
     InsertionSort s(CompareItem::CompareBy::Name);
     s.sort(stacks, SortOrder::Ascending);
 
@@ -74,29 +74,29 @@ TEST(InsertionSortTest, multipleAscendingItemTest){
 }
 
 TEST(InsertionSortTest, multipleDescendingItemTest){
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly"))};
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emily's Elixir")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Knight's Shield")));
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
 
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Healing Tonic")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Excalibur")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Dragon Scale Armor")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Elven Cloak")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Healing Tonic")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Excalibur")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Elven Cloak")));
 
     vector<ItemStack*> results;
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Dragon Scale Armor")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Elven Cloak")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emily's Elixir")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Excalibur")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Healing Tonic")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Knight's Shield")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
-    results.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Elven Cloak")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emilly")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Excalibur")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Healing Tonic")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
     InsertionSort s(CompareItem::CompareBy::Name);
     s.sort(stacks, SortOrder::Descending);
 
@@ -115,17 +115,17 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
 }
 
 TEST(InsertionSortTest, ascendingTimeSort){
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly"))};
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emily's Elixir")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Knight's Shield")));
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
 
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Healing Tonic")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Excalibur")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Dragon Scale Armor")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Elven Cloak")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Healing Tonic")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Excalibur")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Elven Cloak")));
 
     vector<ItemStack*> results = stacks;
     
@@ -147,17 +147,17 @@ TEST(InsertionSortTest, ascendingTimeSort){
 }
 
 TEST(InsertionSortTest, descendingimeSort){
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(Item::ItemType::POTION, "Emilly"))};
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Emily's Elixir")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Dragon Slayer Sword")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Knight's Shield")));
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
 
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Healing Tonic")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Excalibur")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Dragon Scale Armor")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::POTION, "Mana Brew")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::WEAPON, "Thunder Hammer")));
-    stacks.push_back(new ItemStack(new MockItem(Item::ItemType::ARMOUR, "Elven Cloak")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Healing Tonic")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Excalibur")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
+    stacks.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Elven Cloak")));
 
     vector<ItemStack*> results = stacks;
     

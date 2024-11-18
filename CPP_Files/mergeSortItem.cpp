@@ -8,7 +8,7 @@ void MergeSort::merge(vector<ItemStack*>& array, SortOrder order, int left, int 
     vector<ItemStack*> Right(rightSize);
 
     for(unsigned i = 0; i < leftSize; i++){
-        Left[i] = array[left + 1];
+        Left[i] = array[left + i];
     }
     for(unsigned i = 0; i < rightSize; i++){ 
         Right[i] = array[mid + 1 + i];

@@ -36,7 +36,7 @@ void MergeSort::merge(vector<ItemStack*>& array, SortOrder order, int left, int 
     }   
     
     while(indexOfSecondSubArray < rightSize){
-        array[indexOfMergedSubArray] = Left[indexOfSecondSubArray];
+        array[indexOfMergedSubArray] = Right[indexOfSecondSubArray];
         indexOfSecondSubArray ++;
         indexOfMergedSubArray ++;
     }

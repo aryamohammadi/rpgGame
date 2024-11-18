@@ -2,11 +2,11 @@
 #define BUCKETSORT_H
 #include "../header/sort.h"
 #include "../header/compareItemType.h"
-class BucketSort : public AbstractItemSort{
-    private:
-        CompareItemTypeCharacteristics::Characteristics attribute;
+#include "../header/sortItemType.h"
+class BucketSort : public AbstractItemTypeSort{
+
     public: 
-        BucketSort(CompareItem::CompareBy sortMode, CompareItemTypeCharacteristics::Characteristics attribute = CompareItemTypeCharacteristics::Characteristics::None):AbstractItemSort(sortMode), attribute(attribute){}
+        BucketSort(CompareItem::CompareBy sortMode, CompareItemTypeCharacteristics::Characteristics attribute = CompareItemTypeCharacteristics::Characteristics::None):AbstractItemTypeSort(sortMode, attribute){}
         void sort(vector<ItemStack*>& array, SortOrder order) override{
             if(sortConfig == CompareItem::CompareBy::Type){
                 vector<ItemStack*> weaponsBucket;

@@ -5,11 +5,12 @@
 #include "../header/sortorder.h"
 #include "../header/compareItemType.h"
 class AbstractItemTypeSort{
-    private:
+    protected:
         CompareItemTypeCharacteristics::Characteristics attribute;
         CompareItem::CompareBy sortConfig;
     public:
         AbstractItemTypeSort(CompareItem::CompareBy sortMode, CompareItemTypeCharacteristics::Characteristics attribute):sortConfig(sortMode), attribute(attribute){}
+        virtual void sort(vector<ItemStack*>& array, SortOrder order) = 0;
         bool isSorted(const std::vector<ItemStack*>& array, SortOrder order, ItemType type) const{
             for(unsigned i = 1; i < array.size(); i++){
                 if(array[i] == nullptr){

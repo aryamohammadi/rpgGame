@@ -1,6 +1,7 @@
 #pragma once
 #define CHARACTER_H
 #include "inventory.h"
+#include "AttackType.h"
 
 class Character{
     private:
@@ -10,7 +11,6 @@ class Character{
         int damage;
         int defense;
         bool isDead;
-        
 
     public:
         Character(const string& name) : characterName(name), inventoryOfCharacter(), health(100),damage(0),defense(0),isDead(false){} 
@@ -20,5 +20,17 @@ class Character{
         void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
         virtual void attack() = 0;
         virtual void defend() = 0;
+    
+    private:
+        AttackType currentAttackType; // New property to track the attack type
+    
+    public:
+        void setAttackType(AttackType attackType) { 
+        currentAttackType = attackType; 
+        }
+
+        AttackType getAttackType() const { 
+        return currentAttackType; 
+        }
 
 };

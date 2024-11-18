@@ -10,7 +10,7 @@ class AbstractItemTypeSort{
         CompareItem::CompareBy sortConfig;
     public:
         AbstractItemTypeSort(CompareItem::CompareBy sortMode, CompareItemTypeCharacteristics::Characteristics attribute):sortConfig(sortMode), attribute(attribute){}
-        bool isSorted(const std::vector<ItemStack*>& array, SortOrder order, Item::ItemType type) const{
+        bool isSorted(const std::vector<ItemStack*>& array, SortOrder order, ItemType type) const{
             for(unsigned i = 1; i < array.size(); i++){
                 if(array[i] == nullptr){
                     if(i + 1 < array.size() && array[i + 1] != nullptr){

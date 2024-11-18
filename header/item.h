@@ -6,7 +6,7 @@
 #include <ctime>
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include <gmock/gmock.h>
+
 using std::string;
 using std::ostream;
 using std::vector;

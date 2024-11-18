@@ -13,11 +13,14 @@ class Character{
         
 
     public:
+        Character();
         Character(string name) : characterName(name), inventoryOfCharacter(), health(100),damage(0),defense(0),isDead(false){} 
 
         void setHealth(int healthOfCharacter){ health = healthOfCharacter; }
         void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
         void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
+
+        // Rethink having these functions at all. Consider having the combat class handle damage calculations based on the two Character parameters passed to it
         virtual void attack() = 0;
         virtual void defend() = 0;
 

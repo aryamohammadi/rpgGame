@@ -15,6 +15,6 @@ void Map::distributeEnemiesAndItems() {
   }
 
   for (int roomIndex : selectedRooms) {
-    worldRooms.at(roomIndex).
+    worldRooms.at(roomIndex).addEnemies();
   }
 }

@@ -2,9 +2,10 @@
 
 class Enemy : public Character {
   private:
-    Enemy::Enemy();
 
   public:
+    Enemy::Enemy();
+
     Item dropItem();
 
     void attack() {

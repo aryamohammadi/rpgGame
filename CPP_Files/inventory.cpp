@@ -1,4 +1,8 @@
 #include "../header/inventory.h"
+#include "../header/sort.h"
+#include "../header/insertionSort.h"
+#include "../header/mergeSort.h"
+#include "../header/bucketSort.h"
 #include <stdexcept>
 using std::endl;
 using std::to_string;
@@ -117,4 +121,29 @@ void Inventory::removeItem(const std::string& name){
     items[index] = nullptr;
     reorganizeItems();
     size --;
+}
+
+void Inventory::sortAlphabetically(){
+    MergeSort s(CompareItem::CompareBy::Name);
+    s.sort(items, SortOrder::Ascending);
+}
+
+void Inventory::sortByAscendingGrade(){
+    MergeSort s(CompareItem::CompareBy::Grade);
+    s.sort(items, SortOrder::Ascending);
+}
+
+void Inventory::sortByDescendingGrade(){
+    MergeSort s(CompareItem::CompareBy::Grade);
+    s.sort(items, SortOrder::Descending);
+}
+
+void Inventory::makeLatestFirst(){
+    MergeSort s(CompareItem::CompareBy::Time);
+    s.sort(items, SortOrder::Descending);
+}
+
+void Inventory::makeOldestFirst(){
+    MergeSort s(CompareItem::CompareBy::Time);
+    s.sort(items, SortOrder::Ascending);
 }

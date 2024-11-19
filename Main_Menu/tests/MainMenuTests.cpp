@@ -17,7 +17,7 @@ TEST_F(MainMenuTest, DisplayMenuTest) {
     ASSERT_TRUE(output.find("====== Main Menu ======") != string::npos);
     ASSERT_TRUE(output.find("1. Start Game") != string::npos);
     ASSERT_TRUE(output.find("2. Settings") != string::npos);
-    ASSERT_TRUE(output.find("3. Exit") != string::npos);
+    ASSERT_TRUE(output.find("3. Exit") != string::npos); //expect pass
 }
 
 // Test valid difficulty inputs

@@ -105,7 +105,7 @@ std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
     }
     for(unsigned i = 0; i < rhs.size; i++){
         if(rhs.items[i] != nullptr){
-            out << "Item " << i << std::endl;
+            out << "Item " << i << ':' << std::endl;
             out << *rhs.items[i] << endl;
         }
     }

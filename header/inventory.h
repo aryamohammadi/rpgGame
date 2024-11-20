@@ -35,6 +35,9 @@ class Inventory{
         int itemFound(const string& name) const; //given name
         int itemFound(const string& name, ItemType t) const; //given name and type
 
+        const Item* getItem(int index) const{return (items.at(index))->getItem();}
+        Item* getItem(int index){return (items.at(index))->getItem();}
+
         bool sizeGreaterThanOrEqualToCapacity() const {return size >= capacity;}
         bool isEmpty() const {return size == 0;}
         int itemsWithName(const string& name) const;

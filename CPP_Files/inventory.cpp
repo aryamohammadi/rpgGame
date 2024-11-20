@@ -147,3 +147,14 @@ void Inventory::makeOldestFirst(){
     MergeSort s(CompareItem::CompareBy::Time);
     s.sort(items, SortOrder::Ascending);
 }
+
+void Inventory::removeItem(const string& name, ItemType t){
+    int index = itemFound(name,t);
+    if(index == -1){
+        throw invalid_argument("Item not found!");
+    }
+    delete items[index];
+    items[index] = nullptr;
+    reorganizeItems();
+    size --;
+}

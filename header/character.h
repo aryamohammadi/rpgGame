@@ -4,11 +4,11 @@
 #include "../header/AttackType.h"
 #include "../header/weapon.h"
 #include "../header/armour.h"
-class Inventory;
+#include "../header/inventory.h"
 class Character{
     private:
         std::string characterName;
-        Inventory storage();
+        Inventory storage;
         Armour* armour;
         int health;
         int damage;
@@ -27,13 +27,16 @@ class Character{
                 this->armour = armour;
             }
             else{
-                //remove Item
-                //then equip
+                if(storage.itemFound(*armour) != -1){
+                    storage.removeItem(*armour);
+                }
+                this->armour = armour;
             }
             defense += armour->getArmourStat();
         }
         void deEquipArmour(){
-
+            
+            storage.addItem(armour);
         }
         virtual void attack() = 0;
         virtual void defend() = 0;

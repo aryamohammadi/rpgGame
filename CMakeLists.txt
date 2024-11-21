@@ -12,6 +12,8 @@ add_executable(Test
     CPP_Files/inventory.cpp
     CPP_Files/itemStack.cpp
     CPP_Files/mergeSortItem.cpp
+    CPP_Files/armour.cpp
+    CPP_Files/weapon.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
 )

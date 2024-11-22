@@ -22,7 +22,7 @@ add_executable(DifficultySim
     Difficulty/CPP_Files/Difficulty.cpp
     Difficulty/CPP_Files/main.cpp
 )
-target_link_libraries(gamesim pthread)
+target_link_libraries(DifficultySim pthread)
 
 # Add Difficulty tests
 add_executable(DifficultyTests

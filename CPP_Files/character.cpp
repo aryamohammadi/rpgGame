@@ -1,4 +1,5 @@
 #include "../header/character.h"
+#include "../header/armour.h"
 #include <utility> // For std::swap
 
 // Copy operator
@@ -31,3 +32,23 @@ void Character::swap(Character& other) noexcept {
     swap(currentAttackType, other.currentAttackType);
 }
 
+void Character::equipArmour(Armour* armour){
+    if(this->armour == nullptr){
+        this->armour = armour;
+    }
+    else{
+        if(storage.itemFound(*armour) != -1){
+            storage.removeItem(*armour);
+        }
+        this->armour = armour;
+    }
+    defense += armour->getArmourStat();
+}
+
+void Character::deEquipArmour() {
+    if (armour != nullptr) {
+        defense -= armour->getArmourStat();
+        storage.addItem(armour);           
+        armour = nullptr;                  
+    }
+}

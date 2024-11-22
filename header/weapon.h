@@ -3,7 +3,7 @@
 #include "../header/item.h"
 #include "../header/character.h"
 
-class Weapon : public Item{
+class Weapon : public Item {
     public:
         enum WeaponType{
             Sword,

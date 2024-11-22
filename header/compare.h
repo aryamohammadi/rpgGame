@@ -1,5 +1,4 @@
 #pragma once
-#define COMPARE_H
 #include "../header/sortorder.h"
 #include "../header/item.h"
 #include "../header/compareItemType.h"

@@ -1,5 +1,5 @@
 #pragma once
-#define ITEMSTACK_H
+
 #include <stdexcept>
 #include <ostream>
 class Item;

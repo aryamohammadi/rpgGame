@@ -172,30 +172,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named gamesim
+# Target rules for targets named MainMenuSim
 
 # Build rule for target.
-gamesim: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gamesim
-.PHONY : gamesim
+MainMenuSim: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MainMenuSim
+.PHONY : MainMenuSim
 
 # fast build rule for target.
-gamesim/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/build
-.PHONY : gamesim/fast
-
-#=============================================================================
-# Target rules for targets named DifficultyTests
-
-# Build rule for target.
-DifficultyTests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 DifficultyTests
-.PHONY : DifficultyTests
-
-# fast build rule for target.
-DifficultyTests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/build
-.PHONY : DifficultyTests/fast
+MainMenuSim/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/build
+.PHONY : MainMenuSim/fast
 
 #=============================================================================
 # Target rules for targets named MainMenuTests
@@ -262,86 +249,12 @@ gtest_main/fast:
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
-Difficulty/CPP_Files/Difficulty.o: Difficulty/CPP_Files/Difficulty.cpp.o
-.PHONY : Difficulty/CPP_Files/Difficulty.o
-
-# target to build an object file
-Difficulty/CPP_Files/Difficulty.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/Difficulty/CPP_Files/Difficulty.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/Difficulty/CPP_Files/Difficulty.cpp.o
-.PHONY : Difficulty/CPP_Files/Difficulty.cpp.o
-
-Difficulty/CPP_Files/Difficulty.i: Difficulty/CPP_Files/Difficulty.cpp.i
-.PHONY : Difficulty/CPP_Files/Difficulty.i
-
-# target to preprocess a source file
-Difficulty/CPP_Files/Difficulty.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/Difficulty/CPP_Files/Difficulty.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/Difficulty/CPP_Files/Difficulty.cpp.i
-.PHONY : Difficulty/CPP_Files/Difficulty.cpp.i
-
-Difficulty/CPP_Files/Difficulty.s: Difficulty/CPP_Files/Difficulty.cpp.s
-.PHONY : Difficulty/CPP_Files/Difficulty.s
-
-# target to generate assembly for a file
-Difficulty/CPP_Files/Difficulty.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/Difficulty/CPP_Files/Difficulty.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/Difficulty/CPP_Files/Difficulty.cpp.s
-.PHONY : Difficulty/CPP_Files/Difficulty.cpp.s
-
-Difficulty/CPP_Files/main.o: Difficulty/CPP_Files/main.cpp.o
-.PHONY : Difficulty/CPP_Files/main.o
-
-# target to build an object file
-Difficulty/CPP_Files/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/Difficulty/CPP_Files/main.cpp.o
-.PHONY : Difficulty/CPP_Files/main.cpp.o
-
-Difficulty/CPP_Files/main.i: Difficulty/CPP_Files/main.cpp.i
-.PHONY : Difficulty/CPP_Files/main.i
-
-# target to preprocess a source file
-Difficulty/CPP_Files/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/Difficulty/CPP_Files/main.cpp.i
-.PHONY : Difficulty/CPP_Files/main.cpp.i
-
-Difficulty/CPP_Files/main.s: Difficulty/CPP_Files/main.cpp.s
-.PHONY : Difficulty/CPP_Files/main.s
-
-# target to generate assembly for a file
-Difficulty/CPP_Files/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/Difficulty/CPP_Files/main.cpp.s
-.PHONY : Difficulty/CPP_Files/main.cpp.s
-
-Difficulty/Tests/DifficultyTests.o: Difficulty/Tests/DifficultyTests.cpp.o
-.PHONY : Difficulty/Tests/DifficultyTests.o
-
-# target to build an object file
-Difficulty/Tests/DifficultyTests.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/Difficulty/Tests/DifficultyTests.cpp.o
-.PHONY : Difficulty/Tests/DifficultyTests.cpp.o
-
-Difficulty/Tests/DifficultyTests.i: Difficulty/Tests/DifficultyTests.cpp.i
-.PHONY : Difficulty/Tests/DifficultyTests.i
-
-# target to preprocess a source file
-Difficulty/Tests/DifficultyTests.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/Difficulty/Tests/DifficultyTests.cpp.i
-.PHONY : Difficulty/Tests/DifficultyTests.cpp.i
-
-Difficulty/Tests/DifficultyTests.s: Difficulty/Tests/DifficultyTests.cpp.s
-.PHONY : Difficulty/Tests/DifficultyTests.s
-
-# target to generate assembly for a file
-Difficulty/Tests/DifficultyTests.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/Difficulty/Tests/DifficultyTests.cpp.s
-.PHONY : Difficulty/Tests/DifficultyTests.cpp.s
-
 Main_Menu/CPP_Files/MainMenu.o: Main_Menu/CPP_Files/MainMenu.cpp.o
 .PHONY : Main_Menu/CPP_Files/MainMenu.o
 
 # target to build an object file
 Main_Menu/CPP_Files/MainMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/Main_Menu/CPP_Files/MainMenu.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuTests.dir/build.make CMakeFiles/MainMenuTests.dir/Main_Menu/CPP_Files/MainMenu.cpp.o
 .PHONY : Main_Menu/CPP_Files/MainMenu.cpp.o
 
@@ -350,6 +263,7 @@ Main_Menu/CPP_Files/MainMenu.i: Main_Menu/CPP_Files/MainMenu.cpp.i
 
 # target to preprocess a source file
 Main_Menu/CPP_Files/MainMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/Main_Menu/CPP_Files/MainMenu.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuTests.dir/build.make CMakeFiles/MainMenuTests.dir/Main_Menu/CPP_Files/MainMenu.cpp.i
 .PHONY : Main_Menu/CPP_Files/MainMenu.cpp.i
 
@@ -358,8 +272,33 @@ Main_Menu/CPP_Files/MainMenu.s: Main_Menu/CPP_Files/MainMenu.cpp.s
 
 # target to generate assembly for a file
 Main_Menu/CPP_Files/MainMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/Main_Menu/CPP_Files/MainMenu.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuTests.dir/build.make CMakeFiles/MainMenuTests.dir/Main_Menu/CPP_Files/MainMenu.cpp.s
 .PHONY : Main_Menu/CPP_Files/MainMenu.cpp.s
+
+Main_Menu/CPP_Files/main.o: Main_Menu/CPP_Files/main.cpp.o
+.PHONY : Main_Menu/CPP_Files/main.o
+
+# target to build an object file
+Main_Menu/CPP_Files/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/Main_Menu/CPP_Files/main.cpp.o
+.PHONY : Main_Menu/CPP_Files/main.cpp.o
+
+Main_Menu/CPP_Files/main.i: Main_Menu/CPP_Files/main.cpp.i
+.PHONY : Main_Menu/CPP_Files/main.i
+
+# target to preprocess a source file
+Main_Menu/CPP_Files/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/Main_Menu/CPP_Files/main.cpp.i
+.PHONY : Main_Menu/CPP_Files/main.cpp.i
+
+Main_Menu/CPP_Files/main.s: Main_Menu/CPP_Files/main.cpp.s
+.PHONY : Main_Menu/CPP_Files/main.s
+
+# target to generate assembly for a file
+Main_Menu/CPP_Files/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/Main_Menu/CPP_Files/main.cpp.s
+.PHONY : Main_Menu/CPP_Files/main.cpp.s
 
 Main_Menu/Tests/MainMenuTests.o: Main_Menu/Tests/MainMenuTests.cpp.o
 .PHONY : Main_Menu/Tests/MainMenuTests.o
@@ -398,25 +337,18 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... DifficultyTests"
+	@echo "... MainMenuSim"
 	@echo "... MainMenuTests"
-	@echo "... gamesim"
 	@echo "... gmock"
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
-	@echo "... Difficulty/CPP_Files/Difficulty.o"
-	@echo "... Difficulty/CPP_Files/Difficulty.i"
-	@echo "... Difficulty/CPP_Files/Difficulty.s"
-	@echo "... Difficulty/CPP_Files/main.o"
-	@echo "... Difficulty/CPP_Files/main.i"
-	@echo "... Difficulty/CPP_Files/main.s"
-	@echo "... Difficulty/Tests/DifficultyTests.o"
-	@echo "... Difficulty/Tests/DifficultyTests.i"
-	@echo "... Difficulty/Tests/DifficultyTests.s"
 	@echo "... Main_Menu/CPP_Files/MainMenu.o"
 	@echo "... Main_Menu/CPP_Files/MainMenu.i"
 	@echo "... Main_Menu/CPP_Files/MainMenu.s"
+	@echo "... Main_Menu/CPP_Files/main.o"
+	@echo "... Main_Menu/CPP_Files/main.i"
+	@echo "... Main_Menu/CPP_Files/main.s"
 	@echo "... Main_Menu/Tests/MainMenuTests.o"
 	@echo "... Main_Menu/Tests/MainMenuTests.i"
 	@echo "... Main_Menu/Tests/MainMenuTests.s"

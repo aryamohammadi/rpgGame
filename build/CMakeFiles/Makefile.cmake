@@ -73,8 +73,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/gamesim.dir/DependInfo.cmake"
-  "CMakeFiles/DifficultyTests.dir/DependInfo.cmake"
+  "CMakeFiles/MainMenuSim.dir/DependInfo.cmake"
   "CMakeFiles/MainMenuTests.dir/DependInfo.cmake"
   "googletest/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake"
   "googletest/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake"

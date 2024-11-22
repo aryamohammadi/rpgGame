@@ -19,7 +19,7 @@ include_directories(
 )
 
 # Add executable for the main program
-add_executable(MainMenu
+add_executable(MainMenuSim
     Main_Menu/CPP_Files/main.cpp
     Main_Menu/CPP_Files/MainMenu.cpp
 )

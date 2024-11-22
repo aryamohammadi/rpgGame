@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/csmajs/rjour001/final-project-the-computer-enthusiasts/Difficulty/CPP_Files -I/home/csmajs/rjour001/final-project-the-computer-enthusiasts/Main_Menu/CPP_Files -isystem /home/csmajs/rjour001/final-project-the-computer-enthusiasts/googletest/googletest/include -isystem /home/csmajs/rjour001/final-project-the-computer-enthusiasts/googletest/googletest
+CXX_INCLUDES = -I/home/csmajs/rjour001/final-project-the-computer-enthusiasts/Main_Menu/CPP_Files -isystem /home/csmajs/rjour001/final-project-the-computer-enthusiasts/googletest/googletest/include -isystem /home/csmajs/rjour001/final-project-the-computer-enthusiasts/googletest/googletest
 
 CXX_FLAGS = -std=gnu++17
 

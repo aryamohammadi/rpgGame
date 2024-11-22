@@ -1,5 +1,4 @@
-/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles/gamesim.dir
-/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles/DifficultyTests.dir
+/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles/MainMenuSim.dir
 /home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles/MainMenuTests.dir
 /home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles/test.dir
 /home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles/edit_cache.dir

@@ -63,8 +63,7 @@ CMAKE_BINARY_DIR = /home/csmajs/rjour001/final-project-the-computer-enthusiasts/
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/gamesim.dir/all
-all: CMakeFiles/DifficultyTests.dir/all
+all: CMakeFiles/MainMenuSim.dir/all
 all: CMakeFiles/MainMenuTests.dir/all
 all: googletest/all
 .PHONY : all
@@ -74,8 +73,7 @@ preinstall: googletest/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/gamesim.dir/clean
-clean: CMakeFiles/DifficultyTests.dir/clean
+clean: CMakeFiles/MainMenuSim.dir/clean
 clean: CMakeFiles/MainMenuTests.dir/clean
 clean: googletest/clean
 .PHONY : clean
@@ -132,57 +130,30 @@ googletest/googletest/clean: googletest/googletest/CMakeFiles/gtest_main.dir/cle
 .PHONY : googletest/googletest/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/gamesim.dir
+# Target rules for target CMakeFiles/MainMenuSim.dir
 
 # All Build rule for target.
-CMakeFiles/gamesim.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=7,8,9 "Built target gamesim"
-.PHONY : CMakeFiles/gamesim.dir/all
+CMakeFiles/MainMenuSim.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=1,2,3 "Built target MainMenuSim"
+.PHONY : CMakeFiles/MainMenuSim.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/gamesim.dir/rule: cmake_check_build_system
+CMakeFiles/MainMenuSim.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles 3
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/gamesim.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/MainMenuSim.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles 0
-.PHONY : CMakeFiles/gamesim.dir/rule
+.PHONY : CMakeFiles/MainMenuSim.dir/rule
 
 # Convenience name for target.
-gamesim: CMakeFiles/gamesim.dir/rule
-.PHONY : gamesim
+MainMenuSim: CMakeFiles/MainMenuSim.dir/rule
+.PHONY : MainMenuSim
 
 # clean rule for target.
-CMakeFiles/gamesim.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gamesim.dir/build.make CMakeFiles/gamesim.dir/clean
-.PHONY : CMakeFiles/gamesim.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/DifficultyTests.dir
-
-# All Build rule for target.
-CMakeFiles/DifficultyTests.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
-CMakeFiles/DifficultyTests.dir/all: googletest/googletest/CMakeFiles/gtest_main.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=1,2,3 "Built target DifficultyTests"
-.PHONY : CMakeFiles/DifficultyTests.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/DifficultyTests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles 7
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/DifficultyTests.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles 0
-.PHONY : CMakeFiles/DifficultyTests.dir/rule
-
-# Convenience name for target.
-DifficultyTests: CMakeFiles/DifficultyTests.dir/rule
-.PHONY : DifficultyTests
-
-# clean rule for target.
-CMakeFiles/DifficultyTests.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DifficultyTests.dir/build.make CMakeFiles/DifficultyTests.dir/clean
-.PHONY : CMakeFiles/DifficultyTests.dir/clean
+CMakeFiles/MainMenuSim.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MainMenuSim.dir/build.make CMakeFiles/MainMenuSim.dir/clean
+.PHONY : CMakeFiles/MainMenuSim.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/MainMenuTests.dir
@@ -218,7 +189,7 @@ CMakeFiles/MainMenuTests.dir/clean:
 googletest/googlemock/CMakeFiles/gmock.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock.dir/build.make googletest/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock.dir/build.make googletest/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=10,11 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=7,8 "Built target gmock"
 .PHONY : googletest/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -245,7 +216,7 @@ googletest/googlemock/CMakeFiles/gmock_main.dir/all: googletest/googlemock/CMake
 googletest/googlemock/CMakeFiles/gmock_main.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock_main.dir/build.make googletest/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock_main.dir/build.make googletest/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=12,13 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=9,10 "Built target gmock_main"
 .PHONY : googletest/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -271,7 +242,7 @@ googletest/googlemock/CMakeFiles/gmock_main.dir/clean:
 googletest/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest.dir/build.make googletest/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest.dir/build.make googletest/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=14,15 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=11,12 "Built target gtest"
 .PHONY : googletest/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -297,7 +268,7 @@ googletest/googletest/CMakeFiles/gtest.dir/clean:
 googletest/googletest/CMakeFiles/gtest_main.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=16,17 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/csmajs/rjour001/final-project-the-computer-enthusiasts/build/CMakeFiles --progress-num=13,14 "Built target gtest_main"
 .PHONY : googletest/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.

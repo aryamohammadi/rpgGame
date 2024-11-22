@@ -15,4 +15,9 @@ class Room {
     // These two functions are for the Map class to add enemies and items during map construction. They should not be used during normal gameplay
     void addEnemies();
     void addItems();
+    
+    // Maybe return a reference for both of these getters?
+    vector<Enemy> getEnemies() {return enemies;} 
+    vector<Item> getItems() {return items;}
+
 };

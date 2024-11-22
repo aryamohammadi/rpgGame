@@ -1,7 +1,14 @@
 #include "../header/character.h"
 #include "../header/armour.h"
+#include "../header/inventory.h"
 #include <utility> // For std::swap
+Character::Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0), speed(0), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
 
+Character::~Character(){
+    delete storage;
+    delete armour;
+    delete weapon;
+}
 // Copy operator
 Character::Character(const Character& other)
     : characterName(other.characterName), 
@@ -37,8 +44,8 @@ void Character::equipArmour(Armour* armour){
         this->armour = armour;
     }
     else{
-        if(storage.itemFound(*armour) != -1){
-            storage.removeItem(*armour);
+        if(storage->itemFound(*armour) != -1){
+            storage->removeItem(*armour);
         }
         this->armour = armour;
     }
@@ -48,7 +55,7 @@ void Character::equipArmour(Armour* armour){
 void Character::deEquipArmour() {
     if (armour != nullptr) {
         defense -= armour->getArmourStat();
-        storage.addItem(armour);           
+        storage->addItem(armour);           
         armour = nullptr;                  
     }
 }

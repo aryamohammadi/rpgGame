@@ -1,6 +1,6 @@
 #include "../header/compare.h"
 
-bool CompareItem::compare(const Item* lowerBound, const Item* upperBound, CompareBy compareBy, SortOrder order = SortOrder::Ascending){
+bool CompareItem::compare(const Item* lowerBound, const Item* upperBound, CompareBy compareBy, SortOrder order){
     switch(compareBy){
         case CompareBy::Grade:
             if(order == SortOrder::Descending && upperBound->getGrade() <= lowerBound->getGrade()){

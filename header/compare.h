@@ -11,5 +11,5 @@ class CompareItem{
             Name,
             Time
         };
-        static bool compare(const Item* lowerBound, const Item* upperBound, CompareBy compareBy, SortOrder order = SortOrder::Ascending);
+        static bool compare(const Item* lowerBound, const Item* upperBound, CompareBy compareBy, SortOrder order);
 };

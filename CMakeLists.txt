@@ -16,6 +16,7 @@ add_executable(Test
     CPP_Files/weapon.cpp
     CPP_Files/compare.cpp
     CPP_Files/Heap.cpp
+    CPP_Files/character.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
 )

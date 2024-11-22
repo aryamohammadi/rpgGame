@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../header/itemType.h"
+
 #include "../header/item.h"
 #include <string>
 using std::string;

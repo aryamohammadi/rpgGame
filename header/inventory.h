@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "../header/itemStack.h"
-#include "../header/itemType.h"
+
 #include "../header/item.h"
 #include "../header/compare.h"
 

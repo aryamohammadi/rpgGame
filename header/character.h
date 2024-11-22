@@ -26,9 +26,6 @@ class Character{
         void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
         void equipArmour(Armour* armour);
         void deEquipArmour();
-
-        virtual void attack() = 0;
-        virtual void defend() = 0;
     
     private:
         AttackType currentAttackType; // New property to track the attack type

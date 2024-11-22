@@ -3,7 +3,8 @@
 
 #include "AttackType.h"
 #include "../header/character.h"
-
+#include <vector>
+using std::vector;
 class Combat{
     private:
         bool battleEnded();

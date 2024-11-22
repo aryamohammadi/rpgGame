@@ -17,7 +17,10 @@ class Character{
         AttackType currentAttackType;
     public:
         Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0), speed(0), isDead(false), armour(nullptr){} 
-
+        void swap(Character& other) noexcept;/* noexcept is an exception specifier that tells the compiler 
+                                                that this function will not throw any exceptions */
+        Character(const Character& other);
+        Character& operator=(const Character& other);
         void setHealth(int healthOfCharacter){ health = healthOfCharacter; }
         void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
         void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }

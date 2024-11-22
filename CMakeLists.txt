@@ -5,13 +5,16 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 
 
-add_subdirectory(Tests/googletest)
+add_subdirectory(googletest)
 
 add_executable(Test
     CPP_Files/item.cpp
     CPP_Files/inventory.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
+    CPP_Files/Map.cpp
+    CPP_Files/Room.cpp
+    CPP_Files/Enemy.cpp
 )
 
 # Specify the include directory after defining the target

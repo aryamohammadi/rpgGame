@@ -24,11 +24,10 @@ void Room::addEnemies() {
 void Room::addItems() {
   srand(time(0));
 
-  // Add one, two, or three to the room's given vector.
-  // 32 rooms have 1 item
-  // 16 rooms have 2 items
-  // 4 rooms have 3 items
-
+ // Add one, two, or three to the room's given vector.
+ // 8 rooms have 1 item
+ // 4 rooms have 2 items
+ // 2 rooms have 3 items
 
   MockItem item1;
   std::cout << "WARNING: ADD ATTRIBUTES TO item1 IN Room.cpp" << std::endl;

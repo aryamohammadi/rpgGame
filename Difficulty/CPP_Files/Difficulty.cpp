@@ -1,26 +1,63 @@
-#include "MainMenu.h"
+#include "Difficulty.h"
+#include <algorithm>
+#include <cctype>
 
-void MainMenu::displayMenu() 
-{
-    cout << endl << endl << endl << "====== Main Menu ======" << endl;
-    cout << "1. Start Game" << endl;
-    cout << "2. Settings" << endl;
-    cout << "3. Exit" << endl << endl;
+// Constructor: Default to Elite
+Difficulty::Difficulty() : currentDifficulty(Elite) {}
+
+// Helper function to convert a string to lowercase
+std::string Difficulty::toLower(const std::string& str) {
+    std::string lowerStr = str;
+    std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
+    return lowerStr;
 }
 
-void MainMenu::settings() 
-{
-    cout << endl<< "Choose A New Difficulty (Rookie, Elite, Battlestar): " << endl;
-    string difficulty;
-    cin >> difficulty;
-    cout << endl << "Difficulty set to " << difficulty << "!!!" << "  You've got this!!!" << endl << endl;
+// Set the difficulty level
+void Difficulty::setDifficulty(const std::string& difficulty) {
+    std::string normalized = toLower(difficulty);
+
+    if (normalized == "rookie") {
+        currentDifficulty = Rookie;
+    } else if (normalized == "elite") {
+        currentDifficulty = Elite;
+    } else if (normalized == "battlestar") {
+        currentDifficulty = Battlestar;
+    } else {
+        throw std::invalid_argument("Invalid difficulty level: " + difficulty);
+    }
 }
 
-void MainMenu::selectGameOption() 
-{
-    cout << "Select an option (New Game, Load Game): ";
-    string option;
-    cin.ignore();
-    getline(cin, option);
-    cout << endl << "You selected: " << option << "!! Good Luck On Your Adventure!!!" << endl << endl;
+// Get the current difficulty level
+Difficulty::Level Difficulty::getDifficulty() const {
+    return currentDifficulty;
+}
+
+// Get the attack multiplier for the current difficulty
+double Difficulty::getAttackMultiplier() const {
+    switch (currentDifficulty) {
+        case Rookie: return 0.8;
+        case Elite: return 1.0;
+        case Battlestar: return 1.5;
+        default: return 1.0;
+    }
+}
+
+// Get the defense multiplier for the current difficulty
+double Difficulty::getDefenseMultiplier() const {
+    switch (currentDifficulty) {
+        case Rookie: return 0.9;
+        case Elite: return 1.0;
+        case Battlestar: return 1.3;
+        default: return 1.0;
+    }
+}
+
+// Get the health modifier for the current difficulty
+double Difficulty::getHealthModifier() const {
+    switch (currentDifficulty) {
+        case Rookie: return 1.2;
+        case Elite: return 1.0;
+        case Battlestar: return 0.8;
+        default: return 1.0;
+    }
 }

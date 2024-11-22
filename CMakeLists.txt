@@ -19,19 +19,6 @@ include_directories(
     Main_Menu/CPP_Files
 )
 
-# Add the gamesim executable (Difficulty demonstration)
-add_executable(gamesim
-    Difficulty/CPP_Files/Difficulty.cpp
-    Difficulty/CPP_Files/main.cpp
-)
-target_link_libraries(gamesim pthread)
-
-# Add Difficulty tests
-add_executable(DifficultyTests
-    Difficulty/Tests/DifficultyTests.cpp
-    Difficulty/CPP_Files/Difficulty.cpp
-)
-target_link_libraries(DifficultyTests gtest gtest_main pthread)
 
 # Add MainMenu tests
 add_executable(MainMenuTests

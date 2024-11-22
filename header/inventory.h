@@ -1,11 +1,11 @@
 #pragma once
-#define INVENTORY_H
+
 #include <vector>
 #include "../header/itemStack.h"
 #include "../header/itemType.h"
 #include "../header/item.h"
 #include "../header/compare.h"
-class Item;
+
 using std::string;
 class Inventory{
     private:

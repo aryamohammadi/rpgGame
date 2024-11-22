@@ -1,5 +1,4 @@
 #pragma once 
-#define INSERTIONSORT_H
 #include "../header/sort.h"
 using namespace std;
 class InsertionSort : public AbstractItemSort{

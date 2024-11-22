@@ -10,7 +10,6 @@ Character::Character(const Character& other)
     isDead(other.isDead), 
     currentAttackType(other.currentAttackType) {
 }
-
 // Copy assignment constructor
 Character& Character::operator=(const Character& other) {
     if (this != &other) {
@@ -19,7 +18,6 @@ Character& Character::operator=(const Character& other) {
     }
     return *this;
 }
-
 // Swap function
 void Character::swap(Character& other) noexcept {
     using std::swap;
@@ -30,4 +28,3 @@ void Character::swap(Character& other) noexcept {
     swap(isDead, other.isDead);
     swap(currentAttackType, other.currentAttackType);
 }
-

@@ -1,10 +1,11 @@
 #pragma once
 #define INVENTORY_H
 #include <vector>
-#include "../header/item.h"
 #include "../header/itemStack.h"
-#include "item.h"
-#include "itemStack.h"
+#include "../header/itemType.h"
+#include "../header/item.h"
+#include "../header/compare.h"
+class Item;
 using std::string;
 class Inventory{
     private:
@@ -28,11 +29,16 @@ class Inventory{
 
         void removeItem(const Item& item);
         void removeItem(const string& name);
-        void removeItem(const string& name, Item::ItemType t);
+        void removeItem(const string& name, ItemType t);
+        void removeItem(const Item* item);
 
+        int itemFound(const Item* item) const;
         int itemFound(const Item& item) const;  //given index
         int itemFound(const string& name) const; //given name
-        int itemFound(const string& name, Item::ItemType t) const; //given name and type
+        int itemFound(const string& name, ItemType t) const; //given name and type
+
+        const Item* getItem(int index) const{return (items.at(index))->getItem();}
+        Item* getItem(int index){return (items.at(index))->getItem();}
 
         bool sizeGreaterThanOrEqualToCapacity() const {return size >= capacity;}
         bool isEmpty() const {return size == 0;}
@@ -41,10 +47,11 @@ class Inventory{
         void increaseCapacity(int amount){capacity += amount;}
 
         void sortAlphabetically();
-        void sortByGrade();
-        void sortByTypes();
+        void sortByAscendingGrade();
+        void sortByDescendingGrade();
+        void sortByTypes(CompareItem::CompareBy sortMode);
         void makeLatestFirst();
         void makeOldestFirst();
 
-       friend ostream& operator<<(ostream& out, const Inventory& rhs);
+       friend std::ostream& operator<<(std::ostream& out, const Inventory& rhs);
 };

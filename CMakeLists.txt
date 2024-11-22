@@ -10,6 +10,10 @@ add_subdirectory(googletest)
 add_executable(Test
     CPP_Files/item.cpp
     CPP_Files/inventory.cpp
+    CPP_Files/itemStack.cpp
+    CPP_Files/mergeSortItem.cpp
+    CPP_Files/armour.cpp
+    CPP_Files/weapon.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
     CPP_Files/Map.cpp

@@ -1,12 +1,16 @@
 #include "../header/item.h"
 #include "../header/inventory.h"
+#include "../header/sort.h"
+#include "../header/insertionSort.h"
+#include "../header/mergeSort.h"
+#include "../header/bucketSort.h"
 #include <sstream>
 using std::ostringstream;
 using testing::Return;
 using namespace std;
 
 TEST(ItemTest, outputItem){
-    MockItem A(Item::ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
+    MockItem A(ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
     ostringstream out;
     
     out << A;
@@ -35,7 +39,7 @@ TEST(ItemTest, emptyItem){
 
 TEST(ItemTest, swapTestWithOneEmpty){
     MockItem* A = new MockItem();
-    MockItem* B = new MockItem(Item::ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
+    MockItem* B = new MockItem(ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
     ostringstream AOut;
     ostringstream BOut;
 
@@ -62,8 +66,8 @@ TEST(ItemTest, swapTestWithOneEmpty){
 }
 
 TEST(ItemTest, ItemSwap){
-    MockItem* A = new MockItem(Item::ItemType::POTION, "Danny",Item::Grade::LEGENDARY,"OP");
-    MockItem* B = new MockItem(Item::ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
+    MockItem* A = new MockItem(ItemType::POTION, "Danny",Item::Grade::LEGENDARY,"OP");
+    MockItem* B = new MockItem(ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
     ostringstream AOut;
     ostringstream BOut;
     swap(A, B);
@@ -101,7 +105,7 @@ TEST(InventoryTest, emptyInventory){
 
 TEST(InventoryTest, AddOneItem){
 
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
@@ -115,14 +119,14 @@ TEST(InventoryTest, AddOneItem){
 
 TEST(InventoryTest, AddMultipleItems){
 
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
     playerStorage.addItem(item);
-    playerStorage.addItem(new MockItem(Item::ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
-    playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
-    playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
+    playerStorage.addItem(new MockItem(ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
 
     bool result = (playerStorage.itemFound("Danny")) != -1;
 
@@ -144,7 +148,7 @@ TEST(InventoryTest, AddMultipleItems){
 
 TEST(InventoryTest, removeOneItem){
     
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
@@ -160,14 +164,14 @@ TEST(InventoryTest, removeOneItem){
 
 TEST(InventoryTest, RemoveAndAddMultipleItems){
 
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
     playerStorage.addItem(item);
-    playerStorage.addItem(new MockItem(Item::ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
-    playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
-    playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
+    playerStorage.addItem(new MockItem(ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
 
     bool result = (playerStorage.itemFound("Danny")) != -1;
 
@@ -216,14 +220,14 @@ TEST(InventoryTest, RemoveAndAddMultipleItems){
 
 TEST(InventoryTest, RemoveAndAddMultipleItemsAndUnderFlow){
 
-    MockItem* item = new MockItem(Item::ItemType::ARMOR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 
     playerStorage.addItem(item);
-    playerStorage.addItem(new MockItem(Item::ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
-    playerStorage.addItem(new MockItem(Item::ItemType::ARMOR,"E",Item::Grade::LEGENDARY,"A"));
-    playerStorage.addItem(new MockItem(Item::ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
+    playerStorage.addItem(new MockItem(ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
 
     bool result = (playerStorage.itemFound("Danny")) != -1;
 
@@ -270,4 +274,46 @@ TEST(InventoryTest, RemoveAndAddMultipleItemsAndUnderFlow){
     EXPECT_ANY_THROW(playerStorage.removeItem(""));
 
     
+}
+
+TEST(InventorySortingTest, sortAlphabetically){
+    ostringstream out;
+    ostringstream result;
+    Inventory playerStorage;
+
+    playerStorage.addItem(new MockItem(ItemType::POTION, "Emilly"));
+    playerStorage.addItem(new MockItem(ItemType::POTION, "Emily's Elixir"));
+    playerStorage.addItem(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR, "Knight's Shield"));
+
+    playerStorage.addItem(new MockItem(ItemType::POTION, "Healing Tonic"));
+    playerStorage.addItem(new MockItem(ItemType::WEAPON, "Excalibur"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
+    playerStorage.addItem(new MockItem(ItemType::POTION, "Mana Brew"));
+    playerStorage.addItem(new MockItem(ItemType::WEAPON, "Thunder Hammer"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR, "Elven Cloak"));
+
+    vector<ItemStack*> results;
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Elven Cloak")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emilly")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Excalibur")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Healing Tonic")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
+
+    playerStorage.sortAlphabetically();
+
+    out << playerStorage;
+
+    for(unsigned i = 0; i < results.size(); i++){
+        result << "Item " << i << ':' << std::endl;
+        result << *results[i] << endl;
+    }
+    
+
+    EXPECT_EQ(out.str(), result.str());
 }

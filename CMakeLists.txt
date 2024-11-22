@@ -14,8 +14,8 @@ enable_testing()
 add_subdirectory(googletest)
 
 
-# Add unit tests to the CTest framework
-add_test(NAME DifficultyTests COMMAND unit_tests)
+# Add all executables to CTest
+add_test(NAME DifficultyTests COMMAND DifficultyTests)
 
 # Add the gamesim executable 
 add_executable(gamesim

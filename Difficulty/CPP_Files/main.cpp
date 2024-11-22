@@ -1,49 +1,53 @@
-#include "MainMenu.h"
 #include <iostream>
-#include <limits> // For numeric_limits
+#include "Difficulty.h"
 
 using namespace std;
 
-int main() 
-{
-    MainMenu menu;
-    int choice;
+// Function to display enemy stats based on difficulty
+void displayEnemyStats(const Difficulty& difficulty, double baseHealth, double baseAttack, double baseDefense) {
+    double enemyAttack = baseAttack * difficulty.getAttackMultiplier();
+    double enemyDefense = baseDefense * difficulty.getDefenseMultiplier();
+    double enemyHealth = baseHealth * difficulty.getHealthModifier();
 
-    do 
-    {
-        menu.displayMenu();
-        cout << endl << endl << "Enter your choice: ";
+    cout << "\n=== Enemy Stats ===\n";
+    cout << "Attack: " << enemyAttack << "\n";
+    cout << "Defense: " << enemyDefense << "\n";
+    cout << "Health: " << enemyHealth << "\n";
+    cout << "===================\n";
+}
 
-        // Input validation
-        if (!(cin >> choice)) 
-        {
-            // Clear the error state of cin
-            cin.clear();
+int main() {
+    Difficulty difficulty;
 
-            // Ignore invalid input until a newline is encountered
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "=== Welcome to Battlestar ===\n\n";
+    cout << "Select a difficulty level: Rookie, Elite, or Battlestar\n";
 
-            // Print an error message and continue the loop
-            cout << endl << "Invalid Choice! Please Enter 1-3!" << endl;
-            continue;
+    string input;
+    bool validDifficulty = false;
+
+    do {
+        cout << "Enter difficulty: ";
+        cin >> input;
+
+        try {
+            difficulty.setDifficulty(input);
+            validDifficulty = true;
+
+            cout << "\nDifficulty successfully set to " << input << "!\n";
+            cout << "Attack Multiplier: " << difficulty.getAttackMultiplier() << "\n";
+            cout << "Defense Multiplier: " << difficulty.getDefenseMultiplier() << "\n";
+            cout << "Health Modifier: " << difficulty.getHealthModifier() << "\n";
+
+        } catch (const invalid_argument& e) {
+            cerr << e.what() << "\n";
         }
+    } while (!validDifficulty);
 
-        // Handle valid input
-        switch (choice) 
-        {
-            case 1:
-                menu.selectGameOption();
-                break;
-            case 2:
-                menu.settings();
-                break;
-            case 3:
-                cout << endl << endl << "Exiting Battlestar! See you soon!!" << endl << endl;
-                break;
-            default:
-                cout << endl << "Invalid Choice! Please Enter 1-3!" << endl;
-        }
-    } while (choice != 3);
+    double baseHealth = 1000.0;
+    double baseAttack = 500.0;
+    double baseDefense = 300.0;
+
+    displayEnemyStats(difficulty, baseHealth, baseAttack, baseDefense);
 
     return 0;
 }

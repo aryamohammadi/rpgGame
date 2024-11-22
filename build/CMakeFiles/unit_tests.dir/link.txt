@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/unit_tests.dir/Main_Menu/tests/MainMenuTests.cpp.o CMakeFiles/unit_tests.dir/Main_Menu/src/MainMenu.cpp.o -o unit_tests  lib/libgtest.a lib/libgtest_main.a lib/libgtest.a -lpthread 

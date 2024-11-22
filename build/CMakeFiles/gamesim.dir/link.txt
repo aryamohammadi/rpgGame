@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/gamesim.dir/Difficulty/CPP_Files/Difficulty.cpp.o CMakeFiles/gamesim.dir/Difficulty/CPP_Files/main.cpp.o -o gamesim  -lpthread 

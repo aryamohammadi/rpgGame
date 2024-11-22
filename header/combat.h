@@ -2,7 +2,7 @@
 #define COMBAT_H
 
 #include "AttackType.h"
-#include "character.h"
+#include "../header/character.h"
 
 class Combat{
     private:

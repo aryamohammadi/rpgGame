@@ -1,7 +1,5 @@
 #pragma once
-#define WEAPON_H
 #include "../header/item.h"
-#include "../header/character.h"
 
 class Weapon : public Item {
     public:

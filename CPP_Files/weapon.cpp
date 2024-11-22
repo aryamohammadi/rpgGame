@@ -1,5 +1,5 @@
+
 #include "../header/weapon.h"
-#include "../header/item.h"
 #include "../header/itemType.h"
 void Weapon::useItem(Character& target){target.takeDamage(damage);}
 

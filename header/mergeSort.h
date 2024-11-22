@@ -1,5 +1,5 @@
 #pragma once
-#define MERGESORT_H
+
 
 #include "../header/sort.h"
 

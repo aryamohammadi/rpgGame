@@ -1,5 +1,5 @@
 #pragma once
-#define ITEM_H
+
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -45,7 +45,7 @@ class Item{
 
         Item(const Item& other) = delete;
         Item& operator=(const Item& other) = delete;
-        virtual ~Item(){} //allows inherited items to delete Item
+        virtual ~Item() = default; //allows inherited items to delete Item
 
         string getName() const {return name;}
         string getDescript() const {return description;}

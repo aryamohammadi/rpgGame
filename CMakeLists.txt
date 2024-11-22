@@ -36,6 +36,7 @@ add_executable(DifficultyTests
 
 target_link_libraries(DifficultyTests gtest gtest_main pthread)
 
+
 # Add Other Tests
 add_executable(Test
     CPP_Files/item.cpp
@@ -56,3 +57,21 @@ target_include_directories(Test PRIVATE ${CMAKE_SOURCE_DIR}/header)
 
 # Link GoogleTest libraries
 target_link_libraries(Test gmock gtest gtest_main)
+
+
+# Add executable for the MainMenuSim program
+add_executable(MainMenuSim
+    Main_Menu/CPP_Files/main.cpp
+    Main_Menu/CPP_Files/MainMenu.cpp
+)
+
+
+# Add MainMenu tests
+add_executable(MainMenuTests
+    Main_Menu/Tests/MainMenuTests.cpp
+    Main_Menu/CPP_Files/MainMenu.cpp
+)
+target_link_libraries(MainMenuTests gtest gtest_main pthread)
+
+# Add all executables to CTest
+add_test(NAME MainMenuTests COMMAND MainMenuTests)

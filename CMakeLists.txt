@@ -17,8 +17,8 @@ add_subdirectory(googletest)
 # Add all executables to CTest
 add_test(NAME DifficultyTests COMMAND DifficultyTests)
 
-# Add the gamesim executable 
-add_executable(gamesim
+# Add the difficulty simulation executable 
+add_executable(DifficultySim
     Difficulty/CPP_Files/Difficulty.cpp
     Difficulty/CPP_Files/main.cpp
 )

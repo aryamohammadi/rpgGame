@@ -27,9 +27,6 @@ class Character{
         void equipArmour(Armour* armour);
         void deEquipArmour();
     
-    private:
-        AttackType currentAttackType; // New property to track the attack type
-    
     public:
         void setAttackType(AttackType attackType) { 
             currentAttackType = attackType; 

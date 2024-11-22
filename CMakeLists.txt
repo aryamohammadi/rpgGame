@@ -15,10 +15,14 @@ add_subdirectory(googletest)
 
 # Include directories
 include_directories(
-    Difficulty/CPP_Files
     Main_Menu/CPP_Files
 )
 
+# Add executable for the main program
+add_executable(MainMenu
+    Main_Menu/CPP_Files/main.cpp
+    Main_Menu/CPP_Files/MainMenu.cpp
+)
 
 # Add MainMenu tests
 add_executable(MainMenuTests
@@ -28,5 +32,4 @@ add_executable(MainMenuTests
 target_link_libraries(MainMenuTests gtest gtest_main pthread)
 
 # Add all executables to CTest
-add_test(NAME DifficultyTests COMMAND DifficultyTests)
 add_test(NAME MainMenuTests COMMAND MainMenuTests)

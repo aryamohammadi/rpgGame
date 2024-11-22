@@ -10,9 +10,9 @@ class Weapon : public Item {
         };
     private:
         int damage;
-        WeaponType type;
+        WeaponType weaponType;
     public:
-        Weapon(ItemType t, const string& name, Grade itemGrade, const string& descript, double timeElapsed, int damage, WeaponType type);
+        Weapon(ItemType type, const string& name, Grade itemGrade, const string& descript, double timeElapsed, int damage, WeaponType weaponType);
         void useItem(Character& target) override;
         Item* clone() const override;
 

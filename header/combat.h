@@ -7,9 +7,9 @@ class Combat{
         void removePlayer(Character& playerToBeRemovedFromVector);
     public:
         Combat(vector<Character>&fighters):fightersAlive(fighters){}
-        //copy constructor
-        //copy assignment
-        //destructor
+        Combat(const Combat&) = delete; // Delete copy constructor
+        Combat& operator=(const Combat&) = delete; // Delete copy assignment
+        ~Combat() = default; 
 
         void startBattle();
         void performAttack(Character& attacker, Character& target);

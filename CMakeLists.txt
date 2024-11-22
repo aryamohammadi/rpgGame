@@ -13,23 +13,20 @@ enable_testing()
 # Add GoogleTest subdirectory
 add_subdirectory(googletest)
 
-# Add main program executable
-add_executable(main_program
-  Main_Menu/src/main.cpp
-  Main_Menu/src/MainMenu.cpp
-)
-
-# Link the main program with necessary libraries
-target_link_libraries(main_program gtest gtest_main)
-
-# Add test executable for unit tests
-add_executable(unit_tests
-  Main_Menu/tests/MainMenuTests.cpp  # Replace with the path to your test files
-  Main_Menu/src/MainMenu.cpp
-)
-
-# Link the unit test executable with GoogleTest
-target_link_libraries(unit_tests gtest gtest_main)
 
 # Add unit tests to the CTest framework
-add_test(NAME MainMenuTests COMMAND unit_tests)
+add_test(NAME DifficultyTests COMMAND unit_tests)
+
+# Add the gamesim executable 
+add_executable(gamesim
+    Difficulty/CPP_Files/Difficulty.cpp
+    Difficulty/CPP_Files/main.cpp
+)
+target_link_libraries(gamesim pthread)
+
+# Add Difficulty tests
+add_executable(DifficultyTests
+    Difficulty/Tests/DifficultyTests.cpp
+    Difficulty/CPP_Files/Difficulty.cpp
+)
+target_link_libraries(DifficultyTests gtest gtest_main pthread)

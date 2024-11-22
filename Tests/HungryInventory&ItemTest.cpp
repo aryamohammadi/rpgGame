@@ -1,0 +1,319 @@
+#include "../header/item.h"
+#include "../header/inventory.h"
+#include "../header/sort.h"
+#include "../header/insertionSort.h"
+#include "../header/mergeSort.h"
+#include "../header/bucketSort.h"
+#include <sstream>
+using std::ostringstream;
+using testing::Return;
+using namespace std;
+
+TEST(ItemTest, outputItem){
+    MockItem A(ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
+    ostringstream out;
+    
+    out << A;
+    
+    string expect = "Name: " + A.getName() + "\n";
+    expect += "Description: " + A.getDescript() + "\n";
+    expect += "Type: " + A.determineType(A.getType()) + "\n";
+    expect += "Grade: " + A.determineGrade(A.getGrade()) + "\n";
+    
+    EXPECT_EQ(out.str(), expect);
+}
+
+TEST(ItemTest, emptyItem){
+    MockItem A;
+    
+    ostringstream out;
+    out << A;
+
+    string expect = "Name: " + A.getName() + "\n";
+    expect += "Description: " + A.getDescript() + "\n";
+    expect += "Type: " + A.determineType(A.getType()) + "\n";
+    expect += "Grade: " + A.determineGrade(A.getGrade()) + "\n";
+
+    EXPECT_EQ(out.str(), expect);
+}
+
+TEST(ItemTest, swapTestWithOneEmpty){
+    MockItem* A = new MockItem();
+    MockItem* B = new MockItem(ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
+    ostringstream AOut;
+    ostringstream BOut;
+
+    string expectA = "Name: " + A->getName() + "\n";
+    expectA += "Description: " + A->getDescript() + "\n";
+    expectA += "Type: " + A->determineType(A->getType()) + "\n";
+    expectA += "Grade: " + A->determineGrade(A->getGrade()) + "\n";
+
+    string expectB = "Name: " + B->getName() + "\n";
+    expectB += "Description: " + B->getDescript() + "\n";
+    expectB += "Type: " + B->determineType(B->getType()) + "\n";
+    expectB += "Grade: " + B->determineGrade(B->getGrade()) + "\n";
+
+    swap(A, B);
+    AOut << *A;
+    BOut << *B;
+
+    EXPECT_EQ(AOut.str(), expectB);
+    EXPECT_EQ(BOut.str(), expectA);
+
+    delete A;
+    A = nullptr;
+    delete B;
+}
+
+TEST(ItemTest, ItemSwap){
+    MockItem* A = new MockItem(ItemType::POTION, "Danny",Item::Grade::LEGENDARY,"OP");
+    MockItem* B = new MockItem(ItemType::WEAPON, "Emily",Item::Grade::COMMON,"hi");
+    ostringstream AOut;
+    ostringstream BOut;
+    swap(A, B);
+
+    string expectA = "Name: " + A->getName() + "\n";
+    expectA += "Description: " + A->getDescript() + "\n";
+    expectA += "Type: " + A->determineType(A->getType()) + "\n";
+    expectA += "Grade: " + A->determineGrade(A->getGrade()) + "\n";
+
+    AOut << *A;
+
+    string expectB = "Name: " + B->getName() + "\n";
+    expectB += "Description: " + B->getDescript() + "\n";
+    expectB += "Type: " + B->determineType(B->getType()) + "\n";
+    expectB += "Grade: " + B->determineGrade(B->getGrade()) + "\n";
+
+    BOut << *B;
+
+    EXPECT_EQ(AOut.str(), expectA);
+    EXPECT_EQ(BOut.str(), expectB);
+
+    delete A;
+    delete B;
+
+}
+
+TEST(InventoryTest, emptyInventory){
+    Inventory playerStorage;
+
+    bool result = (playerStorage.itemFound("Danny")) == -1;
+
+    EXPECT_TRUE(result);
+
+}
+
+TEST(InventoryTest, AddOneItem){
+
+    MockItem* item = new MockItem(ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
+
+    Inventory playerStorage;
+
+    playerStorage.addItem(item);
+
+    bool result = (playerStorage.itemFound("Danny")) != -1;
+
+    EXPECT_TRUE(result);
+    
+}
+
+TEST(InventoryTest, AddMultipleItems){
+
+    MockItem* item = new MockItem(ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
+
+    Inventory playerStorage;
+
+    playerStorage.addItem(item);
+    playerStorage.addItem(new MockItem(ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
+
+    bool result = (playerStorage.itemFound("Danny")) != -1;
+
+    EXPECT_TRUE(result);
+
+    result = (playerStorage.itemFound("E")) != -1;
+
+    EXPECT_TRUE(result);
+
+    result = (playerStorage.itemFound("Milly")) != -1;
+
+    EXPECT_TRUE(result);
+
+    result = (playerStorage.itemFound("Emily")) != -1;
+
+    EXPECT_TRUE(result);
+    
+}
+
+TEST(InventoryTest, removeOneItem){
+    
+    MockItem* item = new MockItem(ARMOUR, "Danny", Item::Grade::EPIC, "hi");
+
+    Inventory playerStorage;
+
+    playerStorage.addItem(item);
+
+    playerStorage.removeItem("Danny");
+
+    bool result = (playerStorage.itemFound("Danny")) == -1;
+
+    EXPECT_TRUE(result);
+      
+}
+
+TEST(InventoryTest, RemoveAndAddMultipleItems){
+
+    MockItem* item = new MockItem(ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
+
+    Inventory playerStorage;
+
+    playerStorage.addItem(item);
+    playerStorage.addItem(new MockItem(ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
+
+    bool result = (playerStorage.itemFound("Danny")) != -1;
+
+    EXPECT_TRUE(result);
+
+    result = (playerStorage.itemFound("E")) != -1;
+
+    EXPECT_TRUE(result);
+
+    result = (playerStorage.itemFound("Milly")) != -1;
+
+    EXPECT_TRUE(result);
+
+    result = (playerStorage.itemFound("Emily")) != -1;
+
+    EXPECT_TRUE(result);
+
+    //Remove Items
+    playerStorage.removeItem("Emily");
+
+    result = (playerStorage.itemFound("Emily")) == -1;
+
+    EXPECT_TRUE(result);
+
+    playerStorage.removeItem("E");
+
+    result = (playerStorage.itemFound("E")) == -1;
+
+    EXPECT_TRUE(result);
+
+    playerStorage.removeItem("Danny");
+
+    result = (playerStorage.itemFound("Danny")) == -1;
+
+    EXPECT_TRUE(result);
+
+    playerStorage.removeItem("Milly");
+
+    result = (playerStorage.itemFound("Danny")) == -1;
+
+    EXPECT_TRUE(result);
+
+    EXPECT_TRUE(playerStorage.isEmpty());
+
+}
+
+TEST(InventoryTest, RemoveAndAddMultipleItemsAndUnderFlow){
+
+    MockItem* item = new MockItem(ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
+
+    Inventory playerStorage;
+
+    playerStorage.addItem(item);
+    playerStorage.addItem(new MockItem(ItemType::WEAPON,"Emily",Item::Grade::COMMON,"L"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR,"E",Item::Grade::LEGENDARY,"A"));
+    playerStorage.addItem(new MockItem(ItemType::POTION,"Milly",Item::Grade::EPIC,"M"));
+
+    bool result = (playerStorage.itemFound("Danny")) != -1;
+
+    EXPECT_TRUE(result);
+
+    result = (playerStorage.itemFound("E")) != -1;
+
+    EXPECT_TRUE(result);
+
+    result = (playerStorage.itemFound("Milly")) != -1;
+
+    EXPECT_TRUE(result);
+
+    result = (playerStorage.itemFound("Emily")) != -1;
+
+    EXPECT_TRUE(result);
+    //Remove Items
+    playerStorage.removeItem("Emily");
+
+    result = (playerStorage.itemFound("Emily")) == -1;
+
+    EXPECT_TRUE(result);
+
+    playerStorage.removeItem("E");
+
+    result = (playerStorage.itemFound("E")) == -1;
+    
+    EXPECT_TRUE(result);
+
+    playerStorage.removeItem("Danny");
+
+    result = (playerStorage.itemFound("Danny")) == -1;
+    
+    EXPECT_TRUE(result);
+
+    playerStorage.removeItem("Milly");
+
+    result = (playerStorage.itemFound("Milly")) == -1;
+    
+    EXPECT_TRUE(result);
+    
+    EXPECT_TRUE(playerStorage.isEmpty());
+    
+    EXPECT_ANY_THROW(playerStorage.removeItem(""));
+
+    
+}
+
+TEST(InventorySortingTest, sortAlphabetically){
+    ostringstream out;
+    ostringstream result;
+    Inventory playerStorage;
+
+    playerStorage.addItem(new MockItem(ItemType::POTION, "Emilly"));
+    playerStorage.addItem(new MockItem(ItemType::POTION, "Emily's Elixir"));
+    playerStorage.addItem(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR, "Knight's Shield"));
+
+    playerStorage.addItem(new MockItem(ItemType::POTION, "Healing Tonic"));
+    playerStorage.addItem(new MockItem(ItemType::WEAPON, "Excalibur"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
+    playerStorage.addItem(new MockItem(ItemType::POTION, "Mana Brew"));
+    playerStorage.addItem(new MockItem(ItemType::WEAPON, "Thunder Hammer"));
+    playerStorage.addItem(new MockItem(ItemType::ARMOUR, "Elven Cloak"));
+
+    vector<ItemStack*> results;
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Elven Cloak")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emilly")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Excalibur")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Healing Tonic")));
+    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
+    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
+    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
+
+    playerStorage.sortAlphabetically();
+
+    out << playerStorage;
+
+    for(unsigned i = 0; i < results.size(); i++){
+        result << "Item " << i << ':' << std::endl;
+        result << *results[i] << endl;
+    }
+    
+
+    EXPECT_EQ(out.str(), result.str());
+}

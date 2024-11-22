@@ -1,1 +1,11 @@
 /Meeting Notes/
+*.o
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+Makefile
+bin/
+lib/
+/googletest/
+build/
+.vscode/

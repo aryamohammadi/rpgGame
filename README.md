@@ -72,11 +72,11 @@
 
 > * * This abstraction increases the reusability of the MaxHeap class and allows it to be integrated into different systems without requiring modification.
 
-> * MainMenu Class:
-> * * The MainMenu class is responsible for displaying the menu and handling user interaction like selecting game options or difficulty. Follows the SRP as the class is focused solely on managing the user interface of the main menu. It doesn’t handle gameplay, difficulty logic, or other unrelated functionality. The MainMenu class also follows the OCP as it can be extended by adding new menu options or behaviors without modifying its existing methods. The MainMenu class operates independently of the Difficulty class. It uses a simple setDifficulty method internally and does not depend on the concrete implementation of Difficulty. This separation ensures that MainMenu does not violate DIP. Adhering to the SOLID principles has made it so that integration with the main branch and other features of the program should be very straight forward.
+> MainMenu Class:
+> * The MainMenu class is responsible for displaying the menu and handling user interaction like selecting game options or difficulty. Follows the SRP as the class is focused solely on managing the user interface of the main menu. It doesn’t handle gameplay, difficulty logic, or other unrelated functionality. The MainMenu class also follows the OCP as it can be extended by adding new menu options or behaviors without modifying its existing methods. The MainMenu class operates independently of the Difficulty class. It uses a simple setDifficulty method internally and does not depend on the concrete implementation of Difficulty. This separation ensures that MainMenu does not violate DIP. Adhering to the SOLID principles has made it so that integration with the main branch and other features of the program should be very straight forward.
 
-> * Difficulty Class:
-> * * The Difficulty class manages the game's difficulty level, which includes modifiers for attack, defense, and health. The Difficulty class is self-contained and does not depend on any other class. 
+> Difficulty Class:
+> * The Difficulty class manages the game's difficulty level, which includes modifiers for attack, defense, and health. The Difficulty class is self-contained and does not depend on any other class. 
 This class complies with SRP as it focuses only on encapsulating the logic for difficulty levels and their associated multipliers. It doesn’t handle user input, gameplay, or display logic. This design aligns with DIP because it does not tightly couple itself to higher-level modules like MainMenu. Adhering to the SOLID principles made it so it will be easy for the members of our team to utilize the difficulty class in other features.
 
 

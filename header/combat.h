@@ -1,3 +1,7 @@
+#ifndef COMBAT_H
+#define COMBAT_H
+
+#include "AttackType.h"
 #include "character.h"
 
 class Combat{
@@ -15,3 +19,5 @@ class Combat{
         void performAttack(Character& attacker, Character& target);
         bool hasBattleEnded();
 };
+
+#endif

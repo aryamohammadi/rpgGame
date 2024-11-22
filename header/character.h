@@ -14,7 +14,8 @@ class Character{
         int health;
         int damage;
         int defense; 
-        int speed;
+        int baseSpeed;
+        int currentSpeed;
         bool isDead;
         AttackType currentAttackType;
     public:
@@ -24,20 +25,24 @@ class Character{
         Character(const Character& other);
         Character& operator=(const Character& other);
         ~Character();
+
         void setHealth(int healthOfCharacter){ health = healthOfCharacter; }
         void increaseHealth(int amount){health += amount;}
+
         void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
         void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
+
         void equipArmour(Armour* armour);
         void deEquipArmour();
-    
-    public:
-        void setAttackType(AttackType attackType) { 
-            currentAttackType = attackType; 
-        }
 
-        AttackType getAttackType() const { 
-            return currentAttackType; 
-        }
+        void equipWeapon(Item* newWeapon);
+        void changeWeapon();
+
+        void modifySpeed(int delta);
+        void resetSpeed(){currentSpeed = baseSpeed;}
+        int getSpeed() const {return currentSpeed;}
+
+        void setAttackType(AttackType attackType) {currentAttackType = attackType;}
+        AttackType getAttackType() const {return currentAttackType;}
 
 };

@@ -2,7 +2,7 @@
 #include "../header/armour.h"
 #include "../header/inventory.h"
 #include <utility> // For std::swap
-Character::Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0), speed(0), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
+Character::Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
 
 Character::~Character(){
     delete storage;

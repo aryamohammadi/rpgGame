@@ -11,6 +11,7 @@ class Weapon : public Item {
     private:
         int damage;
         WeaponType weaponType;
+        int speedEffect;
     public:
         Weapon(ItemType type, const string& name, Grade itemGrade, const string& descript, double timeElapsed, int damage, WeaponType weaponType);
         void useItem(Character& target) override;

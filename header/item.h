@@ -9,6 +9,7 @@
 #include <gmock/gmock.h>
 #include "../header/character.h"
 #include "../header/itemType.h"
+
 using std::string;
 using std::ostream;
 using std::vector;

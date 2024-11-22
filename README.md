@@ -49,6 +49,15 @@
 > * Any bugs you've identified and created issues for during the sprint. Do you plan on fixing them in the next sprint or are they lower priority?
 > * What tasks you are planning for this next sprint.
 
+Combat Class changes:
+When designing the Combat class, I made sure to follow the interface segregation principle. Each function in the class is specific and focused on combat-related functionality. The class does not include any functions that do not contribute to the purpose of the Combat class.
+
+Item and Sorting Classes:
+To follow the ISP, I seperated my large interface inventory and the small interface sorting into seperate classes. Then, I would create an object of the sort class and call it in inventory. It allowed me to decide the sorting alogirthm without having to change too much code or if statements.
+
+Map and Room Classes:
+To follow the Single Responsibility Principle, I delegated unique responsibilities to the Map and Room classes 
+
 
 > ## Final deliverable
 > All group members will give a demo to the reader during lab time. ou should schedule your demo on Calendly with the same reader who took your second scrum meeting. The reader will check the demo and the project GitHub repository and ask a few questions to all the team members.

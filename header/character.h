@@ -20,6 +20,13 @@ class Character{
         AttackType currentAttackType; // New property to track the attack type
 
     public:
+        Character(string name) : characterName(name), inventoryOfCharacter(), health(100),damage(0),defense(0),isDead(false){} 
+
+        void setHealth(int healthOfCharacter){ health = healthOfCharacter; }
+        void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
+        void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
+
+        // Consider having the combat class handle damage calculations based on the two Character parameters passed to it
         Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0),isDead(false){} 
         Character& operator=(const Character& other); // Added by Arya; copy assignment operator
         Character(const Character& other); // Added by Arya; copy constructor
@@ -46,6 +53,7 @@ class Character{
             
             storage.addItem(armour);
         }
+
         virtual void attack() = 0;
         virtual void defend() = 0;
        

@@ -1,6 +1,7 @@
 Class Implementation
 
-Warrior, Archer, and Mage are Character objects
+Warrior, Archer, and Mage are either Character objects or inherit from Character
+Objects
 Character constructor has a type of character, Warrior, Archer, Mage. Depending on the constructor parameter, we give a different default HP, Attack, Defense, etc
 
 For Weapons in inventory, we have an equipped item and equipped armor. Items and armor are inheritors of Item

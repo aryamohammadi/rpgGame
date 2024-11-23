@@ -65,6 +65,13 @@ void Inventory::addItem(Item* item, int quantity){
     size ++;
 }
 
+int Inventory::itemFound(int index) const{
+    if(index < 0 || index >= size){
+        return -1;
+    }
+    return index;
+}
+
 void Inventory::removeItem(const Item& item){
     if(isEmpty()){
         throw std::underflow_error("Removing from empty inventory!\n");

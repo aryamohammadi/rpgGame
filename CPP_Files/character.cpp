@@ -198,3 +198,58 @@ bool Character::useItem(const string& itemName, ItemType type){
             throw std::logic_error("Item had improper type!");
     }
 }
+
+bool Character::useItem(int index){
+    if(storage->itemFound(index) == -1){
+        return false;
+    }
+    ItemType type = storage->getItem(index)->getType();
+    switch(type){
+        Item* currentItem = storage->getItem(index)->clone();
+        case WEAPON:
+            Weapon* verifyWeapon = dynamic_cast<Weapon*>(currentItem);
+            if(verifyWeapon == nullptr){
+                delete currentItem;
+                throw std::logic_error("Item contains invalid type!");
+            }
+            if(currentAttackType == AttackType::Melee){
+                if(verifyWeapon->getWeaponType() != Weapon::WeaponType::Sword){
+                    delete verifyWeapon;
+                    throw std::logic_error("Inventory contains invalid weapon type!");
+                }
+            }
+            else{
+                if(verifyWeapon->getWeaponType() != Weapon::WeaponType::Bow || verifyWeapon->getWeaponType() != Weapon::WeaponType::Staff){
+                    delete verifyWeapon;
+                    throw std::logic_error("Inventory contains invalid weapon type!");
+                }
+            }
+            equipWeapon(verifyWeapon);
+            return true;
+        case POTION:
+            Potion* verifyPotion = dynamic_cast<Potion*>(currentItem);
+            if(verifyPotion == nullptr){
+                delete currentItem;
+                throw std::logic_error("Item contains invalid type!");
+            }
+            verifyPotion->useItem(*this);
+            storage->removeItem(*currentItem);
+
+            delete verifyPotion;
+            verifyPotion = nullptr;
+            delete currentItem;
+            currentItem = nullptr;
+
+            return true;
+        case ARMOUR:
+            Armour* verifyArmour = dynamic_cast<Armour*>(currentItem);
+            if(verifyArmour == nullptr){
+                delete currentItem;
+                throw std::logic_error("Item contains invalid type!");
+            }
+            equipArmour(verifyArmour);
+            return true;
+        default:
+            throw std::logic_error("Item had improper type!");
+    }  
+}

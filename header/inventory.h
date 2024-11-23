@@ -35,6 +35,7 @@ class Inventory{
         int itemFound(const Item& item) const;  //given index
         int itemFound(const string& name) const; //given name
         int itemFound(const string& name, ItemType t) const; //given name and type
+        int itemFound(int index) const;
 
         const Item* getItem(int index) const{return (items.at(index))->getItem();}
         Item* getItem(int index){return (items.at(index))->getItem();}

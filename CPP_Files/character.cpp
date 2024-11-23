@@ -69,11 +69,15 @@ void Character::equipWeapon(Item* newWeapon){
         weapon = newWeapon;
     }
     else{
-        if(storage->itemFound(*newWeapon)){
+        if(storage->itemFound(*newWeapon) == -1){
             storage->addItem(weapon);
         }
         weapon = newWeapon;
     }
+}
+
+void Character::changeWeapon(){
+    
 }
 
 ostream& Character::showInventory() const{

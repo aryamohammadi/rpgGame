@@ -45,4 +45,17 @@ class Character{
         void setAttackType(AttackType attackType) {currentAttackType = attackType;}
         AttackType getAttackType() const {return currentAttackType;}
 
+        void attack(Character& target){weapon->useItem(target);}
+
+        void pickUpItem(const Item& item);
+        
+        z; //finds closest with name and returns if succesfull
+        bool useItem(const string& itemName, ItemType type); //finds exact item with name and type and returns if successful
+        bool useItem(int index); //uses index and returns if successful
+
+        void throwAwayItem(const string& name);
+        void throwAwayItem(const string& name, ItemType type);
+        void throwAwayItem(int index);
+
+        ostream& showInventory() const;
 };

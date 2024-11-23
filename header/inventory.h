@@ -30,7 +30,6 @@ class Inventory{
         void removeItem(const Item& item);
         void removeItem(const string& name);
         void removeItem(const string& name, ItemType t);
-        void removeItem(const Item* item);
 
         int itemFound(const Item* item) const;
         int itemFound(const Item& item) const;  //given index

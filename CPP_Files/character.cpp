@@ -142,5 +142,4 @@ bool Character::useItem(const string& itemName){
         default:
             throw std::logic_error("Item had improper type!");
     }
-    return true;
 }

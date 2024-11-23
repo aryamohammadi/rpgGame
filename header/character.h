@@ -53,9 +53,9 @@ class Character{
         bool useItem(const string& itemName, ItemType type); //finds exact item with name and type and returns if successful
         bool useItem(int index); //uses index and returns if successful
 
-        void throwAwayItem(const string& name);
-        void throwAwayItem(const string& name, ItemType type);
-        void throwAwayItem(int index);
+        bool throwAwayItem(const string& name);
+        bool throwAwayItem(const string& name, ItemType type);
+        bool throwAwayItem(int index);
 
         ostream& showInventory() const;
 };

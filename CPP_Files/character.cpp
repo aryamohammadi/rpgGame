@@ -253,3 +253,27 @@ bool Character::useItem(int index){
             throw std::logic_error("Item had improper type!");
     }  
 }
+
+bool Character::throwAwayItem(const string& name){
+    if(storage->itemFound(name) == -1){
+        return false;
+    }
+    storage->removeItem(name);
+    return true;
+}
+
+bool Character::throwAwayItem(const string& name, ItemType type){
+    if(storage->itemFound(name, type) == -1){
+        return false;
+    }
+    storage->removeItem(name, type);
+    return true;
+}
+
+bool Character::throwAwayItem(int index){
+    if(storage->itemFound(index) == -1){
+        return false;
+    }
+    storage->removeItem(*(storage->getItem(index)));
+    return true;
+}

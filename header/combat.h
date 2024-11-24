@@ -1,33 +1,33 @@
 #ifndef COMBAT_H
 #define COMBAT_H
 
-#include "AttackType.h"
 #include "character.h"
+#include <vector>
 
+// Class Combat manages a battle scenario between multiple characters.
 class Combat{
     private:
-        bool battleEnded = false;
-        vector<Character>&fightersAlive;
+        bool battleEnded = false; // Flag to indicate if the battle has ended
+        std::vector<Character>& fightersAlive;
+        
+        // Removes a defeated character from fightersAlive.
         void removePlayer(Character& playerToBeRemovedFromVector);
+
     public:
-        Combat(vector<Character>&fighters):fightersAlive(fighters){}
-        Combat(const Combat&) = delete; // Delete copy constructor
+        Combat(std::vector<Character>& fighters); // Initializes the combat with fighters.
+    
+        Combat(const Combat&) = delete; // Prevent copying of the combat instance.
         Combat& operator=(const Combat&) = delete; // Delete copy assignment
-        ~Combat() = default; 
+        ~Combat(); 
 
-        void startBattle();
-        bool isPlayerDead();
-        bool areBothEnemiesDead();
-        bool isAtLeast1EnemieAlive();
-        void performAttack(Character& attacker, Character& target);
-        bool hasBattleEnded();
+        void startBattle(); // Initiates and manages the combat loop.
+        bool isPlayerDead(); // Checks if the player is dead.
+        bool areBothEnemiesDead(); // Checks if all enemies are defeated.
+        bool isAtLeast1EnemieAlive(); // Checks if at least one enemy is still fighting.
+        void performAttack(Character& attacker, Character& target); // Performs an attack between two characters.
+        bool hasBattleEnded(); // Checks if the battle has ended.
 };
-
-
-
-
-
-
+#endif // COMBAT_H
 
 
 //declare combat object

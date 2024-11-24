@@ -170,3 +170,13 @@ void Inventory::removeItem(const string& name, ItemType t){
     reorganizeItems();
     size --;
 }
+
+string Inventory::outputWeapons() const{
+    std::ostringstream out;
+    for(ItemStack* stack : items){
+        if(stack != nullptr && stack->getItem() != nullptr && stack->getItem()->getType() == ItemType::WEAPON){
+            out << stack;
+        }
+    }
+    return out.str();
+}

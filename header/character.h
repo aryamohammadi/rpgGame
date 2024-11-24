@@ -3,8 +3,8 @@
 
 #include "../header/AttackType.h"
 #include <string> // we need to include the string library to use the string data type
+#include "inventory.h"  
 
-class Inventory;
 
 class Character{
     private:
@@ -14,29 +14,42 @@ class Character{
         int damage;
         int defense;
         bool isDead;
-        AttackType currentAttackType; // New property to track the attack type
+        AttackType currentAttackType; // track the attack type
 
     public:
-        Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0),isDead(false){} 
-        Character& operator=(const Character& other); // Added by Arya; copy assignment operator
-        Character(const Character& other); // Added by Arya; copy constructor
-        void swap(Character& other) noexcept; // Added by Arya; swap function
-                                              /* noexcept is an exception specifier that tells the compiler 
-                                                 that this function will not throw any exceptions */
-        
-        void setHealth(int healthOfCharacter){ health = healthOfCharacter; }
-        void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
-        void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
-        virtual void attack() = 0;
-        virtual void defend() = 0;
+        // Constructor
+        Character(const std::string& name);
+
+        // Copy constructor
+        Character(const Character& other);
+
+        // Copy assignment operator
+        Character& operator=(const Character& other);
        
+        // Destructor
+        virtual ~Character();
+       
+        /* noexcept is an exception specifier that tells the compiler that this function will not throw any exceptions */
+        void swap(Character& other) noexcept;
+        
+        // Setters
+        void setHealth(int healthOfCharacter);
+        void setDamage(int damageOfCharacter);
+        void takeDamage(int damageOnCharacter);
 
-        void setAttackType(AttackType attackType) { 
-        currentAttackType = attackType; 
-        }
+        // Getters
+        std::string getCharacterName() const;
+        int getHealth() const;
+        int getDamage() const;
+        int getDefense() const;
+        AttackType getAttackType() const;
+        bool isAlive() const;
 
-        AttackType getAttackType() const { 
-        return currentAttackType; 
-        }
 
+        // Combat virtual functions to be implemented by derived classes
+        virtual void attack(Character& target) = 0;
+        virtual void defend() = 0;
+
+        // Additional methods related to character status
+        void setAttackType(AttackType attackType);
 };

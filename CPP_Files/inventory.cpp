@@ -7,6 +7,20 @@
 using std::endl;
 using std::to_string;
 using std::exception;
+
+Inventory::Inventory(const Inventory& inventory2){
+    *this = inventory2;
+}
+
+Inventory& Inventory::operator=(const Inventory& rhs){
+    if(this != &rhs){
+        clear();
+        items = rhs.items;
+        size = rhs.size;
+        capacity = rhs.capacity;
+    }
+    return *this;
+}
 int Inventory::itemFound(const Item* item) const{
     if(size == 0){
         return -1;

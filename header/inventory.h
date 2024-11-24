@@ -14,14 +14,17 @@ class Inventory{
         int capacity;
 
         void reorganizeItems();
-    public:
-        Inventory(int capacity = 10):size(0), capacity(capacity), items(capacity){items.reserve(capacity);}
-        ~Inventory(){
+        void clear(){
             for(ItemStack* x : items){
                 delete x;
             }
+            size = 0;
+            capacity = 10;
         }
-        Inventory(Inventory& inventory2);
+    public:
+        Inventory(int capacity = 10):size(0), capacity(capacity), items(capacity){items.reserve(capacity);}
+        ~Inventory(){clear();}
+        Inventory(const Inventory& inventory2);
         Inventory& operator=(const Inventory& rhs);
 
         void addItem(Item* item);

@@ -43,16 +43,14 @@ void Character::swap(Character& other) noexcept {
     swap(currentAttackType, other.currentAttackType);
 }
 
-void Character::equipArmour(Armour* armour){
-    if(this->armour == nullptr){
-        this->armour = armour;
+void Character::equipArmour(Armour* newArmour){
+    if(this->armour != nullptr){
+        storage->addItem(this->armour);  
     }
-    else{
-        if(storage->itemFound(*armour) != -1){
-            storage->removeItem(*armour);
-        }
-        this->armour = armour;
+    if(storage->itemFound(newArmour) != -1){
+        storage->removeItem(*newArmour);
     }
+    armour = newArmour;
     defense += armour->getArmourStat();
 }
 
@@ -64,28 +62,38 @@ void Character::deEquipArmour() {
     }
 }
 
-void Character::equipWeapon(Item* newWeapon){
-    if(weapon == nullptr){
-        weapon = newWeapon;
+void Character::equipWeapon(Weapon* newWeapon){
+    if(newWeapon == nullptr){
+        throw std::logic_error("equipWeapon : newWeapon is nullptr!");
     }
-    else{
-        if(storage->itemFound(*newWeapon) == -1){
-            storage->addItem(weapon);
+    if(weapon != nullptr){
+        storage->addItem(weapon);  
+    }
+    if(storage->itemFound(newWeapon) != -1){
+        storage->removeItem(*newWeapon);
+    }
+    weapon = newWeapon;
+}
+
+void Character::changeWeapon(int index){
+    if(storage->itemFound(index) != -1){
+        if(storage->getItem(index)->getType() != ItemType::WEAPON){
+            throw std::invalid_argument("changeWeapon: Item at index " + std::to_string(index) + "is not a weapon!");
         }
-        weapon = newWeapon;
+        equipWeapon(dynamic_cast<Weapon*>(storage->getItem(index)));
     }
 }
 
-void Character::changeWeapon(){
-    
-}
-
-ostream& Character::showInventory() const{
+string Character::showInventory() const{
     std::ostringstream out;
     out << storage;
 
-    return out;
+    return out.str();
     
+}
+
+string Character::outputWeapons() const{
+    return storage->outputWeapons();
 }
 
 void pickUpItem(const Item& item){

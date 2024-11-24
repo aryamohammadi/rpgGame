@@ -10,7 +10,7 @@ class Character{
         std::string characterName;
         Inventory* storage;
         Armour* armour;
-        Item* weapon;
+        Weapon* weapon;
         int health;
         int damage;
         int defense; 
@@ -32,11 +32,11 @@ class Character{
         void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
         void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
 
-        void equipArmour(Armour* armour);
+        void equipArmour(Armour* newArmour);
         void deEquipArmour();
 
-        void equipWeapon(Item* newWeapon);
-        void changeWeapon();
+        void equipWeapon(Weapon* newWeapon);
+        void changeWeapon(int index); 
 
         void modifySpeed(int delta);
         void resetSpeed(){currentSpeed = baseSpeed;}
@@ -52,10 +52,11 @@ class Character{
         bool useItem(const string& itemName); //finds closest with name and returns if succesfull
         bool useItem(const string& itemName, ItemType type); //finds exact item with name and type and returns if successful
         bool useItem(int index); //uses index and returns if successful
-
+        
         bool throwAwayItem(const string& name);
         bool throwAwayItem(const string& name, ItemType type);
         bool throwAwayItem(int index);
 
-        ostream& showInventory() const;
+        string showInventory() const;
+        string outputWeapons() const;
 };

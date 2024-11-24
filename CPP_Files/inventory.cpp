@@ -43,6 +43,13 @@ int Inventory::itemFound(const std::string& name, ItemType t) const {
     return -1;
 }
 
+int Inventory::itemFound(int index) const{
+    if(index < 0 || index >= size){
+        return -1;
+    }
+    return index;
+}
+
 
 void Inventory::addItem(Item* item){
     if(sizeGreaterThanOrEqualToCapacity()){
@@ -63,27 +70,6 @@ void Inventory::addItem(Item* item, int quantity){
     }
     items.at(size) = new ItemStack(item, quantity);
     size ++;
-}
-
-int Inventory::itemFound(int index) const{
-    if(index < 0 || index >= size){
-        return -1;
-    }
-    return index;
-}
-
-void Inventory::removeItem(const Item& item){
-    if(isEmpty()){
-        throw std::underflow_error("Removing from empty inventory!\n");
-    }
-    int index = itemFound(item);
-    if(index == -1){
-        throw std::invalid_argument("item named " + item.getName() + " not found!");
-    }
-    delete items[index];
-    items[index] = nullptr;
-    reorganizeItems();
-    size --;
 }
 
 int Inventory::itemsWithName(const std::string& name) const{
@@ -127,12 +113,17 @@ std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
 void Inventory::removeItem(const std::string& name){
     int index = itemFound(name);
     if(index == -1){
-        throw std::invalid_argument("Item nammed " + name + " not in inventory!");
+        throw std::invalid_argument("removeItem: Item nammed " + name + " not in inventory!");
     }
-    delete items[index];
-    items[index] = nullptr;
-    reorganizeItems();
-    size --;
+    if(items[index] != nullptr && items[index]->getItem() != nullptr && items[index]->getItem()->getType() == ItemType::POTION && items[index]->currentQuantity() > 1){//for potions
+        items[index]->decreaseQuantity(1);
+    }
+    else{
+        delete items[index];
+        items[index] = nullptr;
+        reorganizeItems();
+        size --;
+    }
 }
 
 void Inventory::sortAlphabetically(){
@@ -161,14 +152,60 @@ void Inventory::makeOldestFirst(){
 }
 
 void Inventory::removeItem(const string& name, ItemType t){
+    if(isEmpty()){
+        throw std::underflow_error("Removing from empty inventory!");
+    }
     int index = itemFound(name,t);
     if(index == -1){
-        throw invalid_argument("Item not found!");
+        throw invalid_argument("removeItem: Item not found!");
     }
-    delete items[index];
-    items[index] = nullptr;
-    reorganizeItems();
-    size --;
+    if(items[index] != nullptr && items[index]->getItem() != nullptr && items[index]->getItem()->getType() == ItemType::POTION && items[index]->currentQuantity() > 1){//for potions
+        items[index]->decreaseQuantity(1);
+    }
+    else{
+        delete items[index];
+        items[index] = nullptr;
+        reorganizeItems();
+        size --;
+    }
+}
+
+void Inventory::removeItem(const Item& item){
+    if(isEmpty()){
+        throw std::underflow_error("Removing from empty inventory!");
+    }
+    int index = itemFound(item);
+    if(index == -1){
+        throw std::invalid_argument("removeItem: Item is not in inventory!");
+    }
+    if(items[index] != nullptr && items[index]->getItem() != nullptr && items[index]->getItem()->getType() == ItemType::POTION && items[index]->currentQuantity() > 1){//for potions
+        items[index]->decreaseQuantity(1);
+    }
+    else{
+        delete items[index];
+        items[index] = nullptr;
+        reorganizeItems();
+        size --;
+    }
+}
+
+void Inventory::removeItem(const string& name){
+    if(isEmpty()){
+        throw std::underflow_error("Removing from empty inventory!");
+    }
+    int index = itemFound(name);
+    if(index == -1){
+        throw std::invalid_argument("removeItem: Item is not in inventory!");
+    }
+    if(items[index] != nullptr && items[index]->getItem() != nullptr && items[index]->getItem()->getType() == ItemType::POTION && items[index]->currentQuantity() > 1){//for potions
+        items[index]->decreaseQuantity(1);
+    }
+    else{
+        delete items[index];
+        items[index] = nullptr;
+        reorganizeItems();
+        size --;
+    }
 }
 
 string Inventory::outputWeapons() const{

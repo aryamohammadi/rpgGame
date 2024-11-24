@@ -16,6 +16,9 @@ class Combat{
         ~Combat() = default; 
 
         void startBattle();
+        bool isPlayerDead();
+        bool areBothEnemiesDead();
+        bool isAtLeast1EnemieAlive();
         void performAttack(Character& attacker, Character& target);
         bool hasBattleEnded();
 };

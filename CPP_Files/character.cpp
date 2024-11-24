@@ -6,6 +6,7 @@
 #include "../header/weapon.h"
 #include <utility> // For std::swap
 #include <sstream>
+using std::string;
 Character::Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
 
 Character::~Character(){
@@ -106,10 +107,13 @@ bool Character::useItem(const string& itemName){
         return false;
     }
     ItemType type = storage->getItem(index)->getType();
+    Item* currentItem = storage->getItem(index)->clone();
+    Weapon* verifyWeapon = nullptr;
+    Potion* verifyPotion = nullptr;
+    Armour* verifyArmour = nullptr;
     switch(type){
-        Item* currentItem = storage->getItem(index)->clone();
-        case WEAPON:
-            Weapon* verifyWeapon = dynamic_cast<Weapon*>(currentItem);
+        case ItemType::WEAPON:
+            verifyWeapon = dynamic_cast<Weapon*>(currentItem);
             if(verifyWeapon == nullptr){
                 delete currentItem;
                 throw std::logic_error("Item contains invalid type!");
@@ -121,15 +125,15 @@ bool Character::useItem(const string& itemName){
                 }
             }
             else{
-                if(verifyWeapon->getWeaponType() != Weapon::WeaponType::Bow || verifyWeapon->getWeaponType() != Weapon::WeaponType::Staff){
+                if(verifyWeapon->getWeaponType() != Weapon::WeaponType::Bow && verifyWeapon->getWeaponType() != Weapon::WeaponType::Staff){
                     delete verifyWeapon;
                     throw std::logic_error("Inventory contains invalid weapon type!");
                 }
             }
             equipWeapon(verifyWeapon);
-            return true;
-        case POTION:
-            Potion* verifyPotion = dynamic_cast<Potion*>(currentItem);
+            break;
+        case ItemType::POTION:
+            verifyPotion = dynamic_cast<Potion*>(currentItem);
             if(verifyPotion == nullptr){
                 delete currentItem;
                 throw std::logic_error("Item contains invalid type!");
@@ -142,18 +146,19 @@ bool Character::useItem(const string& itemName){
             delete currentItem;
             currentItem = nullptr;
 
-            return true;
-        case ARMOUR:
-            Armour* verifyArmour = dynamic_cast<Armour*>(currentItem);
+            break;
+        case ItemType::ARMOUR:
+            verifyArmour = dynamic_cast<Armour*>(currentItem);
             if(verifyArmour == nullptr){
                 delete currentItem;
                 throw std::logic_error("Item contains invalid type!");
             }
             equipArmour(verifyArmour);
-            return true;
+            break;
         default:
             throw std::logic_error("Item had improper type!");
     }
+    return true;
 }
 
 bool Character::useItem(const string& itemName, ItemType type){
@@ -161,10 +166,13 @@ bool Character::useItem(const string& itemName, ItemType type){
     if(index == -1){
         return false;
     }
+    Item* currentItem = storage->getItem(index)->clone();
+    Weapon* verifyWeapon = nullptr;
+    Potion* verifyPotion = nullptr;
+    Armour* verifyArmour = nullptr;
     switch(type){
-        Item* currentItem = storage->getItem(index)->clone();
-        case WEAPON:
-            Weapon* verifyWeapon = dynamic_cast<Weapon*>(currentItem);
+        case ItemType::WEAPON:
+            verifyWeapon = dynamic_cast<Weapon*>(currentItem);
             if(verifyWeapon == nullptr){
                 delete currentItem;
                 throw std::logic_error("Item contains invalid type!");
@@ -176,15 +184,15 @@ bool Character::useItem(const string& itemName, ItemType type){
                 }
             }
             else{
-                if(verifyWeapon->getWeaponType() != Weapon::WeaponType::Bow || verifyWeapon->getWeaponType() != Weapon::WeaponType::Staff){
+                if(verifyWeapon->getWeaponType() != Weapon::WeaponType::Bow && verifyWeapon->getWeaponType() != Weapon::WeaponType::Staff){
                     delete verifyWeapon;
                     throw std::logic_error("Inventory contains invalid weapon type!");
                 }
             }
             equipWeapon(verifyWeapon);
-            return true;
-        case POTION:
-            Potion* verifyPotion = dynamic_cast<Potion*>(currentItem);
+            break;
+        case ItemType::POTION:
+            verifyPotion = dynamic_cast<Potion*>(currentItem);
             if(verifyPotion == nullptr){
                 delete currentItem;
                 throw std::logic_error("Item contains invalid type!");
@@ -197,18 +205,19 @@ bool Character::useItem(const string& itemName, ItemType type){
             delete currentItem;
             currentItem = nullptr;
 
-            return true;
-        case ARMOUR:
-            Armour* verifyArmour = dynamic_cast<Armour*>(currentItem);
+            break;
+        case ItemType::ARMOUR:
+            verifyArmour = dynamic_cast<Armour*>(currentItem);
             if(verifyArmour == nullptr){
                 delete currentItem;
                 throw std::logic_error("Item contains invalid type!");
             }
             equipArmour(verifyArmour);
-            return true;
+            break;
         default:
             throw std::logic_error("Item had improper type!");
     }
+    return true;
 }
 
 bool Character::useItem(int index){
@@ -216,10 +225,13 @@ bool Character::useItem(int index){
         return false;
     }
     ItemType type = storage->getItem(index)->getType();
+    Item* currentItem = storage->getItem(index)->clone();
+    Weapon* verifyWeapon = nullptr;
+    Potion* verifyPotion = nullptr;
+    Armour* verifyArmour = nullptr;
     switch(type){
-        Item* currentItem = storage->getItem(index)->clone();
-        case WEAPON:
-            Weapon* verifyWeapon = dynamic_cast<Weapon*>(currentItem);
+        case ItemType::WEAPON:
+            verifyWeapon = dynamic_cast<Weapon*>(currentItem);
             if(verifyWeapon == nullptr){
                 delete currentItem;
                 throw std::logic_error("Item contains invalid type!");
@@ -231,15 +243,15 @@ bool Character::useItem(int index){
                 }
             }
             else{
-                if(verifyWeapon->getWeaponType() != Weapon::WeaponType::Bow || verifyWeapon->getWeaponType() != Weapon::WeaponType::Staff){
+                if(verifyWeapon->getWeaponType() != Weapon::WeaponType::Bow && verifyWeapon->getWeaponType() != Weapon::WeaponType::Staff){
                     delete verifyWeapon;
                     throw std::logic_error("Inventory contains invalid weapon type!");
                 }
             }
             equipWeapon(verifyWeapon);
-            return true;
-        case POTION:
-            Potion* verifyPotion = dynamic_cast<Potion*>(currentItem);
+            break;
+        case ItemType::POTION:
+            verifyPotion = dynamic_cast<Potion*>(currentItem);
             if(verifyPotion == nullptr){
                 delete currentItem;
                 throw std::logic_error("Item contains invalid type!");
@@ -252,18 +264,19 @@ bool Character::useItem(int index){
             delete currentItem;
             currentItem = nullptr;
 
-            return true;
-        case ARMOUR:
-            Armour* verifyArmour = dynamic_cast<Armour*>(currentItem);
+            break;
+        case ItemType::ARMOUR:
+            verifyArmour = dynamic_cast<Armour*>(currentItem);
             if(verifyArmour == nullptr){
                 delete currentItem;
                 throw std::logic_error("Item contains invalid type!");
             }
             equipArmour(verifyArmour);
-            return true;
+            break;
         default:
             throw std::logic_error("Item had improper type!");
-    }  
+    } 
+    return true; 
 }
 
 bool Character::throwAwayItem(const string& name){
@@ -288,4 +301,8 @@ bool Character::throwAwayItem(int index){
     }
     storage->removeItem(*(storage->getItem(index)));
     return true;
+}
+
+void Character::attack(Character& target){
+    weapon->useItem(target);
 }

@@ -14,7 +14,7 @@ using std::ostream;
 using std::vector;
 // Define a static start time for the program
 static auto programStartTime = std::chrono::steady_clock::now();
-enum ItemType{ //possible items we can have
+enum class ItemType{ //possible items we can have
     WEAPON,
     ARMOUR,
     POTION
@@ -30,7 +30,7 @@ class Item{
         };
     protected:
         string name;
-        const vector<string> types{"WEAPON", "ARMOR", "FOOD", "POTION"};
+        const vector<string> types{"WEAPON", "ARMOR", "POTION"};
         const vector<string> grades{"COMMON","UNCOMMON","RARE","EPIC","LEGENDARY"};
         ItemType type;
         string description;
@@ -57,7 +57,7 @@ class Item{
         double getTime() const {return timeEarned;}
         Item::Grade getGrade() const {return itemGrade;}
         ItemType getType() const {return type;}
-        string determineType(int index) const;
+        string determineType(ItemType type) const;
         string determineGrade(int index) const;
 
         virtual void useItem(Character&) = 0;

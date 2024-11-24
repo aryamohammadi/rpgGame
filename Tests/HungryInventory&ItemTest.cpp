@@ -148,7 +148,7 @@ TEST(InventoryTest, AddMultipleItems){
 
 TEST(InventoryTest, removeOneItem){
     
-    MockItem* item = new MockItem(ARMOUR, "Danny", Item::Grade::EPIC, "hi");
+    MockItem* item = new MockItem(ItemType::ARMOUR, "Danny", Item::Grade::EPIC, "hi");
 
     Inventory playerStorage;
 

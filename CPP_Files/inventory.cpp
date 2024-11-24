@@ -7,6 +7,17 @@
 using std::endl;
 using std::to_string;
 using std::exception;
+int Inventory::itemFound(const Item* item) const{
+    if(size == 0){
+        return -1;
+    }
+    for(unsigned i = 0; i < size; i++){
+        if(items[i]->isItem(*item)){
+            return i;
+        }
+    }
+    return -1;
+}
 int Inventory::itemFound(const Item& item) const {
     if(size == 0){
         return -1;
@@ -108,22 +119,6 @@ std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
         }
     }
     return out;
-}
-
-void Inventory::removeItem(const std::string& name){
-    int index = itemFound(name);
-    if(index == -1){
-        throw std::invalid_argument("removeItem: Item nammed " + name + " not in inventory!");
-    }
-    if(items[index] != nullptr && items[index]->getItem() != nullptr && items[index]->getItem()->getType() == ItemType::POTION && items[index]->currentQuantity() > 1){//for potions
-        items[index]->decreaseQuantity(1);
-    }
-    else{
-        delete items[index];
-        items[index] = nullptr;
-        reorganizeItems();
-        size --;
-    }
 }
 
 void Inventory::sortAlphabetically(){

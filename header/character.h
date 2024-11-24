@@ -2,9 +2,12 @@
 
 #include "../header/AttackType.h"
 #include <string>
+using std::string;
 class Inventory;
 class Item;
 class Armour;
+class Weapon;
+enum class ItemType;
 class Character{
     private:
         std::string characterName;
@@ -45,7 +48,7 @@ class Character{
         void setAttackType(AttackType attackType) {currentAttackType = attackType;}
         AttackType getAttackType() const {return currentAttackType;}
 
-        void attack(Character& target){weapon->useItem(target);}
+        void attack(Character& target);
 
         void pickUpItem(const Item& item);
         
@@ -57,6 +60,6 @@ class Character{
         bool throwAwayItem(const string& name, ItemType type);
         bool throwAwayItem(int index);
 
-        string showInventory() const;
-        string outputWeapons() const;
+        std::string showInventory() const;
+        std::string outputWeapons() const;
 };

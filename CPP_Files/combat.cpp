@@ -88,9 +88,20 @@ void Combat::performAttack(Character& attacker, Character& defender) {
     }
 }
 
-void Combat::removePlayer(Character& playerToBeRemovedFromVector){
-    
+
+//remove player from the vector
+void Combat::removePlayer(Character& playerToBeRemovedFromVector) {
+    for (int i = 0; i < fightersAlive.size(); ++i) {
+        if (fightersAlive[i].getCharacterName() == playerToBeRemovedFromVector.getCharacterName()) {
+            // Remove the player from the vector
+            fightersAlive.erase(fightersAlive.begin() + i);
+            std::cout << playerToBeRemovedFromVector.getCharacterName() << " has been removed from combat!\n";
+            return; // Exit the function after removing
+        }
+    }
+    std::cout << playerToBeRemovedFromVector.getCharacterName() << " was not found in combat.\n"; // player not found, should not reach this point
 }
+
 
 
 bool Combat::hasBattleEnded(){

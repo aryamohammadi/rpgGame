@@ -102,8 +102,30 @@ void Combat::removePlayer(Character& playerToBeRemovedFromVector) {
     std::cout << playerToBeRemovedFromVector.getCharacterName() << " was not found in combat.\n"; // player not found, should not reach this point
 }
 
+// check if the battle has ended
+bool Combat::hasBattleEnded() {
+    bool isPlayerAlive = false;
+    bool areEnemiesAlive = false;
 
+    for (int i = 0; i < fightersAlive.size(); ++i) {
+        if (fightersAlive[i].isAlive()) {
+            if (fightersAlive[i].getCharacterName() == "Player") {
+                isPlayerAlive = true;
+            } else {
+                areEnemiesAlive = true; // At least one enemy is alive
+            }
+        }
+        if (isPlayerAlive && areEnemiesAlive) {
+            return false; // Battle continues
+        }
+    }
 
-bool Combat::hasBattleEnded(){
-    return (battleEnded);
+    // Battle ends if player is dead or all enemies are defeated
+    if (!isPlayerAlive) {
+        return true; // Player is dead, battle ends
+    }
+    if (!areEnemiesAlive) {
+        return true; // All enemies are dead, battle ends
+    }
+    return false; // Battle continues
 }

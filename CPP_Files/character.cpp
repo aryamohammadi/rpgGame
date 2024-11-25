@@ -33,3 +33,7 @@ void Character::swap(Character& other) noexcept {
     swap(isDead, other.isDead);
     swap(currentAttackType, other.currentAttackType);
 }
+
+std::string Character::getCharacterName() const {
+    return characterName;
+}

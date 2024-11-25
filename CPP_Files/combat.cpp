@@ -1,5 +1,6 @@
 #include "combat.h"
-#include <algorithm> // For std::remove_if
+#include <random> // For random number generation
+
 
 Combat::Combat(std::vector<Character>& fighters) : fightersAlive(fighters) {}
 
@@ -62,8 +63,12 @@ void Combat::performAttack(Character& attacker, Character& defender) {
 
     // Perform attack on the selected target
     Character& defender = fightersAlive[targetIndex];
-    int damage = attacker.getDamage();
-
+    
+    // randomization of damage
+    int baseDamage = attacker.getDamage();
+    int minDamage = baseDamage * 0.75; // 75% of base damage
+    int maxDamage = baseDamage * 1.25; // 125% of base damage
+    int damage = minDamage + (rand() % (maxDamage - minDamage + 1)); // Random damage between min and max
     // Ensure damage is not negative or zero
     if (damage > 0) { // Damage is positive
         defender.takeDamage(damage);

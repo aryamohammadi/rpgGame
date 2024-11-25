@@ -9,6 +9,7 @@
 #include <gmock/gmock.h>
 #include "../header/character.h"
 #include "../header/itemType.h"
+
 using std::string;
 using std::ostream;
 using std::vector;
@@ -52,9 +53,9 @@ class Item{
         double getTime() const {return timeEarned;}
         Item::Grade getGrade() const {return itemGrade;}
         ItemType getType() const {return type;}
-
         string determineType(int index) const;
         string determineGrade(int index) const;
+
         virtual void useItem(Character&) = 0;
         virtual Item* clone() const = 0;
         friend void swap(Item*& item1, Item*& item2);

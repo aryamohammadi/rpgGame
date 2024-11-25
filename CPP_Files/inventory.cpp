@@ -105,7 +105,7 @@ std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
     }
     for(unsigned i = 0; i < rhs.size; i++){
         if(rhs.items[i] != nullptr){
-            out << "Item " << i << std::endl;
+            out << "Item " << i << ':' << std::endl;
             out << *rhs.items[i] << endl;
         }
     }
@@ -146,4 +146,15 @@ void Inventory::makeLatestFirst(){
 void Inventory::makeOldestFirst(){
     MergeSort s(CompareItem::CompareBy::Time);
     s.sort(items, SortOrder::Ascending);
+}
+
+void Inventory::removeItem(const string& name, ItemType t){
+    int index = itemFound(name,t);
+    if(index == -1){
+        throw invalid_argument("Item not found!");
+    }
+    delete items[index];
+    items[index] = nullptr;
+    reorganizeItems();
+    size --;
 }

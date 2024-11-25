@@ -69,6 +69,7 @@ void Combat::performAttack(Character& attacker, Character& defender) {
     int minDamage = baseDamage * 0.75; // 75% of base damage
     int maxDamage = baseDamage * 1.25; // 125% of base damage
     int damage = minDamage + (rand() % (maxDamage - minDamage + 1)); // Random damage between min and max
+    
     // Ensure damage is not negative or zero
     if (damage > 0) { // Damage is positive
         defender.takeDamage(damage);

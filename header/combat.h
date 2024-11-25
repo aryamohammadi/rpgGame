@@ -29,8 +29,10 @@ class Combat{
         bool isPlayerDead(); // Checks if the player is dead.
         bool areBothEnemiesDead(); // Checks if all enemies are defeated.
         bool isAtLeast1EnemieAlive(); // Checks if at least one enemy is still fighting.
-        void performAttack(Character& attacker, Character& target); // Performs an attack between two characters.
+        void performAttack(Character& attacker); // Performs an attack between characters.
         bool hasBattleEnded(); // Checks if the battle has ended.
+        void Combat::removePlayerFromHeap(int targetIndex);
+
 };
 #endif // COMBAT_H
 

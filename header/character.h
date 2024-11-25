@@ -44,6 +44,7 @@ class Character{
         int getDefense() const;
         AttackType getAttackType() const;
         bool isAlive() const;
+        std::string getCharacterName() const; // Returns the character's name
 
 
         // Combat virtual functions to be implemented by derived classes

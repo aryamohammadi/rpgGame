@@ -13,13 +13,15 @@ class Combat{
         // Removes a defeated character from fightersAlive.
         void removePlayer(Character& playerToBeRemovedFromVector);
 
+        // Helper function to select a target for a character to attack
+        Character& selectTarget(Character& attacker);
+
     public:
         Combat(std::vector<Character>& fighters); // Initializes the combat with fighters.
-    
         Combat(const Combat&) = delete; // Prevent copying of the combat instance.
         Combat& operator=(const Combat&) = delete; // Delete copy assignment
-        ~Combat(); 
-
+        ~Combat();
+        
         void startBattle(); // Initiates and manages the combat loop.
         bool isPlayerDead(); // Checks if the player is dead.
         bool areBothEnemiesDead(); // Checks if all enemies are defeated.

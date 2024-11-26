@@ -6,7 +6,6 @@ Combat::Combat(std::vector<Character>& fighters) : fightersAlive(fighters) {}
 
 Combat::~Combat() = default;
 
-
 //Jessy will reimplement this function
 // void Combat::startBattle() { 
     // while (!hasBattleEnded()) {
@@ -22,7 +21,7 @@ Combat::~Combat() = default;
     //         }
     //     }
     // }
-}
+//}
 
 //!!!!!!!!!!
 //FIXME: We have to implement getCharacterName() in the Character class

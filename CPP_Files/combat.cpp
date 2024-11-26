@@ -5,8 +5,6 @@
 #include <random>
 using namespace std:
 
-
-
 Combat::Combat(vector<Character>& fighters) : fightersAlive(fighters) {}
 
 Combat::~Combat() = default;
@@ -152,13 +150,13 @@ void Combat::performAttack(Character& attacker) {
 
 void Combat::removePlayerFromHeap(int targetIndex) {
     if (targetIndex < 0 || targetIndex >= fightersAlive.size()) {
-        throw std::runtime_error("Invalid index: Unable to remove character from heap.");
+        throw runtime_error("Invalid index: Unable to remove character from heap.");
         return;
     }
 
     // Move the last element to the target index and pop the heap
     fightersAlive[targetIndex] = fightersAlive[fightersAlive.size() - 1]; // Replace with the last element
-    fighterHeap.pop_back(); // Remove the last element
+    fightersAlive.pop_back(); // Remove the last element
 
     // Restore the heap property
     if (targetIndex < fightersAlive.size()) { // Only re-heapify if there are elements left

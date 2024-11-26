@@ -1,14 +1,19 @@
 #include "combat.h"
 #include <random> // For random number generation
+#include <iostream>
+#include <vector>
+#include <random>
+using namespace std:
 
-
-Combat::Combat(std::vector<Character>& fighters) : fightersAlive(fighters) {}
+Combat::Combat(vector<Character>& fighters) : fightersAlive(fighters) {}
 
 Combat::~Combat() = default;
 
 void Combat::startBattle() {
     if (fightersAlive.size() <= 1) {
-        std::cout << "Not enough characters for a battle. Pick another option. \n";
+
+        cout << "Not enough characters for a battle. Pick another option." << endl;
+
         return;
     }
 
@@ -30,14 +35,15 @@ void Combat::startBattle() {
     }
 
     if (!playerFound) {
-        throw std::runtime_error("No player found. Cannot start battle.");
+        throw runtime_error("No player found. Cannot start battle.");
     }
     if (!enemiesFound) {
-        std::cout << "No enemies found. Pick another option";
+        cout << "No enemies found. Pick another option";
         return;
     }
 
-    std::cout << "Battle begins!\n";
+    cout << "Battle begins!" << endl;
+
 
     // Battle loop
     while (!hasBattleEnded()) {
@@ -57,80 +63,107 @@ void Combat::startBattle() {
 //!!!!!!!!!!
 
 void Combat::performAttack(Character& attacker) {
+    cout << attacker.getCharacterName() << "'s turn to attack!" << endl;
 
-    std::cout << attacker.getCharacterName() << "'s turn to attack!\n"; 
 
-    // Display the list of targets
-    std::cout << "Choose a target to attack:\n";
-    for (int i = 0; i < fighterHeap.size(); ++i) { // Display all targets
-        Character* target = fighterHeap[i];
-        if (target->getCharacterName() != attacker.getCharacterName() && target->isAlive()) {
-            std::cout << i << ": " << target->getCharacterName() << "\n"; // Display the target
+    Character* target = nullptr;
+
+    // Check if the attacker is the player
+    if (attacker.getCharacterName() == "Player") {
+        // Display the list of valid targets (all alive enemies)
+        cout << "Choose a target to attack:" << endl;
+        vector<int> validTargets;
+        for (int i = 0; i < fightersAlive.size(); ++i) {
+            Character* potentialTarget = &fightersAlive[i];
+            if (potentialTarget->getCharacterName() != "Player" && potentialTarget->isAlive()) {
+                validTargets.push_back(i);
+                cout << i << ": " << potentialTarget->getCharacterName() << endl;
+            }
+        }
+
+        // Ensure there are valid targets
+        if (validTargets.empty()) {
+            cout << "No valid targets to attack. Skipping turn." << endl;
+        }
+
+        // Prompt the player for a target
+        int targetIndex = -1;
+        bool validChoice = false;
+        while (!validChoice) {
+            cout << "Enter the index of your target: " << endl;
+            cin >> targetIndex;
+
+            // Validate input
+            if (targetIndex >= 0 && targetIndex < fightersAlive.size()) {
+                Character* potentialTarget = &fightersAlive[targetIndex];
+                if (potentialTarget->getCharacterName() != "Player" && potentialTarget->isAlive()) {
+                    validChoice = true;
+                    target = potentialTarget;
+                }
+                else {
+                    cout << "Invalid choice: Target must not be yourself or already defeated." << endl;
+                }
+            }
+            else {
+                cout << "Invalid choice: Index out of range. Please select a valid target." << endl;
+            }
+        }    
+    }
+    else {
+        // Enemy automatically targets the player
+        for (int i = 0; i < fightersAlive.size(); ++i) {
+            Character* potentialTarget = &fightersAlive[i];
+            if (potentialTarget->getCharacterName() == "Player" && potentialTarget->isAlive()) {
+                target = potentialTarget;
+                break;
+            }
+        }
+
+        // Announce the enemy is attacking the player
+        if (target) {
+            cout << attacker.getCharacterName() << " is attacking you!" << endl;
         }
     }
 
-    // Prompt user for a target index
-    int targetIndex = -1; // set equal to -1 to avoid undefined behavior
-    bool validChoice = false; // Flag to indicate if the choice is valid
-    while (!validChoice) { // Loop until a valid choice is made
-        std::cout << "Enter the index of your target: " << std::endl;
-        std::cin >> targetIndex;
-        std::cout << std::endl;
-        
-        // Validate the target
-        if (targetIndex < 0 || targetIndex >= fighterHeap.size()) {
-            std::cout << "Invalid choice: Index out of range. Please select a valid target.\n";
-        }
-        else if (fighterHeap[targetIndex].getCharacterName() == attacker.getCharacterName()) {
-            std::cout << "Invalid choice: You cannot target yourself.\n";
-        }
-        else if (!fighterHeap[targetIndex].isAlive()) {
-            std::cout << "Invalid choice: Target is already defeated.\n";
-        }
-        else {
-            validChoice = true; // All conditions are met
-        }
+    // If no valid target found, skip the turn
+    if (!target) {
+        cout << "No valid target found. Skipping turn." << endl;
+        return;
     }
 
-    // Perform attack on the selected target
-    Character* defender = fighterHeap[targetIndex];
-    
-    // randomization of damage
+    // Perform the attack
     int baseDamage = attacker.getDamage();
-    int minDamage = baseDamage * 0.75; // 75% of base damage
-    int maxDamage = baseDamage * 1.25; // 125% of base damage
-    int damage = minDamage + (rand() % (maxDamage - minDamage + 1)); // Random damage between min and max
-    
-    // Ensure damage is not negative or zero
-    if (damage > 0) { // Damage is positive
-        defender->takeDamage(damage);
-        std::cout << attacker.getCharacterName() << " dealt " << damage
-                  << " damage to " << defender->getCharacterName() << "!\n";
-    }
-    else { // Damage is zero or negative
-        std::cout << attacker.getCharacterName() << " failed to deal damage to "
-                  << defender->getCharacterName() << ".\n";
-    }
+    int minDamage = baseDamage * 0.75;
+    int maxDamage = baseDamage * 1.25;
+    int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
 
-    // Check if the defender is dead
-    if (!defender->isAlive()) { // Defender is defeated
-        std::cout << defender->getCharacterName() << " has been defeated!\n";
-        removePlayerFromHeap(targetIndex);
+
+    // Apply damage
+    target->takeDamage(damage);
+    cout << attacker.getCharacterName() << " dealt " << damage
+         << " damage to " << target->getCharacterName() << "!" << endl;
+
+
+    // Check if the target is defeated
+    if (!target->isAlive()) {
+        cout << target->getCharacterName() << " has been defeated!" << endl;
+        removePlayerFromHeap(target->getHeapIndex());
     }
 }
 
+
 void Combat::removePlayerFromHeap(int targetIndex) {
-    if (targetIndex < 0 || targetIndex >= fighterHeap.size()) {
-        throw std::runtime_error("Invalid index: Unable to remove character from heap.");
+    if (targetIndex < 0 || targetIndex >= fightersAlive.size()) {
+        throw runtime_error("Invalid index: Unable to remove character from heap.");
         return;
     }
 
     // Move the last element to the target index and pop the heap
-    fighterHeap[targetIndex] = fighterHeap[fighterHeap.size() - 1]; // Replace with the last element
-    fighterHeap.pop_back(); // Remove the last element
+    fightersAlive[targetIndex] = fightersAlive[fightersAlive.size() - 1]; // Replace with the last element
+    fightersAlive.pop_back(); // Remove the last element
 
     // Restore the heap property
-    if (targetIndex < fighterHeap.size()) { // Only re-heapify if there are elements left
+    if (targetIndex < fightersAlive.size()) { // Only re-heapify if there are elements left
         heapifyDown(targetIndex); // Push the element down to its correct position
         heapifyUp(targetIndex);   // Or pull it up if needed
     }

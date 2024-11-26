@@ -36,19 +36,3 @@ class Combat{
 };
 #endif // COMBAT_H
 
-
-//declare combat object
-//pass in a vector of character + enemies in the constructor through the vector
-
-//in main im guessing that they'll have options. do you want to start the
-//first level
-//they'll click yes and the function combat.startfight() will be called
-//combat.startfight();
-
-//in this function
-//ill call create an object of the maxheap and  pass in the vector.
-//itll decide who attacks first and im guessing the player or enemie or index will be returned to see
-//who will attack
-//we'll have a loop that loops around so everyone attacks
-//this will happen until the player dies or theirs no more enemies
-//once 1 person remains then the loop will exit out

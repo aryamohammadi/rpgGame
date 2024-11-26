@@ -6,20 +6,22 @@ Combat::Combat(std::vector<Character>& fighters) : fightersAlive(fighters) {}
 
 Combat::~Combat() = default;
 
-void Combat::startBattle() {
-    while (!hasBattleEnded()) {
-        for (int i = 0; i < fightersAlive.size(); ++i) {
-            Character& fighter = fightersAlive[i]; // Get a reference to the current fighter
-            if (fighter.isAlive()) { // Only allow alive characters to attack
-                Character& target = selectTarget(fighter); // Select a target for the current fighter
-                performAttack(fighter, target);  // Perform the attack
-                if (hasBattleEnded()) { // Check if the battle has ended
-                    battleEnded = true;
-                    return; // Exit the function immediately
-                }
-            }
-        }
-    }
+
+//Jessy will reimplement this function
+// void Combat::startBattle() { 
+    // while (!hasBattleEnded()) {
+    //     for (int i = 0; i < fightersAlive.size(); ++i) {
+    //         Character& fighter = fightersAlive[i]; // Get a reference to the current fighter
+    //         if (fighter.isAlive()) { // Only allow alive characters to attack
+    //             Character& target = selectTarget(fighter); // Select a target for the current fighter
+    //             performAttack(fighter, target);  // Perform the attack
+    //             if (hasBattleEnded()) { // Check if the battle has ended
+    //                 battleEnded = true;
+    //                 return; // Exit the function immediately
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 //!!!!!!!!!!

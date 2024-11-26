@@ -6,7 +6,6 @@ Combat::Combat(std::vector<Character>& fighters) : fightersAlive(fighters) {}
 
 Combat::~Combat() = default;
 
-
 void Combat::startBattle() {
     if (fightersAlive.size() <= 1) {
         std::cout << "Not enough characters for a battle. Pick another option. \n";

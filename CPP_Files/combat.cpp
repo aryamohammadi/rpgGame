@@ -11,7 +11,9 @@ Combat::~Combat() = default;
 
 void Combat::startBattle() {
     if (fightersAlive.size() <= 1) {
+
         cout << "Not enough characters for a battle. Pick another option." << endl;
+
         return;
     }
 
@@ -42,6 +44,7 @@ void Combat::startBattle() {
 
     cout << "Battle begins!" << endl;
 
+
     // Battle loop
     while (!hasBattleEnded()) {
         // Pop the top of the heap (fastest attacker)
@@ -61,6 +64,7 @@ void Combat::startBattle() {
 
 void Combat::performAttack(Character& attacker) {
     cout << attacker.getCharacterName() << "'s turn to attack!" << endl;
+
 
     Character* target = nullptr;
 

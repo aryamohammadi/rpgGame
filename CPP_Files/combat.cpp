@@ -7,26 +7,57 @@ Combat::Combat(std::vector<Character>& fighters) : fightersAlive(fighters) {}
 Combat::~Combat() = default;
 
 void Combat::startBattle() {
-    while (!hasBattleEnded()) {
-        for (int i = 0; i < fightersAlive.size(); ++i) {
-            Character& fighter = fightersAlive[i]; // Get a reference to the current fighter
-            if (fighter.isAlive()) { // Only allow alive characters to attack
-                Character& target = selectTarget(fighter); // Select a target for the current fighter
-                performAttack(fighter, target);  // Perform the attack
-                if (hasBattleEnded()) { // Check if the battle has ended
-                    battleEnded = true;
-                    return; // Exit the function immediately
-                }
-            }
+    if (fightersAlive.size() <= 1) {
+        std::cout << "Not enough characters for a battle. Pick another option. \n";
+        return;
+    }
+
+    // Make sure heap is sorted based on speed
+    //heapifyAll();
+
+    // Validate presence of player and enemies
+    bool playerFound = false;
+    bool enemiesFound = false;
+
+    for (int i = 0; i < fightersAlive.size(); ++i) {
+    Character& fighter = fightersAlive[i];
+        if (fighter.getCharacterName() == "Player") {
+            playerFound = true;
+        } else if (fighter.isAlive()) {
+            enemiesFound = true;
         }
+        if (playerFound && enemiesFound) break;
+    }
+
+    if (!playerFound) {
+        throw std::runtime_error("No player found. Cannot start battle.");
+    }
+    if (!enemiesFound) {
+        std::cout << "No enemies found. Pick another option";
+        return;
+    }
+
+    std::cout << "Battle begins!\n";
+
+    // Battle loop
+    while (!hasBattleEnded()) {
+        // Pop the top of the heap (fastest attacker)
+       // Character* attacker = getFastestFromHeap();
+
     }
 }
 
+//bool isalive function //has if it a chaster
+//if the player is alove and check if its an enemeny. 
+//if figher is a player
+
+//get character name 
 //!!!!!!!!!!
 //FIXME: We have to implement getCharacterName() in the Character class
 //!!!!!!!!!!
 
 void Combat::performAttack(Character& attacker) {
+
     std::cout << attacker.getCharacterName() << "'s turn to attack!\n"; 
 
     // Display the list of targets

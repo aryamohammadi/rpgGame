@@ -1,9 +1,10 @@
 #include "Heap.h"
 
-void MaxHeap::heapifyUp(int index) {
+template<typename T>
+void MaxHeap<T>::heapifyUp(int index) {
     while (index > 0) {
         int parent = (index - 1) / 2;
-        if (heap[index] <= heap[parent]) {
+        if (!(heap[index] > heap[parent])) {
             return; // Exit the function if the heap property is satisfied
         }
         std::swap(heap[index], heap[parent]);
@@ -11,7 +12,9 @@ void MaxHeap::heapifyUp(int index) {
     }
 }
 
-void MaxHeap::heapifyDown(int index) {
+// Restore the heap property starting from the root
+template<typename T>
+void MaxHeap<T>::heapifyDown(int index) {
     int size = heap.size();
     int leftChild = 2 * index + 1;
     int rightChild = 2 * index + 2;
@@ -41,13 +44,15 @@ void MaxHeap::heapifyDown(int index) {
 }
 
 // Insert a new element into the heap
-void MaxHeap::insert(int value) {
+template<typename T>
+void MaxHeap<T>::insert(const T& value) {
     heap.push_back(value);
     heapifyUp(heap.size() - 1);
 }
 
 // Get the maximum element
-int MaxHeap::getMax() const {
+template<typename T>
+T MaxHeap<T>::getMax() const {
     if (heap.empty()) {
         throw std::runtime_error("Heap is empty");
     }
@@ -55,30 +60,34 @@ int MaxHeap::getMax() const {
 }
 
 // Remove the maximum element
-void MaxHeap::removeMax() {
+template<typename T>
+void MaxHeap<T>::removeMax() {
     if (heap.empty()) {
         throw std::runtime_error("Heap is empty");
     }
-    heap[0] = heap.back();
-    heap.pop_back();
+    heap[0] = heap.back();  // Replace root with the last element
+    heap.pop_back();        // Remove the last element
     if (!heap.empty()) {
-        heapifyDown(0);
+        heapifyDown(0);     // Restore heap property starting from the root
     }
 }
 
 // Check if the heap is empty
-bool MaxHeap::isEmpty() const {
+template<typename T>
+bool MaxHeap<T>::isEmpty() const {
     return heap.empty();
 }
 
 // Get the size of the heap
-int MaxHeap::size() const {
+template<typename T>
+int MaxHeap<T>::size() const {
     return heap.size();
 }
 
 // Display the heap
-void MaxHeap::displayHeap() const {
-    for (int value : heap) {
+template<typename T>
+void MaxHeap<T>::displayHeap() const {
+    for (const T& value : heap) {
         std::cout << value << " ";
     }
     std::cout << "\n";

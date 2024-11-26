@@ -10,12 +10,11 @@
 
 class MaxHeap {
     private:
-        std::vector<Character*> heap; // Vector of generic type T
+      //  std::vector<Character*> heap; // Vector of generic type T
 
     public:
         MaxHeap() {}
-        MaxHeap(std::vector<Character>&players);
-        ~MaxHeap();//have to implement this because working with pointers
+       // MaxHeap(std::vector<Character*>&players);
         void insert(const Character& value);
         Character* getMax() const;
        
@@ -23,6 +22,7 @@ class MaxHeap {
         bool isEmpty() const;
         int size() const;
         void displayHeap() const;
-        void heapifyUp(int index);
-        void heapifyDown(int index);
+        void heapifyUp(std::vector<Character*>&array, int index);
+        void heapifyDown(std::vector<Character*>&array, int index);
+        void heapsort(std::vector<Character*>&array);
 };

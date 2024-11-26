@@ -1,5 +1,7 @@
 #include "combat.h"
 #include <random> // For random number generation
+#include <iostream>
+#include <vector>
 
 
 Combat::Combat(std::vector<Character>& fighters) : fightersAlive(fighters) {}
@@ -57,67 +59,102 @@ void Combat::startBattle() {
 //!!!!!!!!!!
 
 void Combat::performAttack(Character& attacker) {
+   std::cout << attacker.getCharacterName() << "'s turn to attack!" << endl;
 
-    std::cout << attacker.getCharacterName() << "'s turn to attack!\n"; 
 
-    // Display the list of targets
-    std::cout << "Choose a target to attack:\n";
-    for (int i = 0; i < fighterHeap.size(); ++i) { // Display all targets
-        Character* target = fighterHeap[i];
-        if (target->getCharacterName() != attacker.getCharacterName() && target->isAlive()) {
-            std::cout << i << ": " << target->getCharacterName() << "\n"; // Display the target
-        }
-    }
+   Character* target = nullptr;
 
-    // Prompt user for a target index
-    int targetIndex = -1; // set equal to -1 to avoid undefined behavior
-    bool validChoice = false; // Flag to indicate if the choice is valid
-    while (!validChoice) { // Loop until a valid choice is made
-        std::cout << "Enter the index of your target: " << std::endl;
-        std::cin >> targetIndex;
-        std::cout << std::endl;
-        
-        // Validate the target
-        if (targetIndex < 0 || targetIndex >= fighterHeap.size()) {
-            std::cout << "Invalid choice: Index out of range. Please select a valid target.\n";
-        }
-        else if (fighterHeap[targetIndex].getCharacterName() == attacker.getCharacterName()) {
-            std::cout << "Invalid choice: You cannot target yourself.\n";
-        }
-        else if (!fighterHeap[targetIndex].isAlive()) {
-            std::cout << "Invalid choice: Target is already defeated.\n";
-        }
-        else {
-            validChoice = true; // All conditions are met
-        }
-    }
 
-    // Perform attack on the selected target
-    Character* defender = fighterHeap[targetIndex];
-    
-    // randomization of damage
-    int baseDamage = attacker.getDamage();
-    int minDamage = baseDamage * 0.75; // 75% of base damage
-    int maxDamage = baseDamage * 1.25; // 125% of base damage
-    int damage = minDamage + (rand() % (maxDamage - minDamage + 1)); // Random damage between min and max
-    
-    // Ensure damage is not negative or zero
-    if (damage > 0) { // Damage is positive
-        defender->takeDamage(damage);
-        std::cout << attacker.getCharacterName() << " dealt " << damage
-                  << " damage to " << defender->getCharacterName() << "!\n";
-    }
-    else { // Damage is zero or negative
-        std::cout << attacker.getCharacterName() << " failed to deal damage to "
-                  << defender->getCharacterName() << ".\n";
-    }
+   // Check if the attacker is the player
+   if (attacker.getCharacterName() == "Player") {
+       // Display the list of valid targets (all alive enemies)
+       cout << "Choose a target to attack:" <<endl;
+       vector<int> validTargets;
+       for (int i = 0; i < fightersAlive.size(); ++i) {
+           Character* potentialTarget = fightersAlive[i];
+           if (potentialTarget->getCharacterName() != "Player" && potentialTarget->isAlive()) {
+               validTargets.push_back(i);
+               std::cout << i << ": " << potentialTarget->getCharacterName() << endl;
+           }
+       }
 
-    // Check if the defender is dead
-    if (!defender->isAlive()) { // Defender is defeated
-        std::cout << defender->getCharacterName() << " has been defeated!\n";
-        removePlayerFromHeap(targetIndex);
-    }
+
+       // Ensure there are valid targets
+       if (validTargets.empty()) {
+           cout << "No valid targets to attack. Skipping turn.\n";
+           return;
+       }
+
+
+       // Prompt the player for a target
+       int targetIndex = -1;
+       bool validChoice = false;
+       while (!validChoice) {
+           std::cout << "Enter the index of your target: ";
+           std::cin >> targetIndex;
+
+
+           // Validate input
+           if (targetIndex >= 0 && targetIndex < fighterHeap.size()) {
+               Character* potentialTarget = fighterHeap[targetIndex];
+               if (potentialTarget->getCharacterName() != "Player" && potentialTarget->isAlive()) {
+                   validChoice = true;
+                   target = potentialTarget;
+               }
+               else {
+                   std::cout << "Invalid choice: Target must not be yourself or already defeated.\n";
+               }
+           }
+           else {
+               std::cout << "Invalid choice: Index out of range. Please select a valid target.\n";
+           }
+       }
+   }
+   else {
+       // Enemy automatically targets the player
+       for (int i = 0; i < fighterHeap.size(); ++i) {
+           Character* potentialTarget = fighterHeap[i];
+           if (potentialTarget->getCharacterName() == "Player" && potentialTarget->isAlive()) {
+               target = potentialTarget;
+               break;
+           }
+       }
+
+
+       // Announce the enemy is attacking the player
+       if (target) {
+           std::cout << attacker.getCharacterName() << " is attacking you!\n";
+       }
+   }
+
+
+   // If no valid target found, skip the turn
+   if (!target) {
+       std::cout << "No valid target found. Skipping turn.\n";
+       return;
+   }
+
+
+   // Perform the attack
+   int baseDamage = attacker.getDamage();
+   int minDamage = baseDamage * 0.75;
+   int maxDamage = baseDamage * 1.25;
+   int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
+
+
+   // Apply damage
+   target->takeDamage(damage);
+   std::cout << attacker.getCharacterName() << " dealt " << damage
+             << " damage to " << target->getCharacterName() << "!\n";
+
+
+   // Check if the target is defeated
+   if (!target->isAlive()) {
+       std::cout << target->getCharacterName() << " has been defeated!\n";
+       removePlayerFromHeap(target->getHeapIndex());
+   }
 }
+
 
 void Combat::removePlayerFromHeap(int targetIndex) {
     if (targetIndex < 0 || targetIndex >= fighterHeap.size()) {

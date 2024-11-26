@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
-using namespace std:
+using namespace std;
 
 Combat::Combat(vector<Character>& fighters) : fightersAlive(fighters) {}
 

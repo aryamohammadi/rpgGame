@@ -2,6 +2,8 @@
 #include <random> // For random number generation
 #include <iostream>
 #include <vector>
+using namespace std:
+
 
 
 Combat::Combat(std::vector<Character>& fighters) : fightersAlive(fighters) {}

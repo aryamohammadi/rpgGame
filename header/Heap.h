@@ -6,16 +6,19 @@
 #include <functional>
 
 // Template for the MaxHeap class, allowing any type T
-template<typename T>
+//template<typename T>
 
 class MaxHeap {
     private:
-        std::vector<T> heap; // Vector of generic type T
+        std::vector<Character*> heap; // Vector of generic type T
 
     public:
         MaxHeap() {}
-        void insert(const T& value);
-        T getMax() const;
+        MaxHeap(std::vector<Character>&players);
+        ~MaxHeap();//have to implement this because working with pointers
+        void insert(const Character& value);
+        Character* getMax() const;
+       
         void removeMax();
         bool isEmpty() const;
         int size() const;

@@ -1,11 +1,12 @@
 #include "combat.h"
+#include "Heap.h"
 #include <random> // For random number generation
 #include <iostream>
 #include <vector>
 #include <random>
-using namespace std:
+using namespace std;
 
-Combat::Combat(vector<Character>& fighters) : fightersAlive(fighters) {}
+Combat::Combat(vector<Character&> fighters) : fightersAlive(fighters) {}
 
 Combat::~Combat() = default;
 
@@ -16,6 +17,8 @@ void Combat::startBattle() {
 
         return;
     }
+
+MaxHeap(fightersAlive);
 
     // Make sure heap is sorted based on speed
     //heapifyAll();

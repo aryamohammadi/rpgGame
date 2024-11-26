@@ -90,4 +90,8 @@ class Character{
 
         // Additional methods related to character status
         void setAttackType(AttackType attackType);
+
+        bool operator>(const Character& other)const {
+            return speed > other.speed;
+        }
 };

@@ -1,10 +1,22 @@
 #include "Heap.h"
+#include "character.h"
+#include <iostream>
 
-template<typename T>
-void MaxHeap<T>::heapifyUp(int index) {
+using namespace std;
+
+MaxHeap::~MaxHeap(){
+    for (int i = 0; i < heap.size();i++){
+        delete heap.at(i);
+    }
+}
+
+//make a deep copy of the vector passed in and put it into heap
+
+
+void MaxHeap::heapifyUp(int index) {
     while (index > 0) {
         int parent = (index - 1) / 2;
-        if (!(heap[index] > heap[parent])) {
+        if (!(*heap[index] > *heap[parent])) {
             return; // Exit the function if the heap property is satisfied
         }
         std::swap(heap[index], heap[parent]);
@@ -13,8 +25,8 @@ void MaxHeap<T>::heapifyUp(int index) {
 }
 
 // Restore the heap property starting from the root
-template<typename T>
-void MaxHeap<T>::heapifyDown(int index) {
+//template<typename T>
+void MaxHeap::heapifyDown(int index) {
     int size = heap.size();
     int leftChild = 2 * index + 1;
     int rightChild = 2 * index + 2;
@@ -44,15 +56,15 @@ void MaxHeap<T>::heapifyDown(int index) {
 }
 
 // Insert a new element into the heap
-template<typename T>
-void MaxHeap<T>::insert(const T& value) {
-    heap.push_back(value);
+//template<typename T>
+/* void MaxHeap::insert(const Character& value) {
+    heap.push_back(new Character(value));
     heapifyUp(heap.size() - 1);
-}
+} */
 
 // Get the maximum element
-template<typename T>
-T MaxHeap<T>::getMax() const {
+//template<typename T>
+Character* MaxHeap::getMax() const {
     if (heap.empty()) {
         throw std::runtime_error("Heap is empty");
     }
@@ -60,8 +72,8 @@ T MaxHeap<T>::getMax() const {
 }
 
 // Remove the maximum element
-template<typename T>
-void MaxHeap<T>::removeMax() {
+//template<typename T>
+void MaxHeap::removeMax() {
     if (heap.empty()) {
         throw std::runtime_error("Heap is empty");
     }
@@ -73,22 +85,22 @@ void MaxHeap<T>::removeMax() {
 }
 
 // Check if the heap is empty
-template<typename T>
-bool MaxHeap<T>::isEmpty() const {
+//template<typename T>
+bool MaxHeap::isEmpty() const {
     return heap.empty();
 }
 
 // Get the size of the heap
-template<typename T>
-int MaxHeap<T>::size() const {
+//template<typename T>
+int MaxHeap::size() const {
     return heap.size();
 }
 
 // Display the heap
-template<typename T>
-void MaxHeap<T>::displayHeap() const {
-    for (const T& value : heap) {
+//template<typename T>
+/* void MaxHeap::displayHeap() const {
+    for (const Character& value : heap) {
         std::cout << value << " ";
     }
     std::cout << "\n";
-}
+} */

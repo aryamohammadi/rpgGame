@@ -11,8 +11,6 @@ template<typename T>
 class MaxHeap {
     private:
         std::vector<T> heap; // Vector of generic type T
-        void heapifyUp(int index);
-        void heapifyDown(int index);
 
     public:
         MaxHeap() {}
@@ -22,4 +20,6 @@ class MaxHeap {
         bool isEmpty() const;
         int size() const;
         void displayHeap() const;
+        void heapifyUp(int index);
+        void heapifyDown(int index);
 };

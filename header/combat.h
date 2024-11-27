@@ -8,10 +8,10 @@
 // Class Combat manages a battle scenario between multiple characters.
 class Combat{
     private:
-        MaxHeap<Character*> fighterHeap;  // MaxHeap to determine the order of attack
+        //MaxHeap<Character*> fighterHeap;  // MaxHeap to determine the order of attack
 
         bool battleEnded = false; // Flag to indicate if the battle has ended
-        std::vector<Character>& fightersAlive;
+        std::vector<Character*> fightersAlive;
         
         // Removes a defeated character from fightersAlive.
         void removePlayer(Character& playerToBeRemovedFromVector);
@@ -20,7 +20,7 @@ class Combat{
         Character& selectTarget(Character& attacker);
 
     public:
-        Combat(std::vector<Character>& fighters); // Initializes the combat with fighters.
+        Combat(std::vector<Character*> fighters); // Initializes the combat with fighters.
         Combat(const Combat&) = delete; // Prevent copying of the combat instance.
         Combat& operator=(const Combat&) = delete; // Delete copy assignment
         ~Combat();

@@ -4,7 +4,7 @@
 // Copy operator
 Character::Character(const Character& other)
     : characterName(other.characterName),
-      inventoryOfCharacter(other.inventoryOfCharacter), //  FIXME: this needs to be reviewd and fixed
+     // inventoryOfCharacter(other.inventoryOfCharacter), //  FIXME: this needs to be reviewd and fixed
       health(other.health),
       damage(other.damage),
       defense(other.defense),

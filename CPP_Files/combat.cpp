@@ -1,24 +1,28 @@
 #include "combat.h"
+#include "Heap.h"
 #include <random> // For random number generation
 #include <iostream>
 #include <vector>
 #include <random>
-using namespace std:
+using namespace std;
 
-Combat::Combat(vector<Character>& fighters) : fightersAlive(fighters) {}
+Combat::Combat(vector<Character*> fighters) : fightersAlive(fighters) {}
 
 Combat::~Combat() = default;
 
 void Combat::startBattle() {
-    if (fightersAlive.size() <= 1) {
+MaxHeap heap;
+bool playerAlive = fightersAlive.front()->isAlive();//boolean checks that if the player in first index is alive
+while(playerAlive && fightersAlive.size() > 1){// this makes sure that the loop will only run if there are enemies and a playerAlive
+    vector<Character*> turnOrder = fightersAlive;
+    heap.heapsort(fightersAlive);
 
-        cout << "Not enough characters for a battle. Pick another option." << endl;
+}
+    
 
-        return;
-    }
 
-    // Make sure heap is sorted based on speed
-    //heapifyAll();
+
+
 
     // Validate presence of player and enemies
     bool playerFound = false;
@@ -74,7 +78,7 @@ void Combat::performAttack(Character& attacker) {
         cout << "Choose a target to attack:" << endl;
         vector<int> validTargets;
         for (int i = 0; i < fightersAlive.size(); ++i) {
-            Character* potentialTarget = &fightersAlive[i];
+            Character* potentialTarget = fightersAlive[i];
             if (potentialTarget->getCharacterName() != "Player" && potentialTarget->isAlive()) {
                 validTargets.push_back(i);
                 cout << i << ": " << potentialTarget->getCharacterName() << endl;

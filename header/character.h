@@ -34,6 +34,16 @@ class Character{
         void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
         void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
 
+        int getSpeed()const{
+            return speed;
+        }
+
+        friend void swap(Character* char1,Character* char2){
+            Character* temp = char1;
+            char1 = char2;
+            char2 = temp;
+        }
+
         // Consider having the combat class handle damage calculations based on the two Character parameters passed to it
         Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0),isDead(false){} 
         void swap(Character& other) noexcept; // Added by Arya; swap function
@@ -90,4 +100,8 @@ class Character{
 
         // Additional methods related to character status
         void setAttackType(AttackType attackType);
+
+        bool operator>(const Character& other)const {
+            return speed > other.speed;
+        }
 };

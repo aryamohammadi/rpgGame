@@ -9,3 +9,4 @@ lib/
 /googletest/
 build/
 .vscode/
+test/

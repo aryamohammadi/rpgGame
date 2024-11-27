@@ -1,28 +1,9 @@
 Class Implementation
 
-We can use classes for different types of:
-In Battle:
-  Attack
-  Defend
-  Use (Items, Run)
-Characters: (these will "have" Attack/Defend/Item Objects, and access member functions accordingly)
-  Player
-  Enemies
-  NPCs (optional)
-Items
-  Health
-  Attack
-  Special (Hints, Map, Sidequests)
-Sorting
-  Alphabetical Sort (for items)
-  Sort by an Attribute (such as type/strength of items, speed of player/enemies)
-Data structures
-  Graphs (used for critical story events, possibly map progression, skill upgrades)
-  AVL Trees (possibly used for storing hundreds of items)
+Warrior, Archer, and Mage are Character objects
+Character constructor has a type of character, Warrior, Archer, Mage. Depending on the constructor parameter, we give a different default HP, Attack, Defense, etc
 
-
-Member Functions and Data Member Implementations
-  Example of Attack Object Usage: Characters can "have-a" sword object, and access it's member functions accordingly. The enemy can be a parameter to the sword member function, and the function manipulates variables as needed.
+For Weapons in inventory, we have an equipped item and equipped armor. Items and armor are inheritors of Item
 
 
 

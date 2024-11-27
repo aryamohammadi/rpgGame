@@ -1,0 +1,2 @@
+#include "warrior.h"
+

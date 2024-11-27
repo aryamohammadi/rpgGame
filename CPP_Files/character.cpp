@@ -16,19 +16,21 @@ Character::~Character(){
 }
 // Copy operator
 Character::Character(const Character& other)
-    : characterName(other.characterName), 
-    health(other.health), 
-    damage(other.damage), 
-    defense(other.defense), 
-    isDead(other.isDead), 
-    currentAttackType(other.currentAttackType) {
+    : characterName(other.characterName),
+     // inventoryOfCharacter(other.inventoryOfCharacter), //  FIXME: this needs to be reviewd and fixed
+      health(other.health),
+      damage(other.damage),
+      defense(other.defense),
+      isDead(other.isDead),
+      currentAttackType(other.currentAttackType) {
 }
 
-// Copy assignment constructor
+
+// Copy assignment operator
 Character& Character::operator=(const Character& other) {
     if (this != &other) {
-        Character temp(other);
-        swap(temp);
+        Character temp(other); // Utilizing the copy constructor in the temporary instance
+        swap(temp); // Swapping *this with temp
     }
     return *this;
 }
@@ -37,6 +39,7 @@ Character& Character::operator=(const Character& other) {
 void Character::swap(Character& other) noexcept {
     using std::swap;
     swap(characterName, other.characterName);
+    swap(inventoryOfCharacter, other.inventoryOfCharacter); //FIXME: this needs to be reviewed and fixed
     swap(health, other.health);
     swap(damage, other.damage);
     swap(defense, other.defense);
@@ -305,4 +308,9 @@ bool Character::throwAwayItem(int index){
 
 void Character::attack(Character& target){
     weapon->useItem(target);
+    // This will have been replaced by Jessy
+}
+
+std::string Character::getCharacterName() const {
+    return characterName;
 }

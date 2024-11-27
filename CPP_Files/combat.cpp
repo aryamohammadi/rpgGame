@@ -25,10 +25,10 @@ void Combat::startBattle() {
     bool enemiesFound = false;
 
     for (int i = 0; i < fightersAlive.size(); ++i) {
-    Character& fighter = fightersAlive[i];
-        if (fighter.getCharacterName() == "Player") {
+    Character* fighter = fightersAlive[i];
+        if (fighter->getCharacterName() == "Player") {
             playerFound = true;
-        } else if (fighter.isAlive()) {
+        } else if (fighter->isAlive()) {
             enemiesFound = true;
         }
         if (playerFound && enemiesFound) break;
@@ -95,7 +95,7 @@ void Combat::performAttack(Character& attacker) {
 
             // Validate input
             if (targetIndex >= 0 && targetIndex < fightersAlive.size()) {
-                Character* potentialTarget = &fightersAlive[targetIndex];
+                Character* potentialTarget = fightersAlive[targetIndex];
                 if (potentialTarget->getCharacterName() != "Player" && potentialTarget->isAlive()) {
                     validChoice = true;
                     target = potentialTarget;
@@ -112,7 +112,7 @@ void Combat::performAttack(Character& attacker) {
     else {
         // Enemy automatically targets the player
         for (int i = 0; i < fightersAlive.size(); ++i) {
-            Character* potentialTarget = &fightersAlive[i];
+            Character* potentialTarget = fightersAlive[i];
             if (potentialTarget->getCharacterName() == "Player" && potentialTarget->isAlive()) {
                 target = potentialTarget;
                 break;
@@ -147,7 +147,7 @@ void Combat::performAttack(Character& attacker) {
     // Check if the target is defeated
     if (!target->isAlive()) {
         cout << target->getCharacterName() << " has been defeated!" << endl;
-        removePlayerFromHeap(target->getHeapIndex());
+        // removePlayerFromHeap(target->getHeapIndex());
     }
 }
 
@@ -164,8 +164,8 @@ void Combat::removePlayerFromHeap(int targetIndex) {
 
     // Restore the heap property
     if (targetIndex < fightersAlive.size()) { // Only re-heapify if there are elements left
-        heapifyDown(targetIndex); // Push the element down to its correct position
-        heapifyUp(targetIndex);   // Or pull it up if needed
+        // heapifyDown(targetIndex); // Push the element down to its correct position
+        // heapifyUp(targetIndex);   // Or pull it up if needed
     }
 }
 
@@ -175,8 +175,8 @@ bool Combat::hasBattleEnded() {
     bool areEnemiesAlive = false;
 
     for (int i = 0; i < fightersAlive.size(); ++i) {
-        if (fightersAlive[i].isAlive()) {
-            if (fightersAlive[i].getCharacterName() == "Player") {
+        if (fightersAlive[i]->isAlive()) {
+            if (fightersAlive[i]->getCharacterName() == "Player") {
                 isPlayerAlive = true;
             } else {
                 areEnemiesAlive = true; // At least one enemy is alive

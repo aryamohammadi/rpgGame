@@ -7,19 +7,13 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include <gmock/gmock.h>
-#include "../header/character.h"
 #include "../header/itemType.h"
-
+class Character;
 using std::string;
 using std::ostream;
 using std::vector;
 // Define a static start time for the program
 static auto programStartTime = std::chrono::steady_clock::now();
-enum class ItemType{ //possible items we can have
-    WEAPON,
-    ARMOUR,
-    POTION
-};
 class Item{
     public:
         enum Grade{ //possible grades we can have

@@ -4,8 +4,8 @@
 #include "../header/itemStack.h"
 
 #include "../header/item.h"
-#include "../header/compare.h"
-
+#include "../header/itemType.h"
+#include "../header/compareBy.h"
 using std::string;
 class Inventory{
     private:
@@ -52,7 +52,7 @@ class Inventory{
         void sortAlphabetically();
         void sortByAscendingGrade();
         void sortByDescendingGrade();
-        void sortByTypes(CompareItem::CompareBy sortMode);
+        void sortByTypes(CompareBy sortMode);
         void makeLatestFirst();
         void makeOldestFirst();
 

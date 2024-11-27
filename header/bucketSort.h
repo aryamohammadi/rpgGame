@@ -6,9 +6,9 @@
 class BucketSort : public AbstractItemTypeSort{
 
     public: 
-        BucketSort(CompareItem::CompareBy sortMode, CompareItemTypeCharacteristics::Characteristics attribute = CompareItemTypeCharacteristics::Characteristics::None):AbstractItemTypeSort(sortMode, attribute){}
+        BucketSort(CompareBy sortMode, CompareItemTypeCharacteristics::Characteristics attribute = CompareItemTypeCharacteristics::Characteristics::None):AbstractItemTypeSort(sortMode, attribute){}
         void sort(vector<ItemStack*>& array, SortOrder order) override{
-            if(sortConfig == CompareItem::CompareBy::Type){
+            if(sortConfig == CompareBy::Type){
                 vector<ItemStack*> weaponsBucket;
                 vector<ItemStack*> potionsBucket;
                 vector<ItemStack*> armourBucket;

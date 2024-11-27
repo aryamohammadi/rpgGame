@@ -10,14 +10,14 @@ using testing::Return;
 using namespace std;
 
 TEST(SortTest, isSortedOneItemTest){
-    MockAbstractItemSort s(CompareItem::CompareBy::Name);
+    MockAbstractItemSort s(CompareBy::Name);
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
 
     EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending));
 }
 
 TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
-    MockAbstractItemSort s(CompareItem::CompareBy::Name);
+    MockAbstractItemSort s(CompareBy::Name);
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emily"))};
     stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
 
@@ -25,7 +25,7 @@ TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
 }
 
 TEST(SortTest, TwoItemsNotSortedInDescendingOrderTest){
-    MockAbstractItemSort s(CompareItem::CompareBy::Name);
+    MockAbstractItemSort s(CompareBy::Name);
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Dragon Slayer Sword"))};
     stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Emily")));
 
@@ -56,7 +56,7 @@ TEST(InsertionSortTest, multipleAscendingItemTest){
     results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
     results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
-    InsertionSort s(CompareItem::CompareBy::Name);
+    InsertionSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
@@ -97,7 +97,7 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
     results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
     results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
-    InsertionSort s(CompareItem::CompareBy::Name);
+    InsertionSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;
@@ -129,7 +129,7 @@ TEST(InsertionSortTest, ascendingTimeSort){
 
     vector<ItemStack*> results = stacks;
     
-    InsertionSort s(CompareItem::CompareBy::Time);
+    InsertionSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
@@ -161,7 +161,7 @@ TEST(InsertionSortTest, descendingimeSort){
 
     vector<ItemStack*> results = stacks;
     
-    InsertionSort s(CompareItem::CompareBy::Time);
+    InsertionSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;
@@ -202,7 +202,7 @@ TEST(MergeSortTest, multipleAscendingItemTest){
     results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
     results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
-    MergeSort s(CompareItem::CompareBy::Name);
+    MergeSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
@@ -243,7 +243,7 @@ TEST(MergeSortTest, multipleDescendingItemTest){
     results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
     results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
-    MergeSort s(CompareItem::CompareBy::Name);
+    MergeSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;
@@ -275,7 +275,7 @@ TEST(MergeSortTest, ascendingTimeSort){
 
     vector<ItemStack*> results = stacks;
     
-    MergeSort s(CompareItem::CompareBy::Time);
+    MergeSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
@@ -307,7 +307,7 @@ TEST(MergeSortTest, descendingimeSort){
 
     vector<ItemStack*> results = stacks;
     
-    MergeSort s(CompareItem::CompareBy::Time);
+    MergeSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;

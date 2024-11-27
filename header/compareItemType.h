@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../header/compare.h"
+#include "../header/itemType.h"
 class CompareItemTypeCharacteristics{
     public: 
         enum Characteristics{

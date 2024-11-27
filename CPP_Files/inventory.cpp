@@ -3,6 +3,7 @@
 #include "../header/insertionSort.h"
 #include "../header/mergeSort.h"
 #include "../header/bucketSort.h"
+
 #include <stdexcept>
 using std::endl;
 using std::to_string;
@@ -136,27 +137,27 @@ std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
 }
 
 void Inventory::sortAlphabetically(){
-    MergeSort s(CompareItem::CompareBy::Name);
+    MergeSort s(CompareBy::Name);
     s.sort(items, SortOrder::Ascending);
 }
 
 void Inventory::sortByAscendingGrade(){
-    MergeSort s(CompareItem::CompareBy::Grade);
+    MergeSort s(CompareBy::Grade);
     s.sort(items, SortOrder::Ascending);
 }
 
 void Inventory::sortByDescendingGrade(){
-    MergeSort s(CompareItem::CompareBy::Grade);
+    MergeSort s(CompareBy::Grade);
     s.sort(items, SortOrder::Descending);
 }
 
 void Inventory::makeLatestFirst(){
-    MergeSort s(CompareItem::CompareBy::Time);
+    MergeSort s(CompareBy::Time);
     s.sort(items, SortOrder::Descending);
 }
 
 void Inventory::makeOldestFirst(){
-    MergeSort s(CompareItem::CompareBy::Time);
+    MergeSort s(CompareBy::Time);
     s.sort(items, SortOrder::Ascending);
 }
 

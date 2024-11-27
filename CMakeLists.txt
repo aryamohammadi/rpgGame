@@ -53,7 +53,6 @@ add_executable(Test
     Tests/HungrySortTest.cpp
     CPP_Files/Map.cpp
     CPP_Files/Room.cpp
-    CPP_Files/Enemy.cpp
 )
 
 # Specify the include directory after defining the target

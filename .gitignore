@@ -10,3 +10,4 @@ lib/
 build/
 .vscode/
 test/
+*.gcno

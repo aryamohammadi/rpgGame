@@ -11,18 +11,14 @@ Combat::Combat(vector<Character*> fighters) : fightersAlive(fighters) {}
 Combat::~Combat() = default;
 
 void Combat::startBattle() {
-MaxHeap heap;
-bool playerAlive = fightersAlive.front()->isAlive();//boolean checks that if the player in first index is alive
-while(playerAlive && fightersAlive.size() > 1){// this makes sure that the loop will only run if there are enemies and a playerAlive
+  MaxHeap heap;
+  bool playerAlive = fightersAlive.front()->isAlive();//boolean checks that if the player in first index is alive
+  
+  while(playerAlive && fightersAlive.size() > 1){// this makes sure that the loop will only run if there are enemies and a playerAlive
     vector<Character*> turnOrder = fightersAlive;
     heap.heapsort(fightersAlive);
 
 }
-    
-
-
-
-
 
     // Validate presence of player and enemies
     bool playerFound = false;

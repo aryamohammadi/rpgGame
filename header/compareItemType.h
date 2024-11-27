@@ -1,5 +1,5 @@
 #pragma once
-#define COMPAREITEMTYPE_H
+
 #include "../header/compare.h"
 class CompareItemTypeCharacteristics{
     public: 

@@ -45,6 +45,10 @@ add_executable(Test
     CPP_Files/mergeSortItem.cpp
     CPP_Files/armour.cpp
     CPP_Files/weapon.cpp
+    CPP_Files/compare.cpp
+    CPP_Files/Heap.cpp
+    CPP_Files/character.cpp
+    CPP_Files/potion.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
     CPP_Files/Map.cpp

@@ -62,4 +62,5 @@ void MaxHeap::heapsort(std::vector<Character*>& array) {
         // Note: Pass size as i to ignore the sorted elements
         heapifyDown(array, 0);
     }
+    std::cout << "\n";
 }

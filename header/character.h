@@ -1,26 +1,36 @@
 #pragma once
-#define CHARACTER_H
 #include <string> // we need to include the string library to use the string data type
 #include "inventory.h"  
 
 #include "../header/AttackType.h"
-
-#include "../header/weapon.h"
-#include "../header/armour.h"
-#include "../header/inventory.h"
+#include <string>
+using std::string;
+class Inventory;
+class Item;
+class Armour;
+class Weapon;
+enum class ItemType;
 class Character{
     private:
         std::string characterName;
-        Inventory storage;
+        Inventory* storage;
         Armour* armour;
+        Weapon* weapon;
         int health;
         int damage;
         int defense; 
-        int speed = 0;
+        int baseSpeed;
+        int currentSpeed;
         bool isDead;
-        AttackType currentAttackType; // track the attack type
-
+        AttackType currentAttackType;
     public:
+        Character(const std::string& name);
+        void swap(Character& other) noexcept;/* noexcept is an exception specifier that tells the compiler 
+                                                that this function will not throw any exceptions */
+        Character(const Character& other);
+        Character& operator=(const Character& other);
+        ~Character();
+
         // Constructor
         Character(const std::string& name);
 
@@ -51,8 +61,36 @@ class Character{
                                                  that this function will not throw any exceptions */
         
         void setHealth(int healthOfCharacter){ health = healthOfCharacter; }
+        void increaseHealth(int amount){health += amount;}
+
         void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
         void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
+  
+        void equipWeapon(Weapon* newWeapon);
+        void changeWeapon(int index); 
+
+        void modifySpeed(int delta);
+        void resetSpeed(){currentSpeed = baseSpeed;}
+        int getSpeed() const {return currentSpeed;}
+
+        void setAttackType(AttackType attackType) {currentAttackType = attackType;}
+        AttackType getAttackType() const {return currentAttackType;}
+
+        void attack(Character& target);
+
+        void pickUpItem(const Item& item);
+        
+        bool useItem(const string& itemName); //finds closest with name and returns if succesfull
+        bool useItem(const string& itemName, ItemType type); //finds exact item with name and type and returns if successful
+        bool useItem(int index); //uses index and returns if successful
+        
+        bool throwAwayItem(const string& name);
+        bool throwAwayItem(const string& name, ItemType type);
+        bool throwAwayItem(int index);
+
+        std::string showInventory() const;
+        std::string outputWeapons() const;
+  
         void equipArmour(Armour* armour){
             if(this->armour == nullptr){
                 this->armour = armour;

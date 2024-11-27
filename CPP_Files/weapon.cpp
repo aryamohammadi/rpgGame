@@ -22,3 +22,7 @@ Weapon::Weapon(ItemType type = ItemType::WEAPON, const string& name = "", Grade 
 Item* Weapon::clone() const {
     return new Weapon(getType(), getName(),getGrade(),getDescript(), getTime(), damage, weaponType);
 }
+
+void Weapon::useItem(Character& target){
+    target.takeDamage(damage);
+}

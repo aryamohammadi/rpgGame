@@ -49,7 +49,7 @@ void Character::swap(Character& other) noexcept {
 
 void Character::equipArmour(Armour* newArmour){
     if(this->armour != nullptr){
-        storage->addItem(this->armour);  
+        deEquipArmour();
     }
     if(storage->itemFound(newArmour) != -1){
         storage->removeItem(*newArmour);
@@ -71,12 +71,14 @@ void Character::equipWeapon(Weapon* newWeapon){
         throw std::logic_error("equipWeapon : newWeapon is nullptr!");
     }
     if(weapon != nullptr){
-        storage->addItem(weapon);  
+        storage->addItem(weapon);
+        resetSpeed();  
     }
     if(storage->itemFound(newWeapon) != -1){
         storage->removeItem(*newWeapon);
     }
     weapon = newWeapon;
+    modifySpeed(weapon->getSpeedEffect());
 }
 
 void Character::changeWeapon(int index){
@@ -313,4 +315,8 @@ void Character::attack(Character& target){
 
 std::string Character::getCharacterName() const {
     return characterName;
+}
+
+void Character::modifySpeed(int delta){
+    currentSpeed += delta;
 }

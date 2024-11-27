@@ -17,4 +17,5 @@ class Weapon : public Item {
         void useItem(Character& target) override;
         Item* clone() const override;
         WeaponType getWeaponType() const {return weaponType;}
+        int getSpeedEffect() const {return speedEffect;}
 };

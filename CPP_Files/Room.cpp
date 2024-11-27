@@ -10,12 +10,12 @@ void Room::addEnemies() {
   srand(time(0));
 
   // Add either one or two enemies to the room's given vector
-  Enemy enemyToAdd;
+  Character enemyToAdd("Enemy1");
   std::cout << "WARNING: ADD ATTRIBUTES TO enemyToAdd IN Room.cpp" << std::endl;
   enemies.push_back(enemyToAdd);
 
   if (rand() % 2 == 0) {
-    Enemy anotherEnemytoAdd;
+    Character anotherEnemytoAdd("Enemy2");
     std::cout << "WARNING: ADD ATTRIBUTES TO anotherEnemytoAdd IN Room.cpp" << std::endl;
     enemies.push_back(anotherEnemytoAdd);
   }

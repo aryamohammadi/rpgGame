@@ -9,7 +9,7 @@ class Potion : public Item{
     private:
         int recoveryAmount;
     public:
-        Potion(ItemType t, const string& name, Item::Grade itemGrade, const string& descript, int amount, double timeElapsed);
+        Potion(ItemType t, const string& name, Item::Grade itemGrade, const string& descript, int amount, double timeElapsed = 1.0);
         void useItem(Character&) override;
         Item* clone() const override;
         int getRecoveryAmount() const {return recoveryAmount;}

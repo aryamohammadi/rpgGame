@@ -4,12 +4,16 @@
 #include "../header/armour.h"
 bool CompareItemTypeCharacteristics::compare(const Item* lowerBound, const Item* upperBound, Characteristics attributes, ItemType type, SortOrder order = SortOrder::Ascending) {
     CompareItemTypeCharacteristics compareObject(type);
+        const Weapon* lowerWeapon = dynamic_cast<const Weapon*>(lowerBound);
+        const Weapon* upperWeapon = dynamic_cast<const Weapon*>(upperBound);
+        const Armour* lowerArmour= dynamic_cast<const Armour*>(lowerBound);
+        const Armour* upperArmour = dynamic_cast<const Armour*>(upperBound);
+        const Potion* lowerPotion= dynamic_cast<const Potion*>(lowerBound);
+        const Potion* upperPotion = dynamic_cast<const Potion*>(upperBound);
     switch(attributes){
         case Characteristics::None:
             throw std::invalid_argument("Not a valid argument for itemCompare!");
         case Characteristics::Damage:
-            const Weapon* lowerWeapon = dynamic_cast<const Weapon*>(lowerBound);
-            const Weapon* upperWeapon = dynamic_cast<const Weapon*>(upperBound);
             if(lowerWeapon == nullptr || upperWeapon == nullptr){
                 return compareObject.compareRank(lowerBound, upperBound, order);
             }
@@ -21,8 +25,6 @@ bool CompareItemTypeCharacteristics::compare(const Item* lowerBound, const Item*
             }
           
         case Characteristics::armourStat:
-            const Armour* lowerArmour= dynamic_cast<const Armour*>(lowerBound);
-            const Armour* upperArmour = dynamic_cast<const Armour*>(upperBound);
             if(lowerArmour == nullptr || upperArmour == nullptr){
                 return compareObject.compareRank(lowerBound, upperBound, order);
             }
@@ -33,8 +35,6 @@ bool CompareItemTypeCharacteristics::compare(const Item* lowerBound, const Item*
                 return (lowerArmour->getArmourStat() > upperArmour->getArmourStat());
             }
         case Characteristics::recoveryAmount:
-            const Potion* lowerPotion= dynamic_cast<const Potion*>(lowerBound);
-            const Potion* upperPotion = dynamic_cast<const Potion*>(upperBound);
             if(lowerArmour == nullptr || upperArmour == nullptr){
                 return compareObject.compareRank(lowerBound, upperBound, order);
             }

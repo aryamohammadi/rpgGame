@@ -10,5 +10,7 @@ class CompareItemTypeCharacteristics{
             recoveryAmount,
             armourStat
         };
-        static bool compare(Item* lowerBound, Item* upperBound, Characteristics attributes, ItemType type, SortOrder order = SortOrder::Ascending);
+        static bool compare(const Item* lowerBound, const Item* upperBound, Characteristics attributes, ItemType type, SortOrder order = SortOrder::Ascending);
+        int getTypeRank(const Item* item) const;
+        bool compareRank(const Item* lowerBound, const Item* upperBound, SortOrder order) const;
 };

@@ -52,7 +52,7 @@ add_executable(Test
     CPP_Files/potion.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
-    Test/HungrySortItemTest.cpp
+    Tests/HungrySortItemTest.cpp
     CPP_Files/Map.cpp
     CPP_Files/Room.cpp
 )

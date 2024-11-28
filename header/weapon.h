@@ -13,7 +13,7 @@ class Weapon : public Item {
         WeaponType weaponType;
         int speedEffect;
     public:
-        Weapon(ItemType type, const string& name, Grade itemGrade, const string& descript, double timeElapsed, int damage, WeaponType weaponType);
+        Weapon(ItemType type, const string& name, Grade itemGrade, const string& descript, int damage, WeaponType weaponType, double timeElapsed = -1.0);
         void useItem(Character& target) override;
         Item* clone() const override;
         WeaponType getWeaponType() const {return weaponType;}

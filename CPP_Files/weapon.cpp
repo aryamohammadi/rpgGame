@@ -3,7 +3,7 @@
 #include "../header/character.h"
 void Weapon::useItem(Character& target){target.takeDamage(damage);}
 
-Weapon::Weapon(ItemType type = ItemType::WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", double timeElapsed = -1.0, int durability = 100, WeaponType weaponType = WeaponType::Sword):Item(type,name,itemGrade, descript,timeElapsed), damage(damage), weaponType(weaponType){
+Weapon::Weapon(ItemType type = ItemType::WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", int durability = 100, WeaponType weaponType = WeaponType::Sword, double timeElapsed = -1.0):Item(type,name,itemGrade, descript,timeElapsed), damage(damage), weaponType(weaponType){
     switch(weaponType){
         case Sword:
             speedEffect = 0;
@@ -20,7 +20,7 @@ Weapon::Weapon(ItemType type = ItemType::WEAPON, const string& name = "", Grade 
 }
 
 Item* Weapon::clone() const {
-    return new Weapon(getType(), getName(),getGrade(),getDescript(), getTime(), damage, weaponType);
+    return new Weapon(getType(), getName(),getGrade(),getDescript(), damage, weaponType, getTime());
 }
 
 void Weapon::useItem(Character& target){

@@ -15,8 +15,9 @@ class Inventory{
 
         void reorganizeItems();
         void clear(){
-            for(ItemStack* x : items){
+            for(ItemStack*& x : items){
                 delete x;
+                x = nullptr;
             }
             size = 0;
             capacity = 10;

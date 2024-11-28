@@ -3,7 +3,10 @@
 #include "../header/compare.h"
 #include "../header/itemType.h"
 class CompareItemTypeCharacteristics{
+    private:
+        ItemType type;
     public: 
+        CompareItemTypeCharacteristics(ItemType type):type(type){}
         enum Characteristics{
             None,
             Damage,

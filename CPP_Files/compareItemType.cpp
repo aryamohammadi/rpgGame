@@ -3,7 +3,7 @@
 #include "../header/potion.h"
 #include "../header/armour.h"
 bool CompareItemTypeCharacteristics::compare(const Item* lowerBound, const Item* upperBound, Characteristics attributes, ItemType type, SortOrder order = SortOrder::Ascending) {
-    CompareItemTypeCharacteristics compareObject;
+    CompareItemTypeCharacteristics compareObject(type);
     switch(attributes){
         case Characteristics::None:
             throw std::invalid_argument("Not a valid argument for itemCompare!");
@@ -50,17 +50,24 @@ bool CompareItemTypeCharacteristics::compare(const Item* lowerBound, const Item*
 }
 
 int CompareItemTypeCharacteristics::getTypeRank(const Item* item) const{
-    if(dynamic_cast<const Weapon*>(item)){
-        return 3;
-    }
-    else if(dynamic_cast<const Potion*>(item)){
-        return 2;
-    }
-    else if(dynamic_cast<const Armour*>(item)){
-        return 1;
-    }
-    else{
-        return 0;
+    switch(type){
+        case ItemType::WEAPON:
+            if(dynamic_cast<const Weapon*>(item)){
+                return 1;
+            }
+            return 0;
+        case ItemType::ARMOUR:
+            if(dynamic_cast<const Armour*>(item)){
+                return 1;
+            }
+            return 0;
+        case ItemType::POTION:
+            if(dynamic_cast<const Potion*>(item)){
+                return 1;
+            }
+            return 0;
+        default:
+            throw std::logic_error("getTypeRank: Invalid item type used!");
     }
 }
 

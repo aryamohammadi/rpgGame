@@ -27,10 +27,13 @@ bool CompareItem::compare(const Item* lowerBound, const Item* upperBound, Compar
             }
             break;
         case CompareBy::Time:
-            if(order == SortOrder::Descending && upperBound->getTime() < lowerBound->getTime() || std::fabs(upperBound->getTime() - lowerBound->getTime()) < 1e-6){
+            if (std::fabs(lowerBound->getTime() - upperBound->getTime()) < 1e-6) {
+                return true; // Treat approximately equal times as equal
+            }
+            if(order == SortOrder::Descending && upperBound->getTime() <= lowerBound->getTime()){
                 return true;
             }
-            if(order == SortOrder::Ascending && upperBound->getTime() > lowerBound->getTime() || std::fabs(upperBound->getTime() - lowerBound->getTime()) < 1e-6){
+            if(order == SortOrder::Ascending && upperBound->getTime() >= lowerBound->getTime()){
                 return true;
             }
             break;

@@ -6,6 +6,8 @@ project(final_project VERSION 1.0)
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE Debug)
+
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
@@ -46,13 +48,11 @@ add_executable(Test
     CPP_Files/armour.cpp
     CPP_Files/weapon.cpp
     CPP_Files/compare.cpp
-    CPP_Files/compareItemType.cpp
     CPP_Files/Heap.cpp
     CPP_Files/character.cpp
     CPP_Files/potion.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
-    Tests/HungrySortItemTest.cpp
     CPP_Files/Map.cpp
     CPP_Files/Room.cpp
 )

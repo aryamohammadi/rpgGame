@@ -9,6 +9,9 @@ class InsertionSort : public AbstractItemSort{
             for(unsigned i = 1; i < array.size(); i++){
                 int j = i - 1;
                 ItemStack* key = array[i];
+                if(array[j - 1] == nullptr || key == nullptr){
+                    return;
+                }
                 while(j >= 0 && !CompareItem::compare(array[j]->getItem(), key->getItem(), sortConfig, order)){
                     array[j + 1] = array[j];
                     j--;

@@ -9,6 +9,7 @@ ItemStack::ItemStack(Item* item, int amount) : item(item), quantity(amount) {
 
 ItemStack::~ItemStack() {
     delete item;
+    item = nullptr;
 }
 
 ItemStack& ItemStack::operator=(const ItemStack& rhs) {

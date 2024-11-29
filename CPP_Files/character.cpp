@@ -48,13 +48,13 @@ void Character::swap(Character& other) noexcept {
 }
 
 void Character::equipArmour(Armour* newArmour){
-    if(this->armour != nullptr){
-        storage->addItem(this->armour);  
+    if(this->armour != nullptr){ // If there is currently equipped armor, deequip it from character
+        this->deEquipArmour();
     }
-    if(storage->itemFound(newArmour) != -1){
+    if(storage->itemFound(newArmour) != -1){ // If the armor you're trying to add exists in inventory, remove it from inventory. If it doesn't exist, hey you're all good
         storage->removeItem(*newArmour);
     }
-    armour = newArmour;
+    armour = newArmour; // Equip this new armor
     defense += armour->getArmourStat();
 }
 

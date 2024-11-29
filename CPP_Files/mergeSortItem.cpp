@@ -18,13 +18,23 @@ void MergeSort::merge(vector<ItemStack*>& array, SortOrder order, int left, int 
     int indexOfMergedSubArray = left;
 
     while(indexOfFirstSubArray < leftSize && indexOfSecondSubArray < rightSize){
-        if(CompareItem::compare(Left[indexOfFirstSubArray]->getItem(), Right[indexOfSecondSubArray]->getItem(), sortConfig, order)){
+        if(Left[indexOfFirstSubArray] == nullptr){
+            array[indexOfMergedSubArray] = Right[indexOfSecondSubArray];
+            indexOfSecondSubArray++;
+        }
+        else if(Right[indexOfSecondSubArray] == nullptr){
             array[indexOfMergedSubArray] = Left[indexOfFirstSubArray];
-            indexOfFirstSubArray ++;
+            indexOfFirstSubArray++;
         }
         else{
-            array[indexOfMergedSubArray] = Right[indexOfSecondSubArray];
-            indexOfSecondSubArray ++;
+            if(CompareItem::compare(Left[indexOfFirstSubArray]->getItem(), Right[indexOfSecondSubArray]->getItem(), sortConfig, order)){
+                array[indexOfMergedSubArray] = Left[indexOfFirstSubArray];
+                indexOfFirstSubArray ++;
+            }
+            else{
+                array[indexOfMergedSubArray] = Right[indexOfSecondSubArray];
+                indexOfSecondSubArray ++;
+            }
         }
         indexOfMergedSubArray ++;
     }

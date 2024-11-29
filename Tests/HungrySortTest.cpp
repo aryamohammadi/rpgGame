@@ -13,6 +13,8 @@ TEST(SortTest, isSortedOneItemTest){
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
 
     EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending));
+    delete stacks.front();
+    stacks.front() = nullptr;
 }
 
 TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
@@ -21,6 +23,10 @@ TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
     stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Ascending));
+    for(ItemStack*& stack :  stacks){
+        delete stack;
+        stack = nullptr;
+    }
 }
 
 TEST(SortTest, TwoItemsNotSortedInDescendingOrderTest){
@@ -29,6 +35,10 @@ TEST(SortTest, TwoItemsNotSortedInDescendingOrderTest){
     stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Emily")));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Descending));
+    for(ItemStack*& stack :  stacks){
+        delete stack;
+        stack = nullptr;
+    } 
 }
 
 TEST(InsertionSortTest, multipleAscendingItemTest){
@@ -60,14 +70,17 @@ TEST(InsertionSortTest, multipleAscendingItemTest){
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
-        out << *stack << endl;
-    }
-    for(ItemStack* stack : results){
-        result << *stack << endl;
-    }
     EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
+    for(ItemStack*& stack : stacks){
+        out << *stack << endl;
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        result << *stack << endl;
+        delete stack;
+        stack = nullptr;
+    }
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -101,14 +114,17 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
+        delete stack;
+        stack = nullptr;
     }
     for(int i = results.size() - 1; i >= 0; i --){
         result << *results[i] << endl;
+        delete results[i];
+        results[i] = nullptr;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -133,19 +149,24 @@ TEST(InsertionSortTest, ascendingTimeSort){
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
     }
-    for(ItemStack* stack : results){
+    for(ItemStack*& stack : results){
         result << *stack << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
     EXPECT_EQ(out.str(), result.str());
-    
+    for(ItemStack*& stack : stacks){
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        stack = nullptr;
+    }
 }
 
-TEST(InsertionSortTest, descendingimeSort){
+TEST(InsertionSortTest, descendingTimeSort){
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
     stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
     stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
@@ -165,16 +186,21 @@ TEST(InsertionSortTest, descendingimeSort){
 
     ostringstream out;
     ostringstream result;
-
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     for(ItemStack* stack : stacks){
         out << *stack << endl;
     }
     for(int i = results.size() - 1; i >= 0; i--){
         result << *results[i] << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
-    
+    for(ItemStack*& stack : stacks){
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        stack = nullptr;
+    }
 }
 
 TEST(MergeSortTest, multipleAscendingItemTest){
@@ -206,14 +232,17 @@ TEST(MergeSortTest, multipleAscendingItemTest){
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
-        out << *stack << endl;
-    }
-    for(ItemStack* stack : results){
-        result << *stack << endl;
-    }
     EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
+    for(ItemStack*& stack : stacks){
+        out << *stack << endl;
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        result << *stack << endl;
+        delete stack;
+        stack = nullptr;
+    }
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -247,14 +276,17 @@ TEST(MergeSortTest, multipleDescendingItemTest){
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
+        delete stack;
+        stack = nullptr;
     }
     for(int i = results.size() - 1; i >= 0; i --){
         result << *results[i] << endl;
+        delete results[i];
+        results[i] = nullptr;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -279,16 +311,21 @@ TEST(MergeSortTest, ascendingTimeSort){
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
     }
-    for(ItemStack* stack : results){
+    for(ItemStack*& stack : results){
         result << *stack << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
     EXPECT_EQ(out.str(), result.str());
-    
+    for(ItemStack*& stack : stacks){
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        stack = nullptr;
+    }
 }
 
 TEST(MergeSortTest, descendingimeSort){
@@ -311,14 +348,19 @@ TEST(MergeSortTest, descendingimeSort){
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
     }
     for(int i = results.size() - 1; i >= 0; i--){
         result << *results[i] << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
-    
+    for(ItemStack*& stack : stacks){
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        stack = nullptr;
+    }
 }

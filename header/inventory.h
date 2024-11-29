@@ -53,7 +53,6 @@ class Inventory{
         void sortAlphabetically();
         void sortByAscendingGrade();
         void sortByDescendingGrade();
-        void sortByTypes(CompareBy sortMode);
         void makeLatestFirst();
         void makeOldestFirst();
 

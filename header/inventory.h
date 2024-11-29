@@ -57,5 +57,5 @@ class Inventory{
         void makeOldestFirst();
 
        friend std::ostream& operator<<(std::ostream& out, const Inventory& rhs);
-       string outputWeapons() const;
+       ostream& outputWeapons(ostream& out) const;
 };

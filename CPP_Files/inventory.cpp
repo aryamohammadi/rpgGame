@@ -217,12 +217,11 @@ void Inventory::removeItem(const string& name){
     }
 }
 
-string Inventory::outputWeapons() const{
-    std::ostringstream out;
+ostream& Inventory::outputWeapons(ostream& out) const{
     for(ItemStack* stack : items){
         if(stack != nullptr && stack->getItem() != nullptr && stack->getItem()->getType() == ItemType::WEAPON){
             out << stack;
         }
     }
-    return out.str();
+    return out;
 }

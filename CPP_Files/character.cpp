@@ -34,6 +34,6 @@ void Character::swap(Character& other) noexcept {
     swap(currentAttackType, other.currentAttackType);
 }
 
-std::string Character::getCharacterName() const {
+std::string Character::getName() const {
     return characterName;
 }

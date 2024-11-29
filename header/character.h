@@ -66,8 +66,8 @@ class Character{
         bool throwAwayItem(const string& name, ItemType type);
         bool throwAwayItem(int index);
 
-        std::string showInventory() const;
-        std::string outputWeapons() const;
+        std::ostream& showInventory(ostream& out) const;
+        std::ostream& outputWeapons(ostream& out) const;
   
         void equipArmour(Armour* armour);
         void deEquipArmour();

@@ -90,16 +90,15 @@ void Character::changeWeapon(int index){
     }
 }
 
-string Character::showInventory() const{
-    std::ostringstream out;
+ostream& Character::showInventory(ostream& out) const{
     out << storage;
 
-    return out.str();
+    return out;
     
 }
 
-string Character::outputWeapons() const{
-    return storage->outputWeapons();
+ostream& Character::outputWeapons(ostream& out) const{
+    return storage->outputWeapons(out);
 }
 
 void pickUpItem(const Item& item){

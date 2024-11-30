@@ -19,4 +19,5 @@ class Weapon : public Item {
         WeaponType getWeaponType() const {return weaponType;}
         int getSpeedEffect() const {return speedEffect;}
         int getDamage() const {return damage;}
+        friend std::ostream operator<<(ostream& out, const Weapon& currentWeapon);
 };

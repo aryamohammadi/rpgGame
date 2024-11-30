@@ -10,3 +10,9 @@ void Potion::useItem(Character& player){
 Item* Potion::clone() const{
     return new Potion(getType(),getName(),getGrade(),getDescript(),getTime(),recoveryAmount);
 }
+
+std::ostream& operator<<(ostream& out, const Potion& currentPotion){
+    out << static_cast<const Item&>(currentPotion);
+    out << "Recovery Amount: " << currentPotion.getRecoveryAmount() << std::endl;
+    return out;
+}

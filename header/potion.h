@@ -13,4 +13,5 @@ class Potion : public Item{
         void useItem(Character&) override;
         Item* clone() const override;
         int getRecoveryAmount() const {return recoveryAmount;}
+        friend std::ostream& operator<<(ostream& out, const Potion& currentPotion);
 };

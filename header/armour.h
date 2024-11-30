@@ -14,4 +14,5 @@ class Armour : public Item{
         void useItem(Character&) override;
         Item* clone() const override;
         int getArmourStat() const {return armourStat;}
+        friend std::ostream& operator<<(std::ostream& out, const Armour& currentArmour);
 };

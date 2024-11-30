@@ -9,3 +9,9 @@
     Item* Armour::clone() const{
         return new Armour(getType(),getName(),getGrade(),getDescript(),getTime(),armourStat);
     }
+
+std::ostream& operator<<(std::ostream& out, const Armour& currentArmour){
+    out << static_cast<const Item&>(currentArmour);
+    out << "Armour Stat: " << currentArmour.getArmourStat() << std::endl;
+    return out;
+}

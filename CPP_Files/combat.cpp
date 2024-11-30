@@ -131,24 +131,24 @@ void Combat::performAttack(Character& attacker) {
         return;
     }
 
-    // Perform the attack
-    int baseDamage = attacker.getDamage();
-    int minDamage = baseDamage * 0.75;
-    int maxDamage = baseDamage * 1.25;
-    int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
+    // // Perform the attack
+    // int baseDamage = attacker.getDamage();
+    // int minDamage = baseDamage * 0.75;
+    // int maxDamage = baseDamage * 1.25;
+    // int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
 
 
-    // Apply damage
-    target->takeDamage(damage);
-    cout << attacker.getCharacterName() << " dealt " << damage
-         << " damage to " << target->getCharacterName() << "!" << endl;
+    // // Apply damage
+    // target->takeDamage(damage);
+    // cout << attacker.getCharacterName() << " dealt " << damage
+    //      << " damage to " << target->getCharacterName() << "!" << endl;
 
 
-    // Check if the target is defeated
-    if (!target->isAlive()) {
-        cout << target->getCharacterName() << " has been defeated!" << endl;
-        // removePlayerFromHeap(target->getHeapIndex());
-    }
+    // // Check if the target is defeated
+    // if (!target->isAlive()) {
+    //     cout << target->getCharacterName() << " has been defeated!" << endl;
+    //     // removePlayerFromHeap(target->getHeapIndex());
+    // }
 }
 
 

@@ -17,7 +17,6 @@ class Character{
         Armour* armour;
         Weapon* weapon;
         int health;
-        int damage;
         int defense; 
         int baseSpeed;
         int currentSpeed;
@@ -32,9 +31,14 @@ class Character{
         // Copy assignment operator
         Character& operator=(const Character& other);
 
-        void setHealth(int healthOfCharacter){ health = healthOfCharacter; }
-        void setDamage(int damageOfCharacter){ damage = damageOfCharacter; }
-        void takeDamage(int damageOnCharacter){ health-= damageOnCharacter; }
+        void setHealth(int healthOfCharacter){ 
+            health = healthOfCharacter;
+            isDead = health <= 0; 
+        }
+        void takeDamage(int damageOnCharacter){ 
+            health-= damageOnCharacter; 
+            isDead = health <= 0;
+        }
 
         friend void swap(Character* char1,Character* char2){
             Character* temp = char1;
@@ -73,10 +77,9 @@ class Character{
         void deEquipArmour();
         
         // Getters
-        int getHealth() const;
-        int getDamage() const;
-        int getDefense() const;
+        int getHealth() const {return health;}
+        int getDefense() const{ return defense;}
         bool isAlive() const;
         std::string getCharacterName() const; // Returns the character's name
-
+        friend ostream& operator<<(ostream& out, const Character& entity);
 };

@@ -7,7 +7,7 @@
 #include <utility> // For std::swap
 #include <sstream>
 using std::string;
-Character::Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
+Character::Character(const std::string& name) : characterName(name), health(100),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
 
 Character::~Character(){
     delete storage;
@@ -19,7 +19,6 @@ Character::Character(const Character& other)
     : characterName(other.characterName),
      // inventoryOfCharacter(other.inventoryOfCharacter), //  FIXME: this needs to be reviewd and fixed
       health(other.health),
-      damage(other.damage),
       defense(other.defense),
       isDead(other.isDead),
       currentAttackType(other.currentAttackType) {
@@ -41,7 +40,6 @@ void Character::swap(Character& other) noexcept {
     swap(characterName, other.characterName);
     swap(*storage, *other.storage); //FIXME: this needs to be reviewed and fixed
     swap(health, other.health);
-    swap(damage, other.damage);
     swap(defense, other.defense);
     swap(isDead, other.isDead);
     swap(currentAttackType, other.currentAttackType);
@@ -318,4 +316,22 @@ std::string Character::getCharacterName() const {
 
 void Character::modifySpeed(int delta){
     currentSpeed += delta;
+}
+
+bool Character::isAlive() const{
+    return !isDead;
+}
+
+std::ostream& operator<<(std::ostream& out, const Character& entity){
+    out << "Name: " << entity.getCharacterName() << std::endl;
+    out << "Current Health: " << entity.getHealth() << std::endl;
+    out << "Current Speed: " << entity.getSpeed() << std::endl;
+    out << "Current Defense: " << entity.getDefense() << std::endl;
+    if(entity.weapon != nullptr){
+        out << "Current Weapon: " << *entity.weapon << std::endl;
+    }
+    if(entity.armour != nullptr){
+        out << "Current Armour: " << *entity.armour << std::endl;
+    }
+    return out;
 }

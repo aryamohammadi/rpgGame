@@ -93,8 +93,13 @@ void Inventory::addItem(Item* item, int quantity){
     if(sizeGreaterThanOrEqualToCapacity()){
         throw std::overflow_error("size of " + std::to_string(size) + " >= capacity of " + std::to_string(capacity) + '\n');
     }
-    items.at(size) = new ItemStack(item, quantity);
-    size ++;
+    if(itemFound(item) != -1){
+        items.at(itemFound(item))->increaseQuantity(quantity);
+    }
+    else{
+        items.at(size) = new ItemStack(item, quantity);
+        size ++;
+    }
 }
 
 int Inventory::itemsWithName(const std::string& name) const{

@@ -51,6 +51,7 @@ add_executable(Test
     CPP_Files/Heap.cpp
     CPP_Files/character.cpp
     CPP_Files/potion.cpp
+    Tests/HungryCharacterTest.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
     CPP_Files/Map.cpp

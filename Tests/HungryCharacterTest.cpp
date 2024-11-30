@@ -21,6 +21,9 @@ TEST(CharacterTest, EquipWeapon){
     result << "Name: " << "Hi" << std::endl;
     result << "Current Health: " << 100 << std::endl;
     result << "Current Speed: " << 20 << std::endl;
-    result << "Current Defense: " << 0 << std::endl;
-    
+    result << "Current Defense: " << 10 << std::endl;
+    result << "Current Armour: " << std::endl;
+    result << Armour(ItemType::ARMOUR, "God", Item::Grade::LEGENDARY, "Divine Armour of the Gods", 10) << std::endl;
+
+    EXPECT_EQ(out.str(), result.str());
 }

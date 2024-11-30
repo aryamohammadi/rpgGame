@@ -22,7 +22,7 @@ Weapon::Weapon(ItemType type, const string& name, Grade itemGrade, const string&
 Item* Weapon::clone() const {
     return new Weapon(getType(), getName(),getGrade(),getDescript(), damage, weaponType, getTime());
 }
-std::ostream operator<<(ostream& out, const Weapon& currentWeapon){
+std::ostream& operator<<(ostream& out, const Weapon& currentWeapon){
     out << static_cast<const Item&>(currentWeapon);
     out << "Damage: " << currentWeapon.getDamage() << std::endl;
     out << "Weapon Type: " << currentWeapon.getWeaponType() << std::endl;

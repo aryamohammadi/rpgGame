@@ -328,10 +328,12 @@ std::ostream& operator<<(std::ostream& out, const Character& entity){
     out << "Current Speed: " << entity.getSpeed() << std::endl;
     out << "Current Defense: " << entity.getDefense() << std::endl;
     if(entity.weapon != nullptr){
-        out << "Current Weapon: " << *entity.weapon << std::endl;
+        out << "Current Weapon: " << std::endl;
+        out << *entity.weapon;
     }
     if(entity.armour != nullptr){
-        out << "Current Armour: " << *entity.armour << std::endl;
+        out << "Current Armour: " << std::endl;
+        out << *entity.armour;
     }
     return out;
 }

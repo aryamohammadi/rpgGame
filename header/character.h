@@ -79,6 +79,11 @@ class Character{
         
         void increaseStorageCapacity(int amount);
         bool isStorageEmpty() const;
+        void sortAlphabetically();
+        void sortByAscendingGrade();
+        void sortByDescendingGrade();
+        void makeLatestFirst();
+        void makeOldestFirst();
         // Getters
         int getHealth() const {return health;}
         int getDefense() const{ return defense;}

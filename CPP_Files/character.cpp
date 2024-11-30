@@ -348,3 +348,18 @@ void Character::increaseStorageCapacity(int amount){
 bool Character::isStorageEmpty() const{
     return storage->isEmpty();
 }
+void Character::sortAlphabetically(){
+    storage->sortAlphabetically();
+}
+void Character::sortByAscendingGrade(){
+    storage->sortByAscendingGrade();
+}
+void Character::sortByDescendingGrade(){
+    storage->sortByDescendingGrade();
+}
+void Character::makeLatestFirst(){
+    storage->makeLatestFirst();
+}
+void Character::makeOldestFirst(){
+    storage->makeOldestFirst();
+}

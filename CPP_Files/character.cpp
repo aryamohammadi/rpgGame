@@ -223,7 +223,7 @@ bool Character::useItem(const string& itemName, ItemType type){
 }
 
 bool Character::useItem(int index){
-    if(storage->itemFound(index) == -1){
+    if(storage->itemFound(index) == -1 || isStorageEmpty()){
         return false;
     }
     ItemType type = storage->getItem(index)->getType();
@@ -282,7 +282,7 @@ bool Character::useItem(int index){
 }
 
 bool Character::throwAwayItem(const string& name){
-    if(storage->itemFound(name) == -1){
+    if(storage->itemFound(name) == -1 | isStorageEmpty()){
         return false;
     }
     storage->removeItem(name);
@@ -290,7 +290,7 @@ bool Character::throwAwayItem(const string& name){
 }
 
 bool Character::throwAwayItem(const string& name, ItemType type){
-    if(storage->itemFound(name, type) == -1){
+    if(storage->itemFound(name, type) == -1 || isStorageEmpty()){
         return false;
     }
     storage->removeItem(name, type);
@@ -298,7 +298,7 @@ bool Character::throwAwayItem(const string& name, ItemType type){
 }
 
 bool Character::throwAwayItem(int index){
-    if(storage->itemFound(index) == -1){
+    if(storage->itemFound(index) == -1 || isStorageEmpty()){
         return false;
     }
     storage->removeItem(*(storage->getItem(index)));
@@ -334,4 +334,15 @@ std::ostream& operator<<(std::ostream& out, const Character& entity){
         out << "Current Armour: " << *entity.armour << std::endl;
     }
     return out;
+}
+
+int Character::itemsWithName(const string& name) const{
+    return storage->itemsWithName(name);
+}
+void Character::increaseStorageCapacity(int amount){
+    storage->increaseCapacity(amount);
+}
+
+bool Character::isStorageEmpty() const{
+    return storage->isEmpty();
 }

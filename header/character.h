@@ -62,6 +62,7 @@ class Character{
 
         void pickUpItem(const Item& item);
         
+        int itemsWithName(const string& name) const;
         bool useItem(const string& itemName); //finds closest with name and returns if succesfull
         bool useItem(const string& itemName, ItemType type); //finds exact item with name and type and returns if successful
         bool useItem(int index); //uses index and returns if successful
@@ -76,6 +77,8 @@ class Character{
         void equipArmour(Armour* armour);
         void deEquipArmour();
         
+        void increaseStorageCapacity(int amount);
+        bool isStorageEmpty() const;
         // Getters
         int getHealth() const {return health;}
         int getDefense() const{ return defense;}

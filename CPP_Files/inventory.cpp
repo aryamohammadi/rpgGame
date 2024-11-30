@@ -22,7 +22,7 @@ Inventory& Inventory::operator=(const Inventory& rhs){
     return *this;
 }
 int Inventory::itemFound(const Item* item) const{
-    if(size == 0){
+    if(isEmpty()){
         return -1;
     }
     for(unsigned i = 0; i < size; i++){
@@ -33,7 +33,7 @@ int Inventory::itemFound(const Item* item) const{
     return -1;
 }
 int Inventory::itemFound(const Item& item) const {
-    if(size == 0){
+    if(isEmpty()){
         return -1;
     }
     for(unsigned i = 0; i < size; i++){
@@ -45,7 +45,7 @@ int Inventory::itemFound(const Item& item) const {
 }
 
 int Inventory::itemFound(const std::string& name) const {
-    if(size == 0){
+    if(isEmpty()){
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
@@ -57,7 +57,7 @@ int Inventory::itemFound(const std::string& name) const {
 }
 
 int Inventory::itemFound(const std::string& name, ItemType t) const {
-    if(size == 0){
+    if(isEmpty()){
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
@@ -69,7 +69,7 @@ int Inventory::itemFound(const std::string& name, ItemType t) const {
 }
 
 int Inventory::itemFound(int index) const{
-    if(index < 0 || index >= size){
+    if(index < 0 || index >= size || isEmpty()){
         return -1;
     }
     return index;

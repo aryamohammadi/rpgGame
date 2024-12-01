@@ -54,8 +54,9 @@ class Character{
             storage.addItem(armour);
         }
 
-        virtual void attack() = 0;
-        virtual void defend() = 0;
+        // These cause Character to be abstract, preventing me from declaring Character objects properly in Room.cpp, so I'm commenting them out before we delete them because Character is not an abstract class anymore
+        // virtual void attack() = 0;
+        // virtual void defend() = 0;
        
 
         void setAttackType(AttackType attackType) { 

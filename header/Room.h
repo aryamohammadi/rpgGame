@@ -12,7 +12,7 @@ class Room {
     void removeItems();
 
     // These two functions are for the Map class to add enemies and items during map construction. They should not be used during normal gameplay
-    void addEnemies();
+    void addEnemies(Character enemyToAdd);
     void addItems();
     
     vector<Character> getEnemies() {return enemies;} 

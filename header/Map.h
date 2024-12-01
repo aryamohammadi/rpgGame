@@ -12,4 +12,6 @@ class Map {
     void removeEnemies(int index);
     void removeItems(int index);
     int nextRoom (string direction, int currentRoom);
+    bool hasEnemies(int index);
+    bool hasItems(int index);
 };

@@ -91,9 +91,6 @@ class Character{
             storage.addItem(armour);
         }
 
-        virtual void attack() = 0;
-        virtual void defend() = 0;
-       
         // Destructor
         virtual ~Character();
        
@@ -104,6 +101,7 @@ class Character{
         void setHealth(int healthOfCharacter);
         void setDamage(int damageOfCharacter);
         void takeDamage(int damageOnCharacter);
+        void setName(std::string name) { characterName == name; }
 
         // Getters
         int getHealth() const {return health;}

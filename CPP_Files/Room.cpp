@@ -1,4 +1,6 @@
 #include "../header/Room.h"
+#include "../header/AttackType.h"
+#include "../header/character.h"
 #include <ctime>
 #include <iostream>
 
@@ -6,17 +8,20 @@ void Room::removeEnemies() {
   
 }
 
-void Room::addEnemies() {
-  srand(time(0));
+void Room::addEnemies(Character enemyToAdd) {
 
   // Add either one or two enemies to the room's given vector
   Character enemyToAdd("Enemy1");
-  std::cout << "WARNING: ADD ATTRIBUTES TO enemyToAdd IN Room.cpp" << std::endl;
+  enemyToAdd.setAttackType(AttackType::Ranged);
+  enemyToAdd.setDamage(5);
+  enemyToAdd.setHealth(25);
   enemies.push_back(enemyToAdd);
 
   if (rand() % 2 == 0) {
-    Character anotherEnemytoAdd("Enemy2");
-    std::cout << "WARNING: ADD ATTRIBUTES TO anotherEnemytoAdd IN Room.cpp" << std::endl;
+    Character anotherEnemytoAdd("Enemy2");  
+    anotherEnemytoAdd.setAttackType(AttackType::Melee);
+    anotherEnemytoAdd.setDamage(7);
+    anotherEnemytoAdd.setHealth(15);
     enemies.push_back(anotherEnemytoAdd);
   }
 }

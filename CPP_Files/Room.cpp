@@ -29,17 +29,17 @@ void Room::addItems() {
  // 4 rooms have 2 items
  // 2 rooms have 3 items
 
-  MockItem item1;
+  Item* item1;
   std::cout << "WARNING: ADD ATTRIBUTES TO item1 IN Room.cpp" << std::endl;
   items.push_back(item1);
 
   if (rand() % 2 == 0) {
-    MockItem item2;
+    Item* item2;
     std::cout << "WARNING: ADD ATTRIBUTES TO item2 IN Room.cpp" << std::endl;
     items.push_back(item2);
 
     if (rand() % 8 == 0) {
-    MockItem item3;
+    Item* item3;
     std::cout << "WARNING: ADD ATTRIBUTES TO item3 IN Room.cpp" << std::endl;
     items.push_back(item3);
   }

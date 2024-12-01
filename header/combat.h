@@ -18,7 +18,6 @@ class Combat{
         std::vector<Character*> fightersAlive;
         
         // Removes a defeated character from fightersAlive.
-        void removePlayer(Character& playerToBeRemovedFromVector);
 
         // Helper function to select a target for a character to attack
         Character& selectTarget(Character& attacker);
@@ -34,8 +33,8 @@ class Combat{
         bool areBothEnemiesDead(); // Checks if all enemies are defeated.
         bool isAtLeast1EnemieAlive(); // Checks if at least one enemy is still fighting.
         void performAttack(Character& attacker); // Performs an attack between characters.
-        bool hasBattleEnded(); // Checks if the battle has ended.
-        void Combat::removePlayerFromHeap(int targetIndex);
+        void removePlayerFromHeap(string targetName);
+        int playerDecidesWhoToAttack();
 
 };
 #endif // COMBAT_H

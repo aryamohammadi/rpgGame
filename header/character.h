@@ -123,7 +123,7 @@ class Character{
         void takeDamage(int damageOnCharacter);
 
         // Getters
-        std::string getCharacterName() const;
+        std::string getName() const;
         int getHealth() const;
         int getDamage() const;
         int getDefense() const;

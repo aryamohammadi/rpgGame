@@ -47,6 +47,10 @@ void Character::swap(Character& other) noexcept {
     swap(currentAttackType, other.currentAttackType);
 }
 
+std::string Character::getName() const {
+    return characterName;
+}
+
 void Character::equipArmour(Armour* newArmour){
     if(this->armour != nullptr){ // If there is currently equipped armor, deequip it from character
         this->deEquipArmour();
@@ -309,8 +313,4 @@ bool Character::throwAwayItem(int index){
 void Character::attack(Character& target){
     weapon->useItem(target);
     // This will have been replaced by Jessy
-}
-
-std::string Character::getCharacterName() const {
-    return characterName;
 }

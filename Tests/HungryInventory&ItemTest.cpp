@@ -346,7 +346,10 @@ TEST(InventorySortingTestWithActualItems, makeLatestFirst){
     results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
 
     for(ItemStack*& stack : results){
-        playerStorage.addItem(stack->getItem());
+        Item* clone = stack->getItem()->clone();
+        ASSERT_DOUBLE_EQ(stack->getItem()->getTime(), clone->getTime());
+        delete clone;
+        playerStorage.addItem(stack->getItem()->clone());
     }
     InsertionSort s(CompareBy::Time);
     s.sort(results, SortOrder::Descending);
@@ -361,6 +364,10 @@ TEST(InventorySortingTestWithActualItems, makeLatestFirst){
     }
 
     EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
 }
 
 TEST(InventorySortingTestWithActualItems, makeOldestFirst){
@@ -387,7 +394,10 @@ TEST(InventorySortingTestWithActualItems, makeOldestFirst){
     results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
 
     for(ItemStack*& stack : results){
-        playerStorage.addItem(stack->getItem());
+        Item* clone = stack->getItem()->clone();
+        ASSERT_DOUBLE_EQ(stack->getItem()->getTime(), clone->getTime());
+        delete clone;
+        playerStorage.addItem(stack->getItem()->clone());
     }
     InsertionSort s(CompareBy::Time);
     s.sort(results, SortOrder::Ascending);
@@ -402,6 +412,10 @@ TEST(InventorySortingTestWithActualItems, makeOldestFirst){
     }
 
     EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
 }
 
 TEST(InventorySortingTestWithActualItems, sortByDescendingGrade){
@@ -428,7 +442,7 @@ TEST(InventorySortingTestWithActualItems, sortByDescendingGrade){
     results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
 
     for(ItemStack*& stack : results){
-        playerStorage.addItem(stack->getItem());
+        playerStorage.addItem(stack->getItem()->clone());
     }
     InsertionSort s(CompareBy::Grade);
     s.sort(results, SortOrder::Descending);
@@ -443,6 +457,10 @@ TEST(InventorySortingTestWithActualItems, sortByDescendingGrade){
     }
 
     EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
 }
 
 TEST(InventorySortingTestWithActualItems, sortByAscendingGrade){
@@ -469,7 +487,7 @@ TEST(InventorySortingTestWithActualItems, sortByAscendingGrade){
     results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
 
     for(ItemStack*& stack : results){
-        playerStorage.addItem(stack->getItem());
+        playerStorage.addItem(stack->getItem()->clone());
     }
     InsertionSort s(CompareBy::Grade);
     s.sort(results, SortOrder::Ascending);
@@ -484,6 +502,10 @@ TEST(InventorySortingTestWithActualItems, sortByAscendingGrade){
     }
 
     EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
 }
 
 TEST(InventorySortingTestWithActualItems, sortAlphabetically){
@@ -510,7 +532,7 @@ TEST(InventorySortingTestWithActualItems, sortAlphabetically){
     results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
 
     for(ItemStack*& stack : results){
-        playerStorage.addItem(stack->getItem());
+        playerStorage.addItem(stack->getItem()->clone());
     }
     InsertionSort s(CompareBy::Name);
     s.sort(results, SortOrder::Ascending);
@@ -525,4 +547,8 @@ TEST(InventorySortingTestWithActualItems, sortAlphabetically){
     }
 
     EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
 }

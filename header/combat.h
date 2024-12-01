@@ -1,11 +1,15 @@
 #ifndef COMBAT_H
 #define COMBAT_H
 
+#include "AttackType.h"
+#include "../header/character.h"
+#include <vector>
 #include "character.h"
 #include "Heap.h"
-#include <vector>
 
+using std::vector;
 // Class Combat manages a battle scenario between multiple characters.
+
 class Combat{
     private:
         //MaxHeap<Character*> fighterHeap;  // MaxHeap to determine the order of attack

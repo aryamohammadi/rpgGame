@@ -3,8 +3,7 @@
 
 enum class AttackType {
     Ranged,
-    Melee,
-    Brawl
+    Melee
 };
 
 #endif

@@ -1,7 +1,5 @@
 #pragma once
-#define WEAPON_H
 #include "../header/item.h"
-#include "../header/character.h"
 
 class Weapon : public Item {
     public:
@@ -11,12 +9,12 @@ class Weapon : public Item {
             Bow
         };
     private:
-        int durability;
         int damage;
-        WeaponType type;
+        WeaponType weaponType;
+        int speedEffect;
     public:
-        Weapon(ItemType t, const string& name, Grade itemGrade, const string& descript, double timeElapsed, int durability, int damage, WeaponType type);
+        Weapon(ItemType type, const string& name, Grade itemGrade, const string& descript, double timeElapsed, int damage, WeaponType weaponType);
         void useItem(Character& target) override;
         Item* clone() const override;
-
+        WeaponType getWeaponType() const {return weaponType;}
 };

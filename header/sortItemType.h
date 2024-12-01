@@ -1,5 +1,5 @@
 #pragma once
-#define SORTITEMTYPE_H
+
 #include "../header/itemStack.h"
 #include "../header/compare.h"
 #include "../header/sortorder.h"

@@ -1,7 +1,6 @@
 #include "../header/armour.h"
-#include "../header/itemType.h"
-
-    Armour::Armour(ItemType t = ItemType::ARMOUR, const std::string& name = "", Grade itemGrade = COMMON, const string& descript = "", double timeElapsed = -1.0, int stat):Item(t,name,itemGrade,descript,timeElapsed), armourStat(stat){}
+#include "../header/character.h"
+    Armour::Armour(ItemType t = ItemType::ARMOUR, const string& name = "", Item::Grade itemGrade = Grade::COMMON, const string& descript = "", double timeElapsed = -1.0, int stat = 0):Item(t,name,itemGrade,descript,timeElapsed), armourStat(stat){}
 
     void Armour::useItem(Character& target){
         target.equipArmour(this);

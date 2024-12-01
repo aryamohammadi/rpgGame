@@ -54,6 +54,9 @@ void Map::distributeEnemiesAndItems() {
   }
 
   for (int roomIndex : selectedRooms) {
+    // Out of 16 rooms, 8 have potions (4 with another very good potion), 4 have weapons, and 4 have armor. Have one weapon and one armor every 4 rooms (1 row on the map grid). We don't want 4 weak armors in rooms 0-3 and 8 strong enemies in rooms 8-15
+
+    Potion* itemToAdd = new Potion(POTION, "potion1", )
     worldRooms.at(roomIndex).addItems();
   }
 }

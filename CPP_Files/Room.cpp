@@ -9,21 +9,7 @@ void Room::removeEnemies() {
 }
 
 void Room::addEnemies(Character enemyToAdd) {
-
-  // Add either one or two enemies to the room's given vector
-  Character enemyToAdd("Enemy1");
-  enemyToAdd.setAttackType(AttackType::Ranged);
-  enemyToAdd.setDamage(5);
-  enemyToAdd.setHealth(25);
   enemies.push_back(enemyToAdd);
-
-  if (rand() % 2 == 0) {
-    Character anotherEnemytoAdd("Enemy2");  
-    anotherEnemytoAdd.setAttackType(AttackType::Melee);
-    anotherEnemytoAdd.setDamage(7);
-    anotherEnemytoAdd.setHealth(15);
-    enemies.push_back(anotherEnemytoAdd);
-  }
 }
 
 void Room::addItems() {
@@ -47,6 +33,6 @@ void Room::addItems() {
     Item* item3;
     std::cout << "WARNING: ADD ATTRIBUTES TO item3 IN Room.cpp" << std::endl;
     items.push_back(item3);
-  }
+    }
   }
 }

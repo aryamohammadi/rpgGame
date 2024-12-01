@@ -45,14 +45,18 @@ void Character::swap(Character& other) noexcept {
     swap(currentAttackType, other.currentAttackType);
 }
 
+std::string Character::getName() const {
+    return characterName;
+}
+
 void Character::equipArmour(Armour* newArmour){
     if(this->armour != nullptr){
         deEquipArmour();
     }
-    if(storage->itemFound(newArmour) != -1){
+    if(storage->itemFound(newArmour) != -1){ // If the armor you're trying to add exists in inventory, remove it from inventory. If it doesn't exist, hey you're all good
         storage->removeItem(*newArmour);
     }
-    armour = newArmour;
+    armour = newArmour; // Equip this new armor
     defense += armour->getArmourStat();
 }
 

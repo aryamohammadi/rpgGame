@@ -84,9 +84,13 @@ class Character{
         void sortByDescendingGrade();
         void makeLatestFirst();
         void makeOldestFirst();
+  
         // Getters
         int getHealth() const {return health;}
         int getDefense() const{ return defense;}
+        std::string getName() const;
+        int getDamage() const;
+        AttackType getAttackType() const;
         bool isAlive() const;
         std::string getCharacterName() const; // Returns the character's name
         friend ostream& operator<<(ostream& out, const Character& entity);

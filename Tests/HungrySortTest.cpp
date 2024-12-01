@@ -210,7 +210,6 @@ TEST(MergeSortTest, multipleAscendingItemTest){
 
     for(ItemStack* stack : stacks){
         out << *stack << endl;
-        cout << *stack << endl;
     }
     for(ItemStack* stack : results){
         result << *stack << endl;

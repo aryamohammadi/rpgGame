@@ -10,11 +10,17 @@ ostream& operator<<(ostream& out, const Item& object){
     return out;
 }
 
-string Item::determineType(int typeIndex) const{
-    if(typeIndex < 0 || typeIndex >= types.size()){
-        throw std::invalid_argument("type is invalid!");
+string Item::determineType(ItemType type) const{
+    switch(type){
+        case ItemType::WEAPON:
+            return types.front();
+        case ItemType::POTION:
+            return types.back();
+        case ItemType::ARMOUR:
+            return types.at(1);
+        default:
+            throw std::logic_error("Item has invalid type!");
     }
-    return types.at(typeIndex);
 }
 
 string Item::determineGrade(int gradeIndex) const{

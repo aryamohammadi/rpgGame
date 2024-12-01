@@ -1,5 +1,5 @@
 #pragma once
-#define BUCKETSORT_H
+
 #include "../header/sort.h"
 #include "../header/compareItemType.h"
 #include "../header/sortItemType.h"

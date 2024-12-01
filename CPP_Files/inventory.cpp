@@ -2,7 +2,7 @@
 #include "../header/sort.h"
 #include "../header/insertionSort.h"
 #include "../header/mergeSort.h"
-#include "../header/bucketSort.h"
+
 #include <stdexcept>
 using std::endl;
 using std::to_string;
@@ -22,7 +22,7 @@ Inventory& Inventory::operator=(const Inventory& rhs){
     return *this;
 }
 int Inventory::itemFound(const Item* item) const{
-    if(size == 0){
+    if(isEmpty()){
         return -1;
     }
     for(unsigned i = 0; i < size; i++){
@@ -33,7 +33,7 @@ int Inventory::itemFound(const Item* item) const{
     return -1;
 }
 int Inventory::itemFound(const Item& item) const {
-    if(size == 0){
+    if(isEmpty()){
         return -1;
     }
     for(unsigned i = 0; i < size; i++){
@@ -45,7 +45,7 @@ int Inventory::itemFound(const Item& item) const {
 }
 
 int Inventory::itemFound(const std::string& name) const {
-    if(size == 0){
+    if(isEmpty()){
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
@@ -57,7 +57,7 @@ int Inventory::itemFound(const std::string& name) const {
 }
 
 int Inventory::itemFound(const std::string& name, ItemType t) const {
-    if(size == 0){
+    if(isEmpty()){
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
@@ -69,7 +69,7 @@ int Inventory::itemFound(const std::string& name, ItemType t) const {
 }
 
 int Inventory::itemFound(int index) const{
-    if(index < 0 || index >= size){
+    if(index < 0 || index >= size || isEmpty()){
         return -1;
     }
     return index;
@@ -93,8 +93,13 @@ void Inventory::addItem(Item* item, int quantity){
     if(sizeGreaterThanOrEqualToCapacity()){
         throw std::overflow_error("size of " + std::to_string(size) + " >= capacity of " + std::to_string(capacity) + '\n');
     }
-    items.at(size) = new ItemStack(item, quantity);
-    size ++;
+    if(itemFound(item) != -1){
+        items.at(itemFound(item))->increaseQuantity(quantity);
+    }
+    else{
+        items.at(size) = new ItemStack(item, quantity);
+        size ++;
+    }
 }
 
 int Inventory::itemsWithName(const std::string& name) const{
@@ -136,27 +141,27 @@ std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
 }
 
 void Inventory::sortAlphabetically(){
-    MergeSort s(CompareItem::CompareBy::Name);
+    MergeSort s(CompareBy::Name);
     s.sort(items, SortOrder::Ascending);
 }
 
 void Inventory::sortByAscendingGrade(){
-    MergeSort s(CompareItem::CompareBy::Grade);
+    MergeSort s(CompareBy::Grade);
     s.sort(items, SortOrder::Ascending);
 }
 
 void Inventory::sortByDescendingGrade(){
-    MergeSort s(CompareItem::CompareBy::Grade);
+    MergeSort s(CompareBy::Grade);
     s.sort(items, SortOrder::Descending);
 }
 
 void Inventory::makeLatestFirst(){
-    MergeSort s(CompareItem::CompareBy::Time);
+    MergeSort s(CompareBy::Time);
     s.sort(items, SortOrder::Descending);
 }
 
 void Inventory::makeOldestFirst(){
-    MergeSort s(CompareItem::CompareBy::Time);
+    MergeSort s(CompareBy::Time);
     s.sort(items, SortOrder::Ascending);
 }
 
@@ -217,12 +222,11 @@ void Inventory::removeItem(const string& name){
     }
 }
 
-string Inventory::outputWeapons() const{
-    std::ostringstream out;
+ostream& Inventory::outputWeapons(ostream& out) const{
     for(ItemStack* stack : items){
         if(stack != nullptr && stack->getItem() != nullptr && stack->getItem()->getType() == ItemType::WEAPON){
             out << stack;
         }
     }
-    return out.str();
+    return out;
 }

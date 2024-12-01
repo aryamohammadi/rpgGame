@@ -4,8 +4,8 @@
 #include "../header/itemStack.h"
 
 #include "../header/item.h"
-#include "../header/compare.h"
-
+#include "../header/itemType.h"
+#include "../header/compareBy.h"
 using std::string;
 class Inventory{
     private:
@@ -15,8 +15,9 @@ class Inventory{
 
         void reorganizeItems();
         void clear(){
-            for(ItemStack* x : items){
+            for(ItemStack*& x : items){
                 delete x;
+                x = nullptr;
             }
             size = 0;
             capacity = 10;
@@ -52,10 +53,9 @@ class Inventory{
         void sortAlphabetically();
         void sortByAscendingGrade();
         void sortByDescendingGrade();
-        void sortByTypes(CompareItem::CompareBy sortMode);
         void makeLatestFirst();
         void makeOldestFirst();
 
        friend std::ostream& operator<<(std::ostream& out, const Inventory& rhs);
-       string outputWeapons() const;
+       std::ostream& outputWeapons(std::ostream& out) const;
 };

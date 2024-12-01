@@ -1,4 +1,5 @@
 #include "../header/item.h"
+#include "../header/character.h"
 #include <stdexcept>
 using std::endl;
 

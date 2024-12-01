@@ -7,7 +7,7 @@
     }
 
     Item* Armour::clone() const{
-        return new Armour(getType(),getName(),getGrade(),getDescript(),getTime(),armourStat);
+        return new Armour(getType(),getName(),getGrade(),getDescript(),armourStat, getTime());
     }
 
 std::ostream& operator<<(std::ostream& out, const Armour& currentArmour){

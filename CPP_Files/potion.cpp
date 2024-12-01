@@ -8,7 +8,7 @@ void Potion::useItem(Character& player){
 }
 
 Item* Potion::clone() const{
-    return new Potion(getType(),getName(),getGrade(),getDescript(),getTime(),recoveryAmount);
+    return new Potion(getType(),getName(),getGrade(),getDescript(),recoveryAmount, getTime());
 }
 
 std::ostream& operator<<(ostream& out, const Potion& currentPotion){

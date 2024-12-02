@@ -29,3 +29,45 @@ void Map::distributeEnemiesAndItems() {
     worldRooms.at(roomIndex).addItems();
   }
 }
+
+// Serialize the Map
+std::string Map::serialize() const {
+    std::ostringstream oss;
+
+    // Serialize the number of rooms
+    oss << worldRooms.size() << "\n";
+
+    // Serialize each room in the map
+    for (const auto& room : worldRooms) {
+        oss << room.serialize() << "\n";
+    }
+
+    return oss.str();
+}
+
+// Deserialize the Map
+bool Map::deserialize(const std::string& data) {
+    std::istringstream iss(data);
+    size_t roomCount;
+
+    // Read the number of rooms
+    if (!(iss >> roomCount)) return false;
+
+    worldRooms.clear(); // Clear existing rooms before deserialization
+
+    std::string roomData;
+
+    // Deserialize each room
+    for (size_t i = 0; i < roomCount; ++i) {
+        std::getline(iss >> std::ws, roomData); // Read serialized room data
+        Room room;
+        if (!room.deserialize(roomData)) {
+            return false; // Fail if any room fails to deserialize
+        }
+        worldRooms.push_back(room);
+    }
+
+    return true;
+}
+
+

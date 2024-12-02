@@ -8,9 +8,7 @@
 #include "gmock/gmock.h"
 #include <gmock/gmock.h>
 #include "../header/itemType.h"
-#include "../header/character.h"
-class Character; // What's the purpose of this? This doesn't seem to do anything. - Jameel
-
+class Character;
 using std::string;
 using std::ostream;
 using std::vector;

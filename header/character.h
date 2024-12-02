@@ -4,8 +4,9 @@
 
 #include "../header/AttackType.h"
 #include "../header/itemType.h"
-#include <string>
+#include <iostream>
 using std::string;
+using std::ostream;
 class Inventory;
 class Item;
 class Armour;
@@ -71,8 +72,8 @@ class Character{
         bool throwAwayItem(const string& name, ItemType type);
         bool throwAwayItem(int index);
 
-        std::ostream& showInventory(ostream& out) const;
-        std::ostream& outputWeapons(ostream& out) const;
+        std::ostream& showInventory(std::ostream& out) const;
+        std::ostream& outputWeapons(std::ostream& out) const;
   
         void equipArmour(Armour* armour);
         void deEquipArmour();
@@ -90,8 +91,7 @@ class Character{
         int getDefense() const{ return defense;}
         std::string getName() const;
         int getDamage() const;
-        AttackType getAttackType() const;
         bool isAlive() const;
         std::string getCharacterName() const; // Returns the character's name
-        friend ostream& operator<<(ostream& out, const Character& entity);
+        friend std::ostream& operator<<(std::ostream& out, const Character& entity);
 };

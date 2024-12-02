@@ -8,7 +8,6 @@
 #include "gmock/gmock.h"
 #include <gmock/gmock.h>
 #include "../header/itemType.h"
-#include "../header/character.h"
 class Character;
 using std::string;
 using std::ostream;

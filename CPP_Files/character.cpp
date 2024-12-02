@@ -103,8 +103,8 @@ ostream& Character::outputWeapons(ostream& out) const{
     return storage->outputWeapons(out);
 }
 
-void pickUpItem(const Item& item){
-
+void Character::pickUpItem(Item* item){
+    storage->addItem(item);
 }
 
 bool Character::useItem(const string& itemName){

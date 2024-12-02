@@ -61,7 +61,7 @@ class Character{
 
         void attack(Character& target);
 
-        void pickUpItem(const Item& item);
+        void pickUpItem(Item* item);
         
         int itemsWithName(const string& name) const;
         bool useItem(const string& itemName); //finds closest with name and returns if succesfull

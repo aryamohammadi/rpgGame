@@ -33,7 +33,6 @@ void ItemStack::decreaseQuantity(int amount) {
 
 bool ItemStack::isItem(const Item& other) const {
     if(item->getName() == other.getName() && item->getType() == other.getType()){
-        
         switch(other.getType()){
             case ItemType::WEAPON:{
                 const Weapon& currentWeapon = dynamic_cast<const Weapon&>(other);

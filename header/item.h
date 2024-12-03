@@ -9,7 +9,6 @@
 #include "../header/character.h"
 
 class Character;
-
 using std::string;
 using std::ostream;
 using std::vector;

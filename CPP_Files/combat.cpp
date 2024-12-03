@@ -40,10 +40,10 @@ void Combat::startBattle() { // Indenting this was quite nice - Jameel
                 for (int i = 0; i < fightersAlive.size(); ++i) {
                     Character* fighter = fightersAlive[i];
                     if (fighter->getCharacterName() == "Player") {
-                        playerFound = true;
+                        // playerFound = true;
                     } 
                     else if (fighter->isAlive()) {
-                        enemiesFound = true;
+                        // enemiesFound = true;
                         //after we have to check if the enemy is dead or not. if it is remove it from the fighters alive
                         if(fightersAlive.at(playerToAttack)->getHealth() <= 0){
                             removePlayerFromHeap(fightersAlive.at(i)->getName());
@@ -172,49 +172,4 @@ void Combat::performAttack(Character& attacker) { // Why was this commented?
     //     cout << target->getCharacterName() << " has been defeated!" << endl;
     //     // removePlayerFromHeap(target->getHeapIndex());
     // }
-}
-
-void Combat::removePlayerFromHeap(int targetIndex) {
-    if (targetIndex < 0 || targetIndex >= fightersAlive.size()) {
-        throw runtime_error("Invalid index: Unable to remove character from heap.");
-        return;
-    }
-
-    // Move the last element to the target index and pop the heap
-    fightersAlive[targetIndex] = fightersAlive[fightersAlive.size() - 1]; // Replace with the last element
-    fightersAlive.pop_back(); // Remove the last element
-
-    // Restore the heap property
-    if (targetIndex < fightersAlive.size()) { // Only re-heapify if there are elements left
-        // heapifyDown(targetIndex); // Push the element down to its correct position
-        // heapifyUp(targetIndex);   // Or pull it up if needed
-    }
-}
-
-// check if the battle has ended
-bool Combat::hasBattleEnded() {
-    bool isPlayerAlive = false;
-    bool areEnemiesAlive = false;
-
-    for (int i = 0; i < fightersAlive.size(); ++i) {
-        if (fightersAlive[i]->isAlive()) {
-            if (fightersAlive[i]->getCharacterName() == "Player") {
-                isPlayerAlive = true;
-            } else {
-                areEnemiesAlive = true; // At least one enemy is alive
-            }
-        }
-        if (isPlayerAlive && areEnemiesAlive) {
-            return false; // Battle continues
-        }
-    }
-
-    // Battle ends if player is dead or all enemies are defeated
-    if (!isPlayerAlive) {
-        return true; // Player is dead, battle ends
-    }
-    if (!areEnemiesAlive) {
-        return true; // All enemies are dead, battle ends
-    }
-    return false; // Battle continues
 }

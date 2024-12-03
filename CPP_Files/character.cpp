@@ -94,7 +94,7 @@ void Character::changeWeapon(int index){
 }
 
 ostream& Character::showInventory(ostream& out) const{
-    out << storage;
+    out << *storage;
 
     return out;
     
@@ -104,8 +104,12 @@ ostream& Character::outputWeapons(ostream& out) const{
     return storage->outputWeapons(out);
 }
 
-void pickUpItem(const Item& item){
-
+bool Character::pickUpItem(Item* item){
+    if(storage->sizeGreaterThanOrEqualToCapacity()){
+        return false;
+    }
+    storage->addItem(item);
+    return true;
 }
 
 bool Character::useItem(const string& itemName){

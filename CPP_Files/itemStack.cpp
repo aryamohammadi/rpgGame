@@ -81,3 +81,56 @@ Item* ItemStack::getItem() {
 const Item* ItemStack::getItem() const {
     return item;
 }
+
+// Serialize
+std::string ItemStack::serialize() const {
+    std::ostringstream oss;
+    oss << (item ? item->serialize() : "null") << "\n" << quantity;
+    return oss.str();
+}
+
+// Deserialize
+bool ItemStack::deserialize(const std::string& data) {
+    std::istringstream iss(data);
+    std::string itemData;
+
+    // Deserialize the item data
+    if (!std::getline(iss, itemData)) return false;
+
+    if (itemData == "null") {
+        item = nullptr;
+    } else {
+        std::istringstream itemStream(itemData);
+        int itemType;
+        if (!(itemStream >> itemType)) return false;
+
+        switch (static_cast<ItemType>(itemType)) {
+            case ItemType::WEAPON:
+                item = new Weapon();
+                break;
+            case ItemType::ARMOUR:
+                item = new Armour();
+                break;
+            case ItemType::POTION:
+                item = new Potion();
+                break;
+            default:
+                return false;
+        }
+
+        if (!item->deserialize(itemData)) {
+            delete item;
+            item = nullptr;
+            return false;
+        }
+    }
+
+    // Deserialize the quantity
+    if (!(iss >> quantity)) {
+        delete item;
+        item = nullptr;
+        return false;
+    }
+
+    return true;
+}

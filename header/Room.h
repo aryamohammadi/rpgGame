@@ -19,4 +19,6 @@ class Room {
     vector<Character> getEnemies() {return enemies;} 
     vector<Item*> getItems() {return items;}
 
+    std::string serialize() const; // For save game
+    bool deserialize(const std::string& data); // For load game
 };

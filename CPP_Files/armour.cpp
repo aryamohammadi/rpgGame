@@ -15,3 +15,32 @@ std::ostream& operator<<(std::ostream& out, const Armour& currentArmour){
     out << "Armour Stat: " << currentArmour.getArmourStat() << std::endl;
     return out;
 }
+
+// Override serialize
+std::string Armour::serialize() const {
+    std::ostringstream oss;
+    oss << static_cast<int>(type) << "\n" // ItemType as integer
+        << name << "\n"
+        << static_cast<int>(itemGrade) << "\n"
+        << description << "\n"
+        << timeEarned << "\n"
+        << armourStat; // Armour stat
+    return oss.str();
+}
+
+// Override deserialize
+bool Armour::deserialize(const std::string& data) {
+    std::istringstream iss(data);
+    int typeInt, gradeInt;
+
+    if (!(iss >> typeInt)) return false;
+    if (static_cast<ItemType>(typeInt) != ItemType::ARMOUR) return false;
+
+    if (!(std::getline(iss >> std::ws, name) && iss >> gradeInt && std::getline(iss >> std::ws, description) &&
+          iss >> timeEarned >> armourStat)) {
+        return false;
+    }
+
+    itemGrade = static_cast<Item::Grade>(gradeInt);
+    return true;
+}

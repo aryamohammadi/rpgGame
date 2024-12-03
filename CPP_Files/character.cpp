@@ -93,7 +93,7 @@ void Character::changeWeapon(int index){
 }
 
 ostream& Character::showInventory(ostream& out) const{
-    out << storage;
+    out << *storage;
 
     return out;
     

@@ -4,6 +4,9 @@
 #include "../header/potion.h"
 #include "../header/armour.h"
 #include "../header/character.h"
+#include "../header/insertionSort.h"
+#include "../header/mergeSort.h"
+#include "../header/sortorder.h"
 #include <sstream>
 using std::ostringstream;
 using std::endl;
@@ -88,4 +91,235 @@ TEST(CharacterTest, throwTooManyItems){
     EXPECT_TRUE(C.throwAwayItem(0));
     EXPECT_TRUE(C.throwAwayItem(0));
     EXPECT_FALSE(C.throwAwayItem(0));
+}
+
+TEST(CharacterSortTest, CharacterSortAlphabetically){
+    ostringstream out;
+    ostringstream result;
+    Character player("Player");
+
+    vector<ItemStack*> results;
+
+    // Adding Weapons
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Excalibur", Item::Grade::LEGENDARY, "A legendary sword of immense power", 100, Weapon::WeaponType::Sword)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Longbow", Item::Grade::RARE, "A finely crafted longbow for precision strikes", 60, Weapon::WeaponType::Bow, -1.0)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Warhammer", Item::Grade::EPIC, "A hammer capable of crushing armor", 80, Weapon::WeaponType::Sword)));
+
+    // Adding Armour
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Dragon Scale Shield", Item::Grade::EPIC, "A shield made from dragon scales", 50)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Knight's Plate", Item::Grade::RARE, "Heavy armor worn by knights", 70)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Ranger's Cloak", Item::Grade::UNCOMMON, "Light armor ideal for scouts", 30)));
+
+    // Adding Potions
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Health Elixir", Item::Grade::RARE, "Restores a significant amount of health", 75)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Mana Draught", Item::Grade::COMMON, "Replenishes mana for spellcasters", 50)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Stamina Brew", Item::Grade::UNCOMMON, "Boosts stamina temporarily", 40)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
+
+    for(ItemStack*& stack : results){
+        player.pickUpItem(stack->getItem()->clone());
+    }
+    InsertionSort s(CompareBy::Name);
+    s.sort(results, SortOrder::Ascending);
+    player.sortAlphabetically();
+
+    player.showInventory(out);
+    int index = 0;
+    for(int i = 0; i < results.size(); i++){
+        result << "Item " << index << ':' << std::endl;
+        result << *results[i] << endl;
+        index ++;
+    }
+
+    EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
+}
+
+TEST(CharacterSortTest, CharacterSortByAscendingGrade){
+    ostringstream out;
+    ostringstream result;
+    Character player("Player");
+
+    vector<ItemStack*> results;
+
+    // Adding Weapons
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Excalibur", Item::Grade::LEGENDARY, "A legendary sword of immense power", 100, Weapon::WeaponType::Sword)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Longbow", Item::Grade::RARE, "A finely crafted longbow for precision strikes", 60, Weapon::WeaponType::Bow, -1.0)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Warhammer", Item::Grade::EPIC, "A hammer capable of crushing armor", 80, Weapon::WeaponType::Sword)));
+
+    // Adding Armour
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Dragon Scale Shield", Item::Grade::EPIC, "A shield made from dragon scales", 50)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Knight's Plate", Item::Grade::RARE, "Heavy armor worn by knights", 70)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Ranger's Cloak", Item::Grade::UNCOMMON, "Light armor ideal for scouts", 30)));
+
+    // Adding Potions
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Health Elixir", Item::Grade::RARE, "Restores a significant amount of health", 75)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Mana Draught", Item::Grade::COMMON, "Replenishes mana for spellcasters", 50)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Stamina Brew", Item::Grade::UNCOMMON, "Boosts stamina temporarily", 40)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
+
+    for(ItemStack*& stack : results){
+        player.pickUpItem(stack->getItem()->clone());
+    }
+    InsertionSort s(CompareBy::Grade);
+    s.sort(results, SortOrder::Ascending);
+    player.sortByAscendingGrade();
+
+    player.showInventory(out);
+    int index = 0;
+    for(int i = 0; i < results.size(); i++){
+        result << "Item " << index << ':' << std::endl;
+        result << *results[i] << endl;
+        index ++;
+    }
+
+    EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
+}
+
+TEST(CharacterSortTest, CharacterMakeLatestFirst){
+    ostringstream out;
+    ostringstream result;
+    Character player("Player");
+
+    vector<ItemStack*> results;
+
+    // Adding Weapons
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Excalibur", Item::Grade::LEGENDARY, "A legendary sword of immense power", 100, Weapon::WeaponType::Sword)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Longbow", Item::Grade::RARE, "A finely crafted longbow for precision strikes", 60, Weapon::WeaponType::Bow, -1.0)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Warhammer", Item::Grade::EPIC, "A hammer capable of crushing armor", 80, Weapon::WeaponType::Sword)));
+
+    // Adding Armour
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Dragon Scale Shield", Item::Grade::EPIC, "A shield made from dragon scales", 50)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Knight's Plate", Item::Grade::RARE, "Heavy armor worn by knights", 70)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Ranger's Cloak", Item::Grade::UNCOMMON, "Light armor ideal for scouts", 30)));
+
+    // Adding Potions
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Health Elixir", Item::Grade::RARE, "Restores a significant amount of health", 75)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Mana Draught", Item::Grade::COMMON, "Replenishes mana for spellcasters", 50)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Stamina Brew", Item::Grade::UNCOMMON, "Boosts stamina temporarily", 40)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
+
+    for(ItemStack*& stack : results){
+        Item* clone = stack->getItem()->clone();
+        ASSERT_DOUBLE_EQ(stack->getItem()->getTime(), clone->getTime());
+        delete clone;
+        player.pickUpItem(stack->getItem()->clone());
+    }
+    InsertionSort s(CompareBy::Time);
+    s.sort(results, SortOrder::Descending);
+    player.makeLatestFirst();
+
+    player.showInventory(out);
+    int index = 0;
+    for(int i = 0; i < results.size(); i++){
+        result << "Item " << index << ':' << std::endl;
+        result << *results[i] << endl;
+        index ++;
+    }
+
+    EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
+}
+
+TEST(CharacterSortTest, CharacterMakeOldestFirst){
+    ostringstream out;
+    ostringstream result;
+    Character player("Player");
+
+    vector<ItemStack*> results;
+
+    // Adding Weapons
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Excalibur", Item::Grade::LEGENDARY, "A legendary sword of immense power", 100, Weapon::WeaponType::Sword)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Longbow", Item::Grade::RARE, "A finely crafted longbow for precision strikes", 60, Weapon::WeaponType::Bow, -1.0)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Warhammer", Item::Grade::EPIC, "A hammer capable of crushing armor", 80, Weapon::WeaponType::Sword)));
+
+    // Adding Armour
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Dragon Scale Shield", Item::Grade::EPIC, "A shield made from dragon scales", 50)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Knight's Plate", Item::Grade::RARE, "Heavy armor worn by knights", 70)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Ranger's Cloak", Item::Grade::UNCOMMON, "Light armor ideal for scouts", 30)));
+
+    // Adding Potions
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Health Elixir", Item::Grade::RARE, "Restores a significant amount of health", 75)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Mana Draught", Item::Grade::COMMON, "Replenishes mana for spellcasters", 50)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Stamina Brew", Item::Grade::UNCOMMON, "Boosts stamina temporarily", 40)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
+
+    for(ItemStack*& stack : results){
+        Item* clone = stack->getItem()->clone();
+        ASSERT_DOUBLE_EQ(stack->getItem()->getTime(), clone->getTime());
+        delete clone;
+        player.pickUpItem(stack->getItem()->clone());
+    }
+    InsertionSort s(CompareBy::Time);
+    s.sort(results, SortOrder::Ascending);
+    player.makeOldestFirst();
+
+    player.showInventory(out);
+    int index = 0;
+    for(int i = 0; i < results.size(); i++){
+        result << "Item " << index << ':' << std::endl;
+        result << *results[i] << endl;
+        index ++;
+    }
+
+    EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
+}
+
+TEST(CharacterSortTest, CharacterSortByDescendingGrade){
+    ostringstream out;
+    ostringstream result;
+    Character player("Player");
+
+    vector<ItemStack*> results;
+
+    // Adding Weapons
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Excalibur", Item::Grade::LEGENDARY, "A legendary sword of immense power", 100, Weapon::WeaponType::Sword)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Longbow", Item::Grade::RARE, "A finely crafted longbow for precision strikes", 60, Weapon::WeaponType::Bow, -1.0)));
+    results.push_back(new ItemStack(new Weapon(ItemType::WEAPON, "Warhammer", Item::Grade::EPIC, "A hammer capable of crushing armor", 80, Weapon::WeaponType::Sword)));
+
+    // Adding Armour
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Dragon Scale Shield", Item::Grade::EPIC, "A shield made from dragon scales", 50)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Knight's Plate", Item::Grade::RARE, "Heavy armor worn by knights", 70)));
+    results.push_back(new ItemStack(new Armour(ItemType::ARMOUR, "Ranger's Cloak", Item::Grade::UNCOMMON, "Light armor ideal for scouts", 30)));
+
+    // Adding Potions
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Health Elixir", Item::Grade::RARE, "Restores a significant amount of health", 75)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Mana Draught", Item::Grade::COMMON, "Replenishes mana for spellcasters", 50)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Stamina Brew", Item::Grade::UNCOMMON, "Boosts stamina temporarily", 40)));
+    results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", Item::Grade::COMMON, "Cures poisons and venoms", 25)));
+
+    for(ItemStack*& stack : results){
+        player.pickUpItem(stack->getItem()->clone());
+    }
+    InsertionSort s(CompareBy::Grade);
+    s.sort(results, SortOrder::Descending);
+    player.sortByDescendingGrade();
+
+    player.showInventory(out);
+    int index = 0;
+    for(int i = 0; i < results.size(); i++){
+        result << "Item " << index << ':' << std::endl;
+        result << *results[i] << endl;
+        index ++;
+    }
+
+    EXPECT_EQ(out.str(), result.str());
+    for(ItemStack*& stack : results) {
+        delete stack;
+    }
+    results.clear();
 }

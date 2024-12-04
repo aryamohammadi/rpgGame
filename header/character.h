@@ -97,3 +97,6 @@ class Character{
         bool Character::deserialize(const std::string& data);
         std::string Character::serialize() const;
 };
+
+std::ostream& operator<<(std::ostream& out, const AttackType& type);
+std::istream& operator>>(std::istream& in, AttackType& type);

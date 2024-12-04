@@ -425,3 +425,35 @@ bool Character::deserialize(const std::string& data) {
     std::getline(iss >> std::ws, inventoryData);
     return storage->deserialize(inventoryData);
 }
+
+std::ostream& operator<<(std::ostream& out, const AttackType& type){
+    switch(type){
+        case AttackType::Melee:
+            out << "Melee";
+            return out;
+        case AttackType::Ranged:
+            out << "Ranged";
+            return out;
+        default:
+            return out;
+    }
+}
+
+std::istream& operator>>(std::istream& in, AttackType& type){
+    std::string inString;
+    in >> inString;
+    const vector<std::string> possibleTypes{"Melee", "Manged"};
+    if(inString.size() < 0){
+        return in;
+    }
+    if(inString == possibleTypes.front()){
+        type = AttackType::Melee;
+        return in;
+    }
+    if(inString == possibleTypes[1]){
+        type = AttackType::Ranged;
+        return in;
+    }
+    in.setstate(std::ios::failbit);
+    return in;
+}   

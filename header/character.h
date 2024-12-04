@@ -105,11 +105,8 @@ class Character{
         }
         void deEquipArmour(){
             
-            storage.addItem(armour);
+            storage->addItem(&armour);
         }
-
-        virtual void attack() = 0;
-        virtual void defend() = 0;
        
         // Destructor
         virtual ~Character();

@@ -230,3 +230,38 @@ ostream& Inventory::outputWeapons(ostream& out) const{
     }
     return out;
 }
+
+// Serialization
+std::string Inventory::serialize() const {
+    std::ostringstream oss;
+    oss << size << "\n" << capacity << "\n";
+    for (const auto& item : items) {
+        if (item) {
+            oss << item->serialize() << "\n";
+        }
+    }
+    return oss.str();
+}
+
+// Deserialization
+bool Inventory::deserialize(const std::string& data) {
+    std::istringstream iss(data);
+    if (!(iss >> size >> capacity)) return false;
+
+    items.clear();
+    items.reserve(capacity);
+
+    std::string itemData;
+    while (std::getline(iss, itemData)) {
+        if (!itemData.empty()) {
+            ItemStack* stack = new ItemStack(nullptr);
+            if (stack->deserialize(itemData)) {
+                items.push_back(stack);
+            } else {
+                delete stack;
+                return false;
+            }
+        }
+    }
+    return true;
+}

@@ -81,3 +81,13 @@ target_link_libraries(MainMenuTests gtest gtest_main pthread)
 
 # Add all executables to CTest
 add_test(NAME MainMenuTests COMMAND MainMenuTests)
+
+
+# Add the test files
+add_executable(LoadGameTests Save_Load/Tests/LoadGameTests.cpp)
+add_executable(SaveGameTests Save_Load/Tests/SaveGameTests.cpp)
+
+# Link Google Test libraries
+target_link_libraries(LoadGameTests gtest gtest_main)
+target_link_libraries(SaveGameTests gtest gtest_main)
+

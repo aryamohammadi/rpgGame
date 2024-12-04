@@ -7,6 +7,7 @@
 #include <utility> // For std::swap
 #include <sstream>
 using std::string;
+
 Character::Character(const std::string& name) : characterName(name), health(100),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
 
 Character::~Character(){
@@ -370,4 +371,57 @@ void Character::makeLatestFirst(){
 }
 void Character::makeOldestFirst(){
     storage->makeOldestFirst();
+}
+
+// Serialize the Character
+std::string Character::serialize() const {
+    std::ostringstream oss;
+    oss << characterName << "\n"
+        << health << "\n"
+        << defense << "\n"
+        << baseSpeed << "\n"
+        << currentSpeed << "\n"
+        << isDead << "\n"
+        << currentAttackType << "\n"
+        << (armour ? armour->serialize() : "null") << "\n"
+        << (weapon ? weapon->serialize() : "null") << "\n"
+        << storage->serialize();
+    return oss.str();
+}
+
+// Deserialize the Character
+bool Character::deserialize(const std::string& data) {
+    std::istringstream iss(data);
+    std::string armourData, weaponData, inventoryData;
+
+    if (!(std::getline(iss, characterName) &&
+          iss >> health >> defense >> baseSpeed >> currentSpeed >> isDead >> currentAttackType)) {
+        return false;
+    }
+
+    // Deserialize Armour
+    std::getline(iss >> std::ws, armourData);
+    if (armourData != "null") {
+        armour = new Armour();
+        if (!armour->deserialize(armourData)) {
+            delete armour;
+            armour = nullptr;
+            return false;
+        }
+    }
+
+    // Deserialize Weapon
+    std::getline(iss >> std::ws, weaponData);
+    if (weaponData != "null") {
+        weapon = new Weapon();
+        if (!weapon->deserialize(weaponData)) {
+            delete weapon;
+            weapon = nullptr;
+            return false;
+        }
+    }
+
+    // Deserialize Inventory
+    std::getline(iss >> std::ws, inventoryData);
+    return storage->deserialize(inventoryData);
 }

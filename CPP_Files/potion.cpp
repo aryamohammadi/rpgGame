@@ -16,3 +16,32 @@ std::ostream& operator<<(ostream& out, const Potion& currentPotion){
     out << "Recovery Amount: " << currentPotion.getRecoveryAmount() << std::endl;
     return out;
 }
+
+// Override serialize
+std::string Potion::serialize() const {
+    std::ostringstream oss;
+    oss << static_cast<int>(type) << "\n"              // ItemType as integer
+        << name << "\n"                                // Potion name
+        << static_cast<int>(itemGrade) << "\n"         // Grade as integer
+        << description << "\n"                         // Description
+        << timeEarned << "\n"                          // Time earned
+        << recoveryAmount;                             // Recovery amount
+    return oss.str();
+}
+
+// Override deserialize
+bool Potion::deserialize(const std::string& data) {
+    std::istringstream iss(data);
+    int typeInt, gradeInt;
+
+    if (!(iss >> typeInt)) return false;
+    if (static_cast<ItemType>(typeInt) != ItemType::POTION) return false;
+
+    if (!(std::getline(iss >> std::ws, name) && iss >> gradeInt && std::getline(iss >> std::ws, description) &&
+          iss >> timeEarned >> recoveryAmount)) {
+        return false;
+    }
+
+    itemGrade = static_cast<Item::Grade>(gradeInt);
+    return true;
+}

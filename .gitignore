@@ -9,3 +9,5 @@ lib/
 /googletest/
 build/
 .vscode/
+test/
+*.gcno

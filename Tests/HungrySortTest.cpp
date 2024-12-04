@@ -3,33 +3,42 @@
 #include "../header/sort.h"
 #include "../header/insertionSort.h"
 #include "../header/mergeSort.h"
-#include "../header/bucketSort.h"
 #include <sstream>
 using std::ostringstream;
 using testing::Return;
 using namespace std;
 
 TEST(SortTest, isSortedOneItemTest){
-    MockAbstractItemSort s(CompareItem::CompareBy::Name);
+    MockAbstractItemSort s(CompareBy::Name);
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
 
     EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending));
+    delete stacks.front();
+    stacks.front() = nullptr;
 }
 
 TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
-    MockAbstractItemSort s(CompareItem::CompareBy::Name);
+    MockAbstractItemSort s(CompareBy::Name);
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emily"))};
     stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Ascending));
+    for(ItemStack*& stack :  stacks){
+        delete stack;
+        stack = nullptr;
+    }
 }
 
 TEST(SortTest, TwoItemsNotSortedInDescendingOrderTest){
-    MockAbstractItemSort s(CompareItem::CompareBy::Name);
+    MockAbstractItemSort s(CompareBy::Name);
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Dragon Slayer Sword"))};
     stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Emily")));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Descending));
+    for(ItemStack*& stack :  stacks){
+        delete stack;
+        stack = nullptr;
+    } 
 }
 
 TEST(InsertionSortTest, multipleAscendingItemTest){
@@ -56,19 +65,22 @@ TEST(InsertionSortTest, multipleAscendingItemTest){
     results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
     results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
-    InsertionSort s(CompareItem::CompareBy::Name);
+    InsertionSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
-        out << *stack << endl;
-    }
-    for(ItemStack* stack : results){
-        result << *stack << endl;
-    }
     EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
+    for(ItemStack*& stack : stacks){
+        out << *stack << endl;
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        result << *stack << endl;
+        delete stack;
+        stack = nullptr;
+    }
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -97,19 +109,22 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
     results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
     results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
-    InsertionSort s(CompareItem::CompareBy::Name);
+    InsertionSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
+        delete stack;
+        stack = nullptr;
     }
     for(int i = results.size() - 1; i >= 0; i --){
         result << *results[i] << endl;
+        delete results[i];
+        results[i] = nullptr;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -129,24 +144,29 @@ TEST(InsertionSortTest, ascendingTimeSort){
 
     vector<ItemStack*> results = stacks;
     
-    InsertionSort s(CompareItem::CompareBy::Time);
+    InsertionSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
     }
-    for(ItemStack* stack : results){
+    for(ItemStack*& stack : results){
         result << *stack << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
     EXPECT_EQ(out.str(), result.str());
-    
+    for(ItemStack*& stack : stacks){
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        stack = nullptr;
+    }
 }
 
-TEST(InsertionSortTest, descendingimeSort){
+TEST(InsertionSortTest, descendingTimeSort){
     vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
     stacks.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
     stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
@@ -161,21 +181,26 @@ TEST(InsertionSortTest, descendingimeSort){
 
     vector<ItemStack*> results = stacks;
     
-    InsertionSort s(CompareItem::CompareBy::Time);
+    InsertionSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;
     ostringstream result;
-
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     for(ItemStack* stack : stacks){
         out << *stack << endl;
     }
     for(int i = results.size() - 1; i >= 0; i--){
         result << *results[i] << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
-    
+    for(ItemStack*& stack : stacks){
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        stack = nullptr;
+    }
 }
 
 TEST(MergeSortTest, multipleAscendingItemTest){
@@ -202,20 +227,22 @@ TEST(MergeSortTest, multipleAscendingItemTest){
     results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
     results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
-    MergeSort s(CompareItem::CompareBy::Name);
+    MergeSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
-        out << *stack << endl;
-        cout << *stack << endl;
-    }
-    for(ItemStack* stack : results){
-        result << *stack << endl;
-    }
     EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
+    for(ItemStack*& stack : stacks){
+        out << *stack << endl;
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        result << *stack << endl;
+        delete stack;
+        stack = nullptr;
+    }
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -244,19 +271,22 @@ TEST(MergeSortTest, multipleDescendingItemTest){
     results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
     results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
     results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
-    MergeSort s(CompareItem::CompareBy::Name);
+    MergeSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
+        delete stack;
+        stack = nullptr;
     }
     for(int i = results.size() - 1; i >= 0; i --){
         result << *results[i] << endl;
+        delete results[i];
+        results[i] = nullptr;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
     
 }
@@ -276,21 +306,26 @@ TEST(MergeSortTest, ascendingTimeSort){
 
     vector<ItemStack*> results = stacks;
     
-    MergeSort s(CompareItem::CompareBy::Time);
+    MergeSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Ascending);
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
     }
-    for(ItemStack* stack : results){
+    for(ItemStack*& stack : results){
         result << *stack << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
     EXPECT_EQ(out.str(), result.str());
-    
+    for(ItemStack*& stack : stacks){
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        stack = nullptr;
+    }
 }
 
 TEST(MergeSortTest, descendingimeSort){
@@ -308,19 +343,24 @@ TEST(MergeSortTest, descendingimeSort){
 
     vector<ItemStack*> results = stacks;
     
-    MergeSort s(CompareItem::CompareBy::Time);
+    MergeSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Descending);
 
     ostringstream out;
     ostringstream result;
-
-    for(ItemStack* stack : stacks){
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
+    for(ItemStack*& stack : stacks){
         out << *stack << endl;
     }
     for(int i = results.size() - 1; i >= 0; i--){
         result << *results[i] << endl;
     }
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Descending));
     EXPECT_EQ(out.str(), result.str());
-    
+    for(ItemStack*& stack : stacks){
+        delete stack;
+        stack = nullptr;
+    }
+    for(ItemStack*& stack : results){
+        stack = nullptr;
+    }
 }

@@ -1,30 +1,32 @@
 #include "Heap.h"
+#include "character.h"
+#include <iostream>
 
-template<typename T>
-void MaxHeap<T>::heapifyUp(int index) {
+using namespace std;
+
+void MaxHeap::heapifyUp(std::vector<Character*>&array, int index) {
     while (index > 0) {
         int parent = (index - 1) / 2;
-        if (!(heap[index] > heap[parent])) {
+        if (!(array[index]->getSpeed() > array[parent]->getSpeed())) {
             return; // Exit the function if the heap property is satisfied
         }
-        std::swap(heap[index], heap[parent]);
+        std::swap(array[index], array[parent]);
         index = parent;
     }
 }
 
-// Restore the heap property starting from the root
-template<typename T>
-void MaxHeap<T>::heapifyDown(int index) {
-    int size = heap.size();
+
+void MaxHeap::heapifyDown(std::vector<Character*>&array, int index) {
+    int size = array.size();
     int leftChild = 2 * index + 1;
     int rightChild = 2 * index + 2;
     int largest = index;
 
     while (leftChild < size) {
-        if (heap[leftChild] > heap[largest]) {
+        if (array[leftChild]->getSpeed() > array[largest]->getSpeed()) {
             largest = leftChild;
         }
-        if (rightChild < size && heap[rightChild] > heap[largest]) {
+        if (rightChild < size && array[rightChild]->getSpeed() > array[largest]->getSpeed()) {
             largest = rightChild;
         }
 
@@ -34,7 +36,7 @@ void MaxHeap<T>::heapifyDown(int index) {
         }
 
         // Otherwise, swap and continue heapifying down
-        std::swap(heap[index], heap[largest]);
+        std::swap(array[index], array[largest]);
         index = largest;
 
         // Update child indices for the new current node
@@ -43,52 +45,22 @@ void MaxHeap<T>::heapifyDown(int index) {
     }
 }
 
-// Insert a new element into the heap
-template<typename T>
-void MaxHeap<T>::insert(const T& value) {
-    heap.push_back(value);
-    heapifyUp(heap.size() - 1);
-}
+void MaxHeap::heapsort(std::vector<Character*>& array) {
+    int n = array.size();
 
-// Get the maximum element
-template<typename T>
-T MaxHeap<T>::getMax() const {
-    if (heap.empty()) {
-        throw std::runtime_error("Heap is empty");
+    // Step 1: Build the MaxHeap (heapify the entire array)
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapifyDown(array, i);
     }
-    return heap[0];
-}
 
-// Remove the maximum element
-template<typename T>
-void MaxHeap<T>::removeMax() {
-    if (heap.empty()) {
-        throw std::runtime_error("Heap is empty");
-    }
-    heap[0] = heap.back();  // Replace root with the last element
-    heap.pop_back();        // Remove the last element
-    if (!heap.empty()) {
-        heapifyDown(0);     // Restore heap property starting from the root
-    }
-}
+    // Step 2: Extract elements from the heap one by one
+    for (int i = n - 1; i > 0; i--) {
+        // Move the current root (largest) to the end
+        std::swap(array[0], array[i]);
 
-// Check if the heap is empty
-template<typename T>
-bool MaxHeap<T>::isEmpty() const {
-    return heap.empty();
-}
-
-// Get the size of the heap
-template<typename T>
-int MaxHeap<T>::size() const {
-    return heap.size();
-}
-
-// Display the heap
-template<typename T>
-void MaxHeap<T>::displayHeap() const {
-    for (const T& value : heap) {
-        std::cout << value << " ";
+        // Call heapifyDown on the reduced heap
+        // Note: Pass size as i to ignore the sorted elements
+        heapifyDown(array, 0);
     }
     std::cout << "\n";
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include "../header/item.h"
-
+#include "../header/character.h"
+#include <string>
+using std::string;
 class Weapon : public Item {
 public:
     enum WeaponType {
@@ -12,11 +14,11 @@ public:
 private:
     int damage;
     WeaponType weaponType;
-    int speedEffect;
+    int speedEffect = 0;
 
 public:
-    Weapon(ItemType type = ItemType::WEAPON, const string& name = "Training Sword", Grade itemGrade = COMMON, const string& descript = "",
-           int damage = 10, WeaponType weaponType = Sword, int speedEffect = 0, double timeElapsed = -1.0);
+    Weapon(ItemType type, const std::string& name, Grade itemGrade, const std::string& descript,
+           int damage, WeaponType weaponType, double timeElapsed = -1.0);
 
     void useItem(Character& target) override;
     Item* clone() const override;
@@ -27,6 +29,6 @@ public:
     void decreaseDamage(int amount){damage -= amount;}
     friend std::ostream& operator<<(std::ostream& out, const Weapon& currentWeapon);
 
-    std::string serialize() const override;
-    bool deserialize(const std::string& data) override;
+    std::string serialize() const;
+    bool deserialize(const std::string& data);
 };

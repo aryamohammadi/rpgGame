@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "../header/itemStack.h"
 #include "../header/item.h"
+#include "../header/itemStack.h"
 #include "../header/itemType.h"
 #include "../header/compareBy.h"
 using std::string;

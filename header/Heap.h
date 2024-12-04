@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "combat.h"
 #include <iostream>
 #include <stdexcept>
 #include <algorithm>  // For std::swap
@@ -20,4 +21,7 @@ class MaxHeap {
         bool isEmpty() const;
         int size() const;
         void displayHeap() const;
+        void heapsort(std::vector<Character*>& array);
+        void heapifyDown(std::vector<Character*>&array, int index);
+        void heapifyUp(std::vector<Character*>&array, int index);
 };

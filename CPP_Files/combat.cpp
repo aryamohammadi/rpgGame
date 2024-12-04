@@ -19,6 +19,7 @@ void Combat::startBattle() {
             heap.heapsort(turnOrder);
             for(int i = 0; i < turnOrder.size();i++){
                 if(turnOrder.at(i)->getName().find("Enemy")!= string::npos){
+                    turnOrder.at(i)->attack(*fightersAlive.front());
                     //attack first index of fightersAlive vector(need to implement this);
                     if(fightersAlive.at(0)->getHealth() <= 0){//check if player health is not 0. if its 0 set playerAliveToFalse otherwise do nothing
                         delete fightersAlive.at(0);
@@ -28,7 +29,7 @@ void Combat::startBattle() {
                 else {
                     std::cout << "Choose an enemy to attack" << endl;
                     int playerToAttack = playerDecidesWhoToAttack();
-
+                    fightersAlive.front()->attack(*fightersAlive.at(playerToAttack));
                     //we need the actual player to decide who he wants to attack enemy1 or w - done
                     //we have to output a list of valid players - done
                     //still need to perform attack 
@@ -160,7 +161,7 @@ void Combat::removePlayerFromHeap(string targetName) {
         removePlayerFromHeap(target->getHeapIndex());
     }
 } */
-
+/* 
 void Combat::removePlayerFromHeap(int targetIndex) {
     if (targetIndex < 0 || targetIndex >= fightersAlive.size()) {
         throw runtime_error("Invalid index: Unable to remove character from heap.");
@@ -173,19 +174,19 @@ void Combat::removePlayerFromHeap(int targetIndex) {
 
     // Restore the heap property
     if (targetIndex < fightersAlive.size()) { // Only re-heapify if there are elements left
-        heapifyDown(targetIndex); // Push the element down to its correct position
+        heapifyDown(,targetIndex); // Push the element down to its correct position
         heapifyUp(targetIndex);   // Or pull it up if needed
     }
 }
-
+ */
 // check if the battle has ended
-bool Combat::hasBattleEnded() {
+/* bool Combat::hasBattleEnded() {
     bool isPlayerAlive = false;
     bool areEnemiesAlive = false;
 
     for (int i = 0; i < fightersAlive.size(); ++i) {
-        if (fightersAlive[i].isAlive()) {
-            if (fightersAlive[i].getCharacterName() == "Player") {
+        if (fightersAlive[i]->isAlive()) {
+            if (fightersAlive[i]->getCharacterName() == "Player") {
                 isPlayerAlive = true;
             } else {
                 areEnemiesAlive = true; // At least one enemy is alive
@@ -204,4 +205,4 @@ bool Combat::hasBattleEnded() {
         return true; // All enemies are dead, battle ends
     }
     return false; // Battle continues
-}
+} */

@@ -96,8 +96,8 @@ class Character{
         bool isAlive() const;
         std::string getCharacterName() const; // Returns the character's name
         friend std::ostream& operator<<(std::ostream& out, const Character& entity);
-        bool Character::deserialize(const std::string& data);
-        std::string Character::serialize() const;
+        bool deserialize(const std::string& data);
+        std::string serialize() const;
 };
 
 std::ostream& operator<<(std::ostream& out, const AttackType& type);

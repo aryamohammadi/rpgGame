@@ -8,8 +8,8 @@
 #include "../header/potion.h"
 #include "../header/armour.h"
 #include <sstream>
-#include <gtest.h>
-#include <gmock.h>
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
 using std::ostringstream;
 using testing::Return;
 using namespace std;

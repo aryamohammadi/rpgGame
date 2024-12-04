@@ -8,9 +8,8 @@
 #include <chrono>
 #include "../header/itemType.h"
 #include "../header/character.h"
-
-#include <gtest.h>
-#include <gmock.h>
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
 
 class Character;
 using std::string;
@@ -21,14 +20,13 @@ static auto programStartTime = std::chrono::steady_clock::now();
 
 class Item {
 public:
-    enum Grade {
-        COMMON,
-        UNCOMMON,
-        RARE,
-        EPIC,
-        LEGENDARY
-    };
-
+enum Grade {
+    COMMON,
+    UNCOMMON,
+    RARE,
+    EPIC,
+    LEGENDARY
+};
 protected:
     string name;
     const vector<string> types{"WEAPON", "ARMOR", "POTION"};
@@ -65,6 +63,8 @@ class MockItem: public Item{
     public:
         MockItem(ItemType t = ItemType::WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", double timeElapsed = -1.0):Item(t,name,itemGrade,descript, timeElapsed){}
         MOCK_METHOD(void, useItem,(Character&),(override));
+        MOCK_METHOD(std::string, serialize, (), (const, override));
+        MOCK_METHOD(bool,deserialize,(const string&), (override));
         Item* clone() const override{
             return new MockItem(type, name, itemGrade, description, timeEarned);
         }

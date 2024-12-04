@@ -1,12 +1,11 @@
 #include <vector>
 #include "item.h"
-#include "Enemy.h"
-
+#include "../header/character.h"
 class Room {
   private:
     vector<int> connectedRooms;
-    vector<Enemy> enemies;
-    vector<Item> items;
+    vector<Character> enemies;
+    vector<Item*> items;
 
   public:
     void removeEnemies();
@@ -17,7 +16,9 @@ class Room {
     void addItems();
     
     // Maybe return a reference for both of these getters?
-    vector<Enemy> getEnemies() {return enemies;} 
-    vector<Item> getItems() {return items;}
+    vector<Character> getEnemies() {return enemies;} 
+    vector<Item*> getItems() {return items;}
 
+    std::string serialize() const; // For save game
+    bool deserialize(const std::string& data); // For load game
 };

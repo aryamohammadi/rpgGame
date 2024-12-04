@@ -5,10 +5,7 @@
 #include <stdexcept>
 #include <algorithm>  // For std::swap
 #include <functional>
-
-// Template for the MaxHeap class, allowing any type T
-//template<typename T>
-
+#include "../header/character.h"
 class MaxHeap {
     private:
         std::vector<Character*> heap; // Vector of generic type T

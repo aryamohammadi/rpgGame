@@ -11,7 +11,7 @@ Combat::Combat(vector<Character*> fighters) : fightersAlive(fighters) {}
 
 Combat::~Combat() = default;
 
-void Combat::startBattle() {
+void Combat::startBattle() { // Indenting this was quite nice - Jameel
     MaxHeap heap;
     bool playerAlive = fightersAlive.front()->isAlive();//boolean checks that if the player in first index is alive
         while(playerAlive && fightersAlive.size() > 1){// this makes sure that the loop will only run if there are enemies and a playerAlive
@@ -33,14 +33,30 @@ void Combat::startBattle() {
                     //we need the actual player to decide who he wants to attack enemy1 or w - done
                     //we have to output a list of valid players - done
                     //still need to perform attack 
+            else {
+                std::cout << "Choose an enemy to attack" << endl;
+                int playerToAttack = playerDecidesWhoToAttack();
 
-                    //after we have to check if the enemy is dead or not. if it is remove it from the fighters alive
-                    if(fightersAlive.at(playerToAttack)->getHealth() <= 0){
-                        removePlayerFromHeap(fightersAlive.at(i)->getName());
+                //we need the actual player to decide who he wants to attack enemy1 or w - done
+                //we have to output a list of valid players - done
+                //still need to perform attack 
+
+                for (int i = 0; i < fightersAlive.size(); ++i) {
+                    Character* fighter = fightersAlive[i];
+                    if (fighter->getCharacterName() == "Player") {
+                        // playerFound = true;
+                    } 
+                    else if (fighter->isAlive()) {
+                        // enemiesFound = true;
+                        //after we have to check if the enemy is dead or not. if it is remove it from the fighters alive
+                        if(fightersAlive.at(playerToAttack)->getHealth() <= 0){
+                            removePlayerFromHeap(fightersAlive.at(i)->getName());
+                        }
                     }
-                }
-            }   
+                }   
+            }
         }
+    }
 }
 
 int Combat::playerDecidesWhoToAttack(){
@@ -72,10 +88,8 @@ void Combat::removePlayerFromHeap(string targetName) {
     }
 }
 
-
-/* void Combat::performAttack(Character& attacker) {
+void Combat::performAttack(Character& attacker) { // Why was this commented?
     cout << attacker.getCharacterName() << "'s turn to attack!" << endl;
-
 
     Character* target = nullptr;
 
@@ -96,17 +110,16 @@ void Combat::removePlayerFromHeap(string targetName) {
         if (validTargets.empty()) {
             cout << "No valid targets to attack. Skipping turn." << endl;
         }
-
+      
         // Prompt the player for a target
         int targetIndex = -1;
         bool validChoice = false;
         while (!validChoice) {
             cout << "Enter the index of your target: " << endl;
             cin >> targetIndex;
-
             // Validate input
             if (targetIndex >= 0 && targetIndex < fightersAlive.size()) {
-                Character* potentialTarget = &fightersAlive[targetIndex];
+                Character* potentialTarget = fightersAlive[targetIndex];
                 if (potentialTarget->getCharacterName() != "Player" && potentialTarget->isAlive()) {
                     validChoice = true;
                     target = potentialTarget;
@@ -123,7 +136,7 @@ void Combat::removePlayerFromHeap(string targetName) {
     else {
         // Enemy automatically targets the player
         for (int i = 0; i < fightersAlive.size(); ++i) {
-            Character* potentialTarget = &fightersAlive[i];
+            Character* potentialTarget = fightersAlive[i];
             if (potentialTarget->getCharacterName() == "Player" && potentialTarget->isAlive()) {
                 target = potentialTarget;
                 break;
@@ -142,19 +155,11 @@ void Combat::removePlayerFromHeap(string targetName) {
         return;
     }
 
-    // Perform the attack
-    int baseDamage = attacker.getDamage();
-    int minDamage = baseDamage * 0.75;
-    int maxDamage = baseDamage * 1.25;
-    int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
-
-
-    // Apply damage
-    target->takeDamage(damage);
-    cout << attacker.getCharacterName() << " dealt " << damage
-         << " damage to " << target->getCharacterName() << "!" << endl;
-
-
+    // // Perform the attack
+    // int baseDamage = attacker.getDamage();
+    // int minDamage = baseDamage * 0.75;
+    // int maxDamage = baseDamage * 1.25;
+    // int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
     // Check if the target is defeated
     if (!target->isAlive()) {
         cout << target->getCharacterName() << " has been defeated!" << endl;
@@ -167,11 +172,6 @@ void Combat::removePlayerFromHeap(int targetIndex) {
         throw runtime_error("Invalid index: Unable to remove character from heap.");
         return;
     }
-
-    // Move the last element to the target index and pop the heap
-    fightersAlive[targetIndex] = fightersAlive[fightersAlive.size() - 1]; // Replace with the last element
-    fightersAlive.pop_back(); // Remove the last element
-
     // Restore the heap property
     if (targetIndex < fightersAlive.size()) { // Only re-heapify if there are elements left
         heapifyDown(,targetIndex); // Push the element down to its correct position

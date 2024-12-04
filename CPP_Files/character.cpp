@@ -9,7 +9,7 @@
 using std::string;
 
 Character::Character(const std::string& name) : characterName(name), health(100),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
-
+Character::Character(): characterName("Warrior"), health(100), defense(0), baseSpeed(20), currentSpeed(20),isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr) {}
 Character::~Character(){
     delete storage;
     delete armour;
@@ -315,7 +315,9 @@ bool Character::throwAwayItem(int index){
 }
 
 void Character::attack(Character& target){
+    weapon->increaseDamage(damage);
     weapon->useItem(target);
+    weapon->decreaseDamage(damage);
     // This will have been replaced by Jessy
 }
 
@@ -425,3 +427,36 @@ bool Character::deserialize(const std::string& data) {
     std::getline(iss >> std::ws, inventoryData);
     return storage->deserialize(inventoryData);
 }
+
+std::ostream& operator<<(std::ostream& out, const AttackType& type){
+    switch(type){
+        case AttackType::Melee:
+            out << "Melee";
+            return out;
+        case AttackType::Ranged:
+            out << "Ranged";
+            return out;
+        default:
+            out.setstate(std::ios::failbit);
+            return out;
+    }
+}
+
+std::istream& operator>>(std::istream& in, AttackType& type){
+    std::string inString;
+    in >> inString;
+    const vector<std::string> possibleTypes{"Melee", "Manged"};
+    if(inString.size() < 0){
+        return in;
+    }
+    if(inString == possibleTypes.front()){
+        type = AttackType::Melee;
+        return in;
+    }
+    if(inString == possibleTypes[1]){
+        type = AttackType::Ranged;
+        return in;
+    }
+    in.setstate(std::ios::failbit);
+    return in;
+}   

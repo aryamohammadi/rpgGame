@@ -25,7 +25,7 @@ string Item::determineType(ItemType type) const{
 }
 
 string Item::determineGrade(int gradeIndex) const{
-    if(gradeIndex < 0 || gradeIndex > grades.size()){
+    if(gradeIndex < 0 || gradeIndex >= grades.size()){
         throw std::invalid_argument("grade is invalid!");
     }
     return grades.at(gradeIndex);

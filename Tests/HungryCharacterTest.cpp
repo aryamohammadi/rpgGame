@@ -7,6 +7,7 @@
 #include "../header/insertionSort.h"
 #include "../header/mergeSort.h"
 #include "../header/sortorder.h"
+#include "gtest/gtest.h"
 #include <sstream>
 using std::ostringstream;
 using std::endl;

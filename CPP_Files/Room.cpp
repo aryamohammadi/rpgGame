@@ -28,4 +28,6 @@ int Room::getExperience() {
   for(unsigned i; i < enemies.size(); i++) {
     totalExperience += enemies[i].getExperience();
   }
+
+  return totalExperience;
 }

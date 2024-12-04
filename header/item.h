@@ -63,6 +63,8 @@ class Item{
 };
 ostream& operator<<(ostream& out, const Item& item);
 
+
+// Matthew says to merge MockItem back
 class MockItem: public Item{
     public:
         MockItem(ItemType t = ItemType::WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", double timeElapsed = -1.0):Item(t,name,itemGrade,descript, timeElapsed){}

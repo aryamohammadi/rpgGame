@@ -20,6 +20,8 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     // Set the enemy type as Ranged or Melee randomly. 
     if (rand() % 2 == 0) {
         enemyToAdd.setAttackType(AttackType::Ranged);
+        enemyToAdd.equipWeapon(); // INSERT WEAPON INTO PARAMETER
+        enemyToAdd.equipArmour(); // INSERT ARMOUR INTO PARAMETER
     }
     else {
       enemyToAdd.setAttackType(AttackType::Melee);
@@ -27,6 +29,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     // Change enemy stats based on the room index
     enemyToAdd.setDamage(roomIndex * 2); // Damage is already random from Arya's combat class
     enemyToAdd.setHealth(roomIndex * 10);
+    enemyToAdd.setExperience(roomIndex * 25);
     worldRooms.at(roomIndex).addEnemies(enemyToAdd);
 
     // If rand() % 2 == 1, then add a second enemy with name "enemy2" and give it the opposite type, higher attack, and lower health than enemy1
@@ -42,10 +45,21 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
 
       enemyToAdd.setDamage(roomIndex * 3);
       enemyToAdd.setHealth(roomIndex * 7);
+      enemyToAdd.setExperience(35 * roomIndex);
 
       worldRooms.at(roomIndex).addEnemies(enemyToAdd);
     }
+
+    Character superEnemy("Super Enemy");
+    superEnemy.setAttackType(AttackType::Melee);
+    superEnemy.setDamage(60);
+    superEnemy.setHealth(300); // This might be unbalanced, but the game doesn't have to be fair
+    superEnemy.setExperience(600);
+    worldRooms.at(worldRooms.size() - 1).addEnemies(superEnemy);
   }
+
+  // Give the enemies weapons depending on their type
+  // Give the super enemy armour
 
 
   // DISTRIBUTING ITEMS
@@ -96,4 +110,77 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
 
   Armour* armourToAdd = new Armour (ItemType::ARMOUR, "super-armour", Item::Grade::LEGENDARY, "armour1", 60);
   worldRooms.at((rand() % 4) + 12).addItems(armourToAdd);
+}
+
+void Map::removeEnemies(int index) {
+  worldRooms.at(index).removeEnemies();
+}
+
+void Map::removeItems(int index) {
+  worldRooms.at(index).removeItems();
+}
+
+bool Map::roomHasEnemies(int index) {
+  if (worldRooms.at(index).getEnemies().empty()) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+bool Map::roomHasItems(int index) {
+  if (worldRooms.at(index).getItems().empty()) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+
+// return false if the direction is invalid in the 4x4 grid
+// return true and change playerIndex if the direction is valid
+bool Map::returnRoomBasedOnDirection(string direction, int currentRoom) {
+  if (direction == "left") {
+    if (playerIndex % 4 == 0) {
+      return false;
+    }
+    else {
+      playerIndex -= 1;
+      return true;
+    }
+  }
+
+  if (direction == "right") {
+    if (playerIndex % 4 == 3) {
+      return false;
+    }
+    else {
+      playerIndex += 1;
+      return true;
+    }
+  }
+
+  if (direction == "up") {
+    if (playerIndex < 4) {
+      return false;
+    }
+    else {
+      playerIndex -= 4;
+      return true;
+    }
+  }
+
+  if (direction == "down") {
+    if (playerIndex > 11) {
+      return false;
+    }
+    else {
+      playerIndex += 4;
+      return true;
+    }
+  }
+
+
 }

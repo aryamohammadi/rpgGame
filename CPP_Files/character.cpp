@@ -435,6 +435,7 @@ std::ostream& operator<<(std::ostream& out, const AttackType& type){
             out << "Ranged";
             return out;
         default:
+            out.setstate(std::ios::failbit);
             return out;
     }
 }

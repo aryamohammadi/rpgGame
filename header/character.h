@@ -54,7 +54,7 @@ class Character{
 
         void modifySpeed(int delta);
         void resetSpeed(){currentSpeed = baseSpeed;}
-        int getSpeed() const {return currentSpeed;}
+        int getSpeed( ) const {return currentSpeed;}
 
         void setAttackType(AttackType attackType) {currentAttackType = attackType;}
         AttackType getAttackType() const {return currentAttackType;}

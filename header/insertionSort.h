@@ -4,7 +4,7 @@
 using namespace std;
 class InsertionSort : public AbstractItemSort{
     public:
-        InsertionSort(CompareItem::CompareBy sortMode):AbstractItemSort(sortMode){}
+        InsertionSort(CompareBy sortMode):AbstractItemSort(sortMode){}
         void sort(vector<ItemStack*>& array, SortOrder order) override{
             for(unsigned i = 1; i < array.size(); i++){
                 int j = i - 1;

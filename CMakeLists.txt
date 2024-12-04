@@ -6,6 +6,8 @@ project(final_project VERSION 1.0)
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE Debug)
+
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
@@ -49,11 +51,11 @@ add_executable(Test
     CPP_Files/Heap.cpp
     CPP_Files/character.cpp
     CPP_Files/potion.cpp
+    Tests/HungryCharacterTest.cpp
     Tests/HungryInventory&ItemTest.cpp
     Tests/HungrySortTest.cpp
     CPP_Files/Map.cpp
     CPP_Files/Room.cpp
-    CPP_Files/Enemy.cpp
 )
 
 # Specify the include directory after defining the target
@@ -79,3 +81,29 @@ target_link_libraries(MainMenuTests gtest gtest_main pthread)
 
 # Add all executables to CTest
 add_test(NAME MainMenuTests COMMAND MainMenuTests)
+
+
+# Add the test files
+add_executable(LoadGameTests Save_Load/Tests/LoadGameTests.cpp)
+add_executable(SaveGameTests Save_Load/Tests/SaveGameTests.cpp)
+
+# Link Google Test libraries
+target_link_libraries(LoadGameTests gtest gtest_main)
+target_link_libraries(SaveGameTests gtest gtest_main)
+
+#Add Combat test executable
+add_executable(CombatTests
+    CPP_Files/character.cpp
+    CPP_Files/combat.cpp
+    Tests/combat_test.cpp
+)
+
+# Specify include directories for CombatTests
+target_include_directories(CombatTests PRIVATE ${CMAKE_SOURCE_DIR}/header)
+
+# Link Google Test libraries
+target_link_libraries(CombatTests gtest gtest_main pthread)
+
+# Add to CTest
+add_test(NAME CombatTests COMMAND CombatTests)
+

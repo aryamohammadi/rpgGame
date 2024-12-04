@@ -1,4 +1,5 @@
 #include "../header/item.h"
+#include "../header/character.h"
 #include <stdexcept>
 using std::endl;
 
@@ -36,4 +37,25 @@ void swap(Item* &item1, Item* &item2){
     item1 = item2;
     
     item2 = item1Placeholder;
+}
+
+std::string Item::serialize() const {
+    std::ostringstream oss;
+    oss << name << "\n" << static_cast<int>(type) << "\n" << description << "\n"
+        << timeEarned << "\n" << static_cast<int>(itemGrade);
+    return oss.str();
+}
+
+bool Item::deserialize(const string& data) {
+    std::istringstream iss(data);
+    int typeInt, gradeInt;
+
+    if (!(std::getline(iss, name) && iss >> typeInt && std::getline(iss, description)
+          && iss >> timeEarned && iss >> gradeInt)) {
+        return false;
+    }
+
+    type = static_cast<ItemType>(typeInt);
+    itemGrade = static_cast<Grade>(gradeInt);
+    return true;
 }

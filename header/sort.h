@@ -5,9 +5,9 @@
 #include "../header/sortorder.h"
 class AbstractItemSort{
     protected:
-    CompareItem::CompareBy sortConfig;
+    CompareBy sortConfig;
     public:
-        AbstractItemSort(CompareItem::CompareBy sortMode):sortConfig(sortMode){}
+        AbstractItemSort(CompareBy sortMode):sortConfig(sortMode){}
         virtual void sort(vector<ItemStack*>& array, SortOrder order) = 0;
         bool isSorted(const std::vector<ItemStack*>& array, SortOrder order) const{
             for(unsigned i = 1; i < array.size(); i++){
@@ -28,6 +28,6 @@ class AbstractItemSort{
 
 class MockAbstractItemSort : public AbstractItemSort{
     public:
-        MockAbstractItemSort(CompareItem::CompareBy sortMode):AbstractItemSort(sortMode){}
+        MockAbstractItemSort(CompareBy sortMode):AbstractItemSort(sortMode){}
         MOCK_METHOD(void, sort, (vector<ItemStack*>& array, SortOrder order), (override));
 };

@@ -7,7 +7,8 @@
 #include <utility> // For std::swap
 #include <sstream>
 using std::string;
-Character::Character(const std::string& name) : characterName(name), health(100),damage(0),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
+
+Character::Character(const std::string& name) : characterName(name), health(100),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
 
 Character::~Character(){
     delete storage;
@@ -19,7 +20,6 @@ Character::Character(const Character& other)
     : characterName(other.characterName),
      // inventoryOfCharacter(other.inventoryOfCharacter), //  FIXME: this needs to be reviewd and fixed
       health(other.health),
-      damage(other.damage),
       defense(other.defense),
       isDead(other.isDead),
       currentAttackType(other.currentAttackType) {
@@ -39,9 +39,8 @@ Character& Character::operator=(const Character& other) {
 void Character::swap(Character& other) noexcept {
     using std::swap;
     swap(characterName, other.characterName);
-    swap(inventoryOfCharacter, other.inventoryOfCharacter); //FIXME: this needs to be reviewed and fixed
+    swap(*storage, *other.storage); //FIXME: this needs to be reviewed and fixed
     swap(health, other.health);
-    swap(damage, other.damage);
     swap(defense, other.defense);
     swap(isDead, other.isDead);
     swap(currentAttackType, other.currentAttackType);
@@ -52,8 +51,8 @@ std::string Character::getName() const {
 }
 
 void Character::equipArmour(Armour* newArmour){
-    if(this->armour != nullptr){ // If there is currently equipped armor, deequip it from character
-        this->deEquipArmour();
+    if(this->armour != nullptr){
+        deEquipArmour();
     }
     if(storage->itemFound(newArmour) != -1){ // If the armor you're trying to add exists in inventory, remove it from inventory. If it doesn't exist, hey you're all good
         storage->removeItem(*newArmour);
@@ -75,12 +74,14 @@ void Character::equipWeapon(Weapon* newWeapon){
         throw std::logic_error("equipWeapon : newWeapon is nullptr!");
     }
     if(weapon != nullptr){
-        storage->addItem(weapon);  
+        storage->addItem(weapon);
+        resetSpeed();  
     }
     if(storage->itemFound(newWeapon) != -1){
         storage->removeItem(*newWeapon);
     }
     weapon = newWeapon;
+    modifySpeed(weapon->getSpeedEffect());
 }
 
 void Character::changeWeapon(int index){
@@ -92,20 +93,23 @@ void Character::changeWeapon(int index){
     }
 }
 
-string Character::showInventory() const{
-    std::ostringstream out;
-    out << storage;
+ostream& Character::showInventory(ostream& out) const{
+    out << *storage;
 
-    return out.str();
+    return out;
     
 }
 
-string Character::outputWeapons() const{
-    return storage->outputWeapons();
+ostream& Character::outputWeapons(ostream& out) const{
+    return storage->outputWeapons(out);
 }
 
-void pickUpItem(const Item& item){
-
+bool Character::pickUpItem(Item* item){
+    if(storage->sizeGreaterThanOrEqualToCapacity()){
+        return false;
+    }
+    storage->addItem(item);
+    return true;
 }
 
 bool Character::useItem(const string& itemName){
@@ -228,7 +232,7 @@ bool Character::useItem(const string& itemName, ItemType type){
 }
 
 bool Character::useItem(int index){
-    if(storage->itemFound(index) == -1){
+    if(storage->itemFound(index) == -1 || isStorageEmpty()){
         return false;
     }
     ItemType type = storage->getItem(index)->getType();
@@ -287,7 +291,7 @@ bool Character::useItem(int index){
 }
 
 bool Character::throwAwayItem(const string& name){
-    if(storage->itemFound(name) == -1){
+    if(storage->itemFound(name) == -1 | isStorageEmpty()){
         return false;
     }
     storage->removeItem(name);
@@ -295,7 +299,7 @@ bool Character::throwAwayItem(const string& name){
 }
 
 bool Character::throwAwayItem(const string& name, ItemType type){
-    if(storage->itemFound(name, type) == -1){
+    if(storage->itemFound(name, type) == -1 || isStorageEmpty()){
         return false;
     }
     storage->removeItem(name, type);
@@ -303,7 +307,7 @@ bool Character::throwAwayItem(const string& name, ItemType type){
 }
 
 bool Character::throwAwayItem(int index){
-    if(storage->itemFound(index) == -1){
+    if(storage->itemFound(index) == -1 || isStorageEmpty()){
         return false;
     }
     storage->removeItem(*(storage->getItem(index)));
@@ -313,4 +317,111 @@ bool Character::throwAwayItem(int index){
 void Character::attack(Character& target){
     weapon->useItem(target);
     // This will have been replaced by Jessy
+}
+
+std::string Character::getCharacterName() const {
+    return characterName;
+}
+
+void Character::modifySpeed(int delta){
+    currentSpeed += delta;
+}
+
+bool Character::isAlive() const{
+    return !isDead;
+}
+
+std::ostream& operator<<(std::ostream& out, const Character& entity){
+    out << "Name: " << entity.getCharacterName() << std::endl;
+    out << "Current Health: " << entity.getHealth() << std::endl;
+    out << "Current Speed: " << entity.getSpeed() << std::endl;
+    out << "Current Defense: " << entity.getDefense() << std::endl;
+    if(entity.weapon != nullptr){
+        out << "Current Weapon: " << std::endl;
+        out << *entity.weapon;
+    }
+    if(entity.armour != nullptr){
+        out << "Current Armour: " << std::endl;
+        out << *entity.armour;
+    }
+    return out;
+}
+
+int Character::itemsWithName(const string& name) const{
+    return storage->itemsWithName(name);
+}
+void Character::increaseStorageCapacity(int amount){
+    storage->increaseCapacity(amount);
+}
+
+bool Character::isStorageEmpty() const{
+    return storage->isEmpty();
+}
+void Character::sortAlphabetically(){
+    storage->sortAlphabetically();
+}
+void Character::sortByAscendingGrade(){
+    storage->sortByAscendingGrade();
+}
+void Character::sortByDescendingGrade(){
+    storage->sortByDescendingGrade();
+}
+void Character::makeLatestFirst(){
+    storage->makeLatestFirst();
+}
+void Character::makeOldestFirst(){
+    storage->makeOldestFirst();
+}
+
+// Serialize the Character
+std::string Character::serialize() const {
+    std::ostringstream oss;
+    oss << characterName << "\n"
+        << health << "\n"
+        << defense << "\n"
+        << baseSpeed << "\n"
+        << currentSpeed << "\n"
+        << isDead << "\n"
+        << currentAttackType << "\n"
+        << (armour ? armour->serialize() : "null") << "\n"
+        << (weapon ? weapon->serialize() : "null") << "\n"
+        << storage->serialize();
+    return oss.str();
+}
+
+// Deserialize the Character
+bool Character::deserialize(const std::string& data) {
+    std::istringstream iss(data);
+    std::string armourData, weaponData, inventoryData;
+
+    if (!(std::getline(iss, characterName) &&
+          iss >> health >> defense >> baseSpeed >> currentSpeed >> isDead >> currentAttackType)) {
+        return false;
+    }
+
+    // Deserialize Armour
+    std::getline(iss >> std::ws, armourData);
+    if (armourData != "null") {
+        armour = new Armour();
+        if (!armour->deserialize(armourData)) {
+            delete armour;
+            armour = nullptr;
+            return false;
+        }
+    }
+
+    // Deserialize Weapon
+    std::getline(iss >> std::ws, weaponData);
+    if (weaponData != "null") {
+        weapon = new Weapon();
+        if (!weapon->deserialize(weaponData)) {
+            delete weapon;
+            weapon = nullptr;
+            return false;
+        }
+    }
+
+    // Deserialize Inventory
+    std::getline(iss >> std::ws, inventoryData);
+    return storage->deserialize(inventoryData);
 }

@@ -1,3 +1,4 @@
+#include "../header/item.h"
 #include "../header/armour.h"
 #include "../header/character.h"
     Armour::Armour(ItemType t, const string& name, Item::Grade itemGrade, const string& descript, int stat, double timeElapsed):Item(t,name,itemGrade,descript,timeElapsed), armourStat(stat){}

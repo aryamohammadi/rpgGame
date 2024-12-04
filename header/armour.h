@@ -1,6 +1,5 @@
 #pragma once
-
-#include "../header/item.h"
+class Item;
 #include "../header/character.h"
 #include <string>
 

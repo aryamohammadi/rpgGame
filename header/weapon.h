@@ -1,5 +1,5 @@
 #pragma once
-#include "../header/item.h"
+class Item;
 #include "../header/character.h"
 #include <string>
 using std::string;
@@ -17,7 +17,8 @@ private:
     int speedEffect = 0;
 
 public:
-    Weapon(ItemType type, const std::string& name, Grade itemGrade, const std::string& descript,
+    Weapon():Item(){}
+    Weapon(ItemType type, const std::string& name, Item::Grade itemGrade, const std::string& descript,
            int damage, WeaponType weaponType, double timeElapsed = -1.0);
 
     void useItem(Character& target) override;

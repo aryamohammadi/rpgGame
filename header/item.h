@@ -41,7 +41,7 @@ class Item{
                 timeEarned = duration.count();  // Store elapsed time in seconds as double
             }
             else{
-                timeEarned = timeElapsed;
+                timeEarned = timeElapsed;items.clear();
             }            
         }
 

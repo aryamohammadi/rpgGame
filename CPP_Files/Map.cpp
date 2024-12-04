@@ -5,11 +5,11 @@ Map::Map() { // Constructor
   worldRooms.reserve(16);
 }
 
-void Map::distributeEnemiesAndItems() {
+void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   srand(time(0));
   Character enemyToAdd("enemy1");
 
-  // Placing enemies among 8 random rooms
+  // DISTRIBUTING ENEMIES
   std::set<int> selectedRooms;
   for (int i = 0; i < 8; i++)  { // Keep adding random room indeces until the set is 8 rooms large
     selectedRooms.insert(rand() % 16);
@@ -17,6 +17,7 @@ void Map::distributeEnemiesAndItems() {
 
   for (int roomIndex : selectedRooms) {
     enemyToAdd.setName("enemy1");
+    // Set the enemy type as Ranged or Melee randomly. 
     if (rand() % 2 == 0) {
         enemyToAdd.setAttackType(AttackType::Ranged);
     }
@@ -47,7 +48,7 @@ void Map::distributeEnemiesAndItems() {
   }
 
 
-  // Placing items among 8 DIFFERENT random rooms
+  // DISTRIBUTING ITEMS
   selectedRooms.clear();
   for (int i = 0; i < 8; i++) { // Keep adding random room indeces until the set is 8 rooms large
     selectedRooms.insert(rand() % 16);
@@ -67,13 +68,32 @@ void Map::distributeEnemiesAndItems() {
   }
   
 
-  // DISTRIBUTING WEAPONS AND ARMOR 
+  // DISTRIBUTING WEAPONS 
 
-  // Selecting 4 random rooms
-  for (unsigned i = 0; i < 4; i++) {
+  selectedRooms.clear();
+  // Selecting 3 random rooms, one room gets a super powerful weapon
+  for (unsigned i = 0; i < 3; i++) {
     selectedRooms.insert(rand() % 16);
   }
   for (int roomIndex : selectedRooms) {
-    Weapon* weaponToAdd = new Weapon(ItemType::WEAPON, "weapon1", Item::Grade::COMMON, "weapon1", )
-    worldRooms.at(roomIndex).addItems
+    Weapon* weaponToAdd = new Weapon(ItemType::WEAPON, "weapon1", Item::Grade::UNCOMMON, "weapon1", 10 + (3 * roomIndex), typeOfWeapon);
+    worldRooms.at(roomIndex).addItems(weaponToAdd);
+  }
+  Weapon* weaponToAdd = new Weapon(ItemType::WEAPON, "super-weapon", Item::Grade::LEGENDARY, "super-weapon", 80, typeOfWeapon);
+  worldRooms.at((rand() % 4) + 12).addItems(weaponToAdd);
+
+  // DISTRIBUTING ARMOR
+  selectedRooms.clear();
+
+  // Selecting 3 random rooms, one room gets super-armour
+  for (unsigned i = 0; i < 3; i++) {
+    selectedRooms.insert(rand() % 16);
+  }
+  for (int roomIndex : selectedRooms) {
+    Armour* armourToAdd = new Armour(ItemType::ARMOUR, "armour1", Item::Grade::UNCOMMON, "armour1", 5 + (2 * roomIndex));
+    worldRooms.at(roomIndex).addItems(armourToAdd);
+  }
+
+  Armour* armourToAdd = new Armour (ItemType::ARMOUR, "super-armour", Item::Grade::LEGENDARY, "armour1", 60);
+  worldRooms.at((rand() % 4) + 12).addItems(armourToAdd);
 }

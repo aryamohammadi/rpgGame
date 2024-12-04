@@ -6,7 +6,7 @@ class Map {
   private:
     vector<Room> worldRooms;
     
-    void distributeEnemiesAndItems();
+    void distributeEnemiesAndItems(Weapon::WeaponType);
 
   public:
     Map();

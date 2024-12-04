@@ -21,4 +21,6 @@ class Room {
     
     vector<Character> getEnemies() {return enemies;} 
     vector<Item*> getItems() {return items;}
+    
+    int getExperience();
 };

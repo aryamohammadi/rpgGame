@@ -21,6 +21,7 @@ class Character{
         int baseSpeed;
         int currentSpeed;
         bool isDead;
+        int damage;
         AttackType currentAttackType;
     public:
         void swap(Character& other) noexcept;/* noexcept is an exception specifier that tells the compiler 
@@ -48,7 +49,8 @@ class Character{
         }
         
         void increaseHealth(int amount){health += amount;}
-  
+
+        void setDamage(int damage){this->damage = damage;}
         void equipWeapon(Weapon* newWeapon);
         void changeWeapon(int index); 
 
@@ -90,7 +92,7 @@ class Character{
         int getHealth() const {return health;}
         int getDefense() const{ return defense;}
         std::string getName() const;
-        int getDamage() const;
+        int getDamage() const{return damage;}
         bool isAlive() const;
         std::string getCharacterName() const; // Returns the character's name
         friend std::ostream& operator<<(std::ostream& out, const Character& entity);

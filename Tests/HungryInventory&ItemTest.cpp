@@ -1,4 +1,5 @@
 #include "../header/item.h"
+#include "../header/itemType.h"
 #include "../header/inventory.h"
 #include "../header/sort.h"
 #include "../header/insertionSort.h"
@@ -7,6 +8,8 @@
 #include "../header/potion.h"
 #include "../header/armour.h"
 #include <sstream>
+#include <gtest.h>
+#include <gmock.h>
 using std::ostringstream;
 using testing::Return;
 using namespace std;

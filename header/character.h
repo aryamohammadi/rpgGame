@@ -4,7 +4,6 @@
 
 #include "../header/AttackType.h"
 #include "../header/itemType.h"
-#include <iostream>
 using std::string;
 using std::ostream;
 class Inventory;
@@ -28,6 +27,7 @@ class Character{
                                                 that this function will not throw any exceptions */
         Character(const Character& other);
         ~Character();
+        Character();
         Character(const std::string& name);
         // Copy assignment operator
         Character& operator=(const Character& other);
@@ -97,3 +97,6 @@ class Character{
         bool Character::deserialize(const std::string& data);
         std::string Character::serialize() const;
 };
+
+std::ostream& operator<<(std::ostream& out, const AttackType& type);
+std::istream& operator>>(std::istream& in, AttackType& type);

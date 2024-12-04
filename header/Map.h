@@ -1,5 +1,6 @@
 #include <vector>
 #include "Room.h"
+#include "item.h"
 
 class Map {
   private:

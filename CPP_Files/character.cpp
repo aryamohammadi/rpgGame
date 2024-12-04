@@ -315,7 +315,9 @@ bool Character::throwAwayItem(int index){
 }
 
 void Character::attack(Character& target){
+    weapon->increaseDamage(damage);
     weapon->useItem(target);
+    weapon->decreaseDamage(damage);
     // This will have been replaced by Jessy
 }
 

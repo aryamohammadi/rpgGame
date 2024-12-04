@@ -23,6 +23,8 @@ public:
     WeaponType getWeaponType() const;
     int getSpeedEffect() const;
     int getDamage() const;
+    void increaseDamage(int amount){damage += amount;}
+    void decreaseDamage(int amount){damage -= amount;}
     friend std::ostream& operator<<(std::ostream& out, const Weapon& currentWeapon);
 
     std::string serialize() const override;

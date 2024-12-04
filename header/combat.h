@@ -35,7 +35,8 @@ class Combat{
         void performAttack(Character& attacker); // Performs an attack between characters.
         void removePlayerFromHeap(string targetName);
         int playerDecidesWhoToAttack();
-
+        bool hasBattleEnded();
+        void removePlayerFromHeap(int targetIndex);
 };
 #endif // COMBAT_H
 

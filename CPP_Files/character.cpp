@@ -9,7 +9,7 @@
 using std::string;
 
 Character::Character(const std::string& name) : characterName(name), health(100),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
-
+Character::Character(): characterName("Warrior"), health(100), defense(0), baseSpeed(20), currentSpeed(20),isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr) {}
 Character::~Character(){
     delete storage;
     delete armour;

@@ -5,8 +5,12 @@
 #include <vector>
 #include <ctime>
 #include <string>
+#include <chrono>
 #include "../header/itemType.h"
 #include "../header/character.h"
+
+#include <gtest.h>
+#include <gmock.h>
 
 class Character;
 using std::string;
@@ -56,3 +60,19 @@ public:
     virtual bool deserialize(const string& data);
 };
 ostream& operator<<(ostream& out, const Item& item);
+
+class MockItem: public Item{
+    public:
+        MockItem(ItemType t = ItemType::WEAPON, const string& name = "", Grade itemGrade = COMMON, const string& descript = "", double timeElapsed = -1.0):Item(t,name,itemGrade,descript, timeElapsed){}
+        MOCK_METHOD(void, useItem,(Character&),(override));
+        Item* clone() const override{
+            return new MockItem(type, name, itemGrade, description, timeEarned);
+        }
+        friend void swap(MockItem*& item1, MockItem*& item2){
+            MockItem* item1Placeholder = item1;
+
+            item1 = item2;
+
+            item2 = item1Placeholder;
+    }
+};

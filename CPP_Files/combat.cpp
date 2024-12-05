@@ -44,23 +44,13 @@ void Combat::startBattle() { // Indenting this was quite nice - Jameel
                 //comment by Arya:
                 //FIXME: isnt this for loop redundant? we already have a for loop in removePlayerFromHeap that
                 //       loops through fightersAlive. 
-                for (int i = 0; i < fightersAlive.size(); ++i) {
-                    Character* fighter = fightersAlive[i];
-                    if (fighter->getCharacterName() == "Player") {
-                        // playerFound = true;
-                    } 
-                    else if (fighter->isAlive()) {
-                        // enemiesFound = true;
-                        //after we have to check if the enemy is dead or not. if it is remove it from the fighters alive
-                        if(fightersAlive.at(playerToAttack)->getHealth() <= 0){
-                            removePlayerFromHeap(fightersAlive.at(i)->getName());
-                        }
-                    }
-                }   
+                // Jameel - Alright if that's the case I'm getting rid of it, because this else statement has no if statement before it
+                   
             }
         }
     }
 }
+
 
 int Combat::playerDecidesWhoToAttack(){
     cout << "Choose an enemy to attack" << endl;
@@ -97,7 +87,7 @@ void Combat::removePlayerFromHeap(string targetName) {
 }
 
 
-/* void Combat::performAttack(Character& attacker) { // Why was this commented?
+void Combat::performAttack(Character& attacker) { // Why was this commented?
     cout << attacker.getCharacterName() << "'s turn to attack!" << endl;
 
     Character* target = nullptr;
@@ -162,28 +152,28 @@ void Combat::removePlayerFromHeap(string targetName) {
     if (!target) {
         cout << "No valid target found. Skipping turn." << endl;
         return;
-    } */
+    }
 
-    // // Perform the attack
-    // int baseDamage = attacker.getDamage();
-    // int minDamage = baseDamage * 0.75;
-    // int maxDamage = baseDamage * 1.25;
-    // int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
+    // Perform the attack
+    int baseDamage = attacker.getDamage();
+    int minDamage = baseDamage * 0.75;
+    int maxDamage = baseDamage * 1.25;
+    int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
 
 
-    // // Apply damage
-    // target->takeDamage(damage);
-    // cout << attacker.getCharacterName() << " dealt " << damage
-    //      << " damage to " << target->getCharacterName() << "!" << endl;
+    // Apply damage
+    target->takeDamage(damage);
+    cout << attacker.getCharacterName() << " dealt " << damage
+         << " damage to " << target->getCharacterName() << "!" << endl;
 
 
     // Check if the target is defeated
-   /// if (!target->isAlive()) {
-   //     cout << target->getCharacterName() << " has been defeated!" << endl;
-     //   removePlayerFromHeap(target->getHeapIndex());
-  //  }
-//} 
-/* 
+    if (!target->isAlive()) {
+        cout << target->getCharacterName() << " has been defeated!" << endl;
+        removePlayerFromHeap(target->getHeapIndex());
+    }
+} 
+
 void Combat::removePlayerFromHeap(int targetIndex) {
     if (targetIndex < 0 || targetIndex >= fightersAlive.size()) {
         throw runtime_error("Invalid index: Unable to remove character from heap.");
@@ -196,13 +186,13 @@ void Combat::removePlayerFromHeap(int targetIndex) {
 
     // Restore the heap property
     if (targetIndex < fightersAlive.size()) { // Only re-heapify if there are elements left
-        heapifyDown(,targetIndex); // Push the element down to its correct position
+        heapifyDown(fightersAlive, targetIndex); // Push the element down to its correct position
         heapifyUp(targetIndex);   // Or pull it up if needed
     }
 }
- */
+
 // check if the battle has ended
-/* bool Combat::hasBattleEnded() {
+bool Combat::hasBattleEnded() { // Was this supposed to be commented? - Jameel 
     bool isPlayerAlive = false;
     bool areEnemiesAlive = false;
 
@@ -227,4 +217,4 @@ void Combat::removePlayerFromHeap(int targetIndex) {
         return true; // All enemies are dead, battle ends
     }
     return false; // Battle continues
-} */
+}

@@ -1,13 +1,13 @@
-#include "../header/armour.h"
+#include "../header/item.h"
 #include "../header/character.h"
-    Armour::Armour(ItemType t, const string& name, Item::Grade itemGrade, const string& descript, int stat, double timeElapsed):Item(t,name,itemGrade,descript,timeElapsed), armourStat(stat){}
+    Armour::Armour(ItemType t, const string& name, const string& descript, int stat, double timeElapsed):Item(t,name,descript,timeElapsed), armourStat(stat){}
 
     void Armour::useItem(Character& target){
         target.equipArmour(this);
     }
 
     Item* Armour::clone() const{
-        return new Armour(getType(),getName(),getGrade(),getDescript(),armourStat, getTime());
+        return new Armour(getType(),getName(),getDescript(),armourStat, getTime());
     }
 
 std::ostream& operator<<(std::ostream& out, const Armour& currentArmour){
@@ -21,7 +21,6 @@ std::string Armour::serialize() const {
     std::ostringstream oss;
     oss << static_cast<int>(type) << "\n" // ItemType as integer
         << name << "\n"
-        << static_cast<int>(itemGrade) << "\n"
         << description << "\n"
         << timeEarned << "\n"
         << armourStat; // Armour stat
@@ -41,6 +40,5 @@ bool Armour::deserialize(const std::string& data) {
         return false;
     }
 
-    itemGrade = static_cast<Item::Grade>(gradeInt);
     return true;
 }

@@ -1,10 +1,7 @@
 #include "../header/character.h"
-#include "../header/armour.h"
+#include "../header/item.h"
 #include "../header/inventory.h"
-#include "../header/potion.h"
-#include "../header/armour.h"
-#include "../header/weapon.h"
-#include <utility> // For std::swap
+#include <utility>
 #include <sstream>
 using std::string;
 
@@ -14,17 +11,23 @@ Character::~Character(){
     delete storage;
     delete armour;
     delete weapon;
+    
+    storage = nullptr;
+    armour = nullptr;
+    storage = nullptr;
 }
 // Copy operator
-Character::Character(const Character& other)
-    : characterName(other.characterName),
-     // inventoryOfCharacter(other.inventoryOfCharacter), //  FIXME: this needs to be reviewd and fixed
-      health(other.health),
-      defense(other.defense),
-      isDead(other.isDead),
-      currentAttackType(other.currentAttackType) {
+Character::Character(const Character& other) : characterName(other.characterName),
+    health(other.health), defense(other.defense), isDead(other.isDead), 
+    currentAttackType(other.currentAttackType),
+    storage(new Inventory(*other.storage)) { // Deep copy of the inventory
+    if (other.armour) {
+        armour = new Armour(*other.armour);
+    }
+    if (other.weapon) {
+        weapon = new Weapon(*other.weapon);
+    }
 }
-
 
 // Copy assignment operator
 Character& Character::operator=(const Character& other) {
@@ -105,7 +108,7 @@ ostream& Character::outputWeapons(ostream& out) const{
 }
 
 bool Character::pickUpItem(Item* item){
-    if(storage->sizeGreaterThanOrEqualToCapacity()){
+    if(storage->sizeGreaterThanOrEqualToCapacity() || item == nullptr){
         return false;
     }
     storage->addItem(item);
@@ -291,7 +294,7 @@ bool Character::useItem(int index){
 }
 
 bool Character::throwAwayItem(const string& name){
-    if(storage->itemFound(name) == -1 | isStorageEmpty()){
+    if(storage->itemFound(name) == -1 || isStorageEmpty()){
         return false;
     }
     storage->removeItem(name);
@@ -362,12 +365,7 @@ bool Character::isStorageEmpty() const{
 void Character::sortAlphabetically(){
     storage->sortAlphabetically();
 }
-void Character::sortByAscendingGrade(){
-    storage->sortByAscendingGrade();
-}
-void Character::sortByDescendingGrade(){
-    storage->sortByDescendingGrade();
-}
+
 void Character::makeLatestFirst(){
     storage->makeLatestFirst();
 }
@@ -445,7 +443,7 @@ std::ostream& operator<<(std::ostream& out, const AttackType& type){
 std::istream& operator>>(std::istream& in, AttackType& type){
     std::string inString;
     in >> inString;
-    const vector<std::string> possibleTypes{"Melee", "Manged"};
+    const std::vector<std::string> possibleTypes{"Melee", "Manged"};
     if(inString.size() < 0){
         return in;
     }
@@ -460,3 +458,17 @@ std::istream& operator>>(std::istream& in, AttackType& type){
     in.setstate(std::ios::failbit);
     return in;
 }   
+
+void Character::setHealth(int healthOfCharacter){ 
+    health = healthOfCharacter;
+    isDead = health <= 0; 
+}
+void Character::takeDamage(int damageOnCharacter){ 
+    health-= damageOnCharacter; 
+    isDead = health <= 0;
+}
+void swap(Character*& char1,Character*& char2){
+    Character* temp = char1;
+    char1 = char2;
+    char2 = temp;
+}

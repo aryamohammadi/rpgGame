@@ -12,6 +12,10 @@ Combat::~Combat() = default;
 
 void Combat::startBattle() { // Indenting this was quite nice - Jameel
     MaxHeap heap;
+
+    //FIXME: If fightersAlive is empty, accessing fightersAlive.front() causes undefined behavior. 
+    //       Need to discuss if this should be checked beforehand
+    //
     bool playerAlive = fightersAlive.front()->isAlive();//boolean checks that if the player in first index is alive
         while(playerAlive && fightersAlive.size() > 1){// this makes sure that the loop will only run if there are enemies and a playerAlive
             vector<Character*> turnOrder = fightersAlive;
@@ -26,7 +30,7 @@ void Combat::startBattle() { // Indenting this was quite nice - Jameel
                     }
                 }
                 else {
-                    std::cout << "Choose an enemy to attack" << endl;
+                    cout << "Choose an enemy to attack" << endl;
                     int playerToAttack = playerDecidesWhoToAttack();
                     fightersAlive.front()->attack(*fightersAlive.at(playerToAttack));
                     //we need the actual player to decide who he wants to attack enemy1 or w - done

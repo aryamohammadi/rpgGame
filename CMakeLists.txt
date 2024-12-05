@@ -88,6 +88,6 @@ add_test(NAME MainMenuTests COMMAND MainMenuTests)
 # add_executable(SaveGameTests Save_Load/Tests/SaveGameTests.cpp)
 
 # Link Google Test libraries
-target_link_libraries(LoadGameTests gtest gtest_main)
-target_link_libraries(SaveGameTests gtest gtest_main)
+# target_link_libraries(LoadGameTests gtest gtest_main)
+# target_link_libraries(SaveGameTests gtest gtest_main)
 

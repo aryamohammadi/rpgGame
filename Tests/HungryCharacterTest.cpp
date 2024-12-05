@@ -132,6 +132,7 @@ TEST(CharacterSortTest, CharacterSortAlphabetically){
     EXPECT_EQ(out.str(), result.str());
     for(ItemStack*& stack : results) {
         delete stack;
+        stack = nullptr;
     }
     results.clear();
 }
@@ -159,7 +160,7 @@ TEST(CharacterSortTest, CharacterMakeLatestFirst){
     results.push_back(new ItemStack(new Potion(ItemType::POTION, "Stamina Brew", "Boosts stamina temporarily", 40)));
     results.push_back(new ItemStack(new Potion(ItemType::POTION, "Antidote", "Cures poisons and venoms", 25)));
 
-    for(ItemStack*& stack : results){
+    for(ItemStack* stack : results){
         Item* clone = stack->getItem()->clone();
         ASSERT_DOUBLE_EQ(stack->getItem()->getTime(), clone->getTime());
         delete clone;
@@ -180,6 +181,7 @@ TEST(CharacterSortTest, CharacterMakeLatestFirst){
     EXPECT_EQ(out.str(), result.str());
     for(ItemStack*& stack : results) {
         delete stack;
+        stack = nullptr;
     }
     results.clear();
 }
@@ -228,6 +230,7 @@ TEST(CharacterSortTest, CharacterMakeOldestFirst){
     EXPECT_EQ(out.str(), result.str());
     for(ItemStack*& stack : results) {
         delete stack;
+        stack = nullptr;
     }
     results.clear();
 }

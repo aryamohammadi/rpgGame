@@ -11,6 +11,10 @@ Character::~Character(){
     delete storage;
     delete armour;
     delete weapon;
+    
+    storage = nullptr;
+    armour = nullptr;
+    storage = nullptr;
 }
 // Copy operator
 Character::Character(const Character& other)
@@ -102,7 +106,7 @@ ostream& Character::outputWeapons(ostream& out) const{
 }
 
 bool Character::pickUpItem(Item* item){
-    if(storage->sizeGreaterThanOrEqualToCapacity()){
+    if(storage->sizeGreaterThanOrEqualToCapacity() || item == nullptr){
         return false;
     }
     storage->addItem(item);

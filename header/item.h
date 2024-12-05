@@ -67,7 +67,7 @@ class MockItem: public Item{
 
 class Potion : public Item {
 private:
-    int recoveryAmount;
+    int recoveryAmount = 0;
 
 public:
     Potion():Item(ItemType::POTION, "Default Potion", ""){}

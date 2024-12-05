@@ -35,6 +35,9 @@ void ItemStack::decreaseQuantity(int amount) {
 }
 
 bool ItemStack::isItem(const Item& other) const {
+    if(item == nullptr){
+        return false;
+    }
     if(item->getName() == other.getName() && item->getType() == other.getType()){
         switch(other.getType()){
             case ItemType::WEAPON:{

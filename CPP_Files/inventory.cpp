@@ -24,11 +24,11 @@ Inventory& Inventory::operator=(const Inventory& rhs){
     return *this;
 }
 int Inventory::itemFound(const Item* item) const{
-    if(isEmpty()){
+    if(isEmpty() || item == nullptr){
         return -1;
     }
     for(unsigned i = 0; i < size; i++){
-        if(items[i]->isItem(*item)){
+        if(items[i] != nullptr && items[i]->isItem(*item)){
             return i;
         }
     }
@@ -51,7 +51,9 @@ int Inventory::itemFound(const std::string& name) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getName() == name){
+        if(items[i] == nullptr){continue;}
+        if(items[i]->getItem() == nullptr) {continue;}
+        if(items[i]->getItem()->getName() == name){
             return i;
         }
     }
@@ -263,6 +265,7 @@ void Inventory::clear(){
         delete stack;
         stack = nullptr;
     }
+    size = 0;
     items.clear();
 }
 

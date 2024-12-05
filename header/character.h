@@ -1,6 +1,6 @@
 #pragma once
 #include <string> // we need to include the string library to use the string data type
-#include "inventory.h"  
+#include "../header/inventory.h"  
 
 #include "../header/AttackType.h"
 #include "../header/itemType.h"
@@ -33,6 +33,11 @@ class Character{
         Character(const std::string& name);
         // Copy assignment operator
         Character& operator=(const Character& other);
+
+        void setHealth(int healthOfCharacter);
+        void takeDamage(int damageOnCharacter);
+
+        friend void swap(Character*& char1,Character*& char2);
         
         void increaseHealth(int amount){health += amount;}
 
@@ -69,6 +74,12 @@ class Character{
         void equipArmour(Armour* armour);
         void deEquipArmour();
         
+        void increaseStorageCapacity(int amount);
+        bool isStorageEmpty() const;
+        void sortAlphabetically();
+        void makeLatestFirst();
+        void makeOldestFirst();
+
         // Setters
         void setHealth(int healthOfCharacter);
         void setDamage(int damageOfCharacter);

@@ -2,22 +2,8 @@
 
 bool CompareItem::compare(const Item* lowerBound, const Item* upperBound, CompareBy compareBy, SortOrder order){
     switch(compareBy){
-        case CompareBy::Grade:
-            if(order == SortOrder::Descending && upperBound->getGrade() <= lowerBound->getGrade()){
-                return true;
-            }
-            if(order == SortOrder::Ascending && upperBound->getGrade() >= lowerBound->getGrade()){
-                return true;
-            }
-            break;
         case CompareBy::Type:
-            if(order == SortOrder::Descending && upperBound->getType() <= lowerBound->getType()){
-                return true;
-            }
-            if(order == SortOrder::Ascending && upperBound->getType() >= lowerBound->getType()){
-                return true;
-            }
-            break;
+            throw std::logic_error("Compare: Not comparing types!");
         case CompareBy::Name:
             if(order == SortOrder::Descending && upperBound->getName() <= lowerBound->getName()){
                 return true;
@@ -37,6 +23,8 @@ bool CompareItem::compare(const Item* lowerBound, const Item* upperBound, Compar
                 return true;
             }
             break;
+        default:
+            throw std::invalid_argument("Compare: Invalid compareBy");
     }
     return false;
 }

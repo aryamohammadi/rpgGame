@@ -1,4 +1,6 @@
 #include "../header/inventory.h"
+#include "../header/item.h"
+#include "../header/itemStack.h"
 #include "../header/sort.h"
 #include "../header/insertionSort.h"
 #include "../header/mergeSort.h"
@@ -22,11 +24,11 @@ Inventory& Inventory::operator=(const Inventory& rhs){
     return *this;
 }
 int Inventory::itemFound(const Item* item) const{
-    if(isEmpty()){
+    if(isEmpty() || item == nullptr){
         return -1;
     }
     for(unsigned i = 0; i < size; i++){
-        if(items[i]->isItem(*item)){
+        if(items[i] != nullptr && items[i]->isItem(*item)){
             return i;
         }
     }
@@ -49,7 +51,9 @@ int Inventory::itemFound(const std::string& name) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getName() == name){
+        if(items[i] == nullptr){continue;}
+        if(items[i]->getItem() == nullptr) {continue;}
+        if(items[i]->getItem()->getName() == name){
             return i;
         }
     }
@@ -84,7 +88,7 @@ void Inventory::addItem(Item* item){
         items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        items.at(size) = new ItemStack(item);
+        items.push_back(new ItemStack(item));
         size ++;
     }
 }
@@ -97,7 +101,7 @@ void Inventory::addItem(Item* item, int quantity){
         items.at(itemFound(item))->increaseQuantity(quantity);
     }
     else{
-        items.at(size) = new ItemStack(item, quantity);
+        items.push_back(new ItemStack(item));
         size ++;
     }
 }
@@ -143,16 +147,6 @@ std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
 void Inventory::sortAlphabetically(){
     MergeSort s(CompareBy::Name);
     s.sort(items, SortOrder::Ascending);
-}
-
-void Inventory::sortByAscendingGrade(){
-    MergeSort s(CompareBy::Grade);
-    s.sort(items, SortOrder::Ascending);
-}
-
-void Inventory::sortByDescendingGrade(){
-    MergeSort s(CompareBy::Grade);
-    s.sort(items, SortOrder::Descending);
 }
 
 void Inventory::makeLatestFirst(){
@@ -264,4 +258,27 @@ bool Inventory::deserialize(const std::string& data) {
         }
     }
     return true;
+}
+
+void Inventory::clear(){
+    for(ItemStack*& stack : items){
+        delete stack;
+        stack = nullptr;
+    }
+    size = 0;
+    items.clear();
+}
+
+Item* Inventory::getItem(int index){
+    if(itemFound(index) == -1){
+        throw std::invalid_argument("Inventory getItem: index invald!");
+    }
+    return items[index]->getItem();
+}
+
+const Item* Inventory::getItem(int index) const{
+    if(itemFound(index) == -1){
+        throw std::invalid_argument("Inventory getItem: index invald!");
+    }
+    return items[index]->getItem();
 }

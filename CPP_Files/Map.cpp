@@ -30,6 +30,11 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     enemyToAdd.setDamage(roomIndex * 2); // Damage is already random from Arya's combat class
     enemyToAdd.setHealth(roomIndex * 10);
     enemyToAdd.setExperience(roomIndex * 25);
+    Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
+    if (enemyToAdd.getAttackType() == AttackType::Melee) {
+      enemyWeapon->setWeaponType(Weapon::WeaponType::Sword);
+    }
+    enemyToAdd.equipWeapon(enemyWeapon);
     worldRooms.at(roomIndex).addEnemies(enemyToAdd);
 
     // If rand() % 2 == 1, then add a second enemy with name "enemy2" and give it the opposite type, higher attack, and lower health than enemy1
@@ -46,7 +51,12 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
       enemyToAdd.setDamage(roomIndex * 3);
       enemyToAdd.setHealth(roomIndex * 7);
       enemyToAdd.setExperience(35 * roomIndex);
+      Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
 
+      if (enemyToAdd.getAttackType() == AttackType::Melee) {
+        enemyWeapon->setWeaponType(Weapon::WeaponType::Sword);
+      }
+      enemyToAdd.equipWeapon(enemyWeapon);
       worldRooms.at(roomIndex).addEnemies(enemyToAdd);
     }
 
@@ -55,6 +65,10 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     superEnemy.setDamage(60);
     superEnemy.setHealth(300); // This might be unbalanced, but the game doesn't have to be fair
     superEnemy.setExperience(600);
+    Armour* superArmour = new Armour(ItemType::ARMOUR, "superarmour", "superarmour", 30);
+    Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
+    superEnemy.equipArmour(superArmour);
+    superEnemy.equipWeapon(enemyWeapon);
     worldRooms.at(worldRooms.size() - 1).addEnemies(superEnemy);
   }
 
@@ -71,13 +85,13 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   for (int roomIndex : selectedRooms) {
     // Out of 16 rooms, 8 have potions (4 with another very good potion), 4 have weapons, and 4 have armor. Have one weapon and one armor every 4 rooms (1 row on the map grid). We don't want 4 weak armors in rooms 0-3 and 8 strong enemies in rooms 8-15
 
-    Potion* itemToAdd = new Potion(ItemType::POTION, "potion1", Item::Grade::COMMON, "red potion", 50 + (roomIndex * 10));
+    Potion* itemToAdd = new Potion(ItemType::POTION, "potion1", "red potion", 50 + (roomIndex * 10));
     worldRooms.at(roomIndex).addItems(itemToAdd);
   }
 
   // Distribute stronger potions in 4 of the rooms
   for (unsigned i = 0; i < 4; i++) {
-    Potion* strongerItemToAdd = new Potion(ItemType::POTION, "potion2", Item::Grade::RARE, "blue potion", 80 + (i * 20));
+    Potion* strongerItemToAdd = new Potion(ItemType::POTION, "potion2", "blue potion", 80 + (i * 20));
     worldRooms.at(i).addItems(strongerItemToAdd);
   }
   
@@ -90,10 +104,10 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     selectedRooms.insert(rand() % 16);
   }
   for (int roomIndex : selectedRooms) {
-    Weapon* weaponToAdd = new Weapon(ItemType::WEAPON, "weapon1", Item::Grade::UNCOMMON, "weapon1", 10 + (3 * roomIndex), typeOfWeapon);
+    Weapon* weaponToAdd = new Weapon(ItemType::WEAPON, "weapon1", "weapon1", 10 + (3 * roomIndex), typeOfWeapon);
     worldRooms.at(roomIndex).addItems(weaponToAdd);
   }
-  Weapon* weaponToAdd = new Weapon(ItemType::WEAPON, "super-weapon", Item::Grade::LEGENDARY, "super-weapon", 80, typeOfWeapon);
+  Weapon* weaponToAdd = new Weapon(ItemType::WEAPON, "super-weapon", "super-weapon", 80, typeOfWeapon);
   worldRooms.at((rand() % 4) + 12).addItems(weaponToAdd);
 
   // DISTRIBUTING ARMOR
@@ -104,11 +118,11 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     selectedRooms.insert(rand() % 16);
   }
   for (int roomIndex : selectedRooms) {
-    Armour* armourToAdd = new Armour(ItemType::ARMOUR, "armour1", Item::Grade::UNCOMMON, "armour1", 5 + (2 * roomIndex));
+    Armour* armourToAdd = new Armour(ItemType::ARMOUR, "armour1", "armour1", 5 + (2 * roomIndex));
     worldRooms.at(roomIndex).addItems(armourToAdd);
   }
 
-  Armour* armourToAdd = new Armour (ItemType::ARMOUR, "super-armour", Item::Grade::LEGENDARY, "armour1", 60);
+  Armour* armourToAdd = new Armour (ItemType::ARMOUR, "super-armour", "armour1", 60);
   worldRooms.at((rand() % 4) + 12).addItems(armourToAdd);
 }
 

@@ -20,4 +20,5 @@ class Weapon : public Item {
         int getSpeedEffect() const {return speedEffect;}
         int getDamage() const {return damage;}
         friend std::ostream& operator<<(ostream& out, const Weapon& currentWeapon);
+        void setWeaponType(Weapon::WeaponType newType) { weaponType == newType; }
 };

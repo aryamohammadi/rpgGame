@@ -84,8 +84,8 @@ add_test(NAME MainMenuTests COMMAND MainMenuTests)
 
 
 # Add the test files
-add_executable(LoadGameTests Save_Load/Tests/LoadGameTests.cpp)
-add_executable(SaveGameTests Save_Load/Tests/SaveGameTests.cpp)
+# add_executable(LoadGameTests Save_Load/Tests/LoadGameTests.cpp) //commented as not in master yet. Uncomment on your local branch until in master
+# add_executable(SaveGameTests Save_Load/Tests/SaveGameTests.cpp)
 
 # Link Google Test libraries
 target_link_libraries(LoadGameTests gtest gtest_main)

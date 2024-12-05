@@ -159,11 +159,11 @@ void Combat::performAttack(Character& attacker) { // Why was this commented?
     // int maxDamage = baseDamage * 1.25;
     // int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
     // Check if the target is defeated
-    if (!target->isAlive()) {
-        cout << target->getCharacterName() << " has been defeated!" << endl;
-        // removePlayerFromHeap(target->getHeapIndex());
-    }
-} 
+//     if (!target->isAlive()) {
+//         cout << target->getCharacterName() << " has been defeated!" << endl;
+//         // removePlayerFromHeap(target->getHeapIndex());
+//     }
+// } 
 /* 
 void Combat::removePlayerFromHeap(int targetIndex) {
     if (targetIndex < 0 || targetIndex >= fightersAlive.size()) {

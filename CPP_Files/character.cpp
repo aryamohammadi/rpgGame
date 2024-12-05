@@ -16,13 +16,16 @@ Character::~Character(){
     delete weapon;
 }
 // Copy operator
-Character::Character(const Character& other)
-    : characterName(other.characterName),
-     // inventoryOfCharacter(other.inventoryOfCharacter), //  FIXME: this needs to be reviewd and fixed
-      health(other.health),
-      defense(other.defense),
-      isDead(other.isDead),
-      currentAttackType(other.currentAttackType) {
+Character::Character(const Character& other) : characterName(other.characterName),
+    health(other.health), defense(other.defense), isDead(other.isDead), 
+    currentAttackType(other.currentAttackType),
+    storage(new Inventory(*other.storage)) { // Deep copy of the inventory
+    if (other.armour) {
+        armour = new Armour(*other.armour);
+    }
+    if (other.weapon) {
+        weapon = new Weapon(*other.weapon);
+    }
 }
 
 

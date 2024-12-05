@@ -39,7 +39,7 @@ bool CompareItem::compareTime(double lowerTime, double upperTime) const{
             return lowerTime <= upperTime;
         }
         case SortOrder::Descending:{
-            return lowerTime <= upperTime;
+            return lowerTime >= upperTime;
         }
         default:
             throw std::logic_error("compareTime: SortOrder type invalid");

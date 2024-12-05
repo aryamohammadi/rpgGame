@@ -24,7 +24,7 @@ bool CompareItem::compareName(const std::string& lowerName, const std::string& u
             return lowerName <= upperName;
         }
         case SortOrder::Descending:{
-            return lowerName <= upperName;
+            return lowerName >= upperName;
         }
         default:
             throw std::logic_error("compareTime: SortOrder type invalid");

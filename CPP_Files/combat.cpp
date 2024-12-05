@@ -182,7 +182,7 @@ void Combat::removePlayerFromHeap(int targetIndex) {
 
     // Restore the heap property
     if (targetIndex < fightersAlive.size()) { // Only re-heapify if there are elements left
-        heapifyDown(targetIndex); // Push the element down to its correct position
+        heapifyDown(fightersAlive, targetIndex); // Push the element down to its correct position
         heapifyUp(targetIndex);   // Or pull it up if needed
     }
 }

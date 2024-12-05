@@ -8,8 +8,8 @@
 #include <chrono>
 #include "../header/itemType.h"
 #include "../header/character.h"
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include "../googletest/include/gtest/gtest.h"
+#include "../googlemock/include/gmock/gmock.h"
 
 class Character;
 using std::string;
@@ -44,7 +44,7 @@ public:
 
     virtual std::string serialize() const;
     virtual bool deserialize(const string& data);
-    ostream& operator<<(ostream& out, const Item& item);
+    // ostream& operator<<(ostream& out, const Item& item);
 };
 
 

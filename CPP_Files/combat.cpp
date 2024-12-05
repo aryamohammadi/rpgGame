@@ -56,10 +56,10 @@ void Combat::startBattle() { // Indenting this was quite nice - Jameel
 }
 
 int Combat::playerDecidesWhoToAttack(){
-    std::cout << "Choose an enemy to attack" << endl;
+    cout << "Choose an enemy to attack" << endl;
     for(int i = 1; i < fightersAlive.size();i++){
         if(fightersAlive.at(i)->getHealth() > 0){
-            std::cout << i << ": " << fightersAlive.at(i)->getName()
+            cout << i << ": " << fightersAlive.at(i)->getName()
             << "health " << fightersAlive.at(i)->getHealth() << endl;
         }
     }

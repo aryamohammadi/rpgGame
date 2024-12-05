@@ -23,4 +23,7 @@ class Room {
     vector<Item*> getItems() {return items;}
     
     int getExperience();
+
+    std::string serialize() const; // For save game
+    bool deserialize(const std::string& data); // For load game
 };

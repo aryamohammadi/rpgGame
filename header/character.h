@@ -4,8 +4,8 @@
 
 #include "../header/AttackType.h"
 #include "../header/itemType.h"
-#include <string>
 using std::string;
+using std::ostream;
 class Inventory;
 class Item;
 class Armour;
@@ -21,6 +21,7 @@ class Character{
         int baseSpeed;
         int currentSpeed;
         bool isDead;
+        int damage;
         AttackType currentAttackType;
         int experience = 0;
     public:
@@ -28,12 +29,14 @@ class Character{
                                                 that this function will not throw any exceptions */
         Character(const Character& other);
         ~Character();
+        Character();
         Character(const std::string& name);
         // Copy assignment operator
         Character& operator=(const Character& other);
         
         void increaseHealth(int amount){health += amount;}
-  
+
+        void setDamage(int damage){this->damage = damage;}
         void equipWeapon(Weapon* newWeapon);
         void changeWeapon(int index); 
 
@@ -46,7 +49,7 @@ class Character{
 
         void attack(Character& target);
 
-        void pickUpItem(const Item& item);
+        bool pickUpItem(Item* item);
         
         int itemsWithName(const string& name) const;
         bool useItem(const string& itemName); //finds closest with name and returns if succesfull
@@ -60,6 +63,9 @@ class Character{
         std::ostream& showInventory(ostream& out) const;
         std::ostream& outputWeapons(ostream& out) const;
 
+        std::ostream& showInventory(std::ostream& out) const;
+        std::ostream& outputWeapons(std::ostream& out) const;
+  
         void equipArmour(Armour* armour);
         void deEquipArmour();
         
@@ -74,10 +80,16 @@ class Character{
         int getHealth() const {return health;}
         int getDefense() const{ return defense;}
         std::string getName() const;
-        int getDamage() const;
-        AttackType getAttackType() const;
+        int getDamage() const{return damage;}
         bool isAlive() const;
         std::string getCharacterName() const; // Returns the character's name
         friend ostream& operator<<(ostream& out, const Character& entity);
         int getExperience() { return experience; }
+  
+        friend std::ostream& operator<<(std::ostream& out, const Character& entity);
+        bool deserialize(const std::string& data);
+        std::string serialize() const;
+  
+        std::ostream& operator<<(std::ostream& out, const AttackType& type);
+        std::istream& operator>>(std::istream& in, AttackType& type);
 };

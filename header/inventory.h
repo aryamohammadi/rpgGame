@@ -1,61 +1,58 @@
 #pragma once
 
 #include <vector>
-#include "../header/itemStack.h"
-
 #include "../header/item.h"
+#include "../header/itemStack.h"
 #include "../header/itemType.h"
 #include "../header/compareBy.h"
 using std::string;
-class Inventory{
-    private:
-        std::vector<ItemStack*> items; 
-        int size;
-        int capacity;
 
-        void reorganizeItems();
-        void clear(){
-            for(ItemStack*& x : items){
-                delete x;
-                x = nullptr;
-            }
-            size = 0;
-            capacity = 10;
-        }
-    public:
-        Inventory(int capacity = 10):size(0), capacity(capacity), items(capacity){items.reserve(capacity);}
-        ~Inventory(){clear();}
-        Inventory(const Inventory& inventory2);
-        Inventory& operator=(const Inventory& rhs);
+class Inventory {
+private:
+    std::vector<ItemStack*> items;
+    int size;
+    int capacity;
 
-        void addItem(Item* item);
-        void addItem(Item* item, int quantity);
+    void reorganizeItems();
+    void clear();
 
-        void removeItem(const Item& item);
-        void removeItem(const string& name);
-        void removeItem(const string& name, ItemType t);
+public:
+    Inventory(int capacity = 10);
+    ~Inventory();
+    Inventory(const Inventory& inventory2);
+    Inventory& operator=(const Inventory& rhs);
 
-        int itemFound(const Item* item) const;
-        int itemFound(const Item& item) const;  //given index
-        int itemFound(const string& name) const; //given name
-        int itemFound(const string& name, ItemType t) const; //given name and type
-        int itemFound(int index) const;
+    void addItem(Item* item);
+    void addItem(Item* item, int quantity);
 
-        const Item* getItem(int index) const{return (items.at(index))->getItem();}
-        Item* getItem(int index){return (items.at(index))->getItem();}
+    void removeItem(const Item& item);
+    void removeItem(const string& name);
+    void removeItem(const string& name, ItemType t);
 
-        bool sizeGreaterThanOrEqualToCapacity() const {return size >= capacity;}
-        bool isEmpty() const {return size == 0;}
-        int itemsWithName(const string& name) const;
+    int itemFound(const Item* item) const;
+    int itemFound(const Item& item) const;
+    int itemFound(const string& name) const;
+    int itemFound(const string& name, ItemType t) const;
+    int itemFound(int index) const;
 
-        void increaseCapacity(int amount){capacity += amount;}
+    const Item* getItem(int index) const;
+    Item* getItem(int index);
 
-        void sortAlphabetically();
-        void sortByAscendingGrade();
-        void sortByDescendingGrade();
-        void makeLatestFirst();
-        void makeOldestFirst();
+    bool sizeGreaterThanOrEqualToCapacity() const;
+    bool isEmpty() const;
+    int itemsWithName(const string& name) const;
 
-       friend std::ostream& operator<<(std::ostream& out, const Inventory& rhs);
-       std::ostream& outputWeapons(std::ostream& out) const;
+    void increaseCapacity(int amount);
+
+    void sortAlphabetically();
+    void sortByAscendingGrade();
+    void sortByDescendingGrade();
+    void makeLatestFirst();
+    void makeOldestFirst();
+
+    friend std::ostream& operator<<(std::ostream& out, const Inventory& rhs);
+    std::ostream& outputWeapons(std::ostream& out) const;
+
+    std::string serialize() const;
+    bool deserialize(const std::string& data);
 };

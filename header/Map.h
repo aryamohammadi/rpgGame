@@ -17,4 +17,7 @@ class Map {
     bool roomHasItems(int index);
     int getPlayerIndex() { return playerIndex; }
     bool returnRoomBasedOnDirection (string direction, int currentRoom);
+
+    std::string serialize() const; // For save game
+    bool deserialize(const std::string& data); //For load game
 };

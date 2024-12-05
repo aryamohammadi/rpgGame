@@ -24,28 +24,13 @@ class Character{
         AttackType currentAttackType;
         int experience = 0;
     public:
-        void swap(Character& other) noexcept;/* noexcept is an exception specifier that tells the compiler 
+        void swap(Character& other) noexcept; /* noexcept is an exception specifier that tells the compiler 
                                                 that this function will not throw any exceptions */
         Character(const Character& other);
         ~Character();
         Character(const std::string& name);
         // Copy assignment operator
         Character& operator=(const Character& other);
-
-        void setHealth(int healthOfCharacter){ 
-            health = healthOfCharacter;
-            isDead = health <= 0; 
-        }
-        void takeDamage(int damageOnCharacter){ 
-            health-= damageOnCharacter; 
-            isDead = health <= 0;
-        }
-
-        friend void swap(Character* char1,Character* char2){
-            Character* temp = char1;
-            char1 = char2;
-            char2 = temp;
-        }
         
         void increaseHealth(int amount){health += amount;}
   
@@ -74,29 +59,9 @@ class Character{
 
         std::ostream& showInventory(ostream& out) const;
         std::ostream& outputWeapons(ostream& out) const;
-  
-        void equipArmour(Armour* armour){
-            if(this->armour == nullptr){
-                this->armour = armour;
-            }
-            else{
-                if(storage.itemFound(*armour) != -1){
-                    storage.removeItem(*armour);
-                }
-                this->armour = armour;
-            }
-            defense += armour->getArmourStat();
-        }
-        void deEquipArmour(){
-            
-            storage.addItem(armour);
-        }
 
-        // Destructor
-        virtual ~Character();
-       
-        /* noexcept is an exception specifier that tells the compiler that this function will not throw any exceptions */
-        void swap(Character& other) noexcept;
+        void equipArmour(Armour* armour);
+        void deEquipArmour();
         
         // Setters
         void setHealth(int healthOfCharacter);

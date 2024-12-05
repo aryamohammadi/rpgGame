@@ -4,7 +4,7 @@
 #include "../header/potion.h"
 #include "../header/armour.h"
 #include "../header/weapon.h"
-#include <utility> // For std::swap
+#include <utility>
 #include <sstream>
 using std::string;
 
@@ -27,7 +27,6 @@ Character::Character(const Character& other) : characterName(other.characterName
         weapon = new Weapon(*other.weapon);
     }
 }
-
 
 // Copy assignment operator
 Character& Character::operator=(const Character& other) {

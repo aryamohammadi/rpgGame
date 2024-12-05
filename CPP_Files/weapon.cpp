@@ -1,9 +1,9 @@
 
-#include "../header/weapon.h"
+#include "../header/item.h"
 #include "../header/character.h"
 void Weapon::useItem(Character& target){target.takeDamage(damage);}
 
-Weapon::Weapon(ItemType type, const string& name, Grade itemGrade, const string& descript, int durability, Weapon::WeaponType weaponType, double timeElapsed):Item(type,name,itemGrade, descript,timeElapsed), damage(damage), weaponType(weaponType){
+Weapon::Weapon(ItemType type, const string& name, const string& descript, int durability, Weapon::WeaponType weaponType, double timeElapsed):Item(type,name, descript,timeElapsed), damage(damage), weaponType(weaponType){
     switch(weaponType){
         case Sword:
             speedEffect = 0;
@@ -20,7 +20,7 @@ Weapon::Weapon(ItemType type, const string& name, Grade itemGrade, const string&
 }
 
 Item* Weapon::clone() const {
-    return new Weapon(getType(), getName(),getGrade(),getDescript(), damage, weaponType, getTime());
+    return new Weapon(getType(), getName(),getDescript(), damage, weaponType, getTime());
 }
 std::ostream& operator<<(ostream& out, const Weapon& currentWeapon){
     out << static_cast<const Item&>(currentWeapon);
@@ -34,7 +34,6 @@ std::string Weapon::serialize() const {
     std::ostringstream oss;
     oss << static_cast<int>(type) << "\n"              // ItemType as integer
         << name << "\n"                                // Weapon name
-        << static_cast<int>(itemGrade) << "\n"         // Grade as integer
         << description << "\n"                         // Weapon description
         << timeEarned << "\n"                          // Time earned
         << damage << "\n"                              // Weapon damage
@@ -56,7 +55,6 @@ bool Weapon::deserialize(const std::string& data) {
         return false;
     }
 
-    itemGrade = static_cast<Grade>(gradeInt);
     weaponType = static_cast<WeaponType>(weaponTypeInt);
     return true;
 }

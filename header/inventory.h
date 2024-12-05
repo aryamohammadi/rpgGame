@@ -1,8 +1,8 @@
 #pragma once
-
+#include <iostream>
 #include <vector>
-#include "../header/item.h"
-#include "../header/itemStack.h"
+class Item;
+class ItemStack;
 #include "../header/itemType.h"
 #include "../header/compareBy.h"
 using std::string;
@@ -10,15 +10,15 @@ using std::string;
 class Inventory {
 private:
     std::vector<ItemStack*> items;
-    int size;
+    int size = 0;
     int capacity;
 
     void reorganizeItems();
     void clear();
 
 public:
-    Inventory(int capacity = 10);
-    ~Inventory();
+    Inventory(int capacity = 10):capacity(capacity){}
+    ~Inventory(){clear();}
     Inventory(const Inventory& inventory2);
     Inventory& operator=(const Inventory& rhs);
 
@@ -38,15 +38,13 @@ public:
     const Item* getItem(int index) const;
     Item* getItem(int index);
 
-    bool sizeGreaterThanOrEqualToCapacity() const;
-    bool isEmpty() const;
+    bool sizeGreaterThanOrEqualToCapacity() const{return size >= capacity;}
+    bool isEmpty() const{return size == 0;}
     int itemsWithName(const string& name) const;
 
-    void increaseCapacity(int amount);
+    void increaseCapacity(int amount){capacity += amount;}
 
     void sortAlphabetically();
-    void sortByAscendingGrade();
-    void sortByDescendingGrade();
     void makeLatestFirst();
     void makeOldestFirst();
 

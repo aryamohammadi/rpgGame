@@ -1,10 +1,6 @@
 #include <vector>
 #include "item.h"
 #include "../header/character.h"
-#include "../header/potion.h"
-#include "../header/weapon.h"
-#include "../header/armour.h"
-
 class Room {
   private:
     vector<int> connectedRooms;

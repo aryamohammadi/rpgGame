@@ -2,12 +2,20 @@
 #include "../header/character.h"
 #include <stdexcept>
 using std::endl;
-
+Item::Item(ItemType t, const string& name, const string& descript, double timeElapsed):type(t),name(name),description(descript){
+    if(timeElapsed < 0){
+        auto now = std::chrono::steady_clock::now();
+        std::chrono::duration<double> duration = now - programStartTime;
+        timeEarned = duration.count();  // Store elapsed time in seconds as double
+    }
+    else{
+        timeEarned = timeElapsed;
+    }   
+}
 ostream& operator<<(ostream& out, const Item& object){
     out << "Name: " << object.getName() << endl;
     out << "Description: " << object.getDescript() << endl;
     out << "Type: " << object.determineType(object.getType()) << endl;
-    out << "Grade: " << object.determineGrade(object.getGrade()) << endl;
     return out;
 }
 
@@ -24,13 +32,6 @@ string Item::determineType(ItemType type) const{
     }
 }
 
-string Item::determineGrade(int gradeIndex) const{
-    if(gradeIndex < 0 || gradeIndex >= grades.size()){
-        throw std::invalid_argument("grade is invalid!");
-    }
-    return grades.at(gradeIndex);
-}
-
 void swap(Item* &item1, Item* &item2){
     Item* item1Placeholder = item1;
 
@@ -41,8 +42,7 @@ void swap(Item* &item1, Item* &item2){
 
 std::string Item::serialize() const {
     std::ostringstream oss;
-    oss << name << "\n" << static_cast<int>(type) << "\n" << description << "\n"
-        << timeEarned << "\n" << static_cast<int>(itemGrade);
+    oss << name << "\n" << static_cast<int>(type) << "\n" << description << "\n";
     return oss.str();
 }
 
@@ -56,6 +56,5 @@ bool Item::deserialize(const string& data) {
     }
 
     type = static_cast<ItemType>(typeInt);
-    itemGrade = static_cast<Grade>(gradeInt);
     return true;
 }

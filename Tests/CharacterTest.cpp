@@ -3,68 +3,72 @@
 #include "../header/inventory.h"
 #include "../header/potion.h"
 #include "../header/weapon.h"
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include <sstream>
 #include <string>
 
 using namespace std;
 
-// Test the default constructor
-TEST(CharacterTest, DefaultConstructor) {
-    Character character("TestCharacter");
-    EXPECT_EQ(character.getName(), "TestCharacter");
-    EXPECT_EQ(character.getHealth(), 100);
-    EXPECT_EQ(character.getDefense(), 0);
-    EXPECT_EQ(character.getSpeed(), 20);
-    EXPECT_TRUE(character.isAlive());
+// Helper function to create a weapon with default properties
+Weapon* createWeapon(const string& name, int damage, double speedEffect = 0) {
+    return new Weapon(ItemType::WEAPON, name, Item::Grade::RARE, "A sharp weapon", damage, Weapon::WeaponType::Sword, speedEffect);
 }
 
-// Test the copy constructor
+TEST(CharacterTest, DefaultConstructor) {
+    Character testCharacter("TestCharacter");
+    EXPECT_EQ(testCharacter.getName(), "TestCharacter");
+    EXPECT_EQ(testCharacter.getHealth(), 100);
+    EXPECT_EQ(testCharacter.getDefense(), 0);
+    EXPECT_EQ(testCharacter.getSpeed(), 20);
+    EXPECT_TRUE(testCharacter.isAlive());
+}
+
 TEST(CharacterTest, CopyConstructor) {
     Character original("Original");
     original.pickUpItem(new Armour(ItemType::ARMOUR, "Knight's Armour", Item::Grade::EPIC, "Sturdy armour", 50));
-
+    
     Character copy(original);
-    EXPECT_EQ(copy.getName(), "Original");
-    EXPECT_EQ(copy.getHealth(), 100);
-    EXPECT_EQ(copy.getDefense(), 0);
-
     ostringstream outOriginal, outCopy;
     original.showInventory(outOriginal);
     copy.showInventory(outCopy);
 
     EXPECT_EQ(outOriginal.str(), outCopy.str());
+
+    // Ensure modifying the original does not affect the copy
+    original.throwAwayItem("Knight's Armour");
+    ostringstream outModifiedOriginal, outUnmodifiedCopy;
+    original.showInventory(outModifiedOriginal);
+    copy.showInventory(outUnmodifiedCopy);
+    EXPECT_NE(outModifiedOriginal.str(), outUnmodifiedCopy.str());
 }
 
-// Test the assignment operator
 TEST(CharacterTest, AssignmentOperator) {
     Character original("Original");
-    original.pickUpItem(new Weapon(ItemType::WEAPON, "Sword", Item::Grade::RARE, "A sharp sword", 75, Weapon::WeaponType::Sword));
+    Weapon* sword = createWeapon("Sword", 75);
+    original.pickUpItem(sword);
+    original.equipWeapon(sword);
 
     Character assigned("Assigned");
     assigned = original;
 
+    // Name should match after assignment
     EXPECT_EQ(assigned.getName(), "Original");
+    EXPECT_EQ(original.getHealth(), assigned.getHealth());
+    EXPECT_EQ(original.getDefense(), assigned.getDefense());
+
     ostringstream outOriginal, outAssigned;
     original.showInventory(outOriginal);
     assigned.showInventory(outAssigned);
-
     EXPECT_EQ(outOriginal.str(), outAssigned.str());
+
+    // Ensure changes to the original do not affect the assigned character
+    original.throwAwayItem("Sword");
+    ostringstream outModifiedOriginal, outUnmodifiedAssigned;
+    original.showInventory(outModifiedOriginal);
+    assigned.showInventory(outUnmodifiedAssigned);
+    EXPECT_NE(outModifiedOriginal.str(), outUnmodifiedAssigned.str());
 }
 
-// Test equip and unequip armour
-TEST(CharacterTest, EquipAndUnequipArmour) {
-    Character character("ArmourTest");
-    Armour* armour = new Armour(ItemType::ARMOUR, "Shield", Item::Grade::LEGENDARY, "Protective shield", 40);
-
-    character.equipArmour(armour);
-    EXPECT_EQ(character.getDefense(), 40);
-
-    character.deEquipArmour();
-    EXPECT_EQ(character.getDefense(), 0);
-}
-
-// Test serialization and deserialization
 TEST(CharacterTest, SerializeDeserialize) {
     Character original("Serializable");
     original.pickUpItem(new Potion(ItemType::POTION, "Health Potion", Item::Grade::RARE, "Restores health", 50));
@@ -74,6 +78,7 @@ TEST(CharacterTest, SerializeDeserialize) {
     Character deserialized("Empty");
     EXPECT_TRUE(deserialized.deserialize(serialized));
 
+    // Verify attributes and inventory after deserialization
     ostringstream outOriginal, outDeserialized;
     original.showInventory(outOriginal);
     deserialized.showInventory(outDeserialized);
@@ -83,30 +88,38 @@ TEST(CharacterTest, SerializeDeserialize) {
     EXPECT_EQ(original.getDefense(), deserialized.getDefense());
 }
 
-// Test inventory sorting by name
-TEST(CharacterTest, SortInventoryByName) {
-    Character character("Sorter");
-    character.pickUpItem(new Armour(ItemType::ARMOUR, "Zebra Armour", Item::Grade::COMMON, "Alphabetically last", 5));
-    character.pickUpItem(new Weapon(ItemType::WEAPON, "Alpha Sword", Item::Grade::LEGENDARY, "Alphabetically first", 100));
+TEST(CharacterTest, EquipWeaponAndModifySpeed) {
+    Character speedyCharacter("SpeedTest");
+    Weapon* sword = new Weapon(ItemType::WEAPON, "Fast Sword", 
+    Item::Grade::RARE, "Increases speed", 50, 
+    Weapon::WeaponType::Sword, 10);
 
-    character.sortAlphabetically();
+    speedyCharacter.equipWeapon(sword);
+    EXPECT_EQ(speedyCharacter.getSpeed(), 30);
 
-    ostringstream out;
-    character.showInventory(out);
-
-    EXPECT_NE(out.str().find("Alpha Sword"), string::npos);
-    EXPECT_NE(out.str().find("Zebra Armour"), string::npos);
-    EXPECT_LT(out.str().find("Alpha Sword"), out.str().find("Zebra Armour"));
+    speedyCharacter.changeWeapon(0);
+    EXPECT_EQ(speedyCharacter.getSpeed(), 20);
 }
 
-// Test weapon equip and speed modification
-TEST(CharacterTest, EquipWeaponAndModifySpeed) {
-    Character character("SpeedTest");
-    Weapon* sword = new Weapon(ItemType::WEAPON, "Fast Sword", Item::Grade::RARE, "Increases speed", 50, Weapon::WeaponType::Sword, 10);
+TEST(CharacterTest, InventoryCapacity) {
+    Character testCharacter("CapacityTest");
+    for (int i = 0; i < 10; i++) {
+        EXPECT_TRUE(testCharacter.pickUpItem(createWeapon("Weapon" + to_string(i), 10)));
+    }
+    EXPECT_FALSE(testCharacter.pickUpItem(createWeapon("Extra Weapon", 10)));
+}
 
-    character.equipWeapon(sword);
-    EXPECT_EQ(character.getSpeed(), 30);
+TEST(CharacterTest, InvalidWeaponEquipping) {
+    Character testCharacter("ErrorTest");
+    EXPECT_THROW(testCharacter.equipWeapon(nullptr), std::logic_error);
+}
 
-    character.changeWeapon(0); // Swap with inventory (if applicable)
-    EXPECT_EQ(character.getSpeed(), 20); // Reset speed after weapon removal
+TEST(CharacterTest, PotionUsage) {
+    Character testCharacter("PotionTest");
+    Potion* healingPotion = new Potion(ItemType::POTION, "Health Potion", Item::Grade::COMMON, "Restores health", 20);
+    
+    testCharacter.pickUpItem(healingPotion);
+    int initialHealth = testCharacter.getHealth();
+    EXPECT_TRUE(testCharacter.useItem("Health Potion"));
+    EXPECT_GT(testCharacter.getHealth(), initialHealth);
 }

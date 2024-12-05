@@ -2,7 +2,6 @@
 
 enum CompareBy{
     Type,
-    Grade,
     Name,
     Time
 };

@@ -1,6 +1,6 @@
 #pragma once
 #include <string> // we need to include the string library to use the string data type
-#include "inventory.h"  
+#include "../header/inventory.h"  
 
 #include "../header/AttackType.h"
 #include "../header/itemType.h"
@@ -83,8 +83,6 @@ class Character{
         void increaseStorageCapacity(int amount);
         bool isStorageEmpty() const;
         void sortAlphabetically();
-        void sortByAscendingGrade();
-        void sortByDescendingGrade();
         void makeLatestFirst();
         void makeOldestFirst();
   

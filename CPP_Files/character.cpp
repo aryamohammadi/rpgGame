@@ -1,9 +1,6 @@
 #include "../header/character.h"
-#include "../header/armour.h"
+#include "../header/item.h"
 #include "../header/inventory.h"
-#include "../header/potion.h"
-#include "../header/armour.h"
-#include "../header/weapon.h"
 #include <utility> // For std::swap
 #include <sstream>
 using std::string;
@@ -362,12 +359,7 @@ bool Character::isStorageEmpty() const{
 void Character::sortAlphabetically(){
     storage->sortAlphabetically();
 }
-void Character::sortByAscendingGrade(){
-    storage->sortByAscendingGrade();
-}
-void Character::sortByDescendingGrade(){
-    storage->sortByDescendingGrade();
-}
+
 void Character::makeLatestFirst(){
     storage->makeLatestFirst();
 }
@@ -445,7 +437,7 @@ std::ostream& operator<<(std::ostream& out, const AttackType& type){
 std::istream& operator>>(std::istream& in, AttackType& type){
     std::string inString;
     in >> inString;
-    const vector<std::string> possibleTypes{"Melee", "Manged"};
+    const std::vector<std::string> possibleTypes{"Melee", "Manged"};
     if(inString.size() < 0){
         return in;
     }

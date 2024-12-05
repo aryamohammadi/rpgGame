@@ -33,15 +33,12 @@ void Combat::startBattle() { // Indenting this was quite nice - Jameel
                     //we need the actual player to decide who he wants to attack enemy1 or w - done
                     //we have to output a list of valid players - done
                     //still need to perform attack 
-            else {
-                std::cout << "Choose an enemy to attack" << endl;
-                int playerToAttack = playerDecidesWhoToAttack();
 
                 //we need the actual player to decide who he wants to attack enemy1 or w - done
                 //we have to output a list of valid players - done
                 //still need to perform attack 
 
-                for (int i = 0; i < fightersAlive.size(); ++i) {
+                for (int i = 0; i < fightersAlive.size(); ++i) { //what is this for? You just need an if statement checking if the index the player attacked is alive
                     Character* fighter = fightersAlive[i];
                     if (fighter->getCharacterName() == "Player") {
                         // playerFound = true;
@@ -58,6 +55,7 @@ void Combat::startBattle() { // Indenting this was quite nice - Jameel
         }
     }
 }
+
 
 int Combat::playerDecidesWhoToAttack(){
     std::cout << "Choose an enemy to attack" << endl;
@@ -163,9 +161,9 @@ void Combat::performAttack(Character& attacker) { // Why was this commented?
     // Check if the target is defeated
     if (!target->isAlive()) {
         cout << target->getCharacterName() << " has been defeated!" << endl;
-        removePlayerFromHeap(target->getHeapIndex());
+        // removePlayerFromHeap(target->getHeapIndex());
     }
-} */
+} 
 /* 
 void Combat::removePlayerFromHeap(int targetIndex) {
     if (targetIndex < 0 || targetIndex >= fightersAlive.size()) {

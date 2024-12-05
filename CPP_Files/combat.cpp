@@ -82,7 +82,7 @@ void Combat::removePlayerFromHeap(string targetName) {
 }
 
 
-/* void Combat::performAttack(Character& attacker) { // Why was this commented?
+void Combat::performAttack(Character& attacker) { // Why was this commented?
     cout << attacker.getCharacterName() << "'s turn to attack!" << endl;
 
     Character* target = nullptr;
@@ -147,28 +147,29 @@ void Combat::removePlayerFromHeap(string targetName) {
     if (!target) {
         cout << "No valid target found. Skipping turn." << endl;
         return;
-    } */
+    }
 
-    // // Perform the attack
-    // int baseDamage = attacker.getDamage();
-    // int minDamage = baseDamage * 0.75;
-    // int maxDamage = baseDamage * 1.25;
-    // int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
+    // Perform the attack
+    int baseDamage = attacker.getDamage();
+    int minDamage = baseDamage * 0.75;
+    int maxDamage = baseDamage * 1.25;
+    int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
 
 
-    // // Apply damage
-    // target->takeDamage(damage);
-    // cout << attacker.getCharacterName() << " dealt " << damage
-    //      << " damage to " << target->getCharacterName() << "!" << endl;
+    // Apply damage
+    target->takeDamage(damage);
+    cout << attacker.getCharacterName() << " dealt " << damage
+         << " damage to " << target->getCharacterName() << "!" << endl;
 
 
     // Check if the target is defeated
-   /// if (!target->isAlive()) {
-   //     cout << target->getCharacterName() << " has been defeated!" << endl;
-     //   removePlayerFromHeap(target->getHeapIndex());
-  //  }
-//} 
-/* 
+    if (!target->isAlive()) {
+        cout << target->getCharacterName() << " has been defeated!" << endl;
+        // removePlayerFromHeap(target->getHeapIndex());
+    }
+  
+} 
+
 void Combat::removePlayerFromHeap(int targetIndex) {
     if (targetIndex < 0 || targetIndex >= fightersAlive.size()) {
         throw runtime_error("Invalid index: Unable to remove character from heap.");
@@ -185,9 +186,9 @@ void Combat::removePlayerFromHeap(int targetIndex) {
         heapifyUp(targetIndex);   // Or pull it up if needed
     }
 }
- */
+
 // check if the battle has ended
-/* bool Combat::hasBattleEnded() {
+bool Combat::hasBattleEnded() { // Was this supposed to be commented? - Jameel 
     bool isPlayerAlive = false;
     bool areEnemiesAlive = false;
 
@@ -212,4 +213,4 @@ void Combat::removePlayerFromHeap(int targetIndex) {
         return true; // All enemies are dead, battle ends
     }
     return false; // Battle continues
-} */
+}

@@ -291,7 +291,7 @@ bool Character::useItem(int index){
 }
 
 bool Character::throwAwayItem(const string& name){
-    if(storage->itemFound(name) == -1 | isStorageEmpty()){
+    if(storage->itemFound(name) == -1 || isStorageEmpty()){
         return false;
     }
     storage->removeItem(name);

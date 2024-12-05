@@ -23,8 +23,9 @@ class Character{
         bool isDead;
         int damage;
         AttackType currentAttackType;
+        int experience = 0;
     public:
-        void swap(Character& other) noexcept;/* noexcept is an exception specifier that tells the compiler 
+        void swap(Character& other) noexcept; /* noexcept is an exception specifier that tells the compiler 
                                                 that this function will not throw any exceptions */
         Character(const Character& other);
         ~Character();
@@ -32,21 +33,6 @@ class Character{
         Character(const std::string& name);
         // Copy assignment operator
         Character& operator=(const Character& other);
-
-        void setHealth(int healthOfCharacter){ 
-            health = healthOfCharacter;
-            isDead = health <= 0; 
-        }
-        void takeDamage(int damageOnCharacter){ 
-            health-= damageOnCharacter; 
-            isDead = health <= 0;
-        }
-
-        friend void swap(Character* char1,Character* char2){
-            Character* temp = char1;
-            char1 = char2;
-            char2 = temp;
-        }
         
         void increaseHealth(int amount){health += amount;}
 
@@ -74,20 +60,22 @@ class Character{
         bool throwAwayItem(const string& name, ItemType type);
         bool throwAwayItem(int index);
 
+        std::ostream& showInventory(ostream& out) const;
+        std::ostream& outputWeapons(ostream& out) const;
+
         std::ostream& showInventory(std::ostream& out) const;
         std::ostream& outputWeapons(std::ostream& out) const;
   
         void equipArmour(Armour* armour);
         void deEquipArmour();
         
-        void increaseStorageCapacity(int amount);
-        bool isStorageEmpty() const;
-        void sortAlphabetically();
-        void sortByAscendingGrade();
-        void sortByDescendingGrade();
-        void makeLatestFirst();
-        void makeOldestFirst();
-  
+        // Setters
+        void setHealth(int healthOfCharacter);
+        void setDamage(int damageOfCharacter);
+        void takeDamage(int damageOnCharacter);
+        void setName(std::string name) { characterName == name; }
+        void setExperience (int EXP) { experience = EXP; }
+
         // Getters
         int getHealth() const {return health;}
         int getDefense() const{ return defense;}
@@ -95,10 +83,13 @@ class Character{
         int getDamage() const{return damage;}
         bool isAlive() const;
         std::string getCharacterName() const; // Returns the character's name
+        friend ostream& operator<<(ostream& out, const Character& entity);
+        int getExperience() { return experience; }
+  
         friend std::ostream& operator<<(std::ostream& out, const Character& entity);
         bool deserialize(const std::string& data);
         std::string serialize() const;
+  
+        std::ostream& operator<<(std::ostream& out, const AttackType& type);
+        std::istream& operator>>(std::istream& in, AttackType& type);
 };
-
-std::ostream& operator<<(std::ostream& out, const AttackType& type);
-std::istream& operator>>(std::istream& in, AttackType& type);

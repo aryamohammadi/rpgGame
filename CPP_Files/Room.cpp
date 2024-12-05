@@ -1,49 +1,34 @@
 #include "../header/Room.h"
+#include "../header/AttackType.h"
+#include "../header/character.h"
 #include <ctime>
 #include <iostream>
 
 void Room::removeEnemies() {
-  
+  enemies.clear();
 }
 
-void Room::addEnemies() {
-  srand(time(0));
+void Room::removeItems() {
+  for (unsigned i; i < items.size(); i++) {
+    delete items[i];
+  }
+  items.clear();
+}
 
-  // Add either one or two enemies to the room's given vector
-  Character enemyToAdd("");
-  std::cout << "WARNING: ADD ATTRIBUTES TO enemyToAdd IN Room.cpp" << std::endl;
+void Room::addEnemies(Character enemyToAdd) {
   enemies.push_back(enemyToAdd);
-
-  if (rand() % 2 == 0) {
-    Character anotherEnemytoAdd("");
-    std::cout << "WARNING: ADD ATTRIBUTES TO anotherEnemytoAdd IN Room.cpp" << std::endl;
-    enemies.push_back(anotherEnemytoAdd);
-  }
 }
 
-void Room::addItems() {
-  srand(time(0));
+void Room::addItems(Item* itemToAdd) {
+  items.push_back(itemToAdd);
+}
 
- // Add one, two, or three to the room's given vector.
- // 8 rooms have 1 item
- // 4 rooms have 2 items
- // 2 rooms have 3 items
-
-  Item* item1;
-  std::cout << "WARNING: ADD ATTRIBUTES TO item1 IN Room.cpp" << std::endl;
-  items.push_back(item1);
-
-  if (rand() % 2 == 0) {
-    Item* item2;
-    std::cout << "WARNING: ADD ATTRIBUTES TO item2 IN Room.cpp" << std::endl;
-    items.push_back(item2);
-
-    if (rand() % 8 == 0) {
-    Item* item3;
-    std::cout << "WARNING: ADD ATTRIBUTES TO item3 IN Room.cpp" << std::endl;
-    items.push_back(item3);
+int Room::getExperience() {
+  int totalExperience = 0;
+  for(unsigned i; i < enemies.size(); i++) {
+    totalExperience += enemies[i].getExperience();
   }
-  }
+  return totalExperience;
 }
 
 // Serialize the Room

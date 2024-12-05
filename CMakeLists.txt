@@ -91,3 +91,19 @@ add_executable(SaveGameTests Save_Load/Tests/SaveGameTests.cpp)
 target_link_libraries(LoadGameTests gtest gtest_main)
 target_link_libraries(SaveGameTests gtest gtest_main)
 
+#Add Combat test executable
+add_executable(CombatTests
+    CPP_Files/character.cpp
+    CPP_Files/combat.cpp
+    Tests/combat_test.cpp
+)
+
+# Specify include directories for CombatTests
+target_include_directories(CombatTests PRIVATE ${CMAKE_SOURCE_DIR}/header)
+
+# Link Google Test libraries
+target_link_libraries(CombatTests gtest gtest_main pthread)
+
+# Add to CTest
+add_test(NAME CombatTests COMMAND CombatTests)
+

@@ -456,3 +456,17 @@ std::istream& operator>>(std::istream& in, AttackType& type){
     in.setstate(std::ios::failbit);
     return in;
 }   
+
+void Character::setHealth(int healthOfCharacter){ 
+    health = healthOfCharacter;
+    isDead = health <= 0; 
+}
+void Character::takeDamage(int damageOnCharacter){ 
+    health-= damageOnCharacter; 
+    isDead = health <= 0;
+}
+void swap(Character*& char1,Character*& char2){
+    Character* temp = char1;
+    char1 = char2;
+    char2 = temp;
+}

@@ -33,20 +33,10 @@ class Character{
         // Copy assignment operator
         Character& operator=(const Character& other);
 
-        void setHealth(int healthOfCharacter){ 
-            health = healthOfCharacter;
-            isDead = health <= 0; 
-        }
-        void takeDamage(int damageOnCharacter){ 
-            health-= damageOnCharacter; 
-            isDead = health <= 0;
-        }
+        void setHealth(int healthOfCharacter);
+        void takeDamage(int damageOnCharacter);
 
-        friend void swap(Character* char1,Character* char2){
-            Character* temp = char1;
-            char1 = char2;
-            char2 = temp;
-        }
+        friend void swap(Character*& char1,Character*& char2);
         
         void increaseHealth(int amount){health += amount;}
 

@@ -17,7 +17,7 @@ private:
     void clear();
 
 public:
-    Inventory(int capacity = 10):capacity(capacity){items.reserve(capacity);}
+    Inventory(int capacity = 10):capacity(capacity){}
     ~Inventory(){clear();}
     Inventory(const Inventory& inventory2);
     Inventory& operator=(const Inventory& rhs);

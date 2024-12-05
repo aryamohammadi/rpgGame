@@ -4,7 +4,6 @@
 
 #include "../header/AttackType.h"
 #include "../header/itemType.h"
-#include <iostream>
 using std::string;
 using std::ostream;
 class Inventory;
@@ -22,12 +21,14 @@ class Character{
         int baseSpeed;
         int currentSpeed;
         bool isDead;
+        int damage;
         AttackType currentAttackType;
     public:
         void swap(Character& other) noexcept;/* noexcept is an exception specifier that tells the compiler 
                                                 that this function will not throw any exceptions */
         Character(const Character& other);
         ~Character();
+        Character();
         Character(const std::string& name);
         // Copy assignment operator
         Character& operator=(const Character& other);
@@ -48,7 +49,8 @@ class Character{
         }
         
         void increaseHealth(int amount){health += amount;}
-  
+
+        void setDamage(int damage){this->damage = damage;}
         void equipWeapon(Weapon* newWeapon);
         void changeWeapon(int index); 
 
@@ -90,8 +92,13 @@ class Character{
         int getHealth() const {return health;}
         int getDefense() const{ return defense;}
         std::string getName() const;
-        int getDamage() const;
+        int getDamage() const{return damage;}
         bool isAlive() const;
         std::string getCharacterName() const; // Returns the character's name
         friend std::ostream& operator<<(std::ostream& out, const Character& entity);
+        bool deserialize(const std::string& data);
+        std::string serialize() const;
 };
+
+std::ostream& operator<<(std::ostream& out, const AttackType& type);
+std::istream& operator>>(std::istream& in, AttackType& type);

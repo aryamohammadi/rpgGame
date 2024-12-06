@@ -94,7 +94,11 @@ void Game::startGame() {
                 Combat battle(fighters);
                 battle.startBattle();
                 
-                
+                if (!playerCharacter.isAlive()) {
+                    cout << playerCharacter.getCharacterName() << " is dead!" << endl;
+                    cout << "Ending game..........." << endl;
+                    return;
+                }
             }
 
         }
@@ -103,7 +107,20 @@ void Game::startGame() {
             string typeOfItem;
             cout << "Pickup potion, weapon, or armour?" << endl << "Enter option: ";
             cin >> typeOfItem;
-            while (typeOfItem)
+            cout << endl;
+
+            for (unsigned i; i < typeOfItem.size(); i++) {
+                std::transform(typeOfItem.begin(), typeOfItem.end(), typeOfItem.begin(), ::tolower); // Now we only need one if condition
+            }
+            while (typeOfItem != "potion" && typeOfItem != "weapon" && typeOfItem != "armour") {
+                cout << "Please enter a valid item type (potion, weapon, armour)";
+                cin >> typeOfItem;
+                cout << endl;
+            }
+
+            if (typeOfItem == "potion") {
+                playerCharacter.pickUpItem()
+            }
         }
         string itemToThrowAway;
         cin >> itemToThrowAway;

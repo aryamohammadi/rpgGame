@@ -95,10 +95,8 @@ TEST(CharacterTest, SerializeDeserialize) {
 TEST(CharacterTest, EquipWeaponAndModifySpeed) {
     Character speedyCharacter("SpeedTest");
 
-    Weapon* sword = new Weapon(ItemType::WEAPON, "Fast Sword", "Increases speed", 50, 
-                               Weapon::WeaponType::Sword, 10);
-    Weapon* bow = new Weapon(ItemType::WEAPON, "Long Bow", "Decreases speed", 60, 
-                             Weapon::WeaponType::Bow, -5);
+    Weapon* sword = new Weapon(ItemType::WEAPON, "Fast Sword", "Increases speed", 50, Weapon::WeaponType::Sword, 10);
+    Weapon* bow = new Weapon(ItemType::WEAPON, "Long Bow", "Decreases speed", 60, Weapon::WeaponType::Bow, -5);
 
     speedyCharacter.pickUpItem(sword);
     speedyCharacter.pickUpItem(bow);

@@ -74,6 +74,7 @@ int Combat::playerDecidesWhoToAttack(){
     return choiceToAttack;
 }
 
+
 void Combat::removePlayerFromHeap(string targetName) {
     for(int i = 0; i < fightersAlive.size();i++){
         if(fightersAlive.at(i)->getName() == targetName){
@@ -208,6 +209,7 @@ bool Combat::hasBattleEnded() { // Was this supposed to be commented? - Jameel
             return false; // Battle continues
         }
     }
+
 
     // Battle ends if player is dead or all enemies are defeated
     if (!isPlayerAlive) {

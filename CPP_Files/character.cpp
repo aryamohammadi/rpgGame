@@ -469,7 +469,7 @@ void Character::takeDamage(int damageOnCharacter){
     health-= damageOnCharacter; 
     isDead = health <= 0;
 }
-void swap(Character*& char1,Character*& char2){
+void swap(Character*& char1,Character*& char2) {
     Character* temp = char1;
     char1 = char2;
     char2 = temp;

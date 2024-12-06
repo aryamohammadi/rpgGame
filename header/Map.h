@@ -10,7 +10,7 @@ class Map {
     int playerIndex = 0;
 
   public:
-    Map();
+    Map(Weapon::WeaponType typeOfWeapon);
     void removeEnemies(int index);
     void removeItems(int index);
     bool roomHasEnemies(int index);

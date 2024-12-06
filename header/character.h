@@ -13,7 +13,6 @@ class Weapon;
 class Character{
     private:
         std::string characterName;
-        Inventory* storage;
         Armour* armour;
         Weapon* weapon;
         int health;
@@ -33,6 +32,8 @@ class Character{
         Character(const std::string& name);
         // Copy assignment operator
         Character& operator=(const Character& other);
+        
+        Inventory* storage;
 
         void setHealth(int healthOfCharacter);
         void takeDamage(int damageOnCharacter);

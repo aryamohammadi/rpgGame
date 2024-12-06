@@ -57,13 +57,13 @@ void Game::startGame() {
         cout << "You're currently in room " << gameMap.getPlayerIndex() << endl;
 
         cout << "Choose from the following (Enter one word): " << endl
-        << "move (up/down/left/right) - Move across the map" << endl
-        << "pickup (potion, weapon, armour) - Pickup the item from the current room, add it to your inventory" << endl
-        << "use (potion) - Use a potion from your inventory" << endl
-        << "equip (item name) - Equip the weapon or armour in your inventory" << endl
+        << "move - Move across the map" << endl
+        << "pickup - Pickup all items from the current room, add it to your inventory" << endl
+        << "use - Use a potion from your inventory" << endl
+        << "equip - Equip the weapon or armour in your inventory" << endl
         << "print inventory - Print inventory" << endl
-        << "sort (alphabetically, time) - Sort inventory items by name, or time collected" << endl
-        << "throw (item name) - Throw item out of inventory" << endl
+        << "sort - Sort inventory items by name, or time collected" << endl
+        << "throw - Throw item out of inventory" << endl
         << "save, Save the game to savegame.txt" << endl
         << "quit, End the program" << endl;
 
@@ -99,29 +99,75 @@ void Game::startGame() {
                     cout << "Ending game..........." << endl;
                     return;
                 }
+                gameMap.removeEnemies(gameMap.getPlayerIndex());
             }
 
         }
 
         if (playerCommand == "pickup") {
-            string typeOfItem;
-            cout << "Pickup potion, weapon, or armour?" << endl << "Enter option: ";
-            cin >> typeOfItem;
-            cout << endl;
-
-            for (unsigned i; i < typeOfItem.size(); i++) {
-                std::transform(typeOfItem.begin(), typeOfItem.end(), typeOfItem.begin(), ::tolower); // Now we only need one if condition
+            if (gameMap.returnItemsInRoom(gameMap.getPlayerIndex()).empty() ) {
+                cout << "No items in the room" << endl;
             }
-            while (typeOfItem != "potion" && typeOfItem != "weapon" && typeOfItem != "armour") {
-                cout << "Please enter a valid item type (potion, weapon, armour)";
-                cin >> typeOfItem;
-                cout << endl;
+            for (unsigned i = 0; i < gameMap.returnItemsInRoom(gameMap.getPlayerIndex()).size(); i++) {
+                if (! playerCharacter.pickUpItem( gameMap.returnItemsInRoom(gameMap.getPlayerIndex()).at(i) ) ) {
+                    cout << "Player inventory is full" << endl;
+                }
             }
+            // string typeOfItem;
+            // cout << "Pickup potion, weapon, or armour?" << endl << "Enter option: ";
+            // cin >> typeOfItem;
+            // cout << endl;
 
-            if (typeOfItem == "potion") {
-                playerCharacter.pickUpItem()
+            // for (unsigned i = 0; i < typeOfItem.size(); i++) {
+            //     std::transform(typeOfItem.begin(), typeOfItem.end(), typeOfItem.begin(), ::tolower); // Now we only need one if condition
+            // }
+            // while (typeOfItem != "potion" && typeOfItem != "weapon" && typeOfItem != "armour") {
+            //     cout << "Please enter a valid item type (potion, weapon, armour)";
+            //     cin >> typeOfItem;
+            //     cout << endl;
+            // }
+
+            // if (typeOfItem == "potion") {
+            //     for (unsigned index = 0; index < gameMap.returnItemsInRoom(gameMap.getPlayerIndex()).size(); index++ );
+            //     if (!playerCharacter.pickUpItem(gameMap.returnItemsInRoom(gameMap.getPlayerIndex()).at(index)) ) {
+
+            //     }
+            // }
+        }
+        
+        if (playerCommand == "use") {
+            string potionName;
+            cout << "Enter name of potion to use" << endl;
+            cin >> potionName;
+            if (! ( potionName == "quit" || !playerCharacter.useItem(potionName, ItemType::POTION ) )) {
+                cout << "Potion does not exist in inventory" << endl << "Enter new potion name (quit to skip): ";
+                cin >> potionName;
             }
         }
+
+        if (playerCommand == "equip") {
+            string itemName;
+            int choice;
+            cout << "Enter 0 for weapon, 1 for armour: ";
+
+            if (choice == 0) {
+                cout << "Equipping weapon";
+                cin >> itemName;
+                playerCharacter.equipWeapon()
+            }
+
+            cout << "Enter name of weapon or armour to equip" << endl;
+            cin >> itemName;
+            if (! ( potionName == "quit" || !playerCharacter.useItem(potionName, ItemType::POTION ) )) {
+                cout << "Potion does not exist in inventory" << endl << "Enter new potion name (quit to skip): ";
+                cin >> potionName;
+            }
+        }
+        
+        if (playerCommand == "print") {
+            playerCharacter.
+        }
+        
         string itemToThrowAway;
         cin >> itemToThrowAway;
         playerCharacter.throwAwayItem(itemToThrowAway);

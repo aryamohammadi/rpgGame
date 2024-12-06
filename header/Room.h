@@ -4,7 +4,7 @@
 class Room {
   private:
     vector<int> connectedRooms;
-    vector<Character> enemies;
+    vector<Character*> enemies;
     vector<Item*> items;
 
   public:
@@ -15,7 +15,7 @@ class Room {
     void addEnemies(Character enemyToAdd);
     void addItems(Item* itemToAdd);
     
-    vector<Character> getEnemies() {return enemies;} 
+    vector<Character*> getEnemies() {return enemies;} 
     vector<Item*> getItems() {return items;}
     
     int getExperience();

@@ -83,7 +83,7 @@ add_executable(MainMenuTests
     CPP_Files/Difficulty.cpp
     CPP_Files/main.cpp
     CPP_Files/MainMenu.cpp
-
+    
 )
 target_link_libraries(MainMenuTests gtest gtest_main pthread)
 
@@ -101,21 +101,24 @@ add_test(NAME MainMenuTests COMMAND MainMenuTests)
 
 #Add Combat test executable
 add_executable(CombatTests
-    CPP_Files/character.cpp
     CPP_Files/combat.cpp
     Tests/combat_test.cpp
     CPP_Files/item.cpp
+    CPP_Files/itemStack.cpp
     CPP_Files/inventory.cpp
     CPP_Files/weapon.cpp
     CPP_Files/potion.cpp
     CPP_Files/armour.cpp
-    
+    CPP_Files/character.cpp
+    CPP_Files/mergeSortItem.cpp
+    CPP_Files/compare.cpp
+    CPP_Files/Heap.cpp
 )
 # Specify include directories for CombatTests
 target_include_directories(CombatTests PRIVATE ${CMAKE_SOURCE_DIR}/header)
 
 # Link Google Test libraries
-target_link_libraries(CombatTests gtest gtest_main pthread)
+target_link_libraries(CombatTests gmock gtest gtest_main)
 
 # Add to CTest
 add_test(NAME CombatTests COMMAND CombatTests)

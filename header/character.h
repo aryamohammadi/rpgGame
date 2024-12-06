@@ -1,11 +1,13 @@
 #pragma once
 #include <string> // we need to include the string library to use the string data type
+#include <iostream>
 #include "../header/inventory.h"  
 
 #include "../header/AttackType.h"
 #include "../header/itemType.h"
 using std::string;
 using std::ostream;
+using std::istream;
 class Inventory;
 class Item;
 class Armour;
@@ -34,14 +36,10 @@ class Character{
         // Copy assignment operator
         Character& operator=(const Character& other);
 
-        void setHealth(int healthOfCharacter);
-        void takeDamage(int damageOnCharacter);
-
         friend void swap(Character*& char1,Character*& char2);
         
         void increaseHealth(int amount){health += amount;}
 
-        void setDamage(int damage){this->damage = damage;}
         void equipWeapon(Weapon* newWeapon);
         void changeWeapon(int index); 
 
@@ -65,8 +63,6 @@ class Character{
         bool throwAwayItem(const string& name, ItemType type);
         bool throwAwayItem(int index);
 
-        std::ostream& showInventory(ostream& out) const;
-
         std::ostream& showInventory(std::ostream& out) const;
   
         void equipArmour(Armour* armour);
@@ -80,7 +76,7 @@ class Character{
 
         // Setters
         void setHealth(int healthOfCharacter);
-        void setDamage(int damageOfCharacter);
+        void setDamage(int damageOfCharacter){damage = damageOfCharacter;}
         void takeDamage(int damageOnCharacter);
         void setName(std::string name) { characterName == name; }
         void setExperience (int EXP) { experience = EXP; }
@@ -95,10 +91,10 @@ class Character{
         friend ostream& operator<<(ostream& out, const Character& entity);
         int getExperience() { return experience; }
   
-        friend std::ostream& operator<<(std::ostream& out, const Character& entity);
         bool deserialize(const std::string& data);
         std::string serialize() const;
   
-        friend std::ostream& operator<<(std::ostream& out, const AttackType& type);
-        friend std::istream& operator>>(std::istream& in, AttackType& type);
+
+        std::ostream& outputWeapons(std::ostream& out) const;
 };
+

@@ -1,7 +1,7 @@
 #ifndef MOCKGAMESTATE_H
 #define MOCKGAMESTATE_H
 
-#include "../../Game/header/GameState.h"
+#include "../header/GameState.h"
 #include <string>
 #include <iostream>
 

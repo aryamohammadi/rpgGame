@@ -8,8 +8,8 @@
 #include <chrono>
 #include "../header/itemType.h"
 #include "../header/character.h"
-#include "../googletest/include/gtest/gtest.h"
-#include "../googlemock/include/gmock/gmock.h"
+#include <gtest/gtest.h> //Don't touch
+#include <gmock/gmock.h> //Don't touch
 
 class Character;
 using std::string;

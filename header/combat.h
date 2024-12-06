@@ -29,14 +29,11 @@ class Combat{
         ~Combat();
         
         void startBattle(); // Initiates and manages the combat loop.
-        bool isPlayerDead(); // Checks if the player is dead.
-        bool areBothEnemiesDead(); // Checks if all enemies are defeated.
-        bool isAtLeast1EnemieAlive(); // Checks if at least one enemy is still fighting.
-        void performAttack(Character& attacker); // Performs an attack between characters.
         void removePlayerFromHeap(string targetName);
         int playerDecidesWhoToAttack();
-        bool hasBattleEnded();
         void removePlayerFromHeap(int targetIndex);
+        bool isAtLeast1EnemieAlive() const;
+        bool isPlayerDead() const;
 };
 #endif // COMBAT_H
 

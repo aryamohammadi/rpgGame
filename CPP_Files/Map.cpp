@@ -51,7 +51,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
       enemyToAdd.setDamage(roomIndex * 3);
       enemyToAdd.setHealth(roomIndex * 7);
       enemyToAdd.setExperience(35 * roomIndex);
-      Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
+      enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
 
       if (enemyToAdd.getAttackType() == AttackType::Melee) {
         enemyWeapon->setWeaponType(Weapon::WeaponType::Sword);
@@ -66,7 +66,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     superEnemy.setHealth(300); // This might be unbalanced, but the game doesn't have to be fair
     superEnemy.setExperience(600);
     Armour* superArmour = new Armour(ItemType::ARMOUR, "superarmour", "superarmour", 30);
-    Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
+    enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
     superEnemy.equipArmour(superArmour);
     superEnemy.equipWeapon(enemyWeapon);
     worldRooms.at(worldRooms.size() - 1).addEnemies(superEnemy);
@@ -197,7 +197,7 @@ bool Map::returnRoomBasedOnDirection(string direction, int currentRoom) {
     }
   }
 
-
+  return false;
 }
 
 // Serialize the Map

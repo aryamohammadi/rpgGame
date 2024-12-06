@@ -97,8 +97,9 @@ void Combat::removePlayerFromHeap(string targetName) {
     }
 }
 
-
-/* void Combat::performAttack(Character& attacker) { // Why was this commented?
+// the following has to be commented out for now until we decide if we need it or not tomorrow
+/*
+void Combat::performAttack(Character& attacker) { // Why was this commented?
     cout << attacker.getCharacterName() << "'s turn to attack!" << endl;
 
     Character* target = nullptr;

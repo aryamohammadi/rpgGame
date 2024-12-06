@@ -99,6 +99,10 @@ public:
     Weapon():Item(ItemType::WEAPON, "Default Weapon", ""){}
     Weapon(ItemType type, const std::string& name, const std::string& descript,
            int damage, WeaponType weaponType, double timeElapsed = -1.0);
+    Weapon(const Weapon& other) : 
+        Item(other.type, other.name, other.description, other.timeEarned),
+        damage(other.damage), weaponType(other.weaponType), 
+        speedEffect(other.speedEffect) {}
 
     void useItem(Character& target) override;
     Item* clone() const override;
@@ -120,6 +124,10 @@ private:
 public:
     Armour():Item(ItemType::ARMOUR, "Default Armour",""){}
     Armour(ItemType t, const string& name, const string& descript, int stat, double timeElapsed = -1.0);
+    Armour(const Armour& other) : 
+        Item(other.type, other.name, other.description, other.timeEarned),
+        armourStat(other.armourStat) {}
+
     void useItem(Character&) override;
     Item* clone() const override;
     int getArmourStat() const{return armourStat;}

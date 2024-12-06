@@ -17,10 +17,12 @@ Character::~Character(){
     storage = nullptr;
 }
 // Copy operator
-Character::Character(const Character& other) : characterName(other.characterName),
-    health(other.health), defense(other.defense), isDead(other.isDead), 
-    currentAttackType(other.currentAttackType),
-    storage(new Inventory(*other.storage)) { // Deep copy of the inventory
+Character::Character(const Character& other) : 
+    characterName(other.characterName),
+    health(other.health), defense(other.defense), 
+    isDead(other.isDead), currentAttackType(other.currentAttackType),
+    storage(new Inventory(*other.storage)) { 
+    
     if (other.armour) {
         armour = new Armour(*other.armour);
     }

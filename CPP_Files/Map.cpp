@@ -154,7 +154,12 @@ bool Map::roomHasItems(int index) {
 
 // return false if the direction is invalid in the 4x4 grid
 // return true and change playerIndex if the direction is valid
-bool Map::returnRoomBasedOnDirection(string direction, int currentRoom) {
+bool Map::changeRoomBasedOnDirection(string direction) {
+
+  for (unsigned i; i < direction.size(); i++) {
+      std::transform(direction.begin(), direction.end(), direction.begin(), ::tolower); // Now we only need one if condition
+  }
+
   if (direction == "left") {
     if (playerIndex % 4 == 0) {
       return false;
@@ -194,6 +199,7 @@ bool Map::returnRoomBasedOnDirection(string direction, int currentRoom) {
       return true;
     }
   }
+
 
 
 }

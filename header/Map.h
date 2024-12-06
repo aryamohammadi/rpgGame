@@ -16,7 +16,8 @@ class Map {
     bool roomHasEnemies(int index);
     bool roomHasItems(int index);
     int getPlayerIndex() { return playerIndex; }
-    bool returnRoomBasedOnDirection (string direction, int currentRoom);
+    bool changeRoomBasedOnDirection (string direction);
+    vector<Character*> returnEnemiesInRoom (int index) { return worldRooms.at(index).getEnemies(); }
 
     std::string serialize() const; // For save game
     bool deserialize(const std::string& data); //For load game

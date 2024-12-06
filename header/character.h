@@ -44,6 +44,7 @@ class Character{
         void setDamage(int damage){this->damage = damage;}
         void equipWeapon(Weapon* newWeapon);
         void changeWeapon(int index); 
+        void deEquipWeapon();
 
         void modifySpeed(int delta);
         void resetSpeed(){currentSpeed = baseSpeed;}

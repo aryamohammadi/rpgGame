@@ -179,12 +179,6 @@ void Combat::removePlayerFromHeap(int targetIndex) {
     // Move the last element to the target index and pop the heap
     fightersAlive[targetIndex] = fightersAlive[fightersAlive.size() - 1]; // Replace with the last element
     fightersAlive.pop_back(); // Remove the last element
-
-    // Restore the heap property
-    if (targetIndex < fightersAlive.size()) { // Only re-heapify if there are elements left
-        heapifyDown(fightersAlive, targetIndex); // Push the element down to its correct position
-        heapifyUp(targetIndex);   // Or pull it up if needed
-    }
 }
 
 // check if the battle has ended

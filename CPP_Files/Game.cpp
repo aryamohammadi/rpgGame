@@ -63,7 +63,6 @@ void Game::startGame() {
         << "equip - Equip the weapon or armour in your inventory" << endl
         << "print inventory - Print inventory" << endl
         << "sort - Sort inventory items by name, or time collected" << endl
-        << "throw - Throw item out of inventory" << endl
         << "save, Save the game to savegame.txt" << endl
         << "quit, End the program" << endl;
 
@@ -144,33 +143,13 @@ void Game::startGame() {
                 cin >> potionName;
             }
         }
-
-        if (playerCommand == "equip") {
-            string itemName;
-            int choice;
-            cout << "Enter 0 for weapon, 1 for armour: ";
-
-            if (choice == 0) {
-                cout << "Equipping weapon";
-                cin >> itemName;
-                playerCharacter.equipWeapon()
-            }
-
-            cout << "Enter name of weapon or armour to equip" << endl;
-            cin >> itemName;
-            if (! ( potionName == "quit" || !playerCharacter.useItem(potionName, ItemType::POTION ) )) {
-                cout << "Potion does not exist in inventory" << endl << "Enter new potion name (quit to skip): ";
-                cin >> potionName;
-            }
-        }
         
         if (playerCommand == "print") {
-            playerCharacter.
+            playerCharacter.showInventory(cout);
         }
+
+        // if (playerCommand == "save")
         
-        string itemToThrowAway;
-        cin >> itemToThrowAway;
-        playerCharacter.throwAwayItem(itemToThrowAway);
     }
 
     cout << "Save game? (0 for no, 1 for yes)" << endl << "Please enter: ";

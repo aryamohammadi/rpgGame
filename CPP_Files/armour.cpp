@@ -42,3 +42,14 @@ bool Armour::deserialize(const std::string& data) {
 
     return true;
 }
+
+Armour& Armour::operator=(const Armour& otherArmour){
+    if(this != &otherArmour){
+        type = otherArmour.getType();
+        name = otherArmour.getName();
+        description = otherArmour.getDescript();
+        timeEarned = otherArmour.getTime();
+        armourStat = otherArmour.getArmourStat();
+    }
+    return *this;
+}

@@ -24,16 +24,19 @@ add_test(NAME DifficultyTests COMMAND DifficultyTests)
 
 # Add the difficulty simulation executable 
 add_executable(DifficultySim
-    Difficulty/CPP_Files/Difficulty.cpp
-    Difficulty/CPP_Files/main.cpp
+    CPP_Files/Difficulty.cpp
+    CPP_Files/main.cpp
+    CPP_Files/MainMenu.cpp
 )
 target_link_libraries(DifficultySim pthread)
 
 
 # Add Difficulty tests
 add_executable(DifficultyTests
-    Difficulty/Tests/DifficultyTests.cpp
-    Difficulty/CPP_Files/Difficulty.cpp
+    Tests/DifficultyTests.cpp
+    CPP_Files/Difficulty.cpp
+    CPP_Files/main.cpp
+    CPP_Files/MainMenu.cpp
 )
 
 target_link_libraries(DifficultyTests gtest gtest_main pthread)
@@ -67,15 +70,20 @@ target_link_libraries(Test gmock gtest gtest_main)
 
 # Add executable for the MainMenuSim program
 add_executable(MainMenuSim
-    Main_Menu/CPP_Files/main.cpp
-    Main_Menu/CPP_Files/MainMenu.cpp
+    CPP_Files/main.cpp
+    CPP_Files/MainMenu.cpp
+    CPP_Files/Difficulty.cpp
 )
 
 
 # Add MainMenu tests
 add_executable(MainMenuTests
-    Main_Menu/Tests/MainMenuTests.cpp
-    Main_Menu/CPP_Files/MainMenu.cpp
+    Tests/MainMenuTests.cpp
+    CPP_Files/MainMenu.cpp
+    CPP_Files/Difficulty.cpp
+    CPP_Files/main.cpp
+    CPP_Files/MainMenu.cpp
+
 )
 target_link_libraries(MainMenuTests gtest gtest_main pthread)
 
@@ -96,8 +104,13 @@ add_executable(CombatTests
     CPP_Files/character.cpp
     CPP_Files/combat.cpp
     Tests/combat_test.cpp
+    CPP_Files/item.cpp
+    CPP_Files/inventory.cpp
+    CPP_Files/weapon.cpp
+    CPP_Files/potion.cpp
+    CPP_Files/armour.cpp
+    
 )
-
 # Specify include directories for CombatTests
 target_include_directories(CombatTests PRIVATE ${CMAKE_SOURCE_DIR}/header)
 

@@ -1,4 +1,4 @@
-#include "Difficulty.h"
+#include "../header/Difficulty.h"
 #include <algorithm>
 #include <cctype>
 

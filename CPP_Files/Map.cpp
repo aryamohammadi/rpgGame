@@ -20,8 +20,8 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     // Set the enemy type as Ranged or Melee randomly. 
     if (rand() % 2 == 0) {
         enemyToAdd.setAttackType(AttackType::Ranged);
-        enemyToAdd.equipWeapon(); // INSERT WEAPON INTO PARAMETER
-        enemyToAdd.equipArmour(); // INSERT ARMOUR INTO PARAMETER
+        enemyToAdd.equipWeapon(new Weapon()); // INSERT WEAPON INTO PARAMETER
+        enemyToAdd.equipArmour(new Armour()); // INSERT ARMOUR INTO PARAMETER
     }
     else {
       enemyToAdd.setAttackType(AttackType::Melee);

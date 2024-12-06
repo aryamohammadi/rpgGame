@@ -1,8 +1,6 @@
+#include "../header/item.h"
 #include "../header/character.h"
-#include "../header/armour.h"
 #include "../header/inventory.h"
-#include "../header/potion.h"
-#include "../header/weapon.h"
 #include "gtest/gtest.h"
 #include <sstream>
 #include <string>
@@ -11,7 +9,7 @@ using namespace std;
 
 // Helper function to create a weapon with default properties
 Weapon* createWeapon(const string& name, int damage, double speedEffect = 0) {
-    return new Weapon(ItemType::WEAPON, name, Item::Grade::RARE, "A sharp weapon", damage, Weapon::WeaponType::Sword, speedEffect);
+    return new Weapon(ItemType::WEAPON, name, "A sharp weapon", damage, Weapon::WeaponType::Sword, speedEffect);
 }
 
 TEST(CharacterTest, DefaultConstructor) {
@@ -25,7 +23,7 @@ TEST(CharacterTest, DefaultConstructor) {
 
 TEST(CharacterTest, CopyConstructor) {
     Character original("Original");
-    original.pickUpItem(new Armour(ItemType::ARMOUR, "Knight's Armour", Item::Grade::EPIC, "Sturdy armour", 50));
+    original.pickUpItem(new Armour(ItemType::ARMOUR, "Knight's Armour", "Sturdy armour", 50));
     
     Character copy(original);
     ostringstream outOriginal, outCopy;
@@ -71,8 +69,8 @@ TEST(CharacterTest, AssignmentOperator) {
 
 TEST(CharacterTest, SerializeDeserialize) {
     Character original("Serializable");
-    original.pickUpItem(new Potion(ItemType::POTION, "Health Potion", Item::Grade::RARE, "Restores health", 50));
-    original.equipArmour(new Armour(ItemType::ARMOUR, "Helmet", Item::Grade::COMMON, "Protective helmet", 10));
+    original.pickUpItem(new Potion(ItemType::POTION, "Health Potion",  "Restores health", 50));
+    original.equipArmour(new Armour(ItemType::ARMOUR, "Helmet",  "Protective helmet", 10));
 
     string serialized = original.serialize();
     Character deserialized("Empty");
@@ -91,7 +89,7 @@ TEST(CharacterTest, SerializeDeserialize) {
 TEST(CharacterTest, EquipWeaponAndModifySpeed) {
     Character speedyCharacter("SpeedTest");
     Weapon* sword = new Weapon(ItemType::WEAPON, "Fast Sword", 
-    Item::Grade::RARE, "Increases speed", 50, 
+     "Increases speed", 50, 
     Weapon::WeaponType::Sword, 10);
 
     speedyCharacter.equipWeapon(sword);
@@ -116,7 +114,7 @@ TEST(CharacterTest, InvalidWeaponEquipping) {
 
 TEST(CharacterTest, PotionUsage) {
     Character testCharacter("PotionTest");
-    Potion* healingPotion = new Potion(ItemType::POTION, "Health Potion", Item::Grade::COMMON, "Restores health", 20);
+    Potion* healingPotion = new Potion(ItemType::POTION, "Health Potion",  "Restores health", 20);
     
     testCharacter.pickUpItem(healingPotion);
     int initialHealth = testCharacter.getHealth();

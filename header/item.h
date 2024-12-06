@@ -8,8 +8,8 @@
 #include <chrono>
 #include "../header/itemType.h"
 #include "../header/character.h"
-#include "../googletest/include/gtest/gtest.h"
-#include "../googlemock/include/gmock/gmock.h"
+#include <gtest/gtest.h> //Don't touch
+#include <gmock/gmock.h> //Don't touch
 
 class Character;
 using std::string;
@@ -44,7 +44,7 @@ public:
 
     virtual std::string serialize() const;
     virtual bool deserialize(const string& data);
-    // ostream& operator<<(ostream& out, const Item& item);
+    friend ostream& operator<<(ostream& out, const Item& item);
 };
 
 
@@ -73,6 +73,9 @@ private:
 public:
     Potion():Item(ItemType::POTION, "Default Potion", ""){}
     Potion(ItemType t, const string& name, const string& descript, int amount, double timeElapsed = -1.0);
+    Potion(const Potion& otherPotion){*this = otherPotion;}
+    Potion& operator=(const Potion& otherPotion);
+    ~Potion() = default;
     void useItem(Character&) override;
     Item* clone() const override;
     int getRecoveryAmount() const{return recoveryAmount;}
@@ -99,8 +102,11 @@ public:
     Weapon():Item(ItemType::WEAPON, "Default Weapon", ""){}
     Weapon(ItemType type, const std::string& name, const std::string& descript,
            int damage, WeaponType weaponType, double timeElapsed = -1.0);
-
+    Weapon(const Weapon& otherWeapon){*this = otherWeapon;}
+    Weapon& operator=(const Weapon& otherWeapon);
+    ~Weapon() = default;
     void useItem(Character& target) override;
+    void setWeaponType(WeaponType newType){weaponType = newType;}
     Item* clone() const override;
     WeaponType getWeaponType() const{return weaponType;}
     int getSpeedEffect() const{return speedEffect;}
@@ -120,6 +126,9 @@ private:
 public:
     Armour():Item(ItemType::ARMOUR, "Default Armour",""){}
     Armour(ItemType t, const string& name, const string& descript, int stat, double timeElapsed = -1.0);
+    Armour(const Armour& otherArmour){*this = otherArmour;}
+    Armour& operator=(const Armour& otherArmour);
+    ~Armour() = default;
     void useItem(Character&) override;
     Item* clone() const override;
     int getArmourStat() const{return armourStat;}

@@ -112,6 +112,8 @@ public:
     void increaseDamage(int amount){damage += amount;}
     void decreaseDamage(int amount){damage -= amount;}
     friend std::ostream& operator<<(std::ostream& out, const Weapon& currentWeapon);
+    
+    void setWeaponType(Weapon::WeaponType newType) { weaponType = newType; }
 
     std::string serialize() const;
     bool deserialize(const std::string& data);

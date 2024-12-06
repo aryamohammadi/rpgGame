@@ -1,5 +1,6 @@
-#include <gtest/gtest.h>
-#include "../CPP_Files/Difficulty.h"
+#include "../googletest/include/gtest/gtest.h"
+#include "../googlemock/include/gmock/gmock.h"
+#include "../header/Difficulty.h"
 
 // Test fixture for Difficulty class
 class DifficultyTests : public ::testing::Test {

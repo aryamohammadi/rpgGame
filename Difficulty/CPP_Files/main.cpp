@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Difficulty.h"
+#include "../header/Difficulty.h"
 
 using namespace std;
 

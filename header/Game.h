@@ -38,9 +38,9 @@ public:
     }
 
     // Start the game
-    void startGame() {
-        std::cout << "Game starting!" << std::endl; // Placeholder
-    }
+    void Game::startGame();
+
+    ~Game();
 
 private:
     Character character; // Player character

@@ -1,4 +1,4 @@
-#include "gtest/gtest.h"
+#include "../googletest/include/gtest/gtest.h"
 #include "../header/SaveGame.h"
 #include "../header/LoadGame.h"
 #include "../header/MockGameState.h" // Mock class implementing GameState for testing

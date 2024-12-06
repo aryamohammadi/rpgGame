@@ -1,4 +1,4 @@
-#include "gtest/gtest.h"
+#include "../googletest/include/gtest/gtest.h"
 #include "../header/Game.h"
 #include "../header/character.h"
 #include "../header/inventory.h"
@@ -9,7 +9,7 @@ TEST(GameTests, SerializeGameState) {
 
     // Modify the game state
     game.character.setHealth(100);
-    game.inventory.addItem(new Weapon(ItemType::WEAPON, "Sword", Item::COMMON, "A basic sword", 10, Weapon::Sword, 0));
+    game.inventory.addItem(new Weapon(ItemType::WEAPON, "Sword", "A basic sword", 10, Weapon::Sword, 0));
 
     std::string serializedState = game.serialize();
 

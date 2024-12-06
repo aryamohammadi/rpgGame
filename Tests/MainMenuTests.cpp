@@ -1,5 +1,6 @@
-#include <gtest/gtest.h>
-#include "../CPP_Files/MainMenu.h"
+#include "../googletest/include/gtest/gtest.h"
+#include "../googlemock/include/gmock/gmock.h"
+#include "../header/MainMenu.h"
 
 // Test fixture for MainMenu class
 class MainMenuTests : public ::testing::Test {

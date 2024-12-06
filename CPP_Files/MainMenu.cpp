@@ -27,7 +27,7 @@ bool MainMenu::setDifficulty(const std::string& difficulty)
     }
 }
 
-std::string MainMenu::getCurrentDifficulty() const 
+std::string MainMenu::getDifficulty() const 
 {
     return currentDifficulty;
 }

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../CPP_Files/Difficulty.h"
+#include "../header/Difficulty.h"
 
 // Test fixture for Difficulty class
 class DifficultyTests : public ::testing::Test {

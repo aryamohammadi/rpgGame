@@ -1,8 +1,5 @@
 #include "../header/itemStack.h"
 #include "../header/item.h"
-#include "../header/weapon.h"
-#include "../header/armour.h"
-#include "../header/potion.h"
 ItemStack::ItemStack(Item* item, int amount) : item(item), quantity(amount) {
     if (amount <= 0) {
         throw std::invalid_argument("amount " + std::to_string(amount) + " is invalid!");
@@ -28,10 +25,19 @@ void ItemStack::increaseQuantity(int amount) {
 }
 
 void ItemStack::decreaseQuantity(int amount) {
+    if(amount > quantity){
+        throw std::invalid_argument("decreaseQuantity: amount larger than quantity!");
+    }
+    if(amount < 0){
+        throw std::invalid_argument("decreaseQuantity: amount negative!");
+    }
     quantity -= amount;
 }
 
 bool ItemStack::isItem(const Item& other) const {
+    if(item == nullptr){
+        return false;
+    }
     if(item->getName() == other.getName() && item->getType() == other.getType()){
         switch(other.getType()){
             case ItemType::WEAPON:{

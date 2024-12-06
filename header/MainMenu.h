@@ -13,7 +13,7 @@ public:
     bool setDifficulty(const std::string& difficulty);
 
     // Access the current difficulty
-    std::string getCurrentDifficulty() const;
+    std::string getDifficulty() const;
 
     // Settings menu for difficulty selection
     void settings();

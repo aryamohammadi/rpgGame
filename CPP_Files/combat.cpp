@@ -44,23 +44,13 @@ void Combat::startBattle() { // Indenting this was quite nice - Jameel
                 //comment by Arya:
                 //FIXME: isnt this for loop redundant? we already have a for loop in removePlayerFromHeap that
                 //       loops through fightersAlive. 
-                for (int i = 0; i < fightersAlive.size(); ++i) {
-                    Character* fighter = fightersAlive[i];
-                    if (fighter->getCharacterName() == "Player") {
-                        // playerFound = true;
-                    } 
-                    else if (fighter->isAlive()) {
-                        // enemiesFound = true;
-                        //after we have to check if the enemy is dead or not. if it is remove it from the fighters alive
-                        if(fightersAlive.at(playerToAttack)->getHealth() <= 0){
-                            removePlayerFromHeap(fightersAlive.at(i)->getName());
-                        }
-                    }
-                }   
+                // Jameel - Alright if that's the case I'm getting rid of it, because this else statement has no if statement before it
+                   
             }
         }
     }
 }
+
 
 int Combat::playerDecidesWhoToAttack(){
     cout << "Choose an enemy to attack" << endl;
@@ -95,4 +85,3 @@ void Combat::removePlayerFromHeap(string targetName) {
             fightersAlive.pop_back();
         }
     }
-}

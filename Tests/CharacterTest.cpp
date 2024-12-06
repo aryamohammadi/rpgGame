@@ -1,8 +1,6 @@
 #include "../header/character.h"
-#include "../header/armour.h"
+#include "../header/item.h"
 #include "../header/inventory.h"
-#include "../header/potion.h"
-#include "../header/weapon.h"
 #include "gtest/gtest.h"
 #include <sstream>
 #include <string>
@@ -10,9 +8,11 @@
 using namespace std;
 
 // Helper function to create a weapon with default properties
-Weapon* createWeapon(const string& name, int damage, double speedEffect = 0) {
-    return new Weapon(ItemType::WEAPON, name, Item::Grade::RARE, "A sharp weapon", damage, Weapon::WeaponType::Sword, speedEffect);
+Weapon* createWeapon(const std::string& name, int damage, double speedEffect = -1.0) {
+    const string defaultDescription = "Default weapon description";
+    return new Weapon(ItemType::WEAPON, name, defaultDescription, damage, Weapon::WeaponType::Sword, speedEffect);
 }
+
 
 TEST(CharacterTest, DefaultConstructor) {
     Character testCharacter("TestCharacter");
@@ -25,22 +25,24 @@ TEST(CharacterTest, DefaultConstructor) {
 
 TEST(CharacterTest, CopyConstructor) {
     Character original("Original");
-    original.pickUpItem(new Armour(ItemType::ARMOUR, "Knight's Armour", Item::Grade::EPIC, "Sturdy armour", 50));
-    
+    original.pickUpItem(new Armour(ItemType::ARMOUR, "Knight's Armour", "Sturdy armour", 50));
     Character copy(original);
+
     ostringstream outOriginal, outCopy;
     original.showInventory(outOriginal);
     copy.showInventory(outCopy);
 
     EXPECT_EQ(outOriginal.str(), outCopy.str());
 
-    // Ensure modifying the original does not affect the copy
     original.throwAwayItem("Knight's Armour");
+
     ostringstream outModifiedOriginal, outUnmodifiedCopy;
     original.showInventory(outModifiedOriginal);
     copy.showInventory(outUnmodifiedCopy);
+
     EXPECT_NE(outModifiedOriginal.str(), outUnmodifiedCopy.str());
 }
+
 
 TEST(CharacterTest, AssignmentOperator) {
     Character original("Original");
@@ -71,14 +73,15 @@ TEST(CharacterTest, AssignmentOperator) {
 
 TEST(CharacterTest, SerializeDeserialize) {
     Character original("Serializable");
-    original.pickUpItem(new Potion(ItemType::POTION, "Health Potion", Item::Grade::RARE, "Restores health", 50));
-    original.equipArmour(new Armour(ItemType::ARMOUR, "Helmet", Item::Grade::COMMON, "Protective helmet", 10));
+
+    original.pickUpItem(new Potion(ItemType::POTION, "Health Potion", "Restores health", 50));
+    original.equipArmour(new Armour(ItemType::ARMOUR, "Helmet", "Protective helmet", 10));
 
     string serialized = original.serialize();
+
     Character deserialized("Empty");
     EXPECT_TRUE(deserialized.deserialize(serialized));
 
-    // Verify attributes and inventory after deserialization
     ostringstream outOriginal, outDeserialized;
     original.showInventory(outOriginal);
     deserialized.showInventory(outDeserialized);
@@ -88,18 +91,27 @@ TEST(CharacterTest, SerializeDeserialize) {
     EXPECT_EQ(original.getDefense(), deserialized.getDefense());
 }
 
+
 TEST(CharacterTest, EquipWeaponAndModifySpeed) {
     Character speedyCharacter("SpeedTest");
-    Weapon* sword = new Weapon(ItemType::WEAPON, "Fast Sword", 
-    Item::Grade::RARE, "Increases speed", 50, 
-    Weapon::WeaponType::Sword, 10);
+
+    Weapon* sword = new Weapon(ItemType::WEAPON, "Fast Sword", "Increases speed", 50, 
+                               Weapon::WeaponType::Sword, 10);
+    Weapon* bow = new Weapon(ItemType::WEAPON, "Long Bow", "Decreases speed", 60, 
+                             Weapon::WeaponType::Bow, -5);
+
+    speedyCharacter.pickUpItem(sword);
+    speedyCharacter.pickUpItem(bow);
 
     speedyCharacter.equipWeapon(sword);
     EXPECT_EQ(speedyCharacter.getSpeed(), 30);
 
     speedyCharacter.changeWeapon(0);
-    EXPECT_EQ(speedyCharacter.getSpeed(), 20);
+    EXPECT_EQ(speedyCharacter.getSpeed(), 15);
 }
+
+
+
 
 TEST(CharacterTest, InventoryCapacity) {
     Character testCharacter("CapacityTest");
@@ -116,7 +128,7 @@ TEST(CharacterTest, InvalidWeaponEquipping) {
 
 TEST(CharacterTest, PotionUsage) {
     Character testCharacter("PotionTest");
-    Potion* healingPotion = new Potion(ItemType::POTION, "Health Potion", Item::Grade::COMMON, "Restores health", 20);
+    Potion* healingPotion = new Potion(ItemType::POTION, "Health Potion", "Restores health", 20);
     
     testCharacter.pickUpItem(healingPotion);
     int initialHealth = testCharacter.getHealth();

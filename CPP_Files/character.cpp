@@ -17,10 +17,12 @@ Character::~Character(){
     storage = nullptr;
 }
 // Copy operator
-Character::Character(const Character& other) : characterName(other.characterName),
-    health(other.health), defense(other.defense), isDead(other.isDead), 
-    currentAttackType(other.currentAttackType),
-    storage(new Inventory(*other.storage)) { // Deep copy of the inventory
+Character::Character(const Character& other) : 
+    characterName(other.characterName),
+    health(other.health), defense(other.defense), 
+    isDead(other.isDead), currentAttackType(other.currentAttackType),
+    storage(new Inventory(*other.storage)) { 
+    
     if (other.armour) {
         armour = new Armour(*other.armour);
     }
@@ -467,7 +469,7 @@ void Character::takeDamage(int damageOnCharacter){
     health-= damageOnCharacter; 
     isDead = health <= 0;
 }
-void swap(Character*& char1,Character*& char2){
+void swap(Character*& char1,Character*& char2) {
     Character* temp = char1;
     char1 = char2;
     char2 = temp;

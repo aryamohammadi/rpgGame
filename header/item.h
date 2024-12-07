@@ -9,6 +9,7 @@
 #include "../header/itemType.h"
 #include "../header/character.h"
 #include <gtest/gtest.h> //Don't touch
+#include "/home/csmajs/rjour001/final-project-the-computer-enthusiasts/googletest/googletest/include/gtest/gtest.h"
 #include <gmock/gmock.h> //Don't touch
 
 class Character;

@@ -7,6 +7,7 @@
 
 class MainMenu {
 public:
+      MainMenu(){}
     // Display the main menu options
     void displayMenu();
 

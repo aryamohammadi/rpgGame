@@ -1,5 +1,5 @@
-#include "combat.h"
-#include "Heap.h"
+#include "../header/combat.h"
+#include "../header/Heap.h"
 #include <iostream>
 #include <vector>
 #include <random>

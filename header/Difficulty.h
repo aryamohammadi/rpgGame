@@ -21,11 +21,11 @@ public:
     // Get the attack multiplier for the current difficulty
     double getAttackMultiplier() const;
 
-    // Get the defense multiplier for the current difficulty
-    double getDefenseMultiplier() const;
-
     // Get the health modifier for the current difficulty
     double getHealthModifier() const;
+
+    std::string serialize() const;
+    bool deserialize(const std::string& data);
 
 private:
     Level currentDifficulty;

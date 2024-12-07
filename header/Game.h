@@ -1,51 +1,55 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "MainMenu.h"
 #include "GameState.h"
 #include "character.h"
 #include "inventory.h"
 #include "Map.h"
+#include "SaveGame.h"
+#include "LoadGame.h"
+#include "Difficulty.h"
 #include <string>
 #include <sstream>
+#include <iostream>
+#include <filesystem>
 
-class Game : public GameState {
+class Game {
 public:
-    Game() : character(), inventory(), map() {}
+    Game(); // Constructor
 
-    // Serialize the entire game state
-    std::string serialize() const override {
-        std::ostringstream oss;
-        oss << character.serialize() << "\n"
-            << inventory.serialize() << "\n"
-            << map.serialize();
-        return oss.str();
-    }
+    void run(); // Main game loop
+    void startGame(); // Starts the game
 
-    // Deserialize the entire game state
-    bool deserialize(const std::string& data) override {
-        std::istringstream iss(data);
-        std::string charData, invData, mapData;
+    // Game state management
+    void newGame();                         // Start a new game
+    bool loadGame(const std::string& saveFile); // Load a saved game
+    void saveGame(const std::string& saveFile); // Save the current game
 
-        if (!std::getline(iss, charData) || 
-            !std::getline(iss, invData) || 
-            !std::getline(iss, mapData)) {
-            return false;
-        }
-
-        return character.deserialize(charData) &&
-               inventory.deserialize(invData) &&
-               map.deserialize(mapData);
-    }
-
-    // Start the game
-    void startGame() {
-        std::cout << "Game starting!" << std::endl; // Placeholder
-    }
+    // Serialization
+    std::string serialize() const;         // Serialize game state to a string
+    bool deserialize(const std::string& data); // Deserialize game state from a string
 
 private:
-    Character character; // Player character
-    Inventory inventory; // Player inventory
-    Map map;             // Game map
+    // Game states
+    enum class GameState { MainMenu, InGame, GameOver };
+    GameState currentState; // Current state of the game
+
+    Character player;       // The main character
+    Map gameMap;            // The game's map
+    Inventory inventory;    // The game's inventory
+    Difficulty difficulty;  // Difficulty settings
+    MainMenu menu;          // Main menu handler
+
+    void showMainMenu();    // Handle the main menu logic
+    void playGame();        // Handle in-game logic
+    void exitGame();        // Handle exiting the game
+
+    // Normalizes user input
+    std::string normalizeInput(const std::string& input) const;
+
+    // Applies difficulty modifiers to the game state
+    void applyDifficulty();
 };
 
-#endif
+#endif // GAME_H

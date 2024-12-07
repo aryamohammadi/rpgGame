@@ -1,8 +1,9 @@
 #include "../header/Map.h"
 #include "set"
 
-Map::Map() { // Constructor
+Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor
   worldRooms.reserve(16);
+  distributeEnemiesAndItems(typeOfWeapon);
 }
 
 void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
@@ -12,7 +13,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   // DISTRIBUTING ENEMIES
   std::set<int> selectedRooms;
   for (int i = 0; i < 8; i++)  { // Keep adding random room indeces until the set is 8 rooms large
-    selectedRooms.insert(rand() % 16);
+    selectedRooms.insert(rand() % 15 + 1); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
   }
 
   for (int roomIndex : selectedRooms) {
@@ -20,8 +21,6 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     // Set the enemy type as Ranged or Melee randomly. 
     if (rand() % 2 == 0) {
         enemyToAdd.setAttackType(AttackType::Ranged);
-        enemyToAdd.equipWeapon(new Weapon()); // INSERT WEAPON INTO PARAMETER
-        enemyToAdd.equipArmour(new Armour()); // INSERT ARMOUR INTO PARAMETER
     }
     else {
       enemyToAdd.setAttackType(AttackType::Melee);
@@ -97,7 +96,6 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   
 
   // DISTRIBUTING WEAPONS 
-
   selectedRooms.clear();
   // Selecting 3 random rooms, one room gets a super powerful weapon
   for (unsigned i = 0; i < 3; i++) {
@@ -156,7 +154,12 @@ bool Map::roomHasItems(int index) {
 
 // return false if the direction is invalid in the 4x4 grid
 // return true and change playerIndex if the direction is valid
-bool Map::returnRoomBasedOnDirection(string direction, int currentRoom) {
+bool Map::changeRoomBasedOnDirection(string direction) {
+
+  for (unsigned i; i < direction.size(); i++) {
+      std::transform(direction.begin(), direction.end(), direction.begin(), ::tolower); // Now we only need one if condition
+  }
+
   if (direction == "left") {
     if (playerIndex % 4 == 0) {
       return false;
@@ -196,6 +199,7 @@ bool Map::returnRoomBasedOnDirection(string direction, int currentRoom) {
       return true;
     }
   }
+
 
   return false;
 }

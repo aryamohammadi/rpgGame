@@ -62,8 +62,7 @@ void Game::newGame() {
 bool Game::loadGame(const std::string& saveFile) {
     std::cout << "Loading game from " << saveFile << "...\n";
     LoadGame loader(saveFile);
-    std::string data;
-    if (loader.load(data) && deserialize(data)) {
+    if (loader.load(*this)) {
         applyDifficulty();      // Apply difficulty after deserialization
         currentState = GameState::InGame; // Transition to the game state
         std::cout << "Game loaded successfully!\n";
@@ -76,7 +75,7 @@ bool Game::loadGame(const std::string& saveFile) {
 void Game::saveGame(const std::string& saveFile) {
     std::cout << "Saving game to " << saveFile << "...\n";
     SaveGame saver(saveFile);
-    if (saver.save(serialize())) {
+    if (saver.save(*this)) {
         std::cout << "Game saved successfully!\n";
     } else {
         std::cout << "Failed to save the game.\n";

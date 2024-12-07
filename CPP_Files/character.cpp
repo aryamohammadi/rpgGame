@@ -89,6 +89,14 @@ void Character::equipWeapon(Weapon* newWeapon){
     modifySpeed(weapon->getSpeedEffect());
 }
 
+void Character::deEquipWeapon() {
+    if (weapon != nullptr) {
+        storage->addItem(weapon);
+        weapon = nullptr;
+    }
+}
+
+
 void Character::changeWeapon(int index){
     if(storage->itemFound(index) != -1){
         if(storage->getItem(index)->getType() != ItemType::WEAPON){

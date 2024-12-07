@@ -42,3 +42,14 @@ bool Potion::deserialize(const std::string& data) {
 
     return true;
 }
+
+Potion& Potion::operator=(const Potion& otherPotion){
+    if(this != &otherPotion){
+        type = otherPotion.getType();
+        name = otherPotion.getName();
+        description = otherPotion.getDescript();
+        timeEarned = otherPotion.getTime();
+        recoveryAmount = otherPotion.getRecoveryAmount();
+    }
+    return *this;
+}

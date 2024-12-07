@@ -43,6 +43,8 @@ class Character{
 
         void setDamage(int damage){this->damage = damage;}
         void equipWeapon(Weapon* newWeapon);
+        void deEquipWeapon();
+
         void changeWeapon(int index); 
 
         void modifySpeed(int delta);
@@ -73,6 +75,7 @@ class Character{
   
         void equipArmour(Armour* armour);
         void deEquipArmour();
+        
         
         void increaseStorageCapacity(int amount);
         bool isStorageEmpty() const;

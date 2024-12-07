@@ -58,3 +58,16 @@ bool Weapon::deserialize(const std::string& data) {
     weaponType = static_cast<WeaponType>(weaponTypeInt);
     return true;
 }
+
+Weapon& Weapon::operator=(const Weapon& otherWeapon){
+    if(this != &otherWeapon){
+        type = otherWeapon.getType();
+        name = otherWeapon.getName();
+        description = otherWeapon.getDescript();
+        timeEarned = otherWeapon.getTime();
+        weaponType = otherWeapon.getWeaponType();
+        speedEffect = otherWeapon.getSpeedEffect();
+        damage = otherWeapon.getDamage();
+    }
+    return *this;
+}

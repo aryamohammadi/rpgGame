@@ -16,7 +16,7 @@ void Room::removeItems() {
 }
 
 void Room::addEnemies(Character enemyToAdd) {
-  enemies.push_back(enemyToAdd);
+  enemies.push_back(&enemyToAdd);
 }
 
 void Room::addItems(Item* itemToAdd) {
@@ -26,7 +26,7 @@ void Room::addItems(Item* itemToAdd) {
 int Room::getExperience() {
   int totalExperience = 0;
   for(unsigned i; i < enemies.size(); i++) {
-    totalExperience += enemies[i].getExperience();
+    totalExperience += enemies[i]->getExperience();
   }
   return totalExperience;
 }
@@ -45,7 +45,7 @@ std::string Room::serialize() const {
     // Serialize enemies
     oss << enemies.size() << "\n";
     for (const auto& enemy : enemies) {
-        oss << enemy.serialize() << "\n";
+        oss << enemy->serialize() << "\n";
     }
 
     // Serialize items
@@ -79,7 +79,7 @@ bool Room::deserialize(const std::string& data) {
         std::getline(iss >> std::ws, enemyData);
         Character enemy;
         if (!enemy.deserialize(enemyData)) return false;
-        enemies.push_back(enemy);
+        enemies.push_back(&enemy);
     }
 
     // Deserialize items

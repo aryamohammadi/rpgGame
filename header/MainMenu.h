@@ -3,11 +3,10 @@
 
 #include <string>
 #include <map>
-#include "Game.h"
 
 class MainMenu {
 public:
-      MainMenu(){}
+      
     // Display the main menu options
     void displayMenu();
 

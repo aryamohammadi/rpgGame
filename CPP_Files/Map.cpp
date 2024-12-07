@@ -1,6 +1,6 @@
 #include "../header/Map.h"
-#include "set"
-
+#include <set>
+#include <algorithm>
 Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor
   worldRooms.reserve(16);
   distributeEnemiesAndItems(typeOfWeapon);

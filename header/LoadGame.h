@@ -1,6 +1,7 @@
 #ifndef LOADGAME_H
 #define LOADGAME_H
 
+#include "../header/GameState.h"
 #include <string>
 #include <fstream>
 #include <iostream>

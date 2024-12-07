@@ -57,6 +57,8 @@ void MainMenu::selectGameOption()
     // Check if the option is valid
     if (gameOptions.find(normalizedOption) != gameOptions.end()) {
         cout << "\nYou selected: " << gameOptions[normalizedOption] << "! Good luck on your adventure!\n";
+        Game mainGame;
+        mainGame.startGame();
     } else {
         cout << "\nInvalid game option. Please try again.\n";
     }

@@ -25,9 +25,3 @@ class AbstractItemSort{
         }
 
 };
-
-class MockAbstractItemSort : public AbstractItemSort{
-    public:
-        MockAbstractItemSort(CompareBy sortMode):AbstractItemSort(sortMode){}
-        MOCK_METHOD(void, sort, (vector<ItemStack*>& array, SortOrder order), (override));
-};

@@ -10,6 +10,23 @@
 using std::ostringstream;
 using testing::Return;
 using namespace std;
+class MockItem: public Item{
+    public:
+        MockItem(ItemType t = ItemType::WEAPON, const string& name = "", const string& descript = "", double timeElapsed = -1.0):Item(t,name,descript, timeElapsed){}
+        MOCK_METHOD(void, useItem,(Character&),(override));
+        MOCK_METHOD(std::string, serialize, (), (const, override));
+        MOCK_METHOD(bool,deserialize,(const string&), (override));
+        Item* clone() const override{
+            return new MockItem(type, name, description, timeEarned);
+        }
+        friend void swap(MockItem*& item1, MockItem*& item2){
+            MockItem* item1Placeholder = item1;
+
+            item1 = item2;
+
+            item2 = item1Placeholder;
+    }
+};
 
 TEST(ItemTest, outputItem){
     MockItem A(ItemType::WEAPON, "Emily","hi");

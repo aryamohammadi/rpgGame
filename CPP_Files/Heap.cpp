@@ -1,5 +1,5 @@
-#include "Heap.h"
-#include "character.h"
+#include "../header/Heap.h"
+#include "../header/character.h"
 #include <iostream>
 
 using namespace std;

@@ -7,7 +7,7 @@
 #include "../header/AttackType.h"
 #include "../header/character.h"
 #include "../header/Room.h"
-#include "item.h"
+#include "../header/item.h"
 
 
 Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor

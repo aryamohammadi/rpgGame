@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <iostream>
 #include "Room.h"
@@ -5,7 +6,7 @@
 
 class Map {
   private:
-    vector<Room> worldRooms;
+    std::vector<Room> worldRooms;
     void distributeEnemiesAndItems(Weapon::WeaponType);
     int playerIndex = 0;
 
@@ -16,9 +17,9 @@ class Map {
     bool roomHasEnemies(int index);
     bool roomHasItems(int index);
     int getPlayerIndex() { return playerIndex; }
-    bool changeRoomBasedOnDirection (string direction);
-    vector<Character*> returnEnemiesInRoom (int index) { return worldRooms.at(index).getEnemies(); }
-    vector<Item*> returnItemsInRoom (int index) { return worldRooms.at(index).getItems(); }
+    bool changeRoomBasedOnDirection (std::string direction);
+    std::vector<Character*> returnEnemiesInRoom (int index) { return worldRooms.at(index).getEnemies(); }
+    std::vector<Item*> returnItemsInRoom (int index) { return worldRooms.at(index).getItems(); }
 
     std::string serialize() const; // For save game
     bool deserialize(const std::string& data); //For load game

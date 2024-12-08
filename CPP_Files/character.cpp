@@ -24,7 +24,27 @@ Character::Character(const Character& other){*this = other;}
 Character& Character::operator=(const Character& other) {
     if (this != &other) {
         storage = make_unique<Inventory>(*other.storage);
-
+        if(other.weapon == nullptr){
+            deEquipWeapon();
+        }
+        else{
+            deEquipWeapon();
+            weapon = make_unique<Weapon>(*other.weapon);
+        }
+        if(other.armour == nullptr){
+            deEquipArmour();
+        }
+        else{
+            deEquipArmour();
+            armour = make_unique<Armour>(*other.armour);
+        }
+        setName(other.getName());
+        setAttackType(other.getAttackType());
+        setDamage(other.getDamage());
+        setHealth(other.getHealth());
+        currentSpeed = other.getSpeed();
+        setExperience(other.experience);
+        
     }
     return *this;
 }
@@ -91,7 +111,7 @@ void Character::equipWeapon(Weapon* newWeapon){
 void Character::deEquipWeapon() {
     if (weapon != nullptr) {
         storage->addItem(weapon.get());
-        weapon = nullptr;
+        weapon.reset();
     }
 }
 

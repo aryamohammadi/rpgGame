@@ -8,8 +8,8 @@ class AbstractItemSort{
     CompareBy sortConfig;
     public:
         AbstractItemSort(CompareBy sortMode):sortConfig(sortMode){}
-        virtual void sort(vector<ItemStack*>& array, SortOrder order) = 0;
-        bool isSorted(const std::vector<ItemStack*>& array, SortOrder order) const{
+        virtual void sort(vector<unique_ptr<ItemStack>>& array, SortOrder order) = 0;
+        bool isSorted(const std::vector<unique_ptr<ItemStack>>& array, SortOrder order) const{
             for(unsigned i = 1; i < array.size(); i++){
                 if(array[i] == nullptr){
                     if(i + 1 < array.size() && array[i + 1] != nullptr){

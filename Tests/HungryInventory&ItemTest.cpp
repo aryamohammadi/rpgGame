@@ -306,17 +306,48 @@ TEST(InventorySortingTest, sortAlphabetically){
     playerStorage.addItem(new MockItem(ItemType::WEAPON, "Thunder Hammer"));
     playerStorage.addItem(new MockItem(ItemType::ARMOUR, "Elven Cloak"));
 
-    vector<ItemStack*> results;
-    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor")));
-    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
-    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Elven Cloak")));
-    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emilly")));
-    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Emily's Elixir")));
-    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Excalibur")));
-    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Healing Tonic")));
-    results.push_back(new ItemStack(new MockItem(ItemType::ARMOUR, "Knight's Shield")));
-    results.push_back(new ItemStack(new MockItem(ItemType::POTION, "Mana Brew")));
-    results.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Thunder Hammer")));
+    vector<unique_ptr<ItemStack>> results;
+    unique_ptr<Item> item;
+
+    item.reset(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::ARMOUR, "Elven Cloak"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::POTION, "Emilly"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::POTION, "Emily's Elixir"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::WEAPON, "Excalibur"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::POTION, "Healing Tonic"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::ARMOUR, "Knight's Shield"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::POTION, "Mana Brew"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::WEAPON, "Thunder Hammer"));
+
+    results.push_back(make_unique<ItemStack>(move(item)));
 
     playerStorage.sortAlphabetically();
 
@@ -325,8 +356,6 @@ TEST(InventorySortingTest, sortAlphabetically){
     for(unsigned i = 0; i < results.size(); i++){
         result << "Item " << i << ':' << std::endl;
         result << *results[i] << endl;
-        delete results[i];
-        results[i] = nullptr;
     }
     
 

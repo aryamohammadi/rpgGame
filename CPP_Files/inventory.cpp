@@ -252,7 +252,7 @@ bool Inventory::deserialize(const std::string& data) {
         if (!itemData.empty()) {
             unique_ptr<ItemStack> stack = make_unique<ItemStack>(nullptr);
             if(stack->deserialize(itemData)) {
-                items.push_back(stack);
+                items.push_back(std::move(stack));
             } else {
                 return false;
             }

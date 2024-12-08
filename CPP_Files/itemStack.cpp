@@ -1,17 +1,19 @@
 #include "../header/itemStack.h"
 #include "../header/item.h"
-ItemStack::ItemStack(Item* newItem, int amount):quantity(amount){
+ItemStack::ItemStack(std::unique_ptr<Item> newItem, int amount):quantity(amount){
     if (amount <= 0) {
         throw std::invalid_argument("amount " + std::to_string(amount) + " is invalid!");
     }
-    currentItem.reset(newItem);
+    currentItem = move(newItem);
 }
 
 ItemStack::~ItemStack(){}
 
 ItemStack& ItemStack::operator=(const ItemStack& rhs) {
     if (this != &rhs) {
-        currentItem.reset((rhs.currentItem)->clone());
+        if(rhs.currentItem != nullptr){
+            currentItem = std::unique_ptr<Item>(rhs.currentItem->clone());
+        }
         quantity = rhs.quantity;
     }
     return *this;

@@ -2,7 +2,7 @@
 
 
 #include "../header/sort.h"
-
+#include "../header/itemStack.h"
 class MergeSort : public AbstractItemSort{
     private:
         void merge(vector<unique_ptr<ItemStack>>& array, SortOrder order, int left, int mid, int right);

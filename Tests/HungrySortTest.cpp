@@ -30,40 +30,44 @@ class MockItem: public Item{
 class MockAbstractItemSort : public AbstractItemSort{
     public:
         MockAbstractItemSort(CompareBy sortMode):AbstractItemSort(sortMode){}
-        MOCK_METHOD(void, sort, (vector<ItemStack*>& array, SortOrder order), (override));
+        MOCK_METHOD(void, sort, (vector<unique_ptr<ItemStack>>& array, SortOrder order), (override));
 };
 
 TEST(SortTest, isSortedOneItemTest){
     MockAbstractItemSort s(CompareBy::Name);
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly",  "Hi"))};
+    unique_ptr<Item> item;
+    item.reset(new MockItem(ItemType::POTION, "Emilly",  "Hi"));
+    vector<unique_ptr<ItemStack>> stacks;
+    stacks.push_back(make_unique<ItemStack>(move(item)));
 
     EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending));
-    delete stacks.front();
     stacks.front() = nullptr;
 }
 
 TEST(SortTest, TwoItemsNotSortedInAscendingOrderTest){
     MockAbstractItemSort s(CompareBy::Name);
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emily"))};
-    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword")));
+    unique_ptr<Item> item;
+    item.reset(new MockItem(ItemType::POTION, "Emily"));
+    vector<unique_ptr<ItemStack>> stacks;
+    stacks.push_back(make_unique<ItemStack>(move(item)));
+    item.reset(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword"));
+    stacks.push_back(make_unique<ItemStack>(move(item)));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Ascending));
-    for(ItemStack*& stack :  stacks){
-        delete stack;
-        stack = nullptr;
-    }
 }
 
 TEST(SortTest, TwoItemsNotSortedInDescendingOrderTest){
     MockAbstractItemSort s(CompareBy::Name);
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Dragon Slayer Sword"))};
-    stacks.push_back(new ItemStack(new MockItem(ItemType::WEAPON, "Emily")));
+
+    unique_ptr<Item> item;
+    item.reset(new MockItem(ItemType::POTION, "Dragon Slayer Sword"));
+
+    vector<unique_ptr<ItemStack>> stacks;
+    stacks.push_back(make_unique<ItemStack>(move(item)));
+    item.reset(new MockItem(ItemType::WEAPON, "Emily"));
+    stacks.push_back(make_unique<ItemStack>(move(item)));
 
     EXPECT_FALSE(s.isSorted(stacks,SortOrder::Descending));
-    for(ItemStack*& stack :  stacks){
-        delete stack;
-        stack = nullptr;
-    } 
 }
 
 TEST(InsertionSortTest, multipleAscendingItemTest){

@@ -16,9 +16,9 @@ private:
     int quantity;
 
 public:
-    ItemStack(Item* item, int amount = 1);
+    ItemStack(std::unique_ptr<Item> newItem, int amount = 1);
     ~ItemStack();
-
+    ItemStack(const ItemStack& other){*this = other;}
     ItemStack& operator=(const ItemStack& rhs);
 
     void increaseQuantity(int amount);

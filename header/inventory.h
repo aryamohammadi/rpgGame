@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 class Item;
-class ItemStack;
+#include "../header/itemStack.h"
 #include "../header/itemType.h"
 #include "../header/compareBy.h"
 using std::string;

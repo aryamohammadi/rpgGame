@@ -1,6 +1,7 @@
 #pragma once
 #include <string> // we need to include the string library to use the string data type
 #include <iostream>
+#include <memory>
 #include "../header/inventory.h"  
 
 #include "../header/AttackType.h"
@@ -8,6 +9,9 @@
 using std::string;
 using std::ostream;
 using std::istream;
+using std::make_unique;
+using std::unique_ptr;
+using std::move;
 class Inventory;
 class Item;
 class Armour;
@@ -15,9 +19,9 @@ class Weapon;
 class Character{
     private:
         std::string characterName;
-        Inventory* storage;
-        Armour* armour;
-        Weapon* weapon;
+        unique_ptr<Inventory> storage;
+        unique_ptr<Armour> armour;
+        unique_ptr<Weapon> weapon;
         int health;
         int defense; 
         int baseSpeed;

@@ -1,15 +1,17 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <memory>
 class Item;
 class ItemStack;
 #include "../header/itemType.h"
 #include "../header/compareBy.h"
 using std::string;
-
+using std::make_unique;
+using std::unique_ptr;
 class Inventory {
 private:
-    std::vector<ItemStack*> items;
+    std::vector<unique_ptr<ItemStack>> items;
     int size = 0;
     int capacity;
 

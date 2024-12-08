@@ -6,17 +6,17 @@
 #include <sstream>
 using std::string;
 
-Character::Character(const std::string& name) : characterName(name), health(100),defense(0), baseSpeed(20),currentSpeed(20), isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr){} 
-Character::Character(): characterName("Warrior"), health(100), defense(0), baseSpeed(20), currentSpeed(20),isDead(false), armour(nullptr), storage(new Inventory()), weapon(nullptr) {}
-Character::~Character(){
-    delete storage;
-    delete armour;
-    delete weapon;
-    
-    storage = nullptr;
-    armour = nullptr;
-    storage = nullptr;
+Character::Character(const std::string& name) : characterName(name), health(100),defense(0), baseSpeed(20),currentSpeed(20), isDead(false){
+    storage = make_unique<Inventory>();
+    armour = make_unique<Armour>();
+    weapon = make_unique<Weapon>();
+} 
+Character::Character(): characterName("Warrior"), health(100), defense(0), baseSpeed(20), currentSpeed(20),isDead(false){
+    storage = make_unique<Inventory>();
+    armour = make_unique<Armour>();
+    weapon = make_unique<Weapon>();
 }
+Character::~Character(){}
 // Copy operator
 Character::Character(const Character& other) : 
     characterName(other.characterName),
@@ -35,8 +35,8 @@ Character::Character(const Character& other) :
 // Copy assignment operator
 Character& Character::operator=(const Character& other) {
     if (this != &other) {
-        Character temp(other); // Utilizing the copy constructor in the temporary instance
-        swap(temp); // Swapping *this with temp
+        storage = make_unique<Inventory>(*other.storage);
+
     }
     return *this;
 }
@@ -45,11 +45,17 @@ Character& Character::operator=(const Character& other) {
 void Character::swap(Character& other) noexcept {
     using std::swap;
     swap(characterName, other.characterName);
-    swap(*storage, *other.storage); //FIXME: this needs to be reviewed and fixed
+    storage = make_unique<Inventory>(*other.storage);
+    armour = make_unique<Armour>(*other.armour);
+    weapon = make_unique<Weapon>(*other.weapon);
     swap(health, other.health);
     swap(defense, other.defense);
     swap(isDead, other.isDead);
     swap(currentAttackType, other.currentAttackType);
+    swap(experience, other.experience);
+    swap(currentSpeed, other.currentSpeed);
+    swap(baseSpeed, other.baseSpeed);
+
 }
 
 std::string Character::getName() const {
@@ -57,36 +63,40 @@ std::string Character::getName() const {
 }
 
 void Character::equipArmour(Armour* newArmour){
-    if(this->armour != nullptr){
+    if(armour != nullptr || newArmour == nullptr){
         deEquipArmour();
+        if(newArmour == nullptr){
+            armour.reset(newArmour);
+        }
     }
     if(storage->itemFound(newArmour) != -1){ // If the armor you're trying to add exists in inventory, remove it from inventory. If it doesn't exist, hey you're all good
         storage->removeItem(*newArmour);
     }
-    armour = newArmour; // Equip this new armor
+    armour = make_unique<Armour>(*newArmour); // Equip this new armor
     defense += armour->getArmourStat();
 }
 
 void Character::deEquipArmour() {
     if (armour != nullptr) {
         defense -= armour->getArmourStat();
-        storage->addItem(armour);           
+        storage->addItem(armour.get());           
         armour = nullptr;                  
     }
 }
 
 void Character::equipWeapon(Weapon* newWeapon){
     if(newWeapon == nullptr){
-        throw std::logic_error("equipWeapon : newWeapon is nullptr!");
+        resetSpeed();
+        weapon.reset();
     }
     if(weapon != nullptr){
-        storage->addItem(weapon);
+        storage->addItem(weapon.get());
         resetSpeed();  
     }
     if(storage->itemFound(newWeapon) != -1){
         storage->removeItem(*newWeapon);
     }
-    weapon = newWeapon;
+    weapon.reset(newWeapon);
     modifySpeed(weapon->getSpeedEffect());
 }
 
@@ -413,10 +423,9 @@ bool Character::deserialize(const std::string& data) {
     // Deserialize Armour
     std::getline(iss >> std::ws, armourData);
     if (armourData != "null") {
-        armour = new Armour();
+        armour = make_unique<Armour>();
         if (!armour->deserialize(armourData)) {
-            delete armour;
-            armour = nullptr;
+            armour.reset();
             return false;
         }
     }
@@ -424,10 +433,9 @@ bool Character::deserialize(const std::string& data) {
     // Deserialize Weapon
     std::getline(iss >> std::ws, weaponData);
     if (weaponData != "null") {
-        weapon = new Weapon();
+        weapon = make_unique<Weapon>();
         if (!weapon->deserialize(weaponData)) {
-            delete weapon;
-            weapon = nullptr;
+            weapon.reset();
             return false;
         }
     }

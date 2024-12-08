@@ -89,7 +89,7 @@ void Inventory::addItem(Item* item){
         items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        items.push_back(make_unique<ItemStack>(item));
+        items.push_back(make_unique<ItemStack>(make_unique<Item>(*item)));
         size ++;
     }
 }
@@ -102,7 +102,7 @@ void Inventory::addItem(Item* item, int quantity){
         items.at(itemFound(item))->increaseQuantity(quantity);
     }
     else{
-        items.push_back(make_unique<ItemStack>(item));
+        items.push_back(make_unique<ItemStack>(make_unique<Item>(*item)));
         size ++;
     }
 }

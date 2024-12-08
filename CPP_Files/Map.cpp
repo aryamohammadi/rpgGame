@@ -7,7 +7,7 @@
 #include "../header/AttackType.h"
 #include "../header/character.h"
 #include "../header/Room.h"
-#include "item.h"
+#include "../header/item.h"
 
 
 Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor
@@ -22,16 +22,24 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   // DISTRIBUTING ENEMIES
   std::set<int> selectedRooms;
   for (int i = 0; i < 8; i++)  { // Keep adding random room indeces until the set is 8 rooms large
-    selectedRooms.insert(rand() % 15 + 1); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
+  int newIndex = rand() % static_cast<int>(worldRooms.size());
+    do{
+      newIndex = rand() % static_cast<int>(worldRooms.size());
+    }while(newIndex == 0);
+    selectedRooms.insert(newIndex); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
   }
 
   for (int roomIndex : selectedRooms) {
+    if(roomIndex >= worldRooms.size()){
+      std::cerr << "Invalid roomIndex: " << roomIndex << std::endl;
+      continue;
+    }
     enemyToAdd.setName("enemy1");
     // Set the enemy type as Ranged or Melee randomly. 
-    if (rand() % 2 == 0) {
+    if(rand() % 2 == 0){
         enemyToAdd.setAttackType(AttackType::Ranged);
     }
-    else {
+    else{
       enemyToAdd.setAttackType(AttackType::Melee);
     }
     // Change enemy stats based on the room index
@@ -59,7 +67,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
       enemyToAdd.setDamage(roomIndex * 3);
       enemyToAdd.setHealth(roomIndex * 7);
       enemyToAdd.setExperience(35 * roomIndex);
-      Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
+      enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
 
       if (enemyToAdd.getAttackType() == AttackType::Melee) {
         enemyWeapon->setWeaponType(Weapon::WeaponType::Sword);
@@ -74,7 +82,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     superEnemy.setHealth(300); // This might be unbalanced, but the game doesn't have to be fair
     superEnemy.setExperience(600);
     Armour* superArmour = new Armour(ItemType::ARMOUR, "superarmour", "superarmour", 30);
-    Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
+    enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
     superEnemy.equipArmour(superArmour);
     superEnemy.equipWeapon(enemyWeapon);
     worldRooms.at(worldRooms.size() - 1).addEnemies(superEnemy);

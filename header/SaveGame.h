@@ -1,5 +1,4 @@
-#ifndef SAVEGAME_H
-#define SAVEGAME_H
+#pragma once
 
 #include <string>
 #include <fstream>
@@ -26,5 +25,3 @@ public:
 private:
     std::string saveFile;  // File where the game state will be saved
 };
-
-#endif

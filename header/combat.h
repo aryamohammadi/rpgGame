@@ -1,5 +1,4 @@
-#ifndef COMBAT_H
-#define COMBAT_H
+#pragma once
 
 #include "AttackType.h"
 #include "../header/character.h"
@@ -35,5 +34,3 @@ class Combat{
         bool isAtLeast1EnemieAlive() const;
         bool isPlayerDead() const;
 };
-#endif // COMBAT_H
-

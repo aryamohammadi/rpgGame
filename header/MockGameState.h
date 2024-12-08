@@ -1,5 +1,4 @@
-#ifndef MOCKGAMESTATE_H
-#define MOCKGAMESTATE_H
+#pragma once
 
 #include "../header/GameState.h"
 #include <string>
@@ -32,5 +31,3 @@ public:
         mockData = data;
     }
 };
-
-#endif // MOCKGAMESTATE_H

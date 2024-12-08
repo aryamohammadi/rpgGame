@@ -1,5 +1,4 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#pragma once
 
 #include <string>
 
@@ -9,5 +8,3 @@ public:
     virtual bool deserialize(const std::string& data) = 0; // Reconstructs the game state
     virtual ~GameState() = default;
 };
-
-#endif

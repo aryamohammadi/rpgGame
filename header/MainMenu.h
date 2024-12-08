@@ -1,5 +1,4 @@
-#ifndef MAINMENU_H
-#define MAINMENU_H
+#pragma once
 
 #include <string>
 #include <map>
@@ -42,5 +41,3 @@ private:
         {"load game", "Load Game"}
     };
 };
-
-#endif // MAINMENU_H

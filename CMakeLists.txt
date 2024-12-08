@@ -187,25 +187,25 @@ target_link_libraries(CombatTests gmock gtest gtest_main)
 add_test(NAME CombatTests COMMAND CombatTests)
 
 add_executable(Game
-CPP_Files/combat.cpp
-CPP_Files/item.cpp
-CPP_Files/itemStack.cpp
-CPP_Files/inventory.cpp
-CPP_Files/weapon.cpp
-CPP_Files/potion.cpp
-CPP_Files/armour.cpp
-CPP_Files/character.cpp
-CPP_Files/mergeSortItem.cpp
-CPP_Files/compare.cpp
-CPP_Files/Heap.cpp
-CPP_Files/Difficulty.cpp
-CPP_Files/LoadGame.cpp
-CPP_Files/SaveGame.cpp
-CPP_Files/Room.cpp
-CPP_Files/Map.cpp
-CPP_Files/Game.cpp
-CPP_Files/main.cpp
-CPP_Files/MainMenu.cpp
+    CPP_Files/combat.cpp
+    CPP_Files/item.cpp
+    CPP_Files/itemStack.cpp
+    CPP_Files/inventory.cpp
+    CPP_Files/weapon.cpp
+    CPP_Files/potion.cpp
+    CPP_Files/armour.cpp
+    CPP_Files/character.cpp
+    CPP_Files/mergeSortItem.cpp
+    CPP_Files/compare.cpp
+    CPP_Files/Heap.cpp
+    CPP_Files/Difficulty.cpp
+    CPP_Files/LoadGame.cpp
+    CPP_Files/SaveGame.cpp
+    CPP_Files/Room.cpp
+    CPP_Files/Map.cpp
+    CPP_Files/Game.cpp
+    CPP_Files/main.cpp
+    CPP_Files/MainMenu.cpp
 
 )
 

@@ -1,5 +1,5 @@
-#ifndef ATTACKTYPE_H
-#define ATTACKTYPE_H
+#pragma once
+
 #include <iostream>
 #include <sstream>
 enum class AttackType {
@@ -10,5 +10,3 @@ enum class AttackType {
 //leave them outside
 std::ostream& operator<<(std::ostream& out, const AttackType& type);
 std::istream& operator>>(std::istream& in, AttackType& type);
-
-#endif

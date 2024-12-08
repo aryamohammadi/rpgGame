@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include "item.h"
 #include "../header/character.h"

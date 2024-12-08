@@ -1,5 +1,4 @@
-#ifndef LOADGAME_H
-#define LOADGAME_H
+#pragma once
 
 #include <string>
 #include <fstream>
@@ -30,5 +29,3 @@ public:
 private:
     std::string loadFile;  // The file where the game state will be loaded from
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef DIFFICULTY_H
-#define DIFFICULTY_H
+#pragma once
 
 #include <string>
 #include <stdexcept>
@@ -33,5 +32,3 @@ private:
     // Helper to normalize input string to lowercase
     static std::string toLower(const std::string& str);
 };
-
-#endif // DIFFICULTY_H

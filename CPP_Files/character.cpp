@@ -90,7 +90,7 @@ void Character::equipWeapon(Weapon* newWeapon){
 
 void Character::deEquipWeapon() {
     if (weapon != nullptr) {
-        storage->addItem(weapon);
+        storage->addItem(weapon.get());
         weapon = nullptr;
     }
 }

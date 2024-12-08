@@ -89,7 +89,8 @@ void Inventory::addItem(Item* item){
         items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        items.push_back(make_unique<ItemStack>(make_unique<Item>(*item)));
+        std::unique_ptr<Item> clonedItem = std::unique_ptr<Item>(item->clone()); // Clone concrete item
+        items.push_back(std::make_unique<ItemStack>(std::move(clonedItem)));
         size ++;
     }
 }
@@ -102,7 +103,9 @@ void Inventory::addItem(Item* item, int quantity){
         items.at(itemFound(item))->increaseQuantity(quantity);
     }
     else{
-        items.push_back(make_unique<ItemStack>(make_unique<Item>(*item)));
+        std::unique_ptr<Item> clonedItem = std::unique_ptr<Item>(item->clone()); // Clone concrete item
+        items.push_back(std::make_unique<ItemStack>(std::move(clonedItem)));
+
         size ++;
     }
 }

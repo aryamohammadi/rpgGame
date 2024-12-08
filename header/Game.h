@@ -1,18 +1,18 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
+
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <filesystem>
 
 #include "MainMenu.h"
 #include "GameState.h"
 #include "character.h"
 #include "inventory.h"
-#include "Map.h"
 #include "SaveGame.h"
 #include "LoadGame.h"
 #include "Difficulty.h"
-#include <string>
-#include <sstream>
-#include <iostream>
-#include <filesystem>
+#include "Map.h"
 
 class Game {
 public:
@@ -51,5 +51,3 @@ private:
     // Applies difficulty modifiers to the game state
     void applyDifficulty();
 };
-
-#endif // GAME_H

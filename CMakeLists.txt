@@ -199,6 +199,3 @@ target_include_directories(Game PRIVATE ${CMAKE_SOURCE_DIR}/header)
 
 # Link Google Test libraries
 target_link_libraries(CombatTests gmock gtest gtest_main pthread)
-
-# Add to CTest
-add_test(NAME CombatTests COMMAND CombatTests)

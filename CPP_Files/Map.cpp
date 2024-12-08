@@ -1,6 +1,15 @@
-#include "../header/Map.h"
 #include <set>
 #include <algorithm>
+#include <ctime>
+#include <iostream>
+#include <vector>
+#include "../header/Map.h"
+#include "../header/AttackType.h"
+#include "../header/character.h"
+#include "../header/Room.h"
+#include "item.h"
+
+
 Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor
   worldRooms.reserve(16);
   distributeEnemiesAndItems(typeOfWeapon);
@@ -50,7 +59,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
       enemyToAdd.setDamage(roomIndex * 3);
       enemyToAdd.setHealth(roomIndex * 7);
       enemyToAdd.setExperience(35 * roomIndex);
-      enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
+      Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
 
       if (enemyToAdd.getAttackType() == AttackType::Melee) {
         enemyWeapon->setWeaponType(Weapon::WeaponType::Sword);
@@ -65,7 +74,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     superEnemy.setHealth(300); // This might be unbalanced, but the game doesn't have to be fair
     superEnemy.setExperience(600);
     Armour* superArmour = new Armour(ItemType::ARMOUR, "superarmour", "superarmour", 30);
-    enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
+    Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
     superEnemy.equipArmour(superArmour);
     superEnemy.equipWeapon(enemyWeapon);
     worldRooms.at(worldRooms.size() - 1).addEnemies(superEnemy);

@@ -18,10 +18,12 @@ Character::~Character(){
     storage = nullptr;
 }
 // Copy operator
-Character::Character(const Character& other) : characterName(other.characterName),
-    health(other.health), defense(other.defense), isDead(other.isDead), 
-    currentAttackType(other.currentAttackType),
-    storage(new Inventory(*other.storage)) { // Deep copy of the inventory
+Character::Character(const Character& other) : 
+    characterName(other.characterName),
+    health(other.health), defense(other.defense), 
+    isDead(other.isDead), currentAttackType(other.currentAttackType),
+    storage(new Inventory(*other.storage)) { 
+    
     if (other.armour) {
         armour = new Armour(*other.armour);
     }
@@ -87,6 +89,14 @@ void Character::equipWeapon(Weapon* newWeapon){
     weapon = newWeapon;
     modifySpeed(weapon->getSpeedEffect());
 }
+
+void Character::deEquipWeapon() {
+    if (weapon != nullptr) {
+        storage->addItem(weapon);
+        weapon = nullptr;
+    }
+}
+
 
 void Character::changeWeapon(int index){
     if(storage->itemFound(index) != -1){

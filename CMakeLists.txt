@@ -43,7 +43,6 @@ add_executable(DifficultySim
     CPP_Files/Room.cpp
     CPP_Files/Map.cpp
     CPP_Files/Game.cpp
-
 )
 target_link_libraries(DifficultySim pthread)
 
@@ -147,6 +146,7 @@ add_executable(MainMenuTests
     CPP_Files/Room.cpp
     CPP_Files/Map.cpp
     CPP_Files/Game.cpp
+    CPP_Files/MainMenu.cpp
 )
 target_link_libraries(MainMenuTests gtest gtest_main pthread)
 
@@ -213,4 +213,7 @@ CPP_Files/MainMenu.cpp
 target_include_directories(Game PRIVATE ${CMAKE_SOURCE_DIR}/header)
 
 # Link Google Test libraries
-target_link_libraries(Game gmock gtest gtest_main)
+target_link_libraries(CombatTests gmock gtest gtest_main pthread)
+
+# Add to CTest
+add_test(NAME CombatTests COMMAND CombatTests)

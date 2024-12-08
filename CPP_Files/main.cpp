@@ -1,4 +1,4 @@
-s#include "../header/Game.h"
+#include "../header/Game.h"
 #include <iostream>
 int main() {
     Game game; // Instantiate the Game

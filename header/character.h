@@ -41,6 +41,8 @@ class Character{
         void increaseHealth(int amount){health += amount;}
 
         void equipWeapon(Weapon* newWeapon);
+        void deEquipWeapon();
+
         void changeWeapon(int index); 
 
         void modifySpeed(int delta);
@@ -67,6 +69,7 @@ class Character{
   
         void equipArmour(Armour* armour);
         void deEquipArmour();
+        
         
         void increaseStorageCapacity(int amount);
         bool isStorageEmpty() const;
@@ -96,5 +99,6 @@ class Character{
   
 
         std::ostream& outputWeapons(std::ostream& out) const;
+        friend std::ostream& operator<<(std::ostream& out, const AttackType& type);
+        friend std::istream& operator>>(std::istream& in, AttackType& type);
 };
-

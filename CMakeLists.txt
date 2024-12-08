@@ -27,6 +27,7 @@ add_executable(DifficultySim
     CPP_Files/Difficulty.cpp
     CPP_Files/main.cpp
     CPP_Files/MainMenu.cpp
+    CPP_Files/Game.cpp
 )
 target_link_libraries(DifficultySim pthread)
 

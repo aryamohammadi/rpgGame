@@ -8,9 +8,8 @@
 #include <chrono>
 #include "../header/itemType.h"
 #include "../header/character.h"
-#include <gtest/gtest.h> //Don't touch
-#include "/home/csmajs/rjour001/final-project-the-computer-enthusiasts/googletest/googletest/include/gtest/gtest.h"
-#include <gmock/gmock.h> //Don't touch
+// #include <../googletest/googletest/include/gtest/gtest.h> //Don't touch
+// #include <../googletest/googlemock/include/gmock/gmock.h> //Don't touch
 
 class Character;
 using std::string;
@@ -49,23 +48,23 @@ public:
 };
 
 
-class MockItem: public Item{
-    public:
-        MockItem(ItemType t = ItemType::WEAPON, const string& name = "", const string& descript = "", double timeElapsed = -1.0):Item(t,name,descript, timeElapsed){}
-        MOCK_METHOD(void, useItem,(Character&),(override));
-        MOCK_METHOD(std::string, serialize, (), (const, override));
-        MOCK_METHOD(bool,deserialize,(const string&), (override));
-        Item* clone() const override{
-            return new MockItem(type, name, description, timeEarned);
-        }
-        friend void swap(MockItem*& item1, MockItem*& item2){
-            MockItem* item1Placeholder = item1;
+// class MockItem: public Item{
+//     public:
+//         MockItem(ItemType t = ItemType::WEAPON, const string& name = "", const string& descript = "", double timeElapsed = -1.0):Item(t,name,descript, timeElapsed){}
+//         MOCK_METHOD(void, useItem,(Character&),(override));
+//         MOCK_METHOD(std::string, serialize, (), (const, override));
+//         MOCK_METHOD(bool,deserialize,(const string&), (override));
+//         Item* clone() const override{
+//             return new MockItem(type, name, description, timeEarned);
+//         }
+//         friend void swap(MockItem*& item1, MockItem*& item2){
+//             MockItem* item1Placeholder = item1;
 
-            item1 = item2;
+//             item1 = item2;
 
-            item2 = item1Placeholder;
-    }
-};
+//             item2 = item1Placeholder;
+//     }
+// };
 
 class Potion : public Item {
 private:
@@ -107,7 +106,6 @@ public:
     Weapon& operator=(const Weapon& otherWeapon);
     ~Weapon() = default;
     void useItem(Character& target) override;
-    void setWeaponType(WeaponType newType){weaponType = newType;}
     Item* clone() const override;
     WeaponType getWeaponType() const{return weaponType;}
     int getSpeedEffect() const{return speedEffect;}

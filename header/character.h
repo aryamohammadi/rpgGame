@@ -34,14 +34,10 @@ class Character{
         // Copy assignment operator
         Character& operator=(const Character& other);
 
-        void setHealth(int healthOfCharacter);
-        void takeDamage(int damageOnCharacter);
-
         friend void swap(Character*& char1,Character*& char2);
         
         void increaseHealth(int amount){health += amount;}
 
-        void setDamage(int damage){this->damage = damage;}
         void equipWeapon(Weapon* newWeapon);
         void deEquipWeapon();
 
@@ -51,7 +47,6 @@ class Character{
         void resetSpeed(){currentSpeed = baseSpeed;}
         int getSpeed() const {return currentSpeed;}
 
-        void setAttackType(AttackType attackType) {currentAttackType = attackType;}
         AttackType getAttackType() const {return currentAttackType;}
 
         void attack(Character& target);
@@ -69,9 +64,6 @@ class Character{
 
         std::ostream& showInventory(ostream& out) const;
         std::ostream& outputWeapons(ostream& out) const;
-
-        std::ostream& showInventory(std::ostream& out) const;
-        std::ostream& outputWeapons(std::ostream& out) const;
   
         void equipArmour(Armour* armour);
         void deEquipArmour();
@@ -89,6 +81,7 @@ class Character{
         void takeDamage(int damageOnCharacter);
         void setName(std::string name) { characterName == name; }
         void setExperience (int EXP) { experience = EXP; }
+        void setAttackType(AttackType attackType) {currentAttackType = attackType;}
 
         // Getters
         int getHealth() const {return health;}

@@ -3,7 +3,6 @@
 #include "../header/character.h"
 class Room {
   private:
-    vector<int> connectedRooms;
     vector<Character*> enemies;
     vector<Item*> items;
 

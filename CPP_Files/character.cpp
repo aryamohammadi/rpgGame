@@ -18,19 +18,7 @@ Character::Character(): characterName("Warrior"), health(100), defense(0), baseS
 }
 Character::~Character(){}
 // Copy operator
-Character::Character(const Character& other) : 
-    characterName(other.characterName),
-    health(other.health), defense(other.defense), 
-    isDead(other.isDead), currentAttackType(other.currentAttackType),
-    storage(new Inventory(*other.storage)) { 
-    
-    if (other.armour) {
-        armour = new Armour(*other.armour);
-    }
-    if (other.weapon) {
-        weapon = new Weapon(*other.weapon);
-    }
-}
+Character::Character(const Character& other){*this = other;}
 
 // Copy assignment operator
 Character& Character::operator=(const Character& other) {

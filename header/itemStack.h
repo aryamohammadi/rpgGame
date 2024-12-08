@@ -5,18 +5,20 @@
 #include <sstream>
 #include "item.h"
 #include "itemType.h"
-
+#include <memory>
+using std::make_unique;
+using std::unique_ptr;
 class Item;
 
 class ItemStack {
 private:
-    Item* item;
+    unique_ptr<Item> currentItem;
     int quantity;
 
 public:
-    ItemStack(Item* item, int amount = 1);
+    ItemStack(std::unique_ptr<Item> newItem, int amount = 1);
     ~ItemStack();
-
+    ItemStack(const ItemStack& other){*this = other;}
     ItemStack& operator=(const ItemStack& rhs);
 
     void increaseQuantity(int amount);

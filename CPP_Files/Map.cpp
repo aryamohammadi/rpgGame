@@ -1,122 +1,13 @@
-#include "../header/Map.h"
-#include "set"
-
-Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor
-  worldRooms.reserve(16);
-  distributeEnemiesAndItems(typeOfWeapon);
-}
-
-void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
-  srand(time(0));
-  Character enemyToAdd("enemy1");
-
-  // DISTRIBUTING ENEMIES
-  std::set<int> selectedRooms;
-  for (int i = 0; i < 8; i++)  { // Keep adding random room indeces until the set is 8 rooms large
-    selectedRooms.insert(rand() % 15 + 1); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
-  }
-
-  for (int roomIndex : selectedRooms) {
-    enemyToAdd.setName("enemy1");
-    // Set the enemy type as Ranged or Melee randomly. 
-    if (rand() % 2 == 0) {
-        enemyToAdd.setAttackType(AttackType::Ranged);
-    }
-    else {
-      enemyToAdd.setAttackType(AttackType::Melee);
-    }
-    // Change enemy stats based on the room index
-    enemyToAdd.setDamage(roomIndex * 2); // Damage is already random from Arya's combat class
-    enemyToAdd.setHealth(roomIndex * 10);
-    enemyToAdd.setExperience(roomIndex * 25);
-    Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
-    if (enemyToAdd.getAttackType() == AttackType::Melee) {
-      enemyWeapon->setWeaponType(Weapon::WeaponType::Sword);
-    }
-    enemyToAdd.equipWeapon(enemyWeapon);
-    worldRooms.at(roomIndex).addEnemies(enemyToAdd);
-
-    // If rand() % 2 == 1, then add a second enemy with name "enemy2" and give it the opposite type, higher attack, and lower health than enemy1
-    if (rand() % 2 == 1) {
-      enemyToAdd.setName("enemy2");
-
-      if (enemyToAdd.getAttackType() == AttackType::Ranged) {
-        enemyToAdd.setAttackType(AttackType::Melee); 
-      }
-      else {
-        enemyToAdd.setAttackType(AttackType::Ranged);
-      }
-
-      enemyToAdd.setDamage(roomIndex * 3);
-      enemyToAdd.setHealth(roomIndex * 7);
-      enemyToAdd.setExperience(35 * roomIndex);
-      Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Bow);
-
-      if (enemyToAdd.getAttackType() == AttackType::Melee) {
-        enemyWeapon->setWeaponType(Weapon::WeaponType::Sword);
-      }
-      enemyToAdd.equipWeapon(enemyWeapon);
-      worldRooms.at(roomIndex).addEnemies(enemyToAdd);
-    }
-
-    Character superEnemy("Super Enemy");
-    superEnemy.setAttackType(AttackType::Melee);
-    superEnemy.setDamage(60);
-    superEnemy.setHealth(300); // This might be unbalanced, but the game doesn't have to be fair
-    superEnemy.setExperience(600);
-    Armour* superArmour = new Armour(ItemType::ARMOUR, "superarmour", "superarmour", 30);
-    Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
-    superEnemy.equipArmour(superArmour);
-    superEnemy.equipWeapon(enemyWeapon);
-    worldRooms.at(worldRooms.size() - 1).addEnemies(superEnemy);
-  }
-
-  // Give the enemies weapons depending on their type
-  // Give the super enemy armour
-
-
-  // DISTRIBUTING ITEMS
-  selectedRooms.clear();
-  for (int i = 0; i < 8; i++) { // Keep adding random room indeces until the set is 8 rooms large
-    selectedRooms.insert(rand() % 16);
-  }
-  // Distribute items to 8 rooms
-  for (int roomIndex : selectedRooms) {
-    // Out of 16 rooms, 8 have potions (4 with another very good potion), 4 have weapons, and 4 have armor. Have one weapon and one armor every 4 rooms (1 row on the map grid). We don't want 4 weak armors in rooms 0-3 and 8 strong enemies in rooms 8-15
-
-    Potion* itemToAdd = new Potion(ItemType::POTION, "potion1", "red potion", 50 + (roomIndex * 10));
-    worldRooms.at(roomIndex).addItems(itemToAdd);
-  }
-
-  // Distribute stronger potions in 4 of the rooms
-  for (unsigned i = 0; i < 4; i++) {
-    Potion* strongerItemToAdd = new Potion(ItemType::POTION, "potion2", "blue potion", 80 + (i * 20));
-    worldRooms.at(i).addItems(strongerItemToAdd);
-  }
-  
-
-  // DISTRIBUTING WEAPONS 
-  selectedRooms.clear();
-  // Selecting 3 random rooms, one room gets a super powerful weapon
-#include <vector>
-#include <iostream>
-#include "Room.h"
-#include "item.h"
-
-class Map {
-#include "../header/Room.h"
-#include "../header/AttackType.h"
-#include "../header/character.h"
+#include <set>
+#include <algorithm>
 #include <ctime>
 #include <iostream>
 #include <vector>
-#include "item.h"
-#include "../header/character.h"
-class Room {
-  private:
-    vector<int> connectedRooms;
 #include "../header/Map.h"
-#include "set"
+#include "../header/AttackType.h"
+#include "../header/character.h"
+#include "../header/Room.h"
+#include "../header/item.h"
 
 Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor
   worldRooms.reserve(16);
@@ -318,7 +209,7 @@ bool Map::changeRoomBasedOnDirection(string direction) {
   }
 
 
-
+  return false;
 }
 
 // Serialize the Map
@@ -360,5 +251,3 @@ bool Map::deserialize(const std::string& data) {
 
     return true;
 }
-Map.cpp
-8 KB

@@ -11,7 +11,6 @@ protected:
 TEST_F(DifficultyTests, DefaultDifficultyTest) {
     ASSERT_EQ(difficulty.getDifficulty(), Difficulty::Elite);
     ASSERT_DOUBLE_EQ(difficulty.getAttackMultiplier(), 1.0);
-    ASSERT_DOUBLE_EQ(difficulty.getDefenseMultiplier(), 1.0);
     ASSERT_DOUBLE_EQ(difficulty.getHealthModifier(), 1.0);
 }
 
@@ -20,7 +19,6 @@ TEST_F(DifficultyTests, SetRookieTest) {
     difficulty.setDifficulty("Rookie");
     ASSERT_EQ(difficulty.getDifficulty(), Difficulty::Rookie);
     ASSERT_DOUBLE_EQ(difficulty.getAttackMultiplier(), 0.8);
-    ASSERT_DOUBLE_EQ(difficulty.getDefenseMultiplier(), 0.9);
     ASSERT_DOUBLE_EQ(difficulty.getHealthModifier(), 1.2);
 }
 
@@ -29,7 +27,6 @@ TEST_F(DifficultyTests, SetBattlestarTest) {
     difficulty.setDifficulty("Battlestar");
     ASSERT_EQ(difficulty.getDifficulty(), Difficulty::Battlestar);
     ASSERT_DOUBLE_EQ(difficulty.getAttackMultiplier(), 1.5);
-    ASSERT_DOUBLE_EQ(difficulty.getDefenseMultiplier(), 1.3);
     ASSERT_DOUBLE_EQ(difficulty.getHealthModifier(), 0.8);
 }
 

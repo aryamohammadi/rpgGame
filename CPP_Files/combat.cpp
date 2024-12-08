@@ -1,5 +1,5 @@
-#include "combat.h"
-#include "Heap.h"
+#include "../header/combat.h"
+#include "../header/Heap.h"
 #include <iostream>
 #include <vector>
 #include <random>
@@ -85,3 +85,11 @@ void Combat::removePlayerFromHeap(string targetName) {
             fightersAlive.pop_back();
         }
     }
+}
+
+bool Combat::isAtLeast1EnemieAlive() const{
+    return fightersAlive.size() > 1;
+}
+bool Combat::isPlayerDead() const{
+    return !fightersAlive.front()->isAlive();
+}

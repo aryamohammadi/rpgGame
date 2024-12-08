@@ -8,6 +8,8 @@
 #include <chrono>
 #include "../header/itemType.h"
 #include "../header/character.h"
+#include <gtest/gtest.h> //Don't touch
+#include <gmock/gmock.h> //Don't touch
 // #include <../googletest/googletest/include/gtest/gtest.h> //Don't touch
 // #include <../googletest/googlemock/include/gmock/gmock.h> //Don't touch
 

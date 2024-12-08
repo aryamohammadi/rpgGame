@@ -9,9 +9,7 @@ class SaveGame {
 public:
     // Constructor accepting the file name to save
     explicit SaveGame(const std::string& filename);
-
-    // Template to save any object that implements GameState
-    template <typename GameState>
+    template<typename GameState>
     bool save(const GameState& state) {
         std::ofstream file(saveFile);
         if (!file.is_open()) {

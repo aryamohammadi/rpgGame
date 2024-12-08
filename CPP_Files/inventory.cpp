@@ -17,7 +17,10 @@ Inventory::Inventory(const Inventory& inventory2){
 Inventory& Inventory::operator=(const Inventory& rhs){
     if(this != &rhs){
         clear();
-        items = rhs.items;
+        items.resize(rhs.items.size());
+        for(unsigned i = 0; i < rhs.items.size(); i++){
+            items[i] = make_unique<ItemStack>(*rhs.items[i]);
+        }
         size = rhs.size;
         capacity = rhs.capacity;
     }
@@ -51,8 +54,6 @@ int Inventory::itemFound(const std::string& name) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] == nullptr){continue;}
-        if(items[i]->getItem() == nullptr) {continue;}
         if(items[i]->getItem()->getName() == name){
             return i;
         }
@@ -88,7 +89,7 @@ void Inventory::addItem(Item* item){
         items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        items.push_back(new ItemStack(item));
+        items.push_back(make_unique<ItemStack>(item));
         size ++;
     }
 }
@@ -101,7 +102,7 @@ void Inventory::addItem(Item* item, int quantity){
         items.at(itemFound(item))->increaseQuantity(quantity);
     }
     else{
-        items.push_back(new ItemStack(item));
+        items.push_back(make_unique<ItemStack>(item));
         size ++;
     }
 }
@@ -111,8 +112,8 @@ int Inventory::itemsWithName(const std::string& name) const{
         return 0;
     }
     int count = 0;
-    for(ItemStack* stack : items){
-        if(stack != nullptr && stack->getItem() != nullptr && stack->getItem()->getName() == name){
+    for(unsigned i = 0; i < size; i++){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getName() == name){
             count ++;
         }
     }
@@ -121,13 +122,17 @@ int Inventory::itemsWithName(const std::string& name) const{
 
 void Inventory::reorganizeItems(){
     
-    vector<ItemStack*> itemsNew;
+    vector<unique_ptr<ItemStack>> itemsNew;
     for(unsigned i = 0; i < size; i++){
         if(items[i] != nullptr){
-            itemsNew.push_back(items[i]);
+            itemsNew.push_back(make_unique<ItemStack>(*items[i]));
         }
     }
-    items = itemsNew;
+    items.clear();
+    items.resize(size);
+    for(unsigned i = 0; i < size; i++){
+        items[i] = move(itemsNew[i]);
+    }
 }
 
 
@@ -171,8 +176,7 @@ void Inventory::removeItem(const string& name, ItemType t){
         items[index]->decreaseQuantity(1);
     }
     else{
-        delete items[index];
-        items[index] = nullptr;
+        items[index].release();
         reorganizeItems();
         size --;
     }
@@ -190,8 +194,7 @@ void Inventory::removeItem(const Item& item){
         items[index]->decreaseQuantity(1);
     }
     else{
-        delete items[index];
-        items[index] = nullptr;
+        items[index].release();
         reorganizeItems();
         size --;
     }
@@ -209,17 +212,16 @@ void Inventory::removeItem(const string& name){
         items[index]->decreaseQuantity(1);
     }
     else{
-        delete items[index];
-        items[index] = nullptr;
+        items[index].release();
         reorganizeItems();
         size --;
     }
 }
 
 ostream& Inventory::outputWeapons(ostream& out) const{
-    for(ItemStack* stack : items){
-        if(stack != nullptr && stack->getItem() != nullptr && stack->getItem()->getType() == ItemType::WEAPON){
-            out << stack;
+    for(unsigned i = 0; i < size; i++){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getType() == ItemType::WEAPON){
+            out << *items[i];
         }
     }
     return out;
@@ -248,11 +250,10 @@ bool Inventory::deserialize(const std::string& data) {
     std::string itemData;
     while (std::getline(iss, itemData)) {
         if (!itemData.empty()) {
-            ItemStack* stack = new ItemStack(nullptr);
-            if (stack->deserialize(itemData)) {
-                items.push_back(stack);
+            unique_ptr<ItemStack> stack = make_unique<ItemStack>(nullptr);
+            if(stack->deserialize(itemData)) {
+                items.push_back(std::move(stack));
             } else {
-                delete stack;
                 return false;
             }
         }
@@ -261,10 +262,6 @@ bool Inventory::deserialize(const std::string& data) {
 }
 
 void Inventory::clear(){
-    for(ItemStack*& stack : items){
-        delete stack;
-        stack = nullptr;
-    }
     size = 0;
     items.clear();
 }

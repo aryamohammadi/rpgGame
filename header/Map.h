@@ -22,4 +22,5 @@ class Map {
 
     std::string serialize() const; // For save game
     bool deserialize(const std::string& data); //For load game
+    bool returnRoomBasedOnDirection(string direction, int currentRoom);
 };

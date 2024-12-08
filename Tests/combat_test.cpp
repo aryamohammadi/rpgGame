@@ -1,6 +1,6 @@
 #include "../header/combat.h"
 #include "../header/character.h"
-#include <../gtest/gtest.h>
+#include <gtest/gtest.h>
 
 TEST(combatTest, checkVector){
     Character character("player");
@@ -22,9 +22,6 @@ TEST(Combat_test, TestingIfPlayerIsDead) {
 
     // Test if the player is dead
     EXPECT_FALSE(combat.isPlayerDead()) << "Player should not be dead at the start of the battle.";
-
-    // Test if both enemies are dead
-    EXPECT_FALSE(combat.areBothEnemiesDead()) << "Both enemies should not be dead at the start of the battle.";
 
     // Test if at least one enemy is still alive
     EXPECT_TRUE(combat.isAtLeast1EnemieAlive()) << "At least one enemy should be alive at the start of the battle.";

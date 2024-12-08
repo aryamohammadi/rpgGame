@@ -1,6 +1,7 @@
 #include "../header/character.h"
 #include "../header/item.h"
 #include "../header/inventory.h"
+#include "../header/AttackType.h"
 #include <utility>
 #include <sstream>
 using std::string;
@@ -113,7 +114,7 @@ ostream& Character::showInventory(ostream& out) const{
     
 }
 
-ostream& Character::outputWeapons(ostream& out) const{
+std::ostream& Character::outputWeapons(std::ostream& out) const{
     return storage->outputWeapons(out);
 }
 
@@ -436,6 +437,20 @@ bool Character::deserialize(const std::string& data) {
     return storage->deserialize(inventoryData);
 }
 
+void Character::setHealth(int healthOfCharacter){ 
+    health = healthOfCharacter;
+    isDead = health <= 0; 
+}
+void Character::takeDamage(int damageOnCharacter){ 
+    health-= damageOnCharacter; 
+    isDead = health <= 0;
+}
+void swap(Character*& char1,Character*& char2){
+    Character* temp = char1;
+    char1 = char2;
+    char2 = temp;
+}
+
 std::ostream& operator<<(std::ostream& out, const AttackType& type){
     switch(type){
         case AttackType::Melee:
@@ -468,17 +483,3 @@ std::istream& operator>>(std::istream& in, AttackType& type){
     in.setstate(std::ios::failbit);
     return in;
 }   
-
-void Character::setHealth(int healthOfCharacter){ 
-    health = healthOfCharacter;
-    isDead = health <= 0; 
-}
-void Character::takeDamage(int damageOnCharacter){ 
-    health-= damageOnCharacter; 
-    isDead = health <= 0;
-}
-void swap(Character*& char1,Character*& char2) {
-    Character* temp = char1;
-    char1 = char2;
-    char2 = temp;
-}

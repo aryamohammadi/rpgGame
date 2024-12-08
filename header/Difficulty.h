@@ -35,6 +35,3 @@ private:
 };
 
 #endif // DIFFICULTY_H
-
-
-

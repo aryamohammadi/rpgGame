@@ -19,7 +19,7 @@ public:
     Game(); // Constructor
 
     void run(); // Main game loop
-    void startGame(); // Starts the game
+    void startGame(){playGame();}// Starts the game
 
     // Game state management
     void newGame();                         // Start a new game

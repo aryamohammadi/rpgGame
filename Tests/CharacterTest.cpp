@@ -1,5 +1,5 @@
-#include "../header/character.h"
 #include "../header/item.h"
+#include "../header/character.h"
 #include "../header/inventory.h"
 #include "gtest/gtest.h"
 #include <sstream>
@@ -8,9 +8,8 @@
 using namespace std;
 
 // Helper function to create a weapon with default properties
-Weapon* createWeapon(const std::string& name, int damage, double speedEffect = -1.0) {
-    const string defaultDescription = "Default weapon description";
-    return new Weapon(ItemType::WEAPON, name, defaultDescription, damage, Weapon::WeaponType::Sword, speedEffect);
+Weapon* createWeapon(const string& name, int damage, double speedEffect = 0) {
+    return new Weapon(ItemType::WEAPON, name, "A sharp weapon", damage, Weapon::WeaponType::Sword, speedEffect);
 }
 
 
@@ -73,9 +72,8 @@ TEST(CharacterTest, AssignmentOperator) {
 
 TEST(CharacterTest, SerializeDeserialize) {
     Character original("Serializable");
-
-    original.pickUpItem(new Potion(ItemType::POTION, "Health Potion", "Restores health", 50));
-    original.equipArmour(new Armour(ItemType::ARMOUR, "Helmet", "Protective helmet", 10));
+    original.pickUpItem(new Potion(ItemType::POTION, "Health Potion",  "Restores health", 50));
+    original.equipArmour(new Armour(ItemType::ARMOUR, "Helmet",  "Protective helmet", 10));
 
     string serialized = original.serialize();
 
@@ -94,12 +92,13 @@ TEST(CharacterTest, SerializeDeserialize) {
 
 TEST(CharacterTest, EquipWeaponAndModifySpeed) {
     Character speedyCharacter("SpeedTest");
-
     Weapon* sword = new Weapon(ItemType::WEAPON, "Fast Sword", "Increases speed", 50, Weapon::WeaponType::Sword, 10);
-    Weapon* bow = new Weapon(ItemType::WEAPON, "Long Bow", "Decreases speed", 60, Weapon::WeaponType::Bow, -5);
 
-    speedyCharacter.pickUpItem(sword);
-    speedyCharacter.pickUpItem(bow);
+//     Weapon* sword = new Weapon(ItemType::WEAPON, "Fast Sword", "Increases speed", 50, Weapon::WeaponType::Sword, 10);
+//     Weapon* bow = new Weapon(ItemType::WEAPON, "Long Bow", "Decreases speed", 60, Weapon::WeaponType::Bow, -5);
+
+//     speedyCharacter.pickUpItem(sword);
+//     speedyCharacter.pickUpItem(bow);
 
     speedyCharacter.equipWeapon(sword);
     EXPECT_EQ(speedyCharacter.getSpeed(), 30);

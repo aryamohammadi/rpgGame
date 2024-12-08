@@ -1,4 +1,5 @@
-#include "MainMenu.h"
+#include "../header/MainMenu.h"
+#include "../header/Game.h"
 #include <iostream>
 #include <algorithm> 
 

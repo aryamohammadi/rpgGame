@@ -9,9 +9,7 @@ class LoadGame {
 public:
     // Constructor accepting the file name to load
     explicit LoadGame(const std::string& filename);
-
-    // Template method to load any object that implements GameState
-    template <typename GameState>
+    template<typename GameState>
     bool load(GameState& state) {
         std::ifstream file(loadFile);
         if (!file.is_open()) {

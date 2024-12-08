@@ -1,20 +1,19 @@
 #include "../header/itemStack.h"
 #include "../header/item.h"
-ItemStack::ItemStack(Item* item, int amount) : item(item), quantity(amount) {
+ItemStack::ItemStack(std::unique_ptr<Item> newItem, int amount):quantity(amount){
     if (amount <= 0) {
         throw std::invalid_argument("amount " + std::to_string(amount) + " is invalid!");
     }
+    currentItem = move(newItem);
 }
 
-ItemStack::~ItemStack() {
-    delete item;
-    item = nullptr;
-}
+ItemStack::~ItemStack(){}
 
 ItemStack& ItemStack::operator=(const ItemStack& rhs) {
     if (this != &rhs) {
-        delete item;
-        item = (rhs.item)->clone();
+        if(rhs.currentItem != nullptr){
+            currentItem = std::unique_ptr<Item>(rhs.currentItem->clone());
+        }
         quantity = rhs.quantity;
     }
     return *this;
@@ -35,28 +34,31 @@ void ItemStack::decreaseQuantity(int amount) {
 }
 
 bool ItemStack::isItem(const Item& other) const {
-    if(item == nullptr){
+    if(currentItem == nullptr || &other == nullptr){
         return false;
     }
-    if(item->getName() == other.getName() && item->getType() == other.getType()){
+    if(currentItem->getName() == other.getName() && currentItem->getType() == other.getType()){
         switch(other.getType()){
             case ItemType::WEAPON:{
-                const Weapon& currentWeapon = dynamic_cast<const Weapon&>(other);
-                if(currentWeapon.getDamage() == dynamic_cast<Weapon*>(item)->getDamage()){
+                const Weapon* currentWeapon = dynamic_cast<const Weapon*>(&other);
+                const Weapon* storedWeapon = dynamic_cast<Weapon*>(currentItem.get());
+                if(currentWeapon != nullptr && storedWeapon != nullptr && currentWeapon->getDamage() == storedWeapon->getDamage()) {
                     return true;
                 }
                 return false;
             }
             case ItemType::ARMOUR:{
-                const Armour& currentArmour = dynamic_cast<const Armour&>(other);
-                if(currentArmour.getArmourStat() == dynamic_cast<Armour*>(item)->getArmourStat()){
+                const Armour* currentArmour = dynamic_cast<const Armour*>(&other);
+                const Armour* storedArmour = dynamic_cast<Armour*>(currentItem.get());
+                if(currentArmour != nullptr && storedArmour != nullptr && currentArmour->getArmourStat() == storedArmour->getArmourStat()){
                     return true;
                 }
                 return false;
             }
             case ItemType::POTION:{
-                const Potion& currentPotion = dynamic_cast<const Potion&>(other);
-                if(currentPotion.getRecoveryAmount() == dynamic_cast<Potion*>(item)->getRecoveryAmount()){
+                const Potion* currentPotion = dynamic_cast<const Potion*>(&other);
+                const Potion* storedPotion = dynamic_cast<Potion*>(currentItem.get());
+                if(currentPotion != nullptr && storedPotion != nullptr && currentPotion->getRecoveryAmount() == storedPotion->getRecoveryAmount()){
                     return true;
                 }
                 return false;
@@ -67,8 +69,8 @@ bool ItemStack::isItem(const Item& other) const {
 }
 
 std::ostream& operator<<(std::ostream& out, const ItemStack& stack) {
-    if (stack.item) {
-        out << *stack.item;
+    if (stack.currentItem) {
+        out << *stack.currentItem;
         out << "Quantity: " << stack.quantity << std::endl;
     }
     return out;
@@ -81,17 +83,17 @@ void swap(ItemStack*& stack1, ItemStack*& stack2) {
 }
 
 Item* ItemStack::getItem() {
-    return item;
+    return currentItem.get();
 }
 
 const Item* ItemStack::getItem() const {
-    return item;
+    return currentItem.get();
 }
 
 // Serialize
 std::string ItemStack::serialize() const {
     std::ostringstream oss;
-    oss << (item ? item->serialize() : "null") << "\n" << quantity;
+    oss << (currentItem ? currentItem->serialize() : "null") << "\n" << quantity;
     return oss.str();
 }
 
@@ -104,7 +106,7 @@ bool ItemStack::deserialize(const std::string& data) {
     if (!std::getline(iss, itemData)) return false;
 
     if (itemData == "null") {
-        item = nullptr;
+        currentItem.release();
     } else {
         std::istringstream itemStream(itemData);
         int itemType;
@@ -112,29 +114,27 @@ bool ItemStack::deserialize(const std::string& data) {
 
         switch (static_cast<ItemType>(itemType)) {
             case ItemType::WEAPON:
-                item = new Weapon();
+                currentItem = make_unique<Weapon>();
                 break;
             case ItemType::ARMOUR:
-                item = new Armour();
+                currentItem = make_unique<Armour>();
                 break;
             case ItemType::POTION:
-                item = new Potion();
+                currentItem = make_unique<Potion>();
                 break;
             default:
                 return false;
         }
 
-        if (!item->deserialize(itemData)) {
-            delete item;
-            item = nullptr;
+        if (!currentItem->deserialize(itemData)) {
+            currentItem.reset();
             return false;
         }
     }
 
     // Deserialize the quantity
     if (!(iss >> quantity)) {
-        delete item;
-        item = nullptr;
+        currentItem.reset();
         return false;
     }
 

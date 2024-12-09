@@ -8,12 +8,17 @@ Room::~Room(){
     removeItems();
 }
 void Room::removeEnemies() {
-  enemies.clear();
+    for(Character* currentCharacter : enemies){
+        delete currentCharacter;
+        currentCharacter = nullptr;
+    }
+    enemies.clear();
 }
 
 void Room::removeItems() {
-  for (unsigned i; i < items.size(); i++) {
+  for (unsigned i = 0; i < items.size(); i++) {
     delete items[i];
+    items[i] = nullptr;
   }
   items.clear();
 }

@@ -559,10 +559,6 @@ TEST(MergeSortTest, multipleDescendingItemTest){
 
     stacks.push_back(make_unique<ItemStack>(move(item)));
 
-    item.reset(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
-
-    stacks.push_back(make_unique<ItemStack>(move(item)));
-
     item.reset(new MockItem(ItemType::POTION, "Mana Brew"));
 
     stacks.push_back(make_unique<ItemStack>(move(item)));
@@ -576,53 +572,38 @@ TEST(MergeSortTest, multipleDescendingItemTest){
     stacks.push_back(make_unique<ItemStack>(move(item)));
 
     vector<unique_ptr<ItemStack>> results;
-    
-    item.reset(new MockItem(ItemType::POTION, "Emilly"));
 
-    results.push_back(make_unique<ItemStack>(move(item)));
-
-    item.reset(new MockItem(ItemType::POTION, "Emily's Elixir"));
-
+    item.reset(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword"));
-
-    results.push_back(make_unique<ItemStack>(move(item)));
-
-    item.reset(new MockItem(ItemType::ARMOUR, "Knight's Shield"));
-
-    results.push_back(make_unique<ItemStack>(move(item)));
-
-    item.reset(new MockItem(ItemType::POTION, "Healing Tonic"));
-
-    results.push_back(make_unique<ItemStack>(move(item)));
-
-    item.reset(new MockItem(ItemType::WEAPON, "Excalibur"));
-
-    results.push_back(make_unique<ItemStack>(move(item)));
-
-    item.reset(new MockItem(ItemType::WEAPON, "Excalibur"));
-
-    results.push_back(make_unique<ItemStack>(move(item)));
-
-    item.reset(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
-
-    results.push_back(make_unique<ItemStack>(move(item)));
-
-    item.reset(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
-
-    results.push_back(make_unique<ItemStack>(move(item)));
-
-    item.reset(new MockItem(ItemType::POTION, "Mana Brew"));
-
-    results.push_back(make_unique<ItemStack>(move(item)));
-
-    item.reset(new MockItem(ItemType::WEAPON, "Thunder Hammer"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::ARMOUR, "Elven Cloak"));
+    results.push_back(make_unique<ItemStack>(move(item)));
 
+    item.reset(new MockItem(ItemType::POTION, "Emilly"));
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::POTION, "Emily's Elixir"));
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::WEAPON, "Excalibur"));
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::WEAPON, "Excalibur"));
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::POTION, "Healing Tonic"));
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::ARMOUR, "Knight's Shield"));
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::POTION, "Mana Brew"));
+    results.push_back(make_unique<ItemStack>(move(item)));
+
+    item.reset(new MockItem(ItemType::WEAPON, "Thunder Hammer"));
     results.push_back(make_unique<ItemStack>(move(item)));
 
     MergeSort s(CompareBy::Name);

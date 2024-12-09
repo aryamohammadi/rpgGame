@@ -21,7 +21,8 @@ Inventory& Inventory::operator=(const Inventory& rhs){
         for(unsigned i = 0; i < rhs.size; i++){
             if(rhs.items[i] == nullptr || rhs.items[i]->getItem() == nullptr){
                 size --;
-                break;
+                items[i] = nullptr;
+                continue;
             }
             items[i] = make_unique<ItemStack>(*rhs.items[i]);
         }

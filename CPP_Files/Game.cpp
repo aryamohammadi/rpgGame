@@ -8,7 +8,7 @@
 Game::Game()
     : currentState(GameState::MainMenu),
       player("Hero"),
-      gameMap(Weapon::WeaponType::Sword) // Default initialization for Map
+      gameMap() // Default initialization for Map
 {}
 
 void Game::run() {
@@ -55,7 +55,8 @@ void Game::newGame() {
             weaponType = Weapon::WeaponType::Sword;
     }
 
-    gameMap = Map(weaponType); // Initialize the map with the chosen weapon type
+    gameMap = Map(); // Initialize the map with the chosen weapon type
+    gameMap.distributeEnemiesAndItems(weaponType);
     currentState = GameState::InGame; // Transition to the game state
 }
 

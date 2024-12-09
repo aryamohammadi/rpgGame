@@ -34,13 +34,14 @@ int Room::getExperience() {
 // Serialize the Room
 std::string Room::serialize() const {
     std::ostringstream oss;
-
-    // Serialize connectedRooms
-    oss << connectedRooms.size() << "\n";
-    for (int roomID : connectedRooms) {
-        oss << roomID << " ";
-    }
-    oss << "\n";
+    
+    // Not needed anymore since connectedRooms was deleted
+    // // Serialize connectedRooms
+    // oss << connectedRooms.size() << "\n";
+    // for (int roomID : connectedRooms) {
+    //     oss << roomID << " ";
+    // }
+    // oss << "\n";
 
     // Serialize enemies
     oss << enemies.size() << "\n";
@@ -62,14 +63,15 @@ bool Room::deserialize(const std::string& data) {
     std::istringstream iss(data);
     size_t roomCount, enemyCount, itemCount;
 
-    // Deserialize connectedRooms
-    if (!(iss >> roomCount)) return false;
-    connectedRooms.clear();
-    for (size_t i = 0; i < roomCount; ++i) {
-        int roomID;
-        if (!(iss >> roomID)) return false;
-        connectedRooms.push_back(roomID);
-    }
+    // Not needed anymore since connectedRooms was deleted
+    // // Deserialize connectedRooms
+    // if (!(iss >> roomCount)) return false;
+    // connectedRooms.clear();
+    // for (size_t i = 0; i < roomCount; ++i) {
+    //     int roomID;
+    //     if (!(iss >> roomID)) return false;
+    //     connectedRooms.push_back(roomID);
+    // }
 
     // Deserialize enemies
     if (!(iss >> enemyCount)) return false;

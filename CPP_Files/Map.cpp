@@ -9,9 +9,9 @@
 #include "../header/Room.h"
 #include "../header/item.h"
 
-Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor
+Map::Map() { // Constructor
   worldRooms.reserve(16);
-  distributeEnemiesAndItems(typeOfWeapon);
+  // distributeEnemiesAndItems(typeOfWeapon);
 }
 
 void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
@@ -21,8 +21,10 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   // DISTRIBUTING ENEMIES
   std::set<int> selectedRooms;
   for (int i = 0; i < 8; i++)  { // Keep adding random room indeces until the set is 8 rooms large
+    
     selectedRooms.insert(rand() % 15 + 1); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
   }
+
 
   for (int roomIndex : selectedRooms) {
     enemyToAdd.setName("enemy1");
@@ -72,10 +74,10 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     superEnemy.setDamage(60);
     superEnemy.setHealth(300); // This might be unbalanced, but the game doesn't have to be fair
     superEnemy.setExperience(600);
-    Armour* superArmour = new Armour(ItemType::ARMOUR, "superarmour", "superarmour", 30);
-    Weapon* enemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
-    superEnemy.equipArmour(superArmour);
-    superEnemy.equipWeapon(enemyWeapon);
+    Armour* superEnemyArmour = new Armour(ItemType::ARMOUR, "superarmour", "superarmour", 30);
+    Weapon* superEnemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
+    superEnemy.equipArmour(superEnemyArmour);
+    superEnemy.equipWeapon(superEnemyWeapon);
     worldRooms.at(worldRooms.size() - 1).addEnemies(superEnemy);
   }
 

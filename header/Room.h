@@ -5,8 +5,8 @@
 #include "../header/character.h"
 class Room {
   private:
-    vector<Character*> enemies;
-    vector<Item*> items;
+    vector<Character*> enemies = {nullptr};
+    vector<Item*> items = {nullptr};
 
   public:
     void removeEnemies();

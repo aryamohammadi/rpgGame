@@ -8,11 +8,11 @@
 class Map {
   private:
     vector<Room> worldRooms;
-    void distributeEnemiesAndItems(Weapon::WeaponType);
     int playerIndex = 0;
 
   public:
-    Map(Weapon::WeaponType typeOfWeapon);
+    Map();
+    void distributeEnemiesAndItems(Weapon::WeaponType);
     void removeEnemies(int index);
     void removeItems(int index);
     bool roomHasEnemies(int index);

@@ -3,10 +3,10 @@
 #include "../header/character.h"
 #include <ctime>
 #include <iostream>
-
-Room::Room() {
+Room::~Room(){
+    removeEnemies();
+    removeItems();
 }
-
 void Room::removeEnemies() {
   enemies.clear();
 }

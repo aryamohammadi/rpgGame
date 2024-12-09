@@ -3,7 +3,8 @@
 #include "../header/character.h"
 void Weapon::useItem(Character& target){target.takeDamage(damage);}
 
-Weapon::Weapon(ItemType type, const string& name, const string& descript, int durability, Weapon::WeaponType weaponType, double timeElapsed):Item(type,name, descript,timeElapsed), damage(damage), weaponType(weaponType){
+Weapon::Weapon(ItemType type, const string& name, const string& descript, int durability, Weapon::WeaponType weaponType, double timeElapsed)
+    : Item(type, name, descript, timeElapsed), damage(durability), weaponType(weaponType) { 
     switch(weaponType){
         case Sword:
             speedEffect = 0;
@@ -18,6 +19,7 @@ Weapon::Weapon(ItemType type, const string& name, const string& descript, int du
             throw std::invalid_argument("WeaponType doesn't exist!");
     }
 }
+
 
 Item* Weapon::clone() const {
     return new Weapon(*this);

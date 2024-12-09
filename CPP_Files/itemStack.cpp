@@ -9,6 +9,9 @@ ItemStack::ItemStack(std::unique_ptr<Item> newItem, int amount):quantity(amount)
 
 ItemStack::~ItemStack(){}
 ItemStack::ItemStack(const ItemStack& other){
+    if(&other == nullptr){
+        throw std::runtime_error("Nullptr");
+    }
     if(other.currentItem != nullptr){
         currentItem = other.currentItem->cloneUnique();
     }else{
@@ -18,7 +21,7 @@ ItemStack::ItemStack(const ItemStack& other){
 }
 ItemStack& ItemStack::operator=(const ItemStack& rhs) {
     if(this != &rhs){
-        // Ensure rhs.currentItem is not null before trying to clone
+
         if(rhs.currentItem != nullptr){
             currentItem = rhs.currentItem->cloneUnique();
         }else{

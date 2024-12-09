@@ -54,7 +54,7 @@ public:
     Potion(ItemType t, const string& name, const string& descript, int amount, double timeElapsed = -1.0);
     Potion(const Potion& otherPotion){*this = otherPotion;}
     Potion& operator=(const Potion& otherPotion);
-    ~Potion() = default;
+    ~Potion() override = default;
     void useItem(Character&) override;
     Item* clone() const override;
     std::unique_ptr<Item> cloneUnique() const override;
@@ -84,7 +84,7 @@ public:
            int damage, WeaponType weaponType, double timeElapsed = -1.0);
     Weapon(const Weapon& otherWeapon){*this = otherWeapon;}
     Weapon& operator=(const Weapon& otherWeapon);
-    ~Weapon() = default;
+    ~Weapon() override = default;
     void useItem(Character& target) override;
     void setWeaponType(WeaponType newType){weaponType = newType;}
     Item* clone() const override;
@@ -109,7 +109,7 @@ public:
     Armour(ItemType t, const string& name, const string& descript, int stat, double timeElapsed = -1.0);
     Armour(const Armour& otherArmour){*this = otherArmour;}
     Armour& operator=(const Armour& otherArmour);
-    ~Armour() = default;
+    ~Armour() override = default;
     void useItem(Character&) override;
     Item* clone() const override;
     std::unique_ptr<Item> cloneUnique() const override;

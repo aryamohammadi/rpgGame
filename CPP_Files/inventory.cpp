@@ -86,7 +86,6 @@ int Inventory::itemFound(int index) const{
     return index;
 }
 
-
 void Inventory::addItem(Item* item){
     if(sizeGreaterThanOrEqualToCapacity()){
         throw std::overflow_error("size of " + std::to_string(size) + " >= capacity of " + std::to_string(capacity) + '\n');
@@ -95,24 +94,26 @@ void Inventory::addItem(Item* item){
         items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        std::unique_ptr<Item> clonedItem = std::unique_ptr<Item>(item); // Clone concrete item
+        // Clone the item using its clone method
+        std::unique_ptr<Item> clonedItem = std::unique_ptr<Item>(item); // Assuming clone() exists
         items.push_back(std::make_unique<ItemStack>(std::move(clonedItem)));
-        size ++;
+        size++;
     }
 }
+
 
 void Inventory::addItem(Item* item, int quantity){
     if(sizeGreaterThanOrEqualToCapacity()){
         throw std::overflow_error("size of " + std::to_string(size) + " >= capacity of " + std::to_string(capacity) + '\n');
     }
     if(itemFound(item) != -1){
-        items.at(itemFound(item))->increaseQuantity(quantity);
+        items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        std::unique_ptr<Item> clonedItem = std::unique_ptr<Item>(item); // Clone concrete item
-        items.push_back(std::make_unique<ItemStack>(std::move(clonedItem)));
-
-        size ++;
+        // Clone the item using its clone method
+        std::unique_ptr<Item> clonedItem = std::unique_ptr<Item>(item); // Assuming clone() exists
+        items.push_back(std::make_unique<ItemStack>(std::move(clonedItem), quantity));
+        size++;
     }
 }
 

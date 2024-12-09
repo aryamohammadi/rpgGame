@@ -10,6 +10,12 @@ using std::endl;
 using std::to_string;
 using std::exception;
 
+void Inventory::fillItems(){
+    for(unsigned i = 0; i < capacity; i++){
+        unique_ptr<Item> item;
+        items.push_back(make_unique<ItemStack>(move(item)));
+    }
+}
 Inventory::Inventory(const Inventory& inventory2){
     *this = inventory2;
 }
@@ -124,19 +130,26 @@ int Inventory::itemsWithName(const std::string& name) const{
 }
 
 void Inventory::reorganizeItems(){
-    
-    vector<unique_ptr<ItemStack>> itemsNew;
-    for(unsigned i = 0; i < size; i++){
-        if(items[i] != nullptr){
-            itemsNew.push_back(make_unique<ItemStack>(*items[i]));
+    int currentIndex = 0;
+    // Iterate through the items to move nullptr elements to the back
+    while(currentIndex < size){
+        // If the current item is nullptr, swap with the next non-null item
+        if(items[currentIndex] == nullptr){
+            int nextIndex = currentIndex + 1;
+            // Find the next non-null item
+            while(nextIndex < size && items[nextIndex] == nullptr) {
+                nextIndex++;
+            }
+
+            if(nextIndex < size){
+                // Swap nullptr with the next valid item
+                swap(items[currentIndex], items[nextIndex]);
+            }
         }
-    }
-    items.clear();
-    items.resize(size);
-    for(unsigned i = 0; i < size; i++){
-        items[i] = move(itemsNew[i]);
+        currentIndex++;
     }
 }
+
 
 
 std::ostream& operator<<(std::ostream& out, const Inventory& rhs){

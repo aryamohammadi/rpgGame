@@ -12,6 +12,7 @@
 
 Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor
   worldRooms.reserve(16);
+  fillWorldRooms();
   distributeEnemiesAndItems(typeOfWeapon);
 }
 
@@ -259,4 +260,10 @@ bool Map::deserialize(const std::string& data) {
     }
 
     return true;
+}
+
+void Map::fillWorldRooms(){
+  for(unsigned i = 0; i < 16; i++){
+    worldRooms.push_back(Room());
+  }
 }

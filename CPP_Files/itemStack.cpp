@@ -8,11 +8,24 @@ ItemStack::ItemStack(std::unique_ptr<Item> newItem, int amount):quantity(amount)
 }
 
 ItemStack::~ItemStack(){}
-
+ItemStack::ItemStack(const ItemStack& other){
+    if(&other == nullptr){
+        throw std::runtime_error("Invalid other!");
+    }
+    if(other.currentItem){
+        currentItem = std::unique_ptr<Item>(other.currentItem->clone());
+    } else {
+        currentItem.reset();  // Initialize with nullptr if other has no item
+    }
+    quantity = other.quantity;
+}
 ItemStack& ItemStack::operator=(const ItemStack& rhs) {
-    if (this != &rhs) {
+    if(this != &rhs){
+        // Ensure rhs.currentItem is not null before trying to clone
         if(rhs.currentItem != nullptr){
             currentItem = std::unique_ptr<Item>(rhs.currentItem->clone());
+        }else{
+            currentItem.reset();  // Reset currentItem to nullptr if rhs has no item
         }
         quantity = rhs.quantity;
     }

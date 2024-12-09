@@ -18,6 +18,7 @@ private:
 
     void reorganizeItems();
     void clear();
+    void fillItems();
 
 public:
     Inventory(int capacity = 10):capacity(capacity){}

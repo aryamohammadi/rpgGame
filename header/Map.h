@@ -9,7 +9,7 @@ class Map {
     std::vector<Room> worldRooms;
     void distributeEnemiesAndItems(Weapon::WeaponType);
     int playerIndex = 0;
-
+    void fillWorldRooms();
   public:
     Map(Weapon::WeaponType typeOfWeapon);
     void removeEnemies(int index);

@@ -1,4 +1,6 @@
 #include "../header/inventory.h"
+#include "../header/item.h"
+#include "../header/itemStack.h"
 #include "../header/sort.h"
 #include "../header/insertionSort.h"
 #include "../header/mergeSort.h"
@@ -7,7 +9,6 @@
 using std::endl;
 using std::to_string;
 using std::exception;
-
 Inventory::Inventory(const Inventory& inventory2){
     *this = inventory2;
 }
@@ -15,18 +16,26 @@ Inventory::Inventory(const Inventory& inventory2){
 Inventory& Inventory::operator=(const Inventory& rhs){
     if(this != &rhs){
         clear();
-        items = rhs.items;
+        items.resize(rhs.capacity);
         size = rhs.size;
+        for(unsigned i = 0; i < rhs.size; i++){
+            if(rhs.items[i] == nullptr || rhs.items[i]->getItem() == nullptr){
+                size --;
+                items[i] = nullptr;
+                continue;
+            }
+            items[i] = make_unique<ItemStack>(*rhs.items[i]);
+        }
         capacity = rhs.capacity;
     }
     return *this;
 }
 int Inventory::itemFound(const Item* item) const{
-    if(isEmpty()){
+    if(isEmpty() || item == nullptr){
         return -1;
     }
     for(unsigned i = 0; i < size; i++){
-        if(items[i]->isItem(*item)){
+        if(items[i] != nullptr && items[i]->isItem(*item)){
             return i;
         }
     }
@@ -49,7 +58,7 @@ int Inventory::itemFound(const std::string& name) const {
         return -1;
     }
     for(unsigned i = 0; i < size; i ++){
-        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getName() == name){
+        if(items[i]->getItem()->getName() == name){
             return i;
         }
     }
@@ -75,30 +84,108 @@ int Inventory::itemFound(int index) const{
     return index;
 }
 
-
 void Inventory::addItem(Item* item){
     if(sizeGreaterThanOrEqualToCapacity()){
-        throw std::overflow_error("size of " + std::to_string(size) + " >= capacity of " + std::to_string(capacity) + '\n');
+        resize();
     }
     if(itemFound(item) != -1){
         items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        items.at(size) = new ItemStack(item);
-        size ++;
+        //for tests
+        MockItem* currentMock = dynamic_cast<MockItem*>(item);
+        if(currentMock != nullptr){
+            unique_ptr<Item> cloneMock = currentMock->cloneUnique();
+            items.push_back(make_unique<ItemStack>(move(cloneMock)));
+            size ++;
+            return;
+        } 
+        switch(item->getType()){
+            case ItemType::POTION:{
+                Potion* currentPotion = dynamic_cast<Potion*>(item);
+                if(currentPotion == nullptr){
+                    throw std::runtime_error("Potion failed dynamic cast!");
+                }
+                unique_ptr<Item> clonePotion = currentPotion->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(clonePotion)));
+                break;
+            }
+            case ItemType::WEAPON:{
+                Weapon* currentWeapon = dynamic_cast<Weapon*>(item);
+                if(currentWeapon == nullptr){
+                    throw std::runtime_error("Weapon failed dynamic cast!");
+                }
+                unique_ptr<Item> cloneWeapon = currentWeapon->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(cloneWeapon)));                
+            }
+            break;
+            case ItemType::ARMOUR:{
+                Armour* currentArmour = dynamic_cast<Armour*>(item);
+                if(currentArmour == nullptr){
+                    throw std::runtime_error("Armour failed dynamic cast!");
+                }
+                unique_ptr<Item> cloneArmour = currentArmour->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(cloneArmour)));     
+            }
+            break;
+            default:{
+                throw std::logic_error("Invalid Item Type!");
+            }
+        }
+        size++;
     }
 }
 
+
 void Inventory::addItem(Item* item, int quantity){
     if(sizeGreaterThanOrEqualToCapacity()){
-        throw std::overflow_error("size of " + std::to_string(size) + " >= capacity of " + std::to_string(capacity) + '\n');
+        resize();
     }
     if(itemFound(item) != -1){
-        items.at(itemFound(item))->increaseQuantity(quantity);
+        items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        items.at(size) = new ItemStack(item, quantity);
-        size ++;
+        //for tests
+        MockItem* currentMock = dynamic_cast<MockItem*>(item);
+        if(currentMock != nullptr){
+            unique_ptr<Item> cloneMock = currentMock->cloneUnique();
+            items.push_back(make_unique<ItemStack>(move(cloneMock), quantity));
+            size ++;
+            return;
+        } 
+        switch(item->getType()){
+            case ItemType::POTION:{
+                Potion* currentPotion = dynamic_cast<Potion*>(item);
+                if(currentPotion == nullptr){
+                    throw std::runtime_error("Potion failed dynamic cast!");
+                }
+                unique_ptr<Item> clonePotion = currentPotion->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(clonePotion), quantity));
+                break;
+            }
+            case ItemType::WEAPON:{
+                Weapon* currentWeapon = dynamic_cast<Weapon*>(item);
+                if(currentWeapon == nullptr){
+                    throw std::runtime_error("Weapon failed dynamic cast!");
+                }
+                unique_ptr<Item> cloneWeapon = currentWeapon->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(cloneWeapon), quantity));                
+            }
+            break;
+            case ItemType::ARMOUR:{
+                Armour* currentArmour = dynamic_cast<Armour*>(item);
+                if(currentArmour == nullptr){
+                    throw std::runtime_error("Armour failed dynamic cast!");
+                }
+                unique_ptr<Item> cloneArmour = currentArmour->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(cloneArmour), quantity));     
+            }
+            break;
+            default:{
+                throw std::logic_error("Invalid Item Type!");
+            }
+        }
+        size++;
     }
 }
 
@@ -107,8 +194,8 @@ int Inventory::itemsWithName(const std::string& name) const{
         return 0;
     }
     int count = 0;
-    for(ItemStack* stack : items){
-        if(stack != nullptr && stack->getItem() != nullptr && stack->getItem()->getName() == name){
+    for(unsigned i = 0; i < size; i++){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getName() == name){
             count ++;
         }
     }
@@ -116,15 +203,26 @@ int Inventory::itemsWithName(const std::string& name) const{
 }
 
 void Inventory::reorganizeItems(){
-    
-    vector<ItemStack*> itemsNew;
-    for(unsigned i = 0; i < size; i++){
-        if(items[i] != nullptr){
-            itemsNew.push_back(items[i]);
+    int currentIndex = 0;
+    // Iterate through the items to move nullptr elements to the back
+    while(currentIndex < size){
+        // If the current item is nullptr, swap with the next non-null item
+        if(items[currentIndex] == nullptr){
+            int nextIndex = currentIndex + 1;
+            // Find the next non-null item
+            while(nextIndex < size && items[nextIndex] == nullptr) {
+                nextIndex++;
+            }
+
+            if(nextIndex < size){
+                // Swap nullptr with the next valid item
+                swap(items[currentIndex], items[nextIndex]);
+            }
         }
+        currentIndex++;
     }
-    items = itemsNew;
 }
+
 
 
 std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
@@ -143,16 +241,6 @@ std::ostream& operator<<(std::ostream& out, const Inventory& rhs){
 void Inventory::sortAlphabetically(){
     MergeSort s(CompareBy::Name);
     s.sort(items, SortOrder::Ascending);
-}
-
-void Inventory::sortByAscendingGrade(){
-    MergeSort s(CompareBy::Grade);
-    s.sort(items, SortOrder::Ascending);
-}
-
-void Inventory::sortByDescendingGrade(){
-    MergeSort s(CompareBy::Grade);
-    s.sort(items, SortOrder::Descending);
 }
 
 void Inventory::makeLatestFirst(){
@@ -177,8 +265,7 @@ void Inventory::removeItem(const string& name, ItemType t){
         items[index]->decreaseQuantity(1);
     }
     else{
-        delete items[index];
-        items[index] = nullptr;
+        items[index].reset(nullptr);
         reorganizeItems();
         size --;
     }
@@ -196,8 +283,7 @@ void Inventory::removeItem(const Item& item){
         items[index]->decreaseQuantity(1);
     }
     else{
-        delete items[index];
-        items[index] = nullptr;
+        items[index].reset(nullptr);
         reorganizeItems();
         size --;
     }
@@ -215,17 +301,16 @@ void Inventory::removeItem(const string& name){
         items[index]->decreaseQuantity(1);
     }
     else{
-        delete items[index];
-        items[index] = nullptr;
+        items[index].reset(nullptr);
         reorganizeItems();
         size --;
     }
 }
 
 ostream& Inventory::outputWeapons(ostream& out) const{
-    for(ItemStack* stack : items){
-        if(stack != nullptr && stack->getItem() != nullptr && stack->getItem()->getType() == ItemType::WEAPON){
-            out << stack;
+    for(unsigned i = 0; i < size; i++){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getType() == ItemType::WEAPON){
+            out << *items[i];
         }
     }
     return out;
@@ -254,14 +339,39 @@ bool Inventory::deserialize(const std::string& data) {
     std::string itemData;
     while (std::getline(iss, itemData)) {
         if (!itemData.empty()) {
-            ItemStack* stack = new ItemStack(nullptr);
-            if (stack->deserialize(itemData)) {
-                items.push_back(stack);
+            unique_ptr<ItemStack> stack = make_unique<ItemStack>(nullptr);
+            if(stack->deserialize(itemData)) {
+                items.push_back(std::move(stack));
             } else {
-                delete stack;
                 return false;
             }
         }
     }
     return true;
+}
+
+void Inventory::clear(){
+    size = 0;
+    items.clear();
+}
+
+Item* Inventory::getItem(int index){
+    if(itemFound(index) == -1){
+        throw std::invalid_argument("Inventory getItem: index invald!");
+    }
+    return items[index]->getItem();
+}
+
+const Item* Inventory::getItem(int index) const{
+    if(itemFound(index) == -1){
+        throw std::invalid_argument("Inventory getItem: index invald!");
+    }
+    return items[index]->getItem();
+}
+
+void Inventory::resize(){
+    items.resize(Inventory::capacity*2);
+
+    capacity *= 2;
+    
 }

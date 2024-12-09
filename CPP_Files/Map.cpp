@@ -42,6 +42,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   // Look at me, lahdee da da, going line by line with gdb, actually using the tools we learned in class, only in an actually challenging and unique environment
   // They should have us do this in class, use our tools on our own code. That would make the labs much more interesting and engaging. At least with B-Trees I knew the purpose of what I was supposed to be doing. Even what I WAS doing, meandering through my nonfunctional code, had a purpose at the end of it all, a better understanding of debugging and how my thought process succeeded and failed. Not that I remember much of it
 
+  // IF GDB FAILS, LOAD THE BREAKPOINTS IN breakpoints.txt with "source breakpoints.txt"
 
   for (int roomIndex : selectedRooms) {
     if(roomIndex >= worldRooms.size()){
@@ -51,7 +52,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     enemyToAdd.setName("enemy1");
     // Set the enemy type as Ranged or Melee randomly. 
     if(rand() % 2 == 0){
-        enemyToAdd.setAttackType(AttackType::Ranged);
+      enemyToAdd.setAttackType(AttackType::Ranged);
     }
     else{
       enemyToAdd.setAttackType(AttackType::Melee);

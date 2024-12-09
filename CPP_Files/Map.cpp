@@ -28,10 +28,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   int count = selectedRooms.size();
     do{
       newIndex = rand() % static_cast<int>(worldRooms.size());
-      if(count == worldRooms.size() - 1){ //prevent infinite loop as 0 can't be in set
-        break;
-      }
-    }while(newIndex == 0 && selectedRooms.find(newIndex) != selectedRooms.end());
+    }while(newIndex == 0);
     selectedRooms.insert(newIndex); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
   }
 

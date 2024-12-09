@@ -22,11 +22,12 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
 
   // DISTRIBUTING ENEMIES
   std::set<int> selectedRooms;
+  
   for (int i = 0; i < 8; i++)  { // Keep adding random room indeces until the set is 8 rooms large
   int newIndex = rand() % static_cast<int>(worldRooms.size());
     do{
       newIndex = rand() % static_cast<int>(worldRooms.size());
-    }while(newIndex == 0);
+    }while(newIndex == 0 && selectedRooms.find(newIndex) != selectedRooms.end());
     selectedRooms.insert(newIndex); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
   }
 

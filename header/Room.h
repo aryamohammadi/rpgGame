@@ -5,10 +5,11 @@
 class Room {
   private:
     vector<int> connectedRooms;
-    vector<Character*> enemies;
-    vector<Item*> items;
+    vector<Character*> enemies = {nullptr};
+    vector<Item*> items = {nullptr};
 
   public:
+    Room();
     ~Room();
     void removeEnemies();
     void removeItems();

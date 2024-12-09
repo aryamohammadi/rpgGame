@@ -92,7 +92,14 @@ void Inventory::addItem(Item* item){
         items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        // Clone the item using its clone method
+        //for tests
+        MockItem* currentMock = dynamic_cast<MockItem*>(item);
+        if(currentMock != nullptr){
+            unique_ptr<Item> cloneMock = currentMock->cloneUnique();
+            items.push_back(make_unique<ItemStack>(move(cloneMock)));
+            size ++;
+            return;
+        } 
         switch(item->getType()){
             case ItemType::POTION:{
                 Potion* currentPotion = dynamic_cast<Potion*>(item);
@@ -122,14 +129,8 @@ void Inventory::addItem(Item* item){
             }
             break;
             default:{
-                MockItem* currentMock = dynamic_cast<MockItem*>(item);
-                if(currentMock == nullptr){
-                    throw std::runtime_error("Mock failed dynamic cast!");
-                }
-                unique_ptr<Item> cloneMock = currentMock->cloneUnique();
-                items.push_back(make_unique<ItemStack>(move(cloneMock)));                
+                throw std::logic_error("Invalid Item Type!");
             }
-            break;
         }
         size++;
     }
@@ -144,7 +145,14 @@ void Inventory::addItem(Item* item, int quantity){
         items.at(itemFound(item))->increaseQuantity(1);
     }
     else{
-        // Clone the item using its clone method
+        //for tests
+        MockItem* currentMock = dynamic_cast<MockItem*>(item);
+        if(currentMock != nullptr){
+            unique_ptr<Item> cloneMock = currentMock->cloneUnique();
+            items.push_back(make_unique<ItemStack>(move(cloneMock), quantity));
+            size ++;
+            return;
+        } 
         switch(item->getType()){
             case ItemType::POTION:{
                 Potion* currentPotion = dynamic_cast<Potion*>(item);
@@ -174,14 +182,8 @@ void Inventory::addItem(Item* item, int quantity){
             }
             break;
             default:{
-                MockItem* currentMock = dynamic_cast<MockItem*>(item);
-                if(currentMock == nullptr){
-                    throw std::runtime_error("Mock failed dynamic cast!");
-                }
-                unique_ptr<Item> cloneMock = currentMock->cloneUnique();
-                items.push_back(make_unique<ItemStack>(move(cloneMock), quantity));                
+                throw std::logic_error("Invalid Item Type!");
             }
-            break;
         }
         size++;
     }

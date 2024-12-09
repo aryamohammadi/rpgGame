@@ -159,7 +159,7 @@ TEST(InsertionSortTest, multipleAscendingItemTest){
         out << *stacks[i];
     }
     for(unsigned i = 0; i < results.size(); i++){
-        out << *results[i];
+        result << *results[i];
     }
     EXPECT_EQ(out.str(), result.str());
     
@@ -417,7 +417,7 @@ TEST(InsertionSortTest, descendingTimeSort){
     for(unsigned i = 0; i < stacks.size(); i++){
         out << *stacks[i] << endl;
     }
-    for(unsigned i = 0; i < results.size(); i++){
+    for(int i = results.size() - 1; i >= 0; i--){
         result << *results[i] << endl;
     }
     EXPECT_EQ(out.str(), result.str());

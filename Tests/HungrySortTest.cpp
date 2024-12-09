@@ -347,7 +347,11 @@ TEST(InsertionSortTest, ascendingTimeSort){
 
     stacks.push_back(make_unique<ItemStack>(move(item)));
 
-    vector<unique_ptr<ItemStack>> results = stacks;
+    vector<unique_ptr<ItemStack>> results;
+
+    for(unsigned i = 0; i < stacks.size(); i++){
+        results.push_back(make_unique<ItemStack>(*stacks[i]));
+    }
     
     InsertionSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Ascending);
@@ -418,7 +422,9 @@ TEST(InsertionSortTest, descendingTimeSort){
     stacks.push_back(make_unique<ItemStack>(move(item)));
 
     vector<unique_ptr<ItemStack>> results = stacks;
-    
+    for(unsigned i = 0; i < stacks.size(); i++){
+        results.push_back(make_unique<ItemStack>(*stacks[i]));
+    }
     InsertionSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Descending);
 
@@ -798,7 +804,9 @@ TEST(MergeSortTest, descendingimeSort){
     stacks.push_back(make_unique<ItemStack>(move(item)));
 
     vector<unique_ptr<ItemStack>> results = stacks;
-    
+    for(unsigned i = 0; i < stacks.size(); i++){
+        results.push_back(make_unique<ItemStack>(*stacks[i]));
+    }
     MergeSort s(CompareBy::Time);
     s.sort(stacks, SortOrder::Descending);
 

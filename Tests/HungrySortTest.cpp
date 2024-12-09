@@ -90,10 +90,6 @@ TEST(InsertionSortTest, multipleAscendingItemTest){
 
     stacks.push_back(make_unique<ItemStack>(move(item)));
 
-    item.reset(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
-
-    stacks.push_back(make_unique<ItemStack>(move(item)));
-
     item.reset(new MockItem(ItemType::POTION, "Mana Brew"));
 
     stacks.push_back(make_unique<ItemStack>(move(item)));
@@ -109,44 +105,38 @@ TEST(InsertionSortTest, multipleAscendingItemTest){
     vector<unique_ptr<ItemStack>> results;
 
     item.reset(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::ARMOUR, "Elven Cloak"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::POTION, "Emilly"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::POTION, "Emily's Elixir"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::WEAPON, "Excalibur"));
+    results.push_back(make_unique<ItemStack>(move(item)));
 
+    item.reset(new MockItem(ItemType::WEAPON, "Excalibur"));
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::POTION, "Healing Tonic"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::ARMOUR, "Knight's Shield"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::POTION, "Mana Brew"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::WEAPON, "Thunder Hammer"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
+
 
     InsertionSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Ascending);
@@ -202,10 +192,6 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
 
     stacks.push_back(make_unique<ItemStack>(move(item)));
 
-    item.reset(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
-
-    stacks.push_back(make_unique<ItemStack>(move(item)));
-
     item.reset(new MockItem(ItemType::POTION, "Mana Brew"));
 
     stacks.push_back(make_unique<ItemStack>(move(item)));
@@ -221,44 +207,38 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
     vector<unique_ptr<ItemStack>> results;
 
     item.reset(new MockItem(ItemType::ARMOUR, "Dragon Scale Armor"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::WEAPON, "Dragon Slayer Sword"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::ARMOUR, "Elven Cloak"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::POTION, "Emilly"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::POTION, "Emily's Elixir"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::WEAPON, "Excalibur"));
+    results.push_back(make_unique<ItemStack>(move(item)));
 
+    item.reset(new MockItem(ItemType::WEAPON, "Excalibur"));
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::POTION, "Healing Tonic"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::ARMOUR, "Knight's Shield"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::POTION, "Mana Brew"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
 
     item.reset(new MockItem(ItemType::WEAPON, "Thunder Hammer"));
-
     results.push_back(make_unique<ItemStack>(move(item)));
+
     InsertionSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Descending);
 
@@ -269,7 +249,7 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
     for(unsigned i = 0; i < stacks.size(); i++){
         out << *stacks[i] << endl;
     }
-    for(unsigned i = 0; i < results.size(); i++){
+    for(int i = results.size() - 1; i >= 0; i--){
         result << *results[i] << endl;
     }
 

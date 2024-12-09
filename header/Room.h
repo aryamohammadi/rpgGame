@@ -9,6 +9,7 @@ class Room {
     vector<Item*> items;
 
   public:
+    ~Room();
     void removeEnemies();
     void removeItems();
 

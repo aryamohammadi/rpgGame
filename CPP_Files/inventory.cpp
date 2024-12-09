@@ -228,7 +228,7 @@ void Inventory::removeItem(const string& name){
         items[index]->decreaseQuantity(1);
     }
     else{
-        items[index].release();
+        items[index].reset();
         reorganizeItems();
         size --;
     }

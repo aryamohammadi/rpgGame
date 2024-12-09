@@ -5,10 +5,12 @@
 #include "../header/character.h"
 class Room {
   private:
-    vector<Character*> enemies = {nullptr};
-    vector<Item*> items = {nullptr};
+    vector<Character*> enemies;
+    vector<Item*> items;
 
   public:
+    Room();
+    
     void removeEnemies();
     void removeItems();
 

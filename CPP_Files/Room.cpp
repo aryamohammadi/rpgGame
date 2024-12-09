@@ -4,6 +4,9 @@
 #include <ctime>
 #include <iostream>
 
+Room::Room() {
+}
+
 void Room::removeEnemies() {
   enemies.clear();
 }

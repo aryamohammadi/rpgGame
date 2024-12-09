@@ -11,24 +11,36 @@
 
 Map::Map() { // Constructor
   worldRooms.reserve(16);
+  // Push back 16 dummy rooms, but don't give them enemies or items, just run the Room constructor
+  for (unsigned i = 0; i < 16; i++) {
+    Room newRoom;
+    worldRooms.push_back(newRoom);
+  }
   // distributeEnemiesAndItems(typeOfWeapon);
 }
 
 void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
-  srand(time(0));
+  // srand(time(0));
+  srand(2);
   Character enemyToAdd("enemy1");
 
   // DISTRIBUTING ENEMIES
   std::set<int> selectedRooms;
   for (int i = 0; i < 8; i++)  { // Keep adding random room indeces until the set is 8 rooms large
-  int newIndex = rand() % static_cast<int>(worldRooms.size());
-    do{
-      newIndex = rand() % static_cast<int>(worldRooms.size());
-    }while(newIndex == 0);
-    selectedRooms.insert(newIndex); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
+  // int newIndex = rand() % static_cast<int>(worldRooms.size());
+  //   do{
+  //     newIndex = rand() % static_cast<int>(worldRooms.size());
+  //   }while(newIndex == 0);
+  //   selectedRooms.insert(newIndex); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
     
-    // selectedRooms.insert(rand() % 15 + 1); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
+    selectedRooms.insert(rand() % 15 + 1); // Do not add enemies to the starting room. We don't want the player to get a nasty surprise
   }
+
+  // NOTES FROM 11:09 PM 12-8-24
+  // I'm running gdb, incrementing through this [for (int roomIndex : selectedRooms)] loop, to find where the segfault is. 
+  // The for loop in the Map() constructor pushing back empty Rooms was pretty nice. That way worldRooms has a set size, which is more than .reserve(16) can say, the miserable failure
+  // Look at me, lahdee da da, going line by line with gdb, actually using the tools we learned in class, only in an actually challenging and unique environment
+  // They should have us do this in class, use our tools on our own code. That would make the labs much more interesting and engaging. At least with B-Trees I knew the purpose of what I was supposed to be doing. Even what I WAS doing, meandering through my nonfunctional code, had a purpose at the end of it all, a better understanding of debugging and how my thought process succeeded and failed. Not that I remember much of it
 
 
   for (int roomIndex : selectedRooms) {

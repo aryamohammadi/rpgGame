@@ -9,7 +9,7 @@ class Room {
     vector<Item*> items = {nullptr};
 
   public:
-    Room();
+    Room(){}
     ~Room();
     void removeEnemies();
     void removeItems();

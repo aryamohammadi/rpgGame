@@ -9,13 +9,6 @@
 using std::endl;
 using std::to_string;
 using std::exception;
-
-void Inventory::fillItems(){
-    for(unsigned i = 0; i < capacity; i++){
-        unique_ptr<Item> item;
-        items.push_back(make_unique<ItemStack>(move(item)));
-    }
-}
 Inventory::Inventory(const Inventory& inventory2){
     *this = inventory2;
 }
@@ -24,10 +17,14 @@ Inventory& Inventory::operator=(const Inventory& rhs){
     if(this != &rhs){
         clear();
         items.resize(rhs.capacity);
+        size = rhs.size;
         for(unsigned i = 0; i < rhs.size; i++){
+            if(items[i] == nullptr || items[i]->getItem() == nullptr){
+                size --;
+                break;
+            }
             items[i] = make_unique<ItemStack>(*rhs.items[i]);
         }
-        size = rhs.size;
         capacity = rhs.capacity;
     }
     return *this;
@@ -95,8 +92,44 @@ void Inventory::addItem(Item* item){
     }
     else{
         // Clone the item using its clone method
-        std::unique_ptr<Item> clonedItem = std::unique_ptr<Item>(item); // Assuming clone() exists
-        items.push_back(std::make_unique<ItemStack>(std::move(clonedItem)));
+        switch(item->getType()){
+            case ItemType::POTION:{
+                Potion* currentPotion = dynamic_cast<Potion*>(item);
+                if(currentPotion == nullptr){
+                    throw std::runtime_error("Potion failed dynamic cast!");
+                }
+                unique_ptr<Item> clonePotion = currentPotion->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(clonePotion)));
+                break;
+            }
+            case ItemType::WEAPON:{
+                Weapon* currentWeapon = dynamic_cast<Weapon*>(item);
+                if(currentWeapon == nullptr){
+                    throw std::runtime_error("Weapon failed dynamic cast!");
+                }
+                unique_ptr<Item> cloneWeapon = currentWeapon->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(cloneWeapon)));                
+            }
+            break;
+            case ItemType::ARMOUR:{
+                Armour* currentArmour = dynamic_cast<Armour*>(item);
+                if(currentArmour == nullptr){
+                    throw std::runtime_error("Armour failed dynamic cast!");
+                }
+                unique_ptr<Item> cloneArmour = currentArmour->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(cloneArmour)));     
+            }
+            break;
+            default:{
+                MockItem* currentMock = dynamic_cast<MockItem*>(item);
+                if(currentMock == nullptr){
+                    throw std::runtime_error("Mock failed dynamic cast!");
+                }
+                unique_ptr<Item> cloneMock = currentMock->cloneUnique();
+                items.push_back(make_unique<ItemStack>(move(cloneMock)));                
+            }
+            break;
+        }
         size++;
     }
 }
@@ -193,7 +226,7 @@ void Inventory::removeItem(const string& name, ItemType t){
         items[index]->decreaseQuantity(1);
     }
     else{
-        items[index].reset();
+        items[index].reset(nullptr);
         reorganizeItems();
         size --;
     }
@@ -211,7 +244,7 @@ void Inventory::removeItem(const Item& item){
         items[index]->decreaseQuantity(1);
     }
     else{
-        items[index].reset();
+        items[index].reset(nullptr);
         reorganizeItems();
         size --;
     }
@@ -229,7 +262,7 @@ void Inventory::removeItem(const string& name){
         items[index]->decreaseQuantity(1);
     }
     else{
-        items[index].reset();
+        items[index].reset(nullptr);
         reorganizeItems();
         size --;
     }

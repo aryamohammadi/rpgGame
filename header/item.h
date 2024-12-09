@@ -119,3 +119,31 @@ public:
     std::string serialize() const;
     bool deserialize(const std::string& data);
 };
+
+class MockItem : public Item{
+    public:
+        MockItem(ItemType t = ItemType::WEAPON, const string& name = "", const string& descript = "", double timeElapsed = -1.0):Item(t,name,descript, timeElapsed){}
+        void useItem(Character& ) override{
+            return;
+        }
+        std::unique_ptr<Item> cloneUnique() const override{
+            return std::make_unique<MockItem>(type, name, description, timeEarned);  
+        }
+        Item* clone() const override{
+            return new MockItem(type, name, description, timeEarned);
+        }
+        friend void swap(MockItem*& item1, MockItem*& item2){
+            MockItem* item1Placeholder = item1;
+
+            item1 = item2;
+
+            item2 = item1Placeholder;
+        }
+        virtual bool deserialize(const string& data){
+            return false;
+        }
+        virtual std::string serialize() const{
+            return "";
+        }
+
+};

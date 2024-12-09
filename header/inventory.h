@@ -18,7 +18,7 @@ private:
 
     void reorganizeItems();
     void clear();
-
+    void resize();
 public:
     Inventory(int capacity = 10):capacity(capacity){}
     ~Inventory(){clear();}

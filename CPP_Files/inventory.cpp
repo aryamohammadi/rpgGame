@@ -19,7 +19,7 @@ Inventory& Inventory::operator=(const Inventory& rhs){
         items.resize(rhs.capacity);
         size = rhs.size;
         for(unsigned i = 0; i < rhs.size; i++){
-            if(items[i] == nullptr || items[i]->getItem() == nullptr){
+            if(rhs.items[i] == nullptr || rhs.items[i]->getItem() == nullptr){
                 size --;
                 break;
             }
@@ -85,7 +85,7 @@ int Inventory::itemFound(int index) const{
 
 void Inventory::addItem(Item* item){
     if(sizeGreaterThanOrEqualToCapacity()){
-        throw std::overflow_error("size of " + std::to_string(size) + " >= capacity of " + std::to_string(capacity) + '\n');
+        resize();
     }
     if(itemFound(item) != -1){
         items.at(itemFound(item))->increaseQuantity(1);
@@ -328,4 +328,11 @@ const Item* Inventory::getItem(int index) const{
         throw std::invalid_argument("Inventory getItem: index invald!");
     }
     return items[index]->getItem();
+}
+
+void Inventory::resize(){
+    items.resize(Inventory::capacity*2);
+
+    capacity *= 2;
+    
 }

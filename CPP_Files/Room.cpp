@@ -23,8 +23,8 @@ void Room::removeItems() {
   items.clear();
 }
 
-void Room::addEnemies(Character enemyToAdd) {
-  enemies.push_back(&enemyToAdd);
+void Room::addEnemies(Character enemyToAdd){
+  enemies.push_back(new Character(enemyToAdd));
 }
 
 void Room::addItems(Item* itemToAdd) {

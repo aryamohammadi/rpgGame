@@ -9,9 +9,6 @@ ItemStack::ItemStack(std::unique_ptr<Item> newItem, int amount):quantity(amount)
 
 ItemStack::~ItemStack(){}
 ItemStack::ItemStack(const ItemStack& other){
-    if(&other == nullptr){
-        throw std::runtime_error("Invalid other!");
-    }
     if(other.currentItem){
         currentItem = std::unique_ptr<Item>(other.currentItem->clone());
     } else {
@@ -47,39 +44,36 @@ void ItemStack::decreaseQuantity(int amount) {
 }
 
 bool ItemStack::isItem(const Item& other) const {
-    if(currentItem == nullptr || &other == nullptr){
-        return false;
+    if(currentItem == nullptr){
+        return false; // Early return if currentItem is null
     }
-    if(currentItem->getName() == other.getName() && currentItem->getType() == other.getType()){
+
+    // Check if name and type match
+    if (currentItem->getName() == other.getName() && currentItem->getType() == other.getType()){
         switch(other.getType()){
             case ItemType::WEAPON:{
                 const Weapon* currentWeapon = dynamic_cast<const Weapon*>(&other);
                 const Weapon* storedWeapon = dynamic_cast<Weapon*>(currentItem.get());
-                if(currentWeapon != nullptr && storedWeapon != nullptr && currentWeapon->getDamage() == storedWeapon->getDamage()) {
-                    return true;
-                }
-                return false;
+                // Compare damage for weapons
+                return (currentWeapon != nullptr && storedWeapon != nullptr && currentWeapon->getDamage() == storedWeapon->getDamage());
             }
             case ItemType::ARMOUR:{
                 const Armour* currentArmour = dynamic_cast<const Armour*>(&other);
                 const Armour* storedArmour = dynamic_cast<Armour*>(currentItem.get());
-                if(currentArmour != nullptr && storedArmour != nullptr && currentArmour->getArmourStat() == storedArmour->getArmourStat()){
-                    return true;
-                }
-                return false;
+                // Compare armour stats
+                return (currentArmour != nullptr && storedArmour != nullptr && currentArmour->getArmourStat() == storedArmour->getArmourStat());
             }
             case ItemType::POTION:{
                 const Potion* currentPotion = dynamic_cast<const Potion*>(&other);
                 const Potion* storedPotion = dynamic_cast<Potion*>(currentItem.get());
-                if(currentPotion != nullptr && storedPotion != nullptr && currentPotion->getRecoveryAmount() == storedPotion->getRecoveryAmount()){
-                    return true;
-                }
-                return false;
+                // Compare recovery amount for potions
+                return (currentPotion != nullptr && storedPotion != nullptr && currentPotion->getRecoveryAmount() == storedPotion->getRecoveryAmount());
             }
         }
     }
-    return false;
+    return false; // If no conditions matched, return false
 }
+
 
 std::ostream& operator<<(std::ostream& out, const ItemStack& stack) {
     if (stack.currentItem) {

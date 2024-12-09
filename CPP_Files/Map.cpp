@@ -25,7 +25,6 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   
   for (int i = 0; i < 8; i++)  { // Keep adding random room indeces until the set is 8 rooms large
   int newIndex = rand() % static_cast<int>(worldRooms.size());
-  int count = selectedRooms.size();
     do{
       newIndex = rand() % static_cast<int>(worldRooms.size());
     }while(newIndex == 0);

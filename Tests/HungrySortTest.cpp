@@ -270,7 +270,7 @@ TEST(InsertionSortTest, multipleDescendingItemTest){
         out << *stacks[i] << endl;
     }
     for(unsigned i = 0; i < results.size(); i++){
-        out << *results[i] << endl;
+        result << *results[i] << endl;
     }
 
     EXPECT_EQ(out.str(), result.str());
@@ -525,19 +525,17 @@ TEST(MergeSortTest, multipleAscendingItemTest){
     item.reset(new MockItem(ItemType::ARMOUR, "Elven Cloak"));
 
     results.push_back(make_unique<ItemStack>(move(item)));
-
     MergeSort s(CompareBy::Name);
     s.sort(stacks, SortOrder::Ascending);
-
     ostringstream out;
     ostringstream result;
-    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
     for(unsigned i = 0; i < results.size(); i++){
-        out << *results[i] << endl;
+        result << *results[i] << endl;
     }
     for(unsigned i = 0; i < stacks.size(); i++){
-        result << *stacks[i] << endl;
+        out << *stacks[i] << endl;
     }
+    EXPECT_TRUE(s.isSorted(stacks, SortOrder::Ascending));
     EXPECT_EQ(out.str(), result.str());
     
 }

@@ -23,8 +23,8 @@ Inventory::Inventory(const Inventory& inventory2){
 Inventory& Inventory::operator=(const Inventory& rhs){
     if(this != &rhs){
         clear();
-        items.resize(rhs.items.size());
-        for(unsigned i = 0; i < rhs.items.size(); i++){
+        items.resize(rhs.capacity);
+        for(unsigned i = 0; i < rhs.size; i++){
             items[i] = make_unique<ItemStack>(*rhs.items[i]);
         }
         size = rhs.size;

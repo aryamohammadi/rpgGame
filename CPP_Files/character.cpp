@@ -23,7 +23,12 @@ Character::Character(const Character& other){*this = other;}
 // Copy assignment operator
 Character& Character::operator=(const Character& other) {
     if (this != &other) {
-        storage = make_unique<Inventory>(*other.storage);
+        if(!other.isStorageEmpty()){
+            storage = make_unique<Inventory>(*other.storage);
+        }
+        else{
+            storage = make_unique<Inventory>();
+        }
         if(other.weapon == nullptr){
             deEquipWeapon();
         }

@@ -38,6 +38,7 @@ public:
 
     virtual void useItem(Character&) = 0;
     virtual Item* clone() const = 0;
+    virtual std::unique_ptr<Item> cloneUnique() const = 0;
     friend void swap(Item*& item1, Item*& item2);
 
     virtual std::string serialize() const;
@@ -56,6 +57,7 @@ public:
     ~Potion() = default;
     void useItem(Character&) override;
     Item* clone() const override;
+    std::unique_ptr<Item> cloneUnique() const override;
     int getRecoveryAmount() const{return recoveryAmount;}
     friend std::ostream& operator<<(std::ostream& out, const Potion& currentPotion);
 
@@ -92,6 +94,7 @@ public:
     void increaseDamage(int amount){damage += amount;}
     void decreaseDamage(int amount){damage -= amount;}
     friend std::ostream& operator<<(std::ostream& out, const Weapon& currentWeapon);
+    std::unique_ptr<Item> cloneUnique() const override;
 
     std::string serialize() const;
     bool deserialize(const std::string& data);
@@ -109,6 +112,7 @@ public:
     ~Armour() = default;
     void useItem(Character&) override;
     Item* clone() const override;
+    std::unique_ptr<Item> cloneUnique() const override;
     int getArmourStat() const{return armourStat;}
     friend std::ostream& operator<<(std::ostream& out, const Armour& currentArmour);
 

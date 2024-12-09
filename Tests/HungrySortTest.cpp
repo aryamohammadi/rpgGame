@@ -15,6 +15,9 @@ class MockItem: public Item{
         MOCK_METHOD(void, useItem,(Character&),(override));
         MOCK_METHOD(std::string, serialize, (), (const, override));
         MOCK_METHOD(bool,deserialize,(const string&), (override));
+        std::unique_ptr<Item> cloneUnique() const override{
+            return std::make_unique<MockItem>(type, name, description, timeEarned);  
+        }
         Item* clone() const override{
             return new MockItem(type, name, description, timeEarned);
         }

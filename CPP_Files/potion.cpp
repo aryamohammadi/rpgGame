@@ -7,7 +7,7 @@ void Potion::useItem(Character& player){
 }
 
 Item* Potion::clone() const{
-    return new Potion(getType(),getName(),getDescript(),recoveryAmount, getTime());
+    return new Potion(*this);
 }
 
 std::ostream& operator<<(ostream& out, const Potion& currentPotion){
@@ -52,4 +52,8 @@ Potion& Potion::operator=(const Potion& otherPotion){
         recoveryAmount = otherPotion.getRecoveryAmount();
     }
     return *this;
+}
+
+std::unique_ptr<Item> Potion::cloneUnique() const {
+    return std::make_unique<Potion>(*this);  
 }

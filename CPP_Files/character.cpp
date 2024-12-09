@@ -8,13 +8,13 @@ using std::string;
 
 Character::Character(const std::string& name) : characterName(name), health(100),defense(0), baseSpeed(20),currentSpeed(20), isDead(false){
     storage = make_unique<Inventory>();
-    armour = make_unique<Armour>();
-    weapon = make_unique<Weapon>();
+    armour = nullptr;
+    weapon = nullptr;
 } 
 Character::Character(): characterName("Warrior"), health(100), defense(0), baseSpeed(20), currentSpeed(20),isDead(false){
     storage = make_unique<Inventory>();
-    armour = make_unique<Armour>();
-    weapon = make_unique<Weapon>();
+    armour = nullptr;
+    weapon = nullptr;
 }
 Character::~Character(){}
 // Copy operator

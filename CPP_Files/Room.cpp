@@ -3,26 +3,28 @@
 #include "../header/character.h"
 #include <ctime>
 #include <iostream>
-
-Room::Room() {
+Room::~Room(){
+    removeEnemies();
+    removeItems();
 }
-
 void Room::removeEnemies() {
-  for (unsigned i; i < enemies.size(); i++) {
-    delete enemies[i];
-  }
-  enemies.clear();
+    for(Character* currentCharacter : enemies){
+        delete currentCharacter;
+        currentCharacter = nullptr;
+    }
+    enemies.clear();
 }
 
 void Room::removeItems() {
-  for (unsigned i; i < items.size(); i++) {
+  for (unsigned i = 0; i < items.size(); i++) {
     delete items[i];
+    items[i] = nullptr;
   }
   items.clear();
 }
 
-void Room::addEnemies(Character enemyToAdd) {
-  enemies.push_back(&enemyToAdd);
+void Room::addEnemies(Character enemyToAdd){
+  enemies.push_back(new Character(enemyToAdd));
 }
 
 void Room::addItems(Item* itemToAdd) {

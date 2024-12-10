@@ -38,13 +38,13 @@ public:
 
     virtual void useItem(Character&) = 0;
     virtual Item* clone() const = 0;
+    virtual std::unique_ptr<Item> cloneUnique() const = 0;
     friend void swap(Item*& item1, Item*& item2);
 
     virtual std::string serialize() const;
     virtual bool deserialize(const string& data);
     friend ostream& operator<<(ostream& out, const Item& item);
 };
-
 class Potion : public Item {
 private:
     int recoveryAmount = 0;
@@ -54,9 +54,10 @@ public:
     Potion(ItemType t, const string& name, const string& descript, int amount, double timeElapsed = -1.0);
     Potion(const Potion& otherPotion){*this = otherPotion;}
     Potion& operator=(const Potion& otherPotion);
-    ~Potion() = default;
+    ~Potion() override = default;
     void useItem(Character&) override;
     Item* clone() const override;
+    std::unique_ptr<Item> cloneUnique() const override;
     int getRecoveryAmount() const{return recoveryAmount;}
     friend std::ostream& operator<<(std::ostream& out, const Potion& currentPotion);
 
@@ -83,8 +84,9 @@ public:
            int damage, WeaponType weaponType, double timeElapsed = -1.0);
     Weapon(const Weapon& otherWeapon){*this = otherWeapon;}
     Weapon& operator=(const Weapon& otherWeapon);
-    ~Weapon() = default;
+    ~Weapon() override = default;
     void useItem(Character& target) override;
+    void setWeaponType(WeaponType newType){weaponType = newType;}
     Item* clone() const override;
     WeaponType getWeaponType() const{return weaponType;}
     int getSpeedEffect() const{return speedEffect;}
@@ -92,8 +94,7 @@ public:
     void increaseDamage(int amount){damage += amount;}
     void decreaseDamage(int amount){damage -= amount;}
     friend std::ostream& operator<<(std::ostream& out, const Weapon& currentWeapon);
-    
-    void setWeaponType(Weapon::WeaponType newType) { weaponType = newType; }
+    std::unique_ptr<Item> cloneUnique() const override;
 
     std::string serialize() const;
     bool deserialize(const std::string& data);
@@ -108,12 +109,41 @@ public:
     Armour(ItemType t, const string& name, const string& descript, int stat, double timeElapsed = -1.0);
     Armour(const Armour& otherArmour){*this = otherArmour;}
     Armour& operator=(const Armour& otherArmour);
-    ~Armour() = default;
+    ~Armour() override = default;
     void useItem(Character&) override;
     Item* clone() const override;
+    std::unique_ptr<Item> cloneUnique() const override;
     int getArmourStat() const{return armourStat;}
     friend std::ostream& operator<<(std::ostream& out, const Armour& currentArmour);
 
     std::string serialize() const;
     bool deserialize(const std::string& data);
+};
+
+class MockItem : public Item{
+    public:
+        MockItem(ItemType t = ItemType::WEAPON, const string& name = "", const string& descript = "", double timeElapsed = -1.0):Item(t,name,descript, timeElapsed){}
+        void useItem(Character& ) override{
+            return;
+        }
+        std::unique_ptr<Item> cloneUnique() const override{
+            return std::make_unique<MockItem>(type, name, description, timeEarned);  
+        }
+        Item* clone() const override{
+            return new MockItem(type, name, description, timeEarned);
+        }
+        friend void swap(MockItem*& item1, MockItem*& item2){
+            MockItem* item1Placeholder = item1;
+
+            item1 = item2;
+
+            item2 = item1Placeholder;
+        }
+        virtual bool deserialize(const string& data){
+            return false;
+        }
+        virtual std::string serialize() const{
+            return "";
+        }
+
 };

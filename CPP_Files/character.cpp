@@ -8,13 +8,13 @@ using std::string;
 
 Character::Character(const std::string& name) : characterName(name), health(100),defense(0), baseSpeed(20),currentSpeed(20), isDead(false){
     storage = make_unique<Inventory>();
-    armour = make_unique<Armour>();
-    weapon = make_unique<Weapon>();
+    armour = nullptr;
+    weapon = nullptr;
 } 
 Character::Character(): characterName("Warrior"), health(100), defense(0), baseSpeed(20), currentSpeed(20),isDead(false){
     storage = make_unique<Inventory>();
-    armour = make_unique<Armour>();
-    weapon = make_unique<Weapon>();
+    armour = nullptr;
+    weapon = nullptr;
 }
 Character::~Character(){}
 // Copy operator
@@ -23,7 +23,12 @@ Character::Character(const Character& other){*this = other;}
 // Copy assignment operator
 Character& Character::operator=(const Character& other) {
     if (this != &other) {
-        storage = make_unique<Inventory>(*other.storage);
+        if(!other.isStorageEmpty()){
+            storage = make_unique<Inventory>(*other.storage);
+        }
+        else{
+            storage = make_unique<Inventory>();
+        }
         if(other.weapon == nullptr){
             deEquipWeapon();
         }
@@ -87,7 +92,7 @@ void Character::equipArmour(Armour* newArmour){
 void Character::deEquipArmour() {
     if (armour != nullptr) {
         defense -= armour->getArmourStat();
-        storage->addItem(armour.get());           
+        storage->addItem(armour.get()->clone());           
         armour = nullptr;                  
     }
 }
@@ -95,22 +100,29 @@ void Character::deEquipArmour() {
 void Character::equipWeapon(Weapon* newWeapon){
     if(newWeapon == nullptr){
         resetSpeed();
-        weapon.reset();
+        weapon.reset();  // Reset weapon if the newWeapon is nullptr
+    } else{
+        if(weapon != nullptr){
+            // Only add the old weapon to storage if it exists
+            storage->addItem(weapon->clone());
+            resetSpeed();
+        }
+
+        // If the new weapon exists in storage, remove it
+        if(storage->itemFound(newWeapon) != -1){
+            storage->removeItem(*newWeapon);
+        }
+
+        // Now take ownership of the new weapon
+        weapon.reset(newWeapon);  // Transfer ownership of the new weapon
+        modifySpeed(weapon->getSpeedEffect());  // Update speed with the new weapon's effect
     }
-    if(weapon != nullptr){
-        storage->addItem(weapon.get());
-        resetSpeed();  
-    }
-    if(storage->itemFound(newWeapon) != -1){
-        storage->removeItem(*newWeapon);
-    }
-    weapon.reset(newWeapon);
-    modifySpeed(weapon->getSpeedEffect());
 }
+
 
 void Character::deEquipWeapon() {
     if (weapon != nullptr) {
-        storage->addItem(weapon.get());
+        storage->addItem(weapon.get()->clone());
         weapon.reset();
     }
 }

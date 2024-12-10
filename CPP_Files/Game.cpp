@@ -225,7 +225,7 @@ void Game::playGame() {
 												while (player.getExperience() > 100) {
 													player.setHealth(player.getHealth() * 1.1);
 													player.setDamage(player.getDamage() * 1.1);
-													player.increaseStorageCapacity(player.getStorageCapacity() * 0.25);
+													player.increaseStorageCapacityByPercent(0.25);
 													player.setExperience(player.getExperience() - 100);
 												}
 											}
@@ -260,24 +260,7 @@ void Game::playGame() {
 					std::string nameOfItemToEquip;
 					std::getline(std::cin, nameOfItemToEquip);
 
-					// Find where the player's desired item is in the inventory
-					int itemIndex = player.itemFound(nameOfItemToEquip);
-					// Have a pointer pointing to the item we want to equip
-					Item* itemToEquip = player.getItem(itemIndex);
-
-					if (itemToEquip->getType() == ItemType::WEAPON) {
-						// I think this is how you use static casting?????
-						// If not, uncomment this
-						// Weapon* weaponToEquip = player.getItem(itemIndex);
-
-						Weapon* weaponToEquip = static_cast<Weapon*> (itemToEquip);
-						player.equipWeapon(weaponToEquip);
-					}
-					else if (itemToEquip->getType() == ItemType::ARMOUR) {
-						Armour* armourToEquip = static_cast<Armour*> (itemToEquip);
-						player.equipArmour(armourToEquip);
-					}
-					else {
+					if(!player.useItem(nameOfItemToEquip)) {
 						std::cout << "No weapon nor armour with this name exists in your inventory. Please try again." << std::endl;
 					}
 				}
@@ -289,24 +272,15 @@ void Game::playGame() {
 					std::string nameOfPotionToUse;
 					std::getline(std::cin, nameOfPotionToUse);
 
-					int potionIndex = player.itemFound(nameOfPotionToUse);
-					Item* itemToUse = player.getItem(potionIndex);
+					player.useItem(nameOfPotionToUse);
 
-					if (itemToUse->getType() == ItemType::POTION) {
-						Potion* potionToUse = static_cast<Potion*> (itemToUse);
-						potionToUse->useItem(player);
-						// This is easier 
-						player.throwAwayItem(nameOfPotionToUse);
-					}
-					else {
+					if(!player.useItem(nameOfPotionToUse)){
 						std::cout << "Item is either not a potion or does not exist. Please try again." << std::endl;
 					}
 				}
 				else if (playerCommand == "print") {
 					std::cout << "Inventory for " << player.getName() << std::endl;
-					player.outputWeapons(std::cout);
-					player.outputArmour(std::cout);
-					player.outputPotions(std::cout);
+					player.showInventory(std::cout);
 					std::cout << std::endl;
 				}
 				else {

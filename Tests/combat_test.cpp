@@ -1,33 +1,112 @@
 #include "../header/combat.h"
 #include "../header/character.h"
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
+#include <vector>
+#include "gmock/gmock.h"
 
-TEST(combatTest, checkVector){
-    Character character("player");
-    
+using namespace std;
+
+// Helper function to create a test enemy character
+Character* createEnemy(const string& name, int health = 100, int defense = 10) {
+    Character* enemy = new Character(name);
+    enemy->setHealth(health);
+    return enemy;
 }
 
-TEST(Combat_test, TestingIfPlayerIsDead) {
-    
-    Character* player = new Character("Player");
-    Character* enemy1 = new Character("Enemy1");
-    Character* enemy2 = new Character("Enemy2");;
+// Helper function to create a player character
+Character* createPlayer(const string& name) {
+    return new Character(name);
+}
 
+TEST(CombatTest, StartBattleWithOneEnemy) {
+    Character* player = createPlayer("Player");
+    Character* enemy = createEnemy("Enemy");
 
-    std::vector<Character*> fighters = {player, enemy1, enemy2};
+    vector<Character*> fighters{player, enemy};
+    Combat combat(fighters);
 
+    // Simulate battle
+    combat.startBattle();
+
+    // Player should still be alive
+    EXPECT_TRUE(player->isAlive());
+    // Enemy should be dead
+    EXPECT_FALSE(enemy->isAlive());
+
+    delete player;
+    delete enemy;
+}
+
+TEST(CombatTest, PlayerDiesDuringCombat) {
+    Character* player = createPlayer("Player");
+    player->setHealth(50); // Set low health for the player
+    Character* strongEnemy = createEnemy("Strong Enemy", 100);
+
+    vector<Character*> fighters{player, strongEnemy};
+    Combat combat(fighters);
+
+    // Simulate battle
+    combat.startBattle();
+
+    // Player should be dead
+    EXPECT_FALSE(player->isAlive());
+    // Strong enemy should still be alive
+    EXPECT_TRUE(strongEnemy->isAlive());
+
+    delete player;
+    delete strongEnemy;
+}
+
+TEST(CombatTest, PlayerAttacksAndChoosesTarget) {
+    auto player = make_unique<Character>(createPlayer("Player"));
+    auto enemy1 = make_unique<Character>(createEnemy("Enemy1", 80));
+    auto enemy2 = make_unique<Character>(createEnemy("Enemy2", 60));
+
+    vector<Character*> fighters{player.get(), enemy1.get(), enemy2.get()};
     Combat combat(fighters);
 
     combat.startBattle();
 
-    // Test if the player is dead
-    EXPECT_FALSE(combat.isPlayerDead()) << "Player should not be dead at the start of the battle.";
+    // Ensure Enemy2 was attacked
+    EXPECT_LT(enemy2->getHealth(), 60);
+}
 
-    // Test if at least one enemy is still alive
-    EXPECT_TRUE(combat.isAtLeast1EnemieAlive()) << "At least one enemy should be alive at the start of the battle.";
+
+TEST(CombatTest, RemovePlayerFromHeap) {
+    Character* player = createPlayer("Player");
+    Character* enemy1 = createEnemy("Enemy1");
+    Character* enemy2 = createEnemy("Enemy2");
+
+    vector<Character*> fighters{player, enemy1, enemy2};
+    Combat combat(fighters);
+
+    combat.removePlayerFromHeap("Enemy1");
+
+    // Enemy1 should no longer be in the fightersAlive list
+    auto it = find_if(fighters.begin(), fighters.end(), [](Character* c) { return c->getName() == "Enemy1"; });
+    EXPECT_EQ(it, fighters.end());
 
     delete player;
-    delete enemy1;
     delete enemy2;
 }
 
+TEST(CombatTest, PlayerDecidesWhoToAttackInvalidChoice) {
+    Character* player = createPlayer("Player");
+    Character* enemy = createEnemy("Enemy");
+
+    vector<Character*> fighters{player, enemy};
+    Combat combat(fighters);
+
+    stringstream input("0 1");
+    cin.rdbuf(input.rdbuf());
+
+    int choice = combat.playerDecidesWhoToAttack();
+
+    if (choice != 1) {
+        cerr << "Test failed: Expected choice to be 1 but got " << choice << endl;
+        FAIL();
+    }
+
+    delete player;
+    delete enemy;
+}

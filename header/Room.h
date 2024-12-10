@@ -1,16 +1,17 @@
 #pragma once
+
 #include <vector>
 #include "item.h"
 #include "../header/character.h"
 class Room {
   private:
-    vector<int> connectedRooms;
-    vector<Character*> enemies = {nullptr};
-    vector<Item*> items = {nullptr};
+    vector<Character*> enemies;
+    vector<Item*> items;
 
   public:
     Room(){}
     ~Room();
+    
     void removeEnemies();
     void removeItems();
 
@@ -21,6 +22,10 @@ class Room {
     vector<Character*> getEnemies() {return enemies;} 
     vector<Item*> getItems() {return items;}
     
+    bool hasPotions();
+    bool hasWeapons();
+    bool hasArmour();
+
     int getExperience();
 
     std::string serialize() const; // For save game

@@ -375,3 +375,20 @@ void Inventory::resize(){
     capacity *= 2;
     
 }
+
+std::ostream& Inventory::outPotions(std::ostream& out) const{
+    for(unsigned i = 0; i < size; i++){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getType() == ItemType::POTION){
+            out << *items[i];
+        }
+    }
+    return out;
+}
+std::ostream& Inventory::outArmour(std::ostream& out) const{
+    for(unsigned i = 0; i < size; i++){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getType() == ItemType::ARMOUR){
+            out << *items[i];
+        }
+    }
+    return out;
+}

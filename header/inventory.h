@@ -47,14 +47,15 @@ public:
     int itemsWithName(const string& name) const;
 
     void increaseCapacity(int amount){capacity += amount;}
-
+    void increaseCapacityByPercent(double percent){capacity *= percent;}
     void sortAlphabetically();
     void makeLatestFirst();
     void makeOldestFirst();
 
     friend std::ostream& operator<<(std::ostream& out, const Inventory& rhs);
     std::ostream& outputWeapons(std::ostream& out) const;
-
+    std::ostream& outPotions(std::ostream& out) const;
+    std::ostream& outArmour(std::ostream& out) const;
     std::string serialize() const;
     bool deserialize(const std::string& data);
 };

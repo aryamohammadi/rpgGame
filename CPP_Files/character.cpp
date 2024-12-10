@@ -511,3 +511,14 @@ std::istream& operator>>(std::istream& in, AttackType& type){
     in.setstate(std::ios::failbit);
     return in;
 }   
+
+std::ostream& Character::outputPotions(std::ostream& out) const{
+    return storage->outPotions(out);
+}
+std::ostream& Character::outputArmour(std::ostream& out) const{
+    return storage->outArmour(out);
+}
+
+void Character::increaseStorageCapacityByPercent(double percent){
+    storage->increaseCapacityByPercent(percent);
+}

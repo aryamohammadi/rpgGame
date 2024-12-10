@@ -10,10 +10,9 @@
 #include "../header/item.h"
 
 
-Map::Map(Weapon::WeaponType typeOfWeapon) { // Constructor
+Map::Map() { // Constructor
   worldRooms.reserve(16);
   fillWorldRooms();
-  distributeEnemiesAndItems(typeOfWeapon);
 }
 
 void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {

@@ -85,7 +85,7 @@ class Character{
         void setHealth(int healthOfCharacter);
         void setDamage(int damageOfCharacter){damage = damageOfCharacter;}
         void takeDamage(int damageOnCharacter);
-        void setName(std::string name) { characterName == name; }
+        void setName(std::string name) { characterName = name; }
         void setExperience (int EXP) { experience = EXP; }
         void increaseStorageCapacityByPercent(double percent);
         // Getters
@@ -105,6 +105,7 @@ class Character{
         std::ostream& outputWeapons(std::ostream& out) const;
         std::ostream& outputPotions(std::ostream& out) const;
         std::ostream& outputArmour(std::ostream& out) const;
-        friend std::ostream& operator<<(std::ostream& out, const AttackType& type);
-        friend std::istream& operator>>(std::istream& in, AttackType& type);
 };
+
+std::ostream& operator<<(std::ostream& out, const AttackType& type);
+std::istream& operator>>(std::istream& in, AttackType& type);

@@ -13,3 +13,4 @@ test/
 *.gcno
 breakpoints.txt
 savefile.json
+googletest/

@@ -71,3 +71,5 @@ Weapon& Weapon::operator=(const Weapon& otherWeapon){
     }
     return *this;
 }
+
+// void Weapon::cloneUnique();

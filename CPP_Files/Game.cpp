@@ -1,5 +1,6 @@
 #include "../header/Game.h"
 #include "../header/combat.h"
+#include "../header/Difficulty.h"
 #include <sstream>
 #include <filesystem>
 #include <limits>
@@ -264,6 +265,7 @@ void Game::playGame() {
 					int itemIndex = player.itemFound(nameOfItemToEquip);
 					// Have a pointer pointing to the item we want to equip
 					Item* itemToEquip = player.getItem(itemIndex);
+
 
 					if (itemToEquip->getType() == ItemType::WEAPON) {
 						// I think this is how you use static casting?????

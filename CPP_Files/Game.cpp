@@ -226,7 +226,7 @@ void Game::playGame() {
 												while (player.getExperience() > 100) {
 													player.setHealth(player.getHealth() * 1.1);
 													player.setDamage(player.getDamage() * 1.1);
-													player.increaseStorageCapacity(player.getStorageCapacity() * 0.25);
+													player.increaseStorageCapacityByPercent(0.25);
 													player.setExperience(player.getExperience() - 100);
 												}
 											}
@@ -291,24 +291,15 @@ void Game::playGame() {
 					std::string nameOfPotionToUse;
 					std::getline(std::cin, nameOfPotionToUse);
 
-					int potionIndex = player.itemFound(nameOfPotionToUse);
-					Item* itemToUse = player.getItem(potionIndex);
+					player.useItem(nameOfPotionToUse);
 
-					if (itemToUse->getType() == ItemType::POTION) {
-						Potion* potionToUse = static_cast<Potion*> (itemToUse);
-						potionToUse->useItem(player);
-						// This is easier 
-						player.throwAwayItem(nameOfPotionToUse);
-					}
-					else {
+					if(!player.useItem(nameOfPotionToUse)){
 						std::cout << "Item is either not a potion or does not exist. Please try again." << std::endl;
 					}
 				}
 				else if (playerCommand == "print") {
 					std::cout << "Inventory for " << player.getName() << std::endl;
-					player.outputWeapons(std::cout);
-					player.outputArmour(std::cout);
-					player.outputPotions(std::cout);
+					player.showInventory(std::cout);
 					std::cout << std::endl;
 				}
 				else {

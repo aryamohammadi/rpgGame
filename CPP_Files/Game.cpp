@@ -146,7 +146,14 @@ void Game::playGame() {
     std::string playerCommand;
 
     while (true) {
-        std::cout << "\nWhat would you like to do? (Type 'save' to save progress, 'quit' to exit): ";
+        std::cout << "\nWhat would you like to do?" << std::endl
+                	<< "Save 	 - Save progress" << std::endl
+									<< "Quit 	 - Quit game" << std::endl
+									<< "Move 	 - Move rooms" << std::endl
+									<< "Pickup - Pickup items in the current room" << std::endl
+									<< "Equip  - Equip item" << std::endl
+									<< "Use 	 - Use potion" << std::endl
+									<< "Enter your choice: ";
         std::cin >> playerCommand;
 
         std::transform(playerCommand.begin(), playerCommand.end(), playerCommand.begin(), ::tolower);

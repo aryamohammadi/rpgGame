@@ -23,9 +23,10 @@ TEST(TestMap, ValidRoom) {
 TEST(TestMap, manipulatingEnemiesAndItems) {
   Map testMap;
   testMap.distributeEnemiesAndItems(Weapon::WeaponType::Sword);
+  int count = 0;
 
   // Test that 8 rooms have enemies
-  int count = 0;
+  count = 0;
   for (unsigned i = 0; i < 16; i++) {
     if (testMap.roomHasEnemies(i)) {
       count++;
@@ -53,17 +54,34 @@ TEST(TestMap, manipulatingEnemiesAndItems) {
   EXPECT_EQ(count, 0); 
 
   // Test that 
-  // 4 rooms have weapons
-  int count = 0;
+
+  // 8 rooms have potions
+  count = 0;
   for (unsigned i = 0; i < 16; i++) {
-    if (testMap.roomHasEnemies(i)) {
+    if (testMap.roomHasPotions(i)) {
       count++;
     }
   }
-  EXPECT_EQ(count, 4); // 
+  EXPECT_EQ(count, 8);
 
-
+  // 4 rooms have weapons
+  count = 0;
+  for (unsigned i = 0; i < 16; i++) {
+    if (testMap.roomHasWeapons(i)) {
+      count++;
+    }
+  }
+  EXPECT_EQ(count, 4); // 3 rooms have normal weapons, room 8-14 has the super-weapon
+  
   // 4 rooms have armour
+  count = 0;
+  for (unsigned i = 0; i < 16; i++) {
+    if (testMap.roomHasArmour(i)) {
+      count++;
+    }
+  }
+  EXPECT_EQ(count, 4); // 3 rooms have normal weapons, room 8-14 has the super-weapon
+
   // And test removing items
 
   // We're combining tests for 

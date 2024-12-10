@@ -55,6 +55,8 @@ public:
 
     friend std::ostream& operator<<(std::ostream& out, const Inventory& rhs);
     std::ostream& outputWeapons(std::ostream& out) const;
+    std::ostream& outputArmour(std::ostream& out) const;
+    std::ostream& outputPotions(std::ostream& out) const;
 
     std::string serialize() const;
     bool deserialize(const std::string& data);

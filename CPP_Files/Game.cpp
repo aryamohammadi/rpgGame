@@ -253,9 +253,61 @@ void Game::playGame() {
 				else if (playerCommand == "equip") {
 					std::cout << "Which item would you like to equip?" << std::endl;
 
+					player.outputWeapons(std::cout);
+					player.outputArmour(std::cout);
+
+					std::cout << "Enter name of weapon/armour (exact name): " << std::endl;
+					std::string nameOfItemToEquip;
+					std::getline(std::cin, nameOfItemToEquip);
+
+					// Find where the player's desired item is in the inventory
+					int itemIndex = player.itemFound(nameOfItemToEquip);
+					// Have a pointer pointing to the item we want to equip
+					Item* itemToEquip = player.getItem(itemIndex);
+
+					if (itemToEquip->getType() == ItemType::WEAPON) {
+						// I think this is how you use static casting?????
+						// If not, uncomment this
+						// Weapon* weaponToEquip = player.getItem(itemIndex);
+
+						Weapon* weaponToEquip = static_cast<Weapon*> (itemToEquip);
+						player.equipWeapon(weaponToEquip);
+					}
+					else if (itemToEquip->getType() == ItemType::ARMOUR) {
+						Armour* armourToEquip = static_cast<Armour*> (itemToEquip);
+						player.equipArmour(armourToEquip);
+					}
+					else {
+						std::cout << "No weapon nor armour with this name exists in your inventory. Please try again." << std::endl;
+					}
+				}
+				else if (playerCommand == "use") {
+					std::cout << "Which potion would you like to use?" << std::endl;
+					player.outputPotions(std::cout);
+
+					std::cout << "Enter name of potion (exact name): " << std::endl;
+					std::string nameOfPotionToUse;
+					std::getline(std::cin, nameOfPotionToUse);
+
+					int potionIndex = player.itemFound(nameOfPotionToUse);
+					Item* itemToUse = player.getItem(potionIndex);
+
+					if (itemToUse->getType() == ItemType::POTION) {
+						Potion* potionToUse = static_cast<Potion*> (itemToUse);
+						potionToUse->useItem(player);
+						// This is easier 
+						player.throwAwayItem(nameOfPotionToUse);
+					}
+					else {
+						std::cout << "Item is either not a potion or does not exist. Please try again." << std::endl;
+					}
 				}
 				else if (playerCommand == "print") {
-					player.get
+					std::cout << "Inventory for " << player.getName() << std::endl;
+					player.outputWeapons(std::cout);
+					player.outputArmour(std::cout);
+					player.outputPotions(std::cout);
+					std::cout << std::endl;
 				}
 				else {
             std::cout << "Invalid command. Try again.\n";

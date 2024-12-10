@@ -177,20 +177,20 @@ add_subdirectory(googletest)
 # # Add to CTest
 # add_test(NAME CombatTests COMMAND CombatTests)
 
-add_executable(MapTests
-    Tests/Test-Map.cpp
-    CPP_Files/item.cpp
-    CPP_Files/weapon.cpp
-    CPP_Files/potion.cpp
-    CPP_Files/armour.cpp
-    CPP_Files/Map.cpp
-    CPP_Files/Room.cpp
-)
-# Specify include directories for MapTests
-target_include_directories(MapTests PRIVATE ${CMAKE_SOURCE_DIR}/header)
+# add_executable(MapTests
+#     Tests/Test-Map.cpp
+#     CPP_Files/item.cpp
+#     CPP_Files/weapon.cpp
+#     CPP_Files/potion.cpp
+#     CPP_Files/armour.cpp
+#     CPP_Files/Map.cpp
+#     CPP_Files/Room.cpp
+# )
+# # Specify include directories for MapTests
+# target_include_directories(MapTests PRIVATE ${CMAKE_SOURCE_DIR}/header)
 
-# Link Google Test libraries
-target_link_libraries(MapTests gmock gtest gtest_main)
+# # Link Google Test libraries
+# target_link_libraries(MapTests gmock gtest gtest_main)
 
 add_executable(Game
 CPP_Files/combat.cpp

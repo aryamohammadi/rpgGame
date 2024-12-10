@@ -148,6 +148,15 @@ std::ostream& Character::outputWeapons(std::ostream& out) const{
     return storage->outputWeapons(out);
 }
 
+std::ostream& Character::outputArmour(std::ostream& out) const{
+    return storage->outputArmour(out);
+}
+
+std::ostream& Character::outputPotions(std::ostream& out) const{
+    return storage->outputPotions(out);
+}
+
+
 bool Character::pickUpItem(Item* item){
     if(storage->sizeGreaterThanOrEqualToCapacity() || item == nullptr){
         return false;

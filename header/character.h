@@ -68,6 +68,9 @@ class Character{
         bool throwAwayItem(const string& name, ItemType type);
         bool throwAwayItem(int index);
 
+        int itemFound (const string& name) const { return storage->itemFound(name); }
+        Item* getItem (int index) { return storage->getItem(index); }
+
         std::ostream& showInventory(ostream& out) const;
   
         void equipArmour(Armour* armour);
@@ -98,13 +101,15 @@ class Character{
         friend ostream& operator<<(ostream& out, const Character& entity);
         int getExperience() { return experience; }
         int getStorageCapacity() { return storage->getCapacity(); }
-        
+
   
         bool deserialize(const std::string& data);
         std::string serialize() const;
   
 
         std::ostream& outputWeapons(std::ostream& out) const;
+        std::ostream& outputArmour(std::ostream& out) const;
+        std::ostream& outputPotions(std::ostream& out) const;
         friend std::ostream& operator<<(std::ostream& out, const AttackType& type);
         friend std::istream& operator>>(std::istream& in, AttackType& type);
 };

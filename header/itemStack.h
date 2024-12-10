@@ -4,9 +4,6 @@
 #include <ostream>
 #include <sstream>
 #include "item.h"
-#include "weapon.h"
-#include "armour.h"
-#include "potion.h"
 #include "itemType.h"
 
 class Item;
@@ -24,7 +21,7 @@ public:
 
     void increaseQuantity(int amount);
     void decreaseQuantity(int amount);
-    int currentQuantity() const;
+    int currentQuantity() const{return quantity;}
 
     bool isItem(const Item& other) const;
     friend std::ostream& operator<<(std::ostream& out, const ItemStack& stack);

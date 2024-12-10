@@ -10,7 +10,7 @@ using namespace std;
 
 TEST(SortTest, isSortedOneItemTest){
     MockAbstractItemSort s(CompareBy::Name);
-    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly"))};
+    vector<ItemStack*> stacks = {new ItemStack(new MockItem(ItemType::POTION, "Emilly",  "Hi"))};
 
     EXPECT_TRUE(s.isSorted(stacks,SortOrder::Ascending));
     delete stacks.front();

@@ -12,12 +12,13 @@ class Room {
     void removeItems();
 
     // These two functions are for the Map class to add enemies and items during map construction. They should not be used during normal gameplay
-    void addEnemies();
-    void addItems();
+    void addEnemies(Character enemyToAdd);
+    void addItems(Item* itemToAdd);
     
-    // Maybe return a reference for both of these getters?
     vector<Character> getEnemies() {return enemies;} 
     vector<Item*> getItems() {return items;}
+    
+    int getExperience();
 
     std::string serialize() const; // For save game
     bool deserialize(const std::string& data); // For load game

@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "../header/Game.h"
-#include "../../header/character.h"
-#include "../../header/inventory.h"
+#include "../header/character.h"
+#include "../header/inventory.h"
 #include "Map.h"
 
 TEST(GameTests, SerializeGameState) {

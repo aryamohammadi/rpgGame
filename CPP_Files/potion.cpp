@@ -1,14 +1,13 @@
-#include "../header/potion.h"
+#include "../header/item.h"
 #include "../header/character.h"
-
-Potion::Potion(ItemType t, const string& name, Item::Grade itemGrade, const string& descript, int amount, double timeElapsed):Item(t,name,itemGrade, descript, timeElapsed), recoveryAmount(amount){}
+Potion::Potion(ItemType t, const string& name, const string& descript, int amount, double timeElapsed):Item(t,name, descript, timeElapsed), recoveryAmount(amount){}
 
 void Potion::useItem(Character& player){
     player.increaseHealth(recoveryAmount);
 }
 
 Item* Potion::clone() const{
-    return new Potion(getType(),getName(),getGrade(),getDescript(),recoveryAmount, getTime());
+    return new Potion(getType(),getName(),getDescript(),recoveryAmount, getTime());
 }
 
 std::ostream& operator<<(ostream& out, const Potion& currentPotion){
@@ -22,7 +21,6 @@ std::string Potion::serialize() const {
     std::ostringstream oss;
     oss << static_cast<int>(type) << "\n"              // ItemType as integer
         << name << "\n"                                // Potion name
-        << static_cast<int>(itemGrade) << "\n"         // Grade as integer
         << description << "\n"                         // Description
         << timeEarned << "\n"                          // Time earned
         << recoveryAmount;                             // Recovery amount
@@ -42,6 +40,5 @@ bool Potion::deserialize(const std::string& data) {
         return false;
     }
 
-    itemGrade = static_cast<Item::Grade>(gradeInt);
     return true;
 }

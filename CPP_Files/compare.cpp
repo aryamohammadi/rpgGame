@@ -1,42 +1,47 @@
 #include "../header/compare.h"
 
 bool CompareItem::compare(const Item* lowerBound, const Item* upperBound, CompareBy compareBy, SortOrder order){
-    switch(compareBy){
-        case CompareBy::Grade:
-            if(order == SortOrder::Descending && upperBound->getGrade() <= lowerBound->getGrade()){
-                return true;
-            }
-            if(order == SortOrder::Ascending && upperBound->getGrade() >= lowerBound->getGrade()){
-                return true;
-            }
-            break;
-        case CompareBy::Type:
-            if(order == SortOrder::Descending && upperBound->getType() <= lowerBound->getType()){
-                return true;
-            }
-            if(order == SortOrder::Ascending && upperBound->getType() >= lowerBound->getType()){
-                return true;
-            }
-            break;
-        case CompareBy::Name:
-            if(order == SortOrder::Descending && upperBound->getName() <= lowerBound->getName()){
-                return true;
-            }
-            if(order == SortOrder::Ascending && upperBound->getName() >= lowerBound->getName()){
-                return true;
-            }
-            break;
-        case CompareBy::Time:
-            if (std::fabs(lowerBound->getTime() - upperBound->getTime()) < 1e-6) {
-                return true; // Treat approximately equal times as equal
-            }
-            if(order == SortOrder::Descending && upperBound->getTime() <= lowerBound->getTime()){
-                return true;
-            }
-            if(order == SortOrder::Ascending && upperBound->getTime() >= lowerBound->getTime()){
-                return true;
-            }
-            break;
+    if(lowerBound == nullptr){
+        throw std::invalid_argument("compare: lowerBound nullptr!");
     }
-    return false;
+    if(upperBound == nullptr){
+        throw std::invalid_argument("compare: upperBound nullptr!");
+    }
+    CompareItem compareValues(order);
+    switch(compareBy){
+        case CompareBy::Name:
+            return compareValues.compareName(lowerBound->getName(), upperBound->getName());
+        case CompareBy::Time:
+            return compareValues.compareTime(lowerBound->getTime(), upperBound->getTime());
+        default:
+            throw std::invalid_argument("Compare: Invalid compareBy");
+    }
+}
+
+bool CompareItem::compareName(const std::string& lowerName, const std::string& upperName) const{
+    switch(order){
+        case SortOrder::Ascending:{
+            return lowerName <= upperName;
+        }
+        case SortOrder::Descending:{
+            return lowerName >= upperName;
+        }
+        default:
+            throw std::logic_error("compareTime: SortOrder type invalid");
+    }
+}
+bool CompareItem::compareTime(double lowerTime, double upperTime) const{
+    if(std::fabs(lowerTime - upperTime) < 1e-6){
+        return true;
+    }
+    switch(order){
+        case SortOrder::Ascending:{
+            return lowerTime <= upperTime;
+        }
+        case SortOrder::Descending:{
+            return lowerTime >= upperTime;
+        }
+        default:
+            throw std::logic_error("compareTime: SortOrder type invalid");
+    }
 }

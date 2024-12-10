@@ -151,24 +151,6 @@ void Map::removeItems(int index) {
   worldRooms.at(index).removeItems();
 }
 
-bool Map::roomHasEnemies(int index) {
-  if (worldRooms.at(index).getEnemies().empty()) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
-
-bool Map::roomHasItems(int index) {
-  if (worldRooms.at(index).getItems().empty()) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
-
 
 // return false if the direction is invalid in the 4x4 grid
 // return true and change playerIndex if the direction is valid

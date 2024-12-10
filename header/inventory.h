@@ -46,6 +46,7 @@ public:
     int itemsWithName(const string& name) const;
 
     void increaseCapacity(int amount){capacity += amount;}
+    void resize();
 
     void sortAlphabetically();
     void makeLatestFirst();

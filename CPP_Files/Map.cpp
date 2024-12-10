@@ -22,9 +22,8 @@ Map::Map() { // Constructor
 void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   // srand(time(0));
   srand(2);
-  Character enemyToAdd("enemy1");
+  int randNum;
 
-  // DISTRIBUTING ENEMIES
   // std::set<int> selectedRooms;
   vector<int> selectedRooms;
   // Re-write this logic to not use a set, but a vector
@@ -32,7 +31,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   // make sure the indices are randomly ordered
 
   // Populate selectedRooms with 8 random numbers 0-15
-  int randNum = ((rand() % 15) + 1);
+  randNum = ((rand() % 15) + 1);
   for (unsigned i = 0; i < 8; i++) {
     int present = count(selectedRooms.begin(), selectedRooms.end(), randNum);
     while (present != 0) {
@@ -52,6 +51,10 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
 
   // IF GDB FAILS, LOAD THE BREAKPOINTS IN breakpoints.txt with "source breakpoints.txt"
 
+
+  // DISTRIBUTING ENEMIES
+  Character enemyToAdd("enemy1");
+  // For 8 random rooms, add 1 or 2 enemies with proper stats
   for (int roomIndex : selectedRooms) {
     if(roomIndex >= worldRooms.size()){
       std::cout << "Invalid roomIndex: " << roomIndex << std::endl;
@@ -59,10 +62,10 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     }
     enemyToAdd.setName("enemy1");
     // Set the enemy type as Ranged or Melee randomly. 
-    if(rand() % 2 == 0){
+    if (rand() % 2 == 0) {
       enemyToAdd.setAttackType(AttackType::Ranged);
     }
-    else{
+    else {
       enemyToAdd.setAttackType(AttackType::Melee);
     }
     // Change enemy stats based on the room index
@@ -106,23 +109,19 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
     superEnemy.setHealth(300); // This might be unbalanced, but the game doesn't have to be fair
     superEnemy.setExperience(600);
     Armour* superEnemyArmour = new Armour(ItemType::ARMOUR, "superarmour", "superarmour", 30);
-    Weapon* superEnemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", roomIndex * 4, Weapon::WeaponType::Sword);
+    Weapon* superEnemyWeapon = new Weapon(ItemType::WEAPON, "enemyweapon", "enemyweapon", 60, Weapon::WeaponType::Sword);
     superEnemy.equipArmour(superEnemyArmour);
     superEnemy.equipWeapon(superEnemyWeapon);
     worldRooms.at(worldRooms.size() - 1).addEnemies(superEnemy);
 
-  // Give the enemies weapons depending on their type
-  // Give the super enemy armour
-
 
   // DISTRIBUTING ITEMS
 
-  // Adding 8 room indices to selectedRooms
-  // The new room indices for selectedRooms are 0-14, because there's no purpose
-  // for an item in the "Super Enemy" room
   selectedRooms.clear();
+  // Populate selectedRooms with 8 random numbers from 0-14
   randNum = ((rand() % 15));
   for (unsigned i = 0; i < 8; i++) {
+    // Look at the initial room indices selection for details about this function
     int present = count(selectedRooms.begin(), selectedRooms.end(), randNum);
     while (present != 0) {
       present = count(selectedRooms.begin(), selectedRooms.end(), randNum);
@@ -147,10 +146,19 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
 
   // DISTRIBUTING WEAPONS 
   selectedRooms.clear();
-  // Selecting 3 random rooms, one room gets a super powerful weapon
-  for (unsigned i = 0; i < 3; i++) {
-    selectedRooms.insert(rand() % 16);
+  // Populate selectedRooms with 3 random numbers 0-14
+  // Index 8-14 will have a SuperWeapon
+  randNum = ((rand() % 15));
+  for (unsigned i = 0; i < 4; i++) {
+    // Look at the initial room indices selection for details about this function
+    int present = count(selectedRooms.begin(), selectedRooms.end(), randNum);
+    while (present != 0) {
+      present = count(selectedRooms.begin(), selectedRooms.end(), randNum); 
+      randNum = ((rand() % 15));
+    }
+    selectedRooms.push_back(randNum);
   }
+
   for (int roomIndex : selectedRooms) {
     Weapon* weaponToAdd = new Weapon(ItemType::WEAPON, "weapon1", "weapon1", 10 + (3 * roomIndex), typeOfWeapon);
     worldRooms.at(roomIndex).addItems(weaponToAdd);
@@ -159,7 +167,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   // SUPER-WEAPON SECTION
   Weapon* superWeapon = new Weapon(ItemType::WEAPON, "super-weapon", "super-weapon", 80, typeOfWeapon);
   // Super weapon goes in one of the rooms 8-14
-  int randNum = (rand() % 7) + 8;
+  randNum = (rand() % 7) + 8;
   while (!worldRooms.at(randNum).hasWeapons()) {
     randNum = (rand() % 7) + 8;
   }
@@ -168,11 +176,19 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
 
   // DISTRIBUTING ARMOR
   selectedRooms.clear();
-
-  // Selecting 3 random rooms, one room gets super-armour
-  for (unsigned i = 0; i < 3; i++) {
-    selectedRooms.insert(rand() % 16);
+  // Populate selectedRooms with 3 random numbers 0-14
+  // Index 8-14 will have a SuperArmour
+  randNum = ((rand() % 15));
+  for (unsigned i = 0; i < 4; i++) {
+    // Look at the initial room indices selection for details about this function
+    int present = count(selectedRooms.begin(), selectedRooms.end(), randNum);
+    while (present != 0) {
+      present = count(selectedRooms.begin(), selectedRooms.end(), randNum); 
+      randNum = ((rand() % 15));
+    }
+    selectedRooms.push_back(randNum);
   }
+
   for (int roomIndex : selectedRooms) {
     Armour* armourToAdd = new Armour(ItemType::ARMOUR, "armour1", "armour1", 5 + (2 * roomIndex));
     worldRooms.at(roomIndex).addItems(armourToAdd);
@@ -181,7 +197,7 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   // SUPER-ARMOUR SECTION
   Armour* superArmour = new Armour (ItemType::ARMOUR, "super-armour", "armour1", 60);
 
-  int randNum = (rand() % 7) + 8;
+  randNum = (rand() % 7) + 8;
   while (!worldRooms.at(randNum).hasArmour()) {
     randNum = (rand() % 7) + 8;
   }

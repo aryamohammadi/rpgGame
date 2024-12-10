@@ -7,7 +7,7 @@
     }
 
     Item* Armour::clone() const{
-        return new Armour(getType(),getName(),getDescript(),armourStat, getTime());
+        return new Armour(*this);
     }
 
 std::ostream& operator<<(std::ostream& out, const Armour& currentArmour){
@@ -52,4 +52,8 @@ Armour& Armour::operator=(const Armour& otherArmour){
         armourStat = otherArmour.getArmourStat();
     }
     return *this;
+}
+
+std::unique_ptr<Item> Armour::cloneUnique() const {
+    return std::make_unique<Armour>(*this);  
 }

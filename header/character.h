@@ -97,6 +97,8 @@ class Character{
         std::string getCharacterName() const; // Returns the character's name
         friend ostream& operator<<(ostream& out, const Character& entity);
         int getExperience() { return experience; }
+        int getStorageCapacity() { return storage->getCapacity(); }
+        
   
         bool deserialize(const std::string& data);
         std::string serialize() const;

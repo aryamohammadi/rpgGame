@@ -1,4 +1,5 @@
 #include "../header/Game.h"
+#include "../header/combat.h"
 #include <sstream>
 #include <filesystem>
 #include <limits>
@@ -150,9 +151,10 @@ void Game::playGame() {
                 	<< "Save 	 - Save progress" << std::endl
 									<< "Quit 	 - Quit game" << std::endl
 									<< "Move 	 - Move rooms" << std::endl
-									<< "Pickup - Pickup items in the current room" << std::endl
+									<< "Pickup - Pickup all items in the current room" << std::endl
 									<< "Equip  - Equip item" << std::endl
 									<< "Use 	 - Use potion" << std::endl
+									<< "Print  - Print inventory" << std::endl
 									<< "Enter your choice: ";
         std::cin >> playerCommand;
 
@@ -176,25 +178,86 @@ void Game::playGame() {
                     std::cout << "Invalid choice! Please enter 1 or 2.\n";
                 }
             }
-        } else if (playerCommand == "quit") {
+        } 
+				else if (playerCommand == "quit") {
             std::cout << "Exiting the game. Goodbye!\n";
             currentState = GameState::GameOver;
             return;
-        } else if (playerCommand == "move") {
+        } 
+				else if (playerCommand == "move") {
             std::string direction;
             std::cout << "Enter a direction (up, down, left, right): ";
             std::cin >> direction;
 
             if (!gameMap.changeRoomBasedOnDirection(direction)) {
                 std::cout << "Invalid direction. Try again.\n";
-            } else {
+            } 
+						else {
                 std::cout << "Moved to a new room.\n";
+								
+								// COMBAT!!!
                 if (gameMap.roomHasEnemies(gameMap.getPlayerIndex())) {
                     std::cout << "Enemies encountered! Prepare for battle.\n";
-                    // Trigger combat logic
+                    int currRoom = gameMap.getPlayerIndex();
+										vector<Character*> fighters;
+										fighters.push_back(&player);
+										fighters.insert(fighters.end(), gameMap.returnEnemiesInRoom(currRoom).begin(), gameMap.returnEnemiesInRoom(currRoom).end());
+										Combat playerCombat(fighters);
+
+										// If the player is dead, print an ending message
+										// run exitGame(), and break
+										if (!player.isAlive()) {
+											std::cout << player.getCharacterName() << "has died! Better skill next time." << std::endl;
+											exitGame();
+											break;
+										}
+										// All enemies have died, player is alive
+										// Give experience, and run experience checks to increase 
+										// health, damage, by 10%
+										// storage capacity by 25%
+										// if (experience > 100)
+										else {
+											int experienceToGive = gameMap.getRoomExperience(currRoom);
+											player.setExperience(player.getExperience() + experienceToGive);
+											gameMap.removeEnemies(currRoom);
+
+											if (player.getExperience() > 100) {
+												while (player.getExperience() > 100) {
+													player.setHealth(player.getHealth() * 1.1);
+													player.setDamage(player.getDamage() * 1.1);
+													player.increaseStorageCapacity(player.getStorageCapacity() * 0.25);
+													player.setExperience(player.getExperience() - 100);
+												}
+											}
+
+											std::cout << "Congratulations! You won the battle!" << std::endl;
+										}
                 }
             }
-        } else {
+        } 
+				else if (playerCommand == "pickup") {
+					int currRoom = gameMap.getPlayerIndex();
+					vector<Item*> roomItems = gameMap.returnItemsInRoom(currRoom);
+					if (roomItems.empty()) {
+						std::cout << "This room has no items. Venture into the unknwon to find some......" << std::endl;
+					}
+					else {
+						for (unsigned i = 0; i < roomItems.size(); i++) {
+							std::cout << "Picked up " << roomItems.at(i)->getName() << "!" << std::endl;
+							player.pickUpItem(roomItems.at(i));
+						}
+						gameMap.removeItems(currRoom);
+					}
+
+				}
+				else if (playerCommand == "equip") {
+					std::cout << "Which item would you like to equip?" << std::endl;
+
+				}
+				else if (playerCommand == "print") {
+					player.get
+				}
+				else {
             std::cout << "Invalid command. Try again.\n";
         }
     }

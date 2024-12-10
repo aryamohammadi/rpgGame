@@ -23,12 +23,39 @@ void Room::removeItems() {
   items.clear();
 }
 
-void Room::addEnemies(Character enemyToAdd) {
+void Room::addEnemies(Character enemyToAdd){
   enemies.push_back(new Character(enemyToAdd));
 }
 
 void Room::addItems(Item* itemToAdd) {
   items.push_back(itemToAdd);
+}
+
+bool Room::hasPotions() {
+  for (unsigned i = 0; i < items.size(); i++) {
+    if (items[i]->getType() == ItemType::POTION) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Room::hasWeapons() {
+  for (unsigned i = 0; i < items.size(); i++) {
+    if (items[i]->getType() == ItemType::WEAPON) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Room::hasArmour() {
+  for (unsigned i = 0; i < items.size(); i++) {
+    if (items[i]->getType() == ItemType::ARMOUR) {
+      return true;
+    }
+  }
+  return false;
 }
 
 int Room::getExperience() {
@@ -42,13 +69,14 @@ int Room::getExperience() {
 // Serialize the Room
 std::string Room::serialize() const {
     std::ostringstream oss;
-
-    // Serialize connectedRooms
-    oss << connectedRooms.size() << "\n";
-    for (int roomID : connectedRooms) {
-        oss << roomID << " ";
-    }
-    oss << "\n";
+    
+    // Not needed anymore since connectedRooms was deleted
+    // // Serialize connectedRooms
+    // oss << connectedRooms.size() << "\n";
+    // for (int roomID : connectedRooms) {
+    //     oss << roomID << " ";
+    // }
+    // oss << "\n";
 
     // Serialize enemies
     oss << enemies.size() << "\n";
@@ -70,14 +98,15 @@ bool Room::deserialize(const std::string& data) {
     std::istringstream iss(data);
     size_t roomCount, enemyCount, itemCount;
 
-    // Deserialize connectedRooms
-    if (!(iss >> roomCount)) return false;
-    connectedRooms.clear();
-    for (size_t i = 0; i < roomCount; ++i) {
-        int roomID;
-        if (!(iss >> roomID)) return false;
-        connectedRooms.push_back(roomID);
-    }
+    // Not needed anymore since connectedRooms was deleted
+    // // Deserialize connectedRooms
+    // if (!(iss >> roomCount)) return false;
+    // connectedRooms.clear();
+    // for (size_t i = 0; i < roomCount; ++i) {
+    //     int roomID;
+    //     if (!(iss >> roomID)) return false;
+    //     connectedRooms.push_back(roomID);
+    // }
 
     // Deserialize enemies
     if (!(iss >> enemyCount)) return false;

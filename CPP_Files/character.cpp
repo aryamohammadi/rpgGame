@@ -122,6 +122,7 @@ void Character::equipWeapon(Weapon* newWeapon){
 
 void Character::deEquipWeapon() {
     if (weapon != nullptr) {
+        resetSpeed();
         storage->addItem(weapon.get()->clone());
         weapon.reset();
     }
@@ -198,8 +199,6 @@ bool Character::useItem(const string& itemName){
 
             delete verifyPotion;
             verifyPotion = nullptr;
-            delete currentItem;
-            currentItem = nullptr;
 
             break;
         case ItemType::ARMOUR:

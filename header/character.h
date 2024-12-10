@@ -85,7 +85,7 @@ class Character{
         void setHealth(int healthOfCharacter);
         void setDamage(int damageOfCharacter){damage = damageOfCharacter;}
         void takeDamage(int damageOnCharacter);
-        void setName(std::string name) { characterName == name; }
+        void setName(std::string name) { characterName = name; }
         void setExperience (int EXP) { experience = EXP; }
         void increaseStorageCapacityByPercent(double percent);
         // Getters

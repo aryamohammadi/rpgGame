@@ -53,6 +53,7 @@ class Character{
         void resetSpeed(){currentSpeed = baseSpeed;}
         int getSpeed() const {return currentSpeed;}
 
+        void setAttackType(AttackType attackType) {currentAttackType = attackType;}
         AttackType getAttackType() const {return currentAttackType;}
 
         void attack(Character& target);
@@ -68,10 +69,7 @@ class Character{
         bool throwAwayItem(const string& name, ItemType type);
         bool throwAwayItem(int index);
 
-        int itemFound (const string& name) const { return storage->itemFound(name); }
-        Item* getItem (int index) { return storage->getItem(index); }
-
-        std::ostream& showInventory(ostream& out) const;
+        std::ostream& showInventory(std::ostream& out) const;
   
         void equipArmour(Armour* armour);
         void deEquipArmour();
@@ -89,8 +87,7 @@ class Character{
         void takeDamage(int damageOnCharacter);
         void setName(std::string name) { characterName == name; }
         void setExperience (int EXP) { experience = EXP; }
-        void setAttackType(AttackType attackType) {currentAttackType = attackType;}
-
+        void increaseStorageCapacityByPercent(double percent);
         // Getters
         int getHealth() const {return health;}
         int getDefense() const{ return defense;}
@@ -100,16 +97,14 @@ class Character{
         std::string getCharacterName() const; // Returns the character's name
         friend ostream& operator<<(ostream& out, const Character& entity);
         int getExperience() { return experience; }
-        int getStorageCapacity() { return storage->getCapacity(); }
-
   
         bool deserialize(const std::string& data);
         std::string serialize() const;
   
 
         std::ostream& outputWeapons(std::ostream& out) const;
-        std::ostream& outputArmour(std::ostream& out) const;
         std::ostream& outputPotions(std::ostream& out) const;
+        std::ostream& outputArmour(std::ostream& out) const;
         friend std::ostream& operator<<(std::ostream& out, const AttackType& type);
         friend std::istream& operator>>(std::istream& in, AttackType& type);
 };

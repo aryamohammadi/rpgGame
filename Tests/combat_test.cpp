@@ -22,6 +22,8 @@ TEST(CombatTest, StartBattleWithOneEnemy) {
     Character* player = createPlayer("Player");
     Character* enemy = createEnemy("Enemy");
 
+    player->equipWeapon(new Weapon());
+    enemy->equipWeapon(new Weapon());
     vector<Character*> fighters{player, enemy};
     Combat combat(fighters);
 
@@ -41,7 +43,8 @@ TEST(CombatTest, PlayerDiesDuringCombat) {
     Character* player = createPlayer("Player");
     player->setHealth(50); // Set low health for the player
     Character* strongEnemy = createEnemy("Strong Enemy", 100);
-
+    player->equipWeapon(new Weapon());
+    strongEnemy->equipWeapon(new Weapon());
     vector<Character*> fighters{player, strongEnemy};
     Combat combat(fighters);
 
@@ -58,10 +61,14 @@ TEST(CombatTest, PlayerDiesDuringCombat) {
 }
 
 TEST(CombatTest, PlayerAttacksAndChoosesTarget) {
-    auto player = make_unique<Character>(createPlayer("Player"));
-    auto enemy1 = make_unique<Character>(createEnemy("Enemy1", 80));
-    auto enemy2 = make_unique<Character>(createEnemy("Enemy2", 60));
-
+    unique_ptr<Character> player = make_unique<Character>(Character("Player"));
+    unique_ptr<Character> enemy1 = make_unique<Character>(Character("Enemy1"));
+    enemy1->setHealth(80);
+    unique_ptr<Character> enemy2 = make_unique<Character>(Character("Enemy2"));
+    enemy2->setHealth(60);
+    player->equipWeapon(new Weapon());
+    enemy1->equipWeapon(new Weapon());
+    enemy2->equipWeapon(new Weapon());
     vector<Character*> fighters{player.get(), enemy1.get(), enemy2.get()};
     Combat combat(fighters);
 
@@ -76,7 +83,9 @@ TEST(CombatTest, RemovePlayerFromHeap) {
     Character* player = createPlayer("Player");
     Character* enemy1 = createEnemy("Enemy1");
     Character* enemy2 = createEnemy("Enemy2");
-
+    player->equipWeapon(new Weapon());
+    enemy1->equipWeapon(new Weapon());
+    enemy2->equipWeapon(new Weapon());
     vector<Character*> fighters{player, enemy1, enemy2};
     Combat combat(fighters);
 
@@ -93,7 +102,8 @@ TEST(CombatTest, RemovePlayerFromHeap) {
 TEST(CombatTest, PlayerDecidesWhoToAttackInvalidChoice) {
     Character* player = createPlayer("Player");
     Character* enemy = createEnemy("Enemy");
-
+    player->equipWeapon(new Weapon());
+    enemy->equipWeapon(new Weapon());
     vector<Character*> fighters{player, enemy};
     Combat combat(fighters);
 

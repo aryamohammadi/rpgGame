@@ -136,6 +136,7 @@ void Inventory::addItem(Item* item){
     }
 }
 
+
 void Inventory::addItem(Item* item, int quantity){
     if(sizeGreaterThanOrEqualToCapacity()){
         resize();
@@ -188,7 +189,6 @@ void Inventory::addItem(Item* item, int quantity){
     }
 }
 
-// Returns the number of items with a given name
 int Inventory::itemsWithName(const std::string& name) const{
     if(itemFound(name) == -1){
         return 0;
@@ -316,24 +316,6 @@ ostream& Inventory::outputWeapons(ostream& out) const{
     return out;
 }
 
-ostream& Inventory::outputArmour(ostream& out) const{
-    for(unsigned i = 0; i < size; i++){
-        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getType() == ItemType::ARMOUR){
-            out << *items[i];
-        }
-    }
-    return out;
-}
-
-ostream& Inventory::outputPotions(ostream& out) const {
-    for(unsigned i = 0; i < size; i++){
-        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getType() == ItemType::POTION){
-            out << *items[i];
-        }
-    }
-    return out;
-}
-
 // Serialization
 std::string Inventory::serialize() const {
     std::ostringstream oss;
@@ -375,14 +357,14 @@ void Inventory::clear(){
 
 Item* Inventory::getItem(int index){
     if(itemFound(index) == -1){
-        throw std::invalid_argument("Inventory getItem: index invalid!");
+        throw std::invalid_argument("Inventory getItem: index invald!");
     }
     return items[index]->getItem();
 }
 
 const Item* Inventory::getItem(int index) const{
     if(itemFound(index) == -1){
-        throw std::invalid_argument("Inventory getItem: index invalid!");
+        throw std::invalid_argument("Inventory getItem: index invald!");
     }
     return items[index]->getItem();
 }
@@ -392,4 +374,21 @@ void Inventory::resize(){
 
     capacity *= 2;
     
+}
+
+std::ostream& Inventory::outPotions(std::ostream& out) const{
+    for(unsigned i = 0; i < size; i++){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getType() == ItemType::POTION){
+            out << *items[i];
+        }
+    }
+    return out;
+}
+std::ostream& Inventory::outArmour(std::ostream& out) const{
+    for(unsigned i = 0; i < size; i++){
+        if(items[i] != nullptr && items[i]->getItem() != nullptr && items[i]->getItem()->getType() == ItemType::ARMOUR){
+            out << *items[i];
+        }
+    }
+    return out;
 }

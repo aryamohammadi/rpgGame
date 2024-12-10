@@ -26,6 +26,9 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
 
   // DISTRIBUTING ENEMIES
   std::set<int> selectedRooms;
+  // Re-write this logic to not use a set, but a vector
+  // because inserting duplicates doesn't re-call rand()
+
   for (int i = 0; i < 8; i++)  { // Keep adding random room indeces until the set is 8 rooms large
   // int newIndex = rand() % static_cast<int>(worldRooms.size());
   //   do{
@@ -107,6 +110,8 @@ void Map::distributeEnemiesAndItems(Weapon::WeaponType typeOfWeapon) {
   // Give the super enemy armour
 
 
+  // Re-write this logic to not use a set, but a vector
+  // because inserting duplicates doesn't re-call rand()
   // DISTRIBUTING ITEMS
   selectedRooms.clear();
   for (int i = 0; i < 8; i++) { // Keep adding random room indeces until the set is 8 rooms large
@@ -164,25 +169,6 @@ void Map::removeEnemies(int index) {
 void Map::removeItems(int index) {
   worldRooms.at(index).removeItems();
 }
-
-bool Map::roomHasEnemies(int index) {
-  if (worldRooms.at(index).getEnemies().empty()) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
-
-bool Map::roomHasItems(int index) {
-  if (worldRooms.at(index).getItems().empty()) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
-
 
 // return false if the direction is invalid in the 4x4 grid
 // return true and change playerIndex if the direction is valid

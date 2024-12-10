@@ -8,6 +8,9 @@ Room::Room() {
 }
 
 void Room::removeEnemies() {
+  for (unsigned i; i < enemies.size(); i++) {
+    delete enemies[i];
+  }
   enemies.clear();
 }
 
@@ -24,6 +27,33 @@ void Room::addEnemies(Character enemyToAdd) {
 
 void Room::addItems(Item* itemToAdd) {
   items.push_back(itemToAdd);
+}
+
+bool Room::hasPotions() {
+  for (unsigned i = 0; i < items.size(); i++) {
+    if (items[i]->getType() == ItemType::POTION) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Room::hasWeapons() {
+  for (unsigned i = 0; i < items.size(); i++) {
+    if (items[i]->getType() == ItemType::WEAPON) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Room::hasArmour() {
+  for (unsigned i = 0; i < items.size(); i++) {
+    if (items[i]->getType() == ItemType::ARMOUR) {
+      return true;
+    }
+  }
+  return false;
 }
 
 int Room::getExperience() {

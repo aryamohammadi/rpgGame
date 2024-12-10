@@ -10,7 +10,7 @@ class Room {
 
   public:
     Room();
-    
+
     void removeEnemies();
     void removeItems();
 
@@ -21,6 +21,10 @@ class Room {
     vector<Character*> getEnemies() {return enemies;} 
     vector<Item*> getItems() {return items;}
     
+    bool hasPotions();
+    bool hasWeapons();
+    bool hasArmour();
+
     int getExperience();
 
     std::string serialize() const; // For save game

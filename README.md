@@ -89,7 +89,14 @@ This class complies with SRP as it focuses only on encapsulating the logic for d
 >  * Each team member should also submit the Individual Contributions Form on Canvas for this final phase. In this form, you need to fill in the names of all team members, the percentage of work contributed by each member for the final phase, and a description of their contributions. Remember that each team member should submit the form individually.
 
 ## Screenshots
-> Screenshots of the input/output after running your application
+![Screenshot_1](Images/Screenshot_1.png)
+
+![Screenshot_2](Images/Screenshot_2.png)
+
+![Screenshot_3](Images/Screenshot_3.png)
+
+![Screenshot_4](Images/Screenshot_4.png)
+
 
 ### User Interface Diagrams
 
@@ -110,9 +117,9 @@ This class complies with SRP as it focuses only on encapsulating the logic for d
 > Clone the repository locally, run the following commands from the cloned folder
 > * cmake .
 > * make
-> * ./bin/
+> * ./bin/Game
 > ## Testing
-> How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
+> We tested using the googletest libraries, with common assertions and expectations for various functions throughout our program
 
 
 

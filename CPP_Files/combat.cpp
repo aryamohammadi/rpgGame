@@ -12,15 +12,7 @@ Combat::~Combat() = default;
 
 void Combat::startBattle() { // Indenting this was quite nice - Jameel
     MaxHeap heap;
-    //comment by arya:
-    //FIXME: If fightersAlive is empty, accessing fightersAlive.front() causes undefined behavior. 
-    //       Need to discuss if this should be checked beforehand
-    //
     bool playerAlive = fightersAlive.front()->isAlive();//boolean checks that if the player in first index is alive
-    //comment by arya:
-    //FIXME: If fightersAlive.size() > 1 becomes false during execution, playerAlive won't be updated properly. 
-    //       Also, when the player is dead and removed, the logic assumes enemies are still there.
-    //       Need to review to make sure this is correct
     while(playerAlive && fightersAlive.size() > 1){// this makes sure that the loop will only run if there are enemies and a playerAlive
         vector<Character*> turnOrder = fightersAlive;
         heap.heapsort(turnOrder);
@@ -34,18 +26,8 @@ void Combat::startBattle() { // Indenting this was quite nice - Jameel
                 }
             }
             else {
-                cout << "Choose an enemy to attack" << endl;
                 int playerToAttack = playerDecidesWhoToAttack();
                 fightersAlive.front()->attack(*fightersAlive.at(playerToAttack));
-                //we need the actual player to decide who he wants to attack enemy1 or w - done
-                //we have to output a list of valid players - done
-                //still need to perform attack 
-                
-                //comment by Arya:
-                //FIXME: isnt this for loop redundant? we already have a for loop in removePlayerFromHeap that
-                //       loops through fightersAlive. 
-                // Jameel - Alright if that's the case I'm getting rid of it, because this else statement has no if statement before it
-                   
             }
         }
     }
@@ -54,9 +36,12 @@ void Combat::startBattle() { // Indenting this was quite nice - Jameel
 
 int Combat::playerDecidesWhoToAttack(){
     cout << "Choose an enemy to attack" << endl;
+    cout << endl;
     for(int i = 1; i < fightersAlive.size();i++){
         if(fightersAlive.at(i)->getHealth() > 0){
-            cout << i << ": " << fightersAlive.at(i)->getName()
+            cout << "Enemies available to attack" << endl;
+        
+            cout << "Enemy: " << i << ": "
             << "health " << fightersAlive.at(i)->getHealth() << endl;
         }
     }

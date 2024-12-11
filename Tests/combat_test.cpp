@@ -19,11 +19,32 @@ Character *createPlayer(const std::string &name) {
 }
 
 // Test Cases
-TEST(CombatTest, StartBattleWithOneEnemy) {
-    Character *player = createPlayer("Player");
-    Character *enemy = createEnemy("Enemy");
+TEST(CombatTest, EnemiesShouldBeAliveBeforeBattle) {//makes sure that before they even battle it out they should both be aliove
+    Character* player = createPlayer("Player");
+    Character* enemy = createEnemy("Enemy");
 
-    std::vector<Character *> fighters{player, enemy};
+    player->equipWeapon(new Weapon());
+    enemy->equipWeapon(new Weapon());
+    vector<Character*> fighters{player, enemy};
+
+    // Player should still be alive
+    EXPECT_TRUE(player->isAlive());
+    // Enemy should be dead
+    EXPECT_TRUE(enemy->isAlive());
+
+    delete player;
+    delete enemy;
+}
+
+
+// Test Cases
+TEST(CombatTest, StartBattleWithOneEnemy) {//makes sure that before they even battle it out they should both be aliove
+    Character* player = createPlayer("Player");
+    Character* enemy = createEnemy("Enemy");
+
+    player->equipWeapon(new Weapon());
+    enemy->equipWeapon(new Weapon());
+    vector<Character*> fighters{player, enemy};
     Combat combat(fighters);
 
     // Simulate battle
@@ -41,7 +62,7 @@ TEST(CombatTest, StartBattleWithOneEnemy) {
 TEST(CombatTest, PlayerDiesDuringCombat) {
     Character *player = createPlayer("Player");
     player->setHealth(50); // Set low health for the player
-    Character *strongEnemy = createEnemy("Strong Enemy", 100);
+    Character *strongEnemy = createEnemy("Enemy", 100);
 
     std::vector<Character *> fighters{player, strongEnemy};
     Combat combat(fighters);

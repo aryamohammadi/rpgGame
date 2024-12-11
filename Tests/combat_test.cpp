@@ -18,13 +18,53 @@ Character* createPlayer(const string& name) {
     return new Character(name);
 }
 
-TEST(CombatTest, StartBattleWithOneEnemy) {
+// Test Cases
+TEST(CombatTest, EnemiesShouldBeAliveBeforeBattle) {//makes sure that before they even battle it out they should both be aliove
     Character* player = createPlayer("Player");
     Character* enemy = createEnemy("Enemy");
 
     player->equipWeapon(new Weapon());
     enemy->equipWeapon(new Weapon());
     vector<Character*> fighters{player, enemy};
+
+    // Player should still be alive
+    EXPECT_TRUE(player->isAlive());
+    // Enemy should be dead
+    EXPECT_TRUE(enemy->isAlive());
+
+    delete player;
+    delete enemy;
+}
+
+TEST(CombatTest, PlayerDecidesWhoToAttackValidChoice) {
+    Character *player = createPlayer("Player");
+    Character *enemy = createEnemy("Enemy");
+
+    player->equipWeapon(new Weapon());
+    enemy->equipWeapon(new Weapon());
+    std::vector<Character *> fighters{player, enemy};
+    Combat combat(fighters);
+
+    std::stringstream input("1\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    int choice = combat.playerDecidesWhoToAttack();
+
+    EXPECT_EQ(choice, 1);
+
+    delete player;
+    delete enemy;
+}
+// Test Cases
+TEST(CombatTest, StartBattleWithOneEnemy) {//makes sure that before they even battle it out they should both be aliove
+    Character* player = createPlayer("Player");
+    Character* enemy = createEnemy("Enemy");
+    Character* enemy1 = createEnemy("Enemy");
+
+    player->equipWeapon(new Weapon());
+    enemy->equipWeapon(new Weapon());
+    enemy1->equipWeapon(new Weapon());
+    vector<Character*> fighters{player, enemy, enemy1};
     Combat combat(fighters);
 
     // Simulate battle
@@ -42,10 +82,11 @@ TEST(CombatTest, StartBattleWithOneEnemy) {
 TEST(CombatTest, PlayerDiesDuringCombat) {
     Character* player = createPlayer("Player");
     player->setHealth(50); // Set low health for the player
-    Character* strongEnemy = createEnemy("Strong Enemy", 100);
+    Character *strongEnemy = createEnemy("Enemy", 100);
+
     player->equipWeapon(new Weapon());
     strongEnemy->equipWeapon(new Weapon());
-    vector<Character*> fighters{player, strongEnemy};
+    std::vector<Character *> fighters{player, strongEnemy};
     Combat combat(fighters);
 
     // Simulate battle
@@ -66,10 +107,11 @@ TEST(CombatTest, PlayerAttacksAndChoosesTarget) {
     enemy1->setHealth(80);
     unique_ptr<Character> enemy2 = make_unique<Character>(Character("Enemy2"));
     enemy2->setHealth(60);
+    
     player->equipWeapon(new Weapon());
     enemy1->equipWeapon(new Weapon());
     enemy2->equipWeapon(new Weapon());
-    vector<Character*> fighters{player.get(), enemy1.get(), enemy2.get()};
+    std::vector<Character *> fighters{player.get(), enemy1.get(), enemy2.get()};
     Combat combat(fighters);
 
     combat.startBattle();
@@ -80,13 +122,15 @@ TEST(CombatTest, PlayerAttacksAndChoosesTarget) {
 
 
 TEST(CombatTest, RemovePlayerFromHeap) {
-    Character* player = createPlayer("Player");
-    Character* enemy1 = createEnemy("Enemy1");
-    Character* enemy2 = createEnemy("Enemy2");
+    Character *player = createPlayer("Player");
+    Character *enemy1 = createEnemy("Enemy1");
+    Character *enemy2 = createEnemy("Enemy2");
+
     player->equipWeapon(new Weapon());
     enemy1->equipWeapon(new Weapon());
     enemy2->equipWeapon(new Weapon());
-    vector<Character*> fighters{player, enemy1, enemy2};
+    
+    std::vector<Character *> fighters{player, enemy1, enemy2};
     Combat combat(fighters);
 
     combat.removePlayerFromHeap("Enemy1");
@@ -99,12 +143,14 @@ TEST(CombatTest, RemovePlayerFromHeap) {
     delete enemy2;
 }
 
+
+
 TEST(CombatTest, PlayerDecidesWhoToAttackInvalidChoice) {
-    Character* player = createPlayer("Player");
-    Character* enemy = createEnemy("Enemy");
-    player->equipWeapon(new Weapon());
+    Character *player = createPlayer("Player");
+    Character *enemy = createEnemy("Enemy");
+
     enemy->equipWeapon(new Weapon());
-    vector<Character*> fighters{player, enemy};
+    std::vector<Character *> fighters{player, enemy};
     Combat combat(fighters);
 
     stringstream input("0 1");
@@ -120,3 +166,9 @@ TEST(CombatTest, PlayerDecidesWhoToAttackInvalidChoice) {
     delete player;
     delete enemy;
 }
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+

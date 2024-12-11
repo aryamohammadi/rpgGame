@@ -44,24 +44,26 @@ void MainMenu::settings()
     }
 }
 
-void MainMenu::selectGameOption() 
-{
-    cout << "Select an option (New Game, Load Game): ";
-   
-    string option;
-    getline(cin, option); // Read user input
+std::string MainMenu::selectGameOption() {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear leftover input
+
+    std::cout << "Select an option (New Game, Load Game): ";
+    std::string option;
+    std::getline(std::cin, option); // Read full line input from the user
 
     // Normalize input
-    string normalizedOption = normalizeInput(option);
-    cout << "Normalized Option: [" << normalizedOption << "]" << endl; // Debugging
+    std::string normalizedOption = normalizeInput(option);
 
-    // Check if the option is valid
-    if (gameOptions.find(normalizedOption) != gameOptions.end()) {
-        cout << "\nYou selected: " << gameOptions[normalizedOption] << "! Good luck on your adventure!\n";
-    } else {
-        cout << "\nInvalid game option. Please try again.\n";
+    // Check if valid
+    if (gameOptions.find(normalizedOption) == gameOptions.end()) {
+        std::cout << "\nInvalid game option. Returning to Main Menu...\n";
+        return "";
     }
+
+    return normalizedOption;
 }
+
+
 
 
 

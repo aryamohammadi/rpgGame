@@ -322,7 +322,7 @@ std::string Inventory::serialize() const {
     oss << size << "\n" << capacity << "\n";
     for (const auto& item : items) {
         if (item) {
-            oss << item->serialize() << "\n";
+            oss << item->serialize() << "|END_ITEM|\n";
         }
     }
     return oss.str();
@@ -331,22 +331,28 @@ std::string Inventory::serialize() const {
 // Deserialization
 bool Inventory::deserialize(const std::string& data) {
     std::istringstream iss(data);
-    if (!(iss >> size >> capacity)) return false;
+    if (!(iss >> size >> capacity) || size < 0 || capacity <= 0 || size > capacity) return false;
 
     items.clear();
     items.reserve(capacity);
 
     std::string itemData;
-    while (std::getline(iss, itemData)) {
-        if (!itemData.empty()) {
+    while (std::getline(iss, itemData, '|')) {
+        if (!itemData.empty() && itemData != "END_ITEM") {
             unique_ptr<ItemStack> stack = make_unique<ItemStack>(nullptr);
             if(stack->deserialize(itemData)) {
                 items.push_back(std::move(stack));
             } else {
+                clear(); // Clear inventory on failure
                 return false;
             }
         }
     }
+    if (static_cast<int>(items.size()) != size) {
+        clear();
+        return false; // Mismatch between deserialized items and size
+    }
+
     return true;
 }
 

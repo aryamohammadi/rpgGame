@@ -121,27 +121,39 @@ void Game::showMainMenu() {
     int choice;
     std::cout << "Enter your choice: ";
     std::cin >> choice;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear leftover input
 
     switch (choice) {
-        case 1:
-            newGame();
-            break;
-        case 2: {
-            std::string saveFile;
-            std::cout << "Enter the save file name: ";
-            std::cin >> saveFile;
-            if (!loadGame(saveFile)) {
-                std::cout << "Returning to Main Menu...\n";
+        case 1: { // Start Game
+            std::string normalizedOption = menu.selectGameOption(); // Get normalized input
+
+            if (normalizedOption == "new game") {
+                newGame();
+            } else if (normalizedOption == "load game") {
+                std::string saveFile;
+                std::cout << "Enter the save file name: ";
+                std::cin >> saveFile;
+                if (!loadGame(saveFile)) {
+                    std::cout << "Failed to load the game. Returning to Main Menu...\n";
+                }
             }
             break;
         }
-        case 3:
+        case 2: { // Settings
+            menu.settings();
+            break;
+        }
+        case 3: // Exit Game
             exitGame();
             break;
         default:
             std::cout << "Invalid choice. Please try again.\n";
+            break;
     }
 }
+
+
+
 
 void Game::playGame() {
     std::cout << "\nWelcome to the game! Explore, battle, and survive.\n";

@@ -19,7 +19,10 @@ public:
     void settings();
 
     // Select a game option (e.g., New Game, Load Game)
-    void selectGameOption();
+    std::string selectGameOption();
+
+    // Function to normalize input strings
+    std::string normalizeInput(const std::string& input) const;
 
 private:
 
@@ -32,8 +35,7 @@ private:
         {"battlestar", "Battlestar"}
     };
 
-    // Function to normalize input strings
-    std::string normalizeInput(const std::string& input) const;
+    
 
     // A list of valid game options
     std::map<std::string, std::string> gameOptions = {

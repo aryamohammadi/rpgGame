@@ -1,4 +1,14 @@
+## Overview
+
+Battlestar RPG is a terminal-based, turn-based game implemented in C++ using object-oriented principles and modular class design. This project simulates a role-playing battle system with difficulty scaling, inventory management, and user interaction via text I/O.
+
+It was built collaboratively as a capstone for a software construction course at UC Riverside. Emphasis was placed on applying SOLID design principles, writing clean and extensible code, and working in a multi-member GitHub environment with version control, code reviews, and feature-based branching.
+
+**Note**: This project reflects collective team contributions. For solo projects and individual development work, please refer to my [`internship-prep-2025`](https://github.com/aryamohammadi/internship-prep-2025) repository.
+
+
 # BRPG - Battlestar RPG
+Battlestar RPG is a turn-based, text-based combat game written in C++. It was designed as part of a collaborative software construction course at UC Riverside to demonstrate object-oriented design, modular architecture, and the practical application of SOLID principles.
 > Your author list below should include links to all members GitHub (remove existing author).
 > Authors: [Jameel Simjee](https://github.com/JSimjee), [Matthew Acosta](https://github.com/macos052), [Jessy Garcia](https://github.com/jgarc826), [Arya Mohammadi](https://github.com/aryamohammadi), [Ryan Jourdain](https://github.com/RJourdain)
 

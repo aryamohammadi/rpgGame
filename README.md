@@ -104,7 +104,3 @@ cd bin
 
 ---
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).  
-It was originally developed for a university course and is published for educational and portfolio purposes with full team attribution.

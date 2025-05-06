@@ -1,69 +1,100 @@
-# BRPG - Battlestar RPG
+# BRPG – Battlestar RPG
 
 ## Overview
 
-Battlestar RPG is a terminal-based, turn-based game implemented in C++ using object-oriented principles and modular class design. This project simulates a role-playing battle system with difficulty scaling, inventory management, and user interaction via text I/O.
+Battlestar RPG is a terminal-based, turn-based combat game built in C++ with a focus on clean architecture and object-oriented design. Players engage in RPG-style battles with scalable difficulty, inventory management, and stat progression — all through a text-based interface.
 
-It was built collaboratively as a capstone for a software construction course at UC Riverside. Emphasis was placed on applying SOLID design principles, writing clean and extensible code, and working in a multi-member GitHub environment with version control, code reviews, and feature-based branching.
+This project was developed as a collaborative capstone for a Software Construction course at UC Riverside. It emphasizes SOLID principles, modular class structure, and a realistic development workflow including version control, code reviews, and feature-based branching.
 
-**Note:** This project reflects collective team contributions. For solo projects and individual development work, please refer to my other repositories.
+> ⚠️ This is a collaborative project. For individual work, see [other repositories](https://github.com/aryamohammadi).
 
 ---
 
 ## Authors
 
+This project was developed by a five-person team as part of a course at UC Riverside. Each contributor played a key role in design, implementation, and testing.
+
+- [Arya Mohammadi](https://github.com/aryamohammadi)
 - [Jameel Simjee](https://github.com/JSimjee)
 - [Matthew Acosta](https://github.com/macos052)
 - [Jessy Garcia](https://github.com/jgarc826)
-- [Arya Mohammadi](https://github.com/aryamohammadi)
 - [Ryan Jourdain](https://github.com/RJourdain)
 
 ---
 
 ## Project Description
 
-- This project helped us deepen our understanding of C++ concepts such as object-oriented programming, data structures, and algorithms.
-- Our goal was to simulate a realistic development workflow, reinforce best practices, and gain experience in collaborative programming.
-- The scope of the project allowed us to design systems that apply core software engineering principles.
+Battlestar RPG was designed to apply advanced C++ programming concepts in a collaborative setting. The project simulates a full development lifecycle—from design and planning to implementation and testing—mirroring real-world software engineering practices.
+
+Key goals included:
+
+- Applying object-oriented design, data structures, and algorithms in a functional game environment
+- Practicing team-based development using Git, code reviews, and modular workflows
+- Reinforcing software engineering fundamentals like abstraction, maintainability, and testability
 
 ---
 
 ## Technologies Used
 
-- **Language:** C++
-- **Tools:** Git, GitHub, CMake, GoogleTest, VS Code, Terminal
-- **Paradigms:** OOP, SOLID Principles, Modular Design, Unit Testing
+- **Language:**  
+  C++
+
+- **Development Tools:**  
+  Git, GitHub, CMake, Make, VS Code, Terminal
+
+- **Testing Framework:**  
+  GoogleTest
+
+- **Programming Paradigms:**  
+  Object-Oriented Programming (OOP), SOLID Principles, Modular Design, Unit Testing
 
 ---
 
 ## Game Features
 
-- **Text-based combat system** with attack, defend, and item usage mechanics.
-- **Difficulty levels** that scale enemy stats, items, and challenge.
-- **Player progression** through experience and stat increases.
-- **Menu-driven user interface** in the terminal.
+- **Turn-based combat** with player options to attack, defend, or use items
+- **Dynamic difficulty scaling** that adjusts enemy stats and challenge level
+- **RPG-style progression** through experience points and stat upgrades
+- **Text-driven interface** with navigable menus and in-terminal interaction
+
 
 ---
 
 ## SOLID Design Highlights
 
-- **SRP:** Each class (Combat, Player, Map, etc.) has a clear, single responsibility.
-- **OCP:** Components like MaxHeap are extensible and generic.
-- **LSP:** Heap operations behave consistently when copied or swapped.
-- **ISP:** Sorting logic is separated from inventory logic.
-- **DIP:** Classes interact through abstractions, not hard dependencies.
+The architecture of Battlestar RPG follows SOLID principles to ensure maintainability, modularity, and scalability:
+
+- **S – Single Responsibility Principle (SRP):**  
+  Each class (e.g., `Combat`, `Player`, `Map`) encapsulates one well-defined responsibility.
+
+- **O – Open/Closed Principle (OCP):**  
+  Components like `MaxHeap` are open for extension (e.g., with new behaviors) but closed to direct modification.
+
+- **L – Liskov Substitution Principle (LSP):**  
+  Data structures such as heaps behave predictably when inherited, copied, or swapped.
+
+- **I – Interface Segregation Principle (ISP):**  
+  Logic for sorting, inventory, and combat is separated into purpose-specific modules.
+
+- **D – Dependency Inversion Principle (DIP):**  
+  Classes depend on abstractions (like interfaces) rather than concrete implementations.
 
 ---
 
 ## Installation & Usage
 
-Clone and build using CMake:
+To build and run Battlestar RPG locally:
 
 ```bash
+# Clone the repository
 git clone https://github.com/aryamohammadi/rpgGame.git
 cd rpgGame
+
+# Build the project using CMake
 cmake .
 make
+
+# Run the game
 ./bin/Game
 ```
 
@@ -71,7 +102,9 @@ make
 
 ## Testing
 
-We use [GoogleTest](https://github.com/google/googletest) for unit testing:
+Unit tests are implemented using [GoogleTest](https://github.com/google/googletest) to verify core game functionality, including combat mechanics and data structures.
+
+To run the test suite:
 
 ```bash
 cd bin
@@ -82,29 +115,35 @@ cd bin
 
 ## Screenshots
 
-| Main Menu | Combat | Victory | Inventory |
-|-----------|--------|---------|-----------|
-| ![Main Menu](Images/Screenshot_1.png) | ![Combat](Images/Screenshot_2.png) | ![Victory](Images/Screenshot_3.png) | ![Inventory](Images/Screenshot_4.png) |
+Below are snapshots of core game interfaces in Battlestar RPG:
+
+| Main Menu           | Combat View          | Victory Screen        | Inventory Menu         |
+|---------------------|----------------------|------------------------|-------------------------|
+| ![Main Menu](Images/Screenshot_1.png) | ![Combat View](Images/Screenshot_2.png) | ![Victory Screen](Images/Screenshot_3.png) | ![Inventory Menu](Images/Screenshot_4.png) |
 
 ---
 
 ## Diagrams
 
-- **Navigation Diagram**  
-  ![Navigation](Images/Navigation_Diagram.png)
+The following diagrams provide insight into the game’s structure, flow, and interface:
 
-- **Sample Output**  
-  ![Output](Images/Sample_Output.png)
+### Navigation Flow
+![Navigation Diagram](Images/Navigation_Diagram.png)
 
-- **UML Class Diagram**  
-  ![UML](Images/UML_Diagram.png)
+### Sample Output
+![Sample Output](Images/Sample_Output.png)
 
-- **User Interface Diagram**  
-  ![UI](Images/User_Interface_Diagram.png)
+### UML Class Structure
+![UML Class Diagram](Images/UML_Diagram.png)
+
+### User Interface Layout
+![UI Diagram](Images/User_Interface_Diagram.png)
+
 
 ---
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is open source and available under the terms of the [MIT License](LICENSE).
 
-Feel free to use, modify, and distribute this code with attribution.
+You are free to use, modify, and distribute the code, provided that proper credit is given to all contributors.
+
